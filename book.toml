@@ -1,8 +1,8 @@
 [book]
-title = "GBA Doc"
+title = "gbadoc"
 author = "The Awesome GBA Dev Contributors"
 description = "Documents the workings of the Game Boy Advance hardware"
-src = "book-src"
+src = "content"
 language = "en"
 
 [build]

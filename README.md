@@ -2,9 +2,9 @@
 
 Community initiated GBA Technical documentation effort.
 
-We're currently defining requisites. Check [Issues](https://github.com/gbdev/gbadoc/issues/) and join the `#documentation` chat channel on the [gbadev](https://discord.io/gbadev) discord.
+We're currently in the early stages. Join the discussions on RFCs and first content in the [Issues](https://github.com/gbdev/gbadoc/issues/) and join the `#documentation` chat channel on the [gbadev](https://discord.io/gbadev) discord.
 
-## Building The Book
+## Building the documentation
 
 The book is written in markdown and compiled to HTML using [mdbook][mdb-gh].
 It's a tool written in Rust, but you do *not* have to have Rust installed to use it.
