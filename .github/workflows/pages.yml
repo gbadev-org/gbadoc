@@ -1,0 +1,45 @@
+
+name: Github Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          # github-pages-deploy-action requires we set this
+          persist-credentials: false
+      
+      # Note(Lokathor): it may seem silly to install
+      # rust and build the mdbook binary from scratch,
+      # but it only takes 5 minutes total, which isn't a very
+      # big deal to wait after a merge.
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          default: true
+      
+      - name: Install mdbook
+        run: cargo install mdbook
+
+      - name: Build the book
+        run: mdbook build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: target/book
+          force_orphan: true
+          CLEAN: true
