@@ -26,6 +26,12 @@
     particular times, but the CPU is paused when they are active.
   * Four timer units.
 
+Programs run on the GBA are usually contained in a "Game Pak". A "Game Pak" consists mainly of ROM and possibly Cart RAM (in the form of SRAM, Flash ROM, or EEPROM, used mainly for save game info). The ROM is where compiled code and data is stored. Unlike home computers, workstations, or servers, there are no disks or other drives, so everything that might otherwise have been stored as separate resource files must be compiled into the program ROM itself. Luckily there are tools to aid in this process.
+
+The primary means a program accesses specialized hardware for graphics, sound, and other IO is through the memory-mapped IO. Memory mapped IO is a means of communicating with hardware by writing to/reading from specific memory addresses that are "mapped" to internal hardware functions. For example, you might write to address 0x4000000 with the value "0x0100", which tells the hardware "enable background 0 and graphics mode 0". A secondary means is through the BIOS, which is embedded in the internal GBA system ROM. Using software interrupts it is possible to access pre-programmed (and hopefully optimized) routines lying in the the system ROM. These routines then access the hardware through the memory-mapped IO.
+
+Other regions of memory that are directly mapped to the hardware are Palette RAM (which is a table consisting of all the available colors), VRAM (which performs a similar function to the video RAM on a PC - and thensome), and OAM (which contains the attributes for hardware accelerated sprites). 
+
 ## Memory Map
 
 The following are the general areas of memory as seen by the CPU, and what they are used for.
