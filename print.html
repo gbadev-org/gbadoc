@@ -97,7 +97,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="intro.html">Intro</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">2.</strong> Graphics Hardware</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="intro.html">Intro</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">2.</strong> Graphics Hardware</a></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">3.</strong> Acknowledgements</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -328,6 +328,34 @@ Video Modes</p>
 <p>8-Bit paletted bitmapped mode at 240x160. The bitmap starts at either 0x06000000 or 0x0600A000, depending on bit 4 of REG_DISPCNT. Swapping the map and drawing in the one that isn't displayed allows for page flipping techniques to be used. The palette is at 0x5000000, and contains 256 16-bit color entries.</p>
 <h3 id="mode-5"><a class="header" href="#mode-5">Mode 5</a></h3>
 <p>This is another 16-bit bitmapped mode, but at a smaller resolution of 160x128. The display starts at the upper left hand corner of the screen, but can be shifted using the rotation and scaling registers for BG2. The advantage of using this mode is presumably that there are two frame buffers available, and this can be used to perform page flipping effects which cannot be done in mode 3 due to the smaller memory requirements of mode 5. Bit 4 of REG_DISPCNT sets the start of the frame buffer to 0x06000000 when bit 4 is zero, and 0x600A000 when bit 4 is one. </p>
+<h1 id="acknowledgements"><a class="header" href="#acknowledgements">Acknowledgements</a></h1>
+<p>The following are individuals who contributed info or corrections on the original CowBiteSpec document.</p>
+<ul>
+<li>Tom Happ</li>
+<li>Agent Q (Wrote the original spec, version 1.0)</li>
+<li>Uze (All of the sound register info comes directly from his Audio Advance site)</li>
+<li>Martin Korth (Author no$gba of who has given me permission to consolidate additional info from his emulator's informative help documents with this one, most particularly serial registers, some BIOS functions, and undocumented registers.)</li>
+<li>Forgotten (VBA Author. Many of the BIOS call descriptions come from his Visual Boy Advance FAQ.</li>
+<li>gbcft (LOTS of info on interrupts, windowing, memory mirrors, the &quot;Unkown Registers&quot; section; helped me debug a lot of errors in the emulator, and offered many corrections, info, and suggestions).</li>
+<li>Kay (Contributed memory port sizes and wait states, DMA cycle timings, info regarding the BIOS, and various advice, testing, and expertise regarding the GBA and older console systems)</li>
+<li>Damian Yerrick (Contributed the WSCOUNT register)</li>
+<li>Markus (Actually I asked him for help with LZSS. Also, his gfx2gba tool has proven extremely helpful in my non-CowBite projects.:)</li>
+<li>ePac (Gave me links to serial info and did a nice writeup about it in the gbadev group)</li>
+<li>Costis (A variety of new info/corrections)</li>
+<li>Grauw (Info on forced blanking, hblank lenghths, and on the BIOS wait function.)</li>
+<li>Max</li>
+<li>Otaku</li>
+<li>Ped (Pointed out errors in the memory ranges, DISPCNT bit 5, and a bad typo regarding rotates/scale backgrounds).</li>
+<li>Yarpen (Almost all the information on the timer registers and the keyboard control register. Thanks!)</li>
+<li>http://www.gbadev.org/</li>
+<li>The gbadev list on yahoo</li>
+<li>SimonB and all the others who run/moderate the above sites</li>
+<li>Dovoto and the PERN Project</li>
+<li>Jeff Frohwein and his Devrs.com site</li>
+<li>Nocturn and his tutorials</li>
+<li>Uze from BeLogic for all the great information on the GBA's sound!</li>
+<li>Andrew May for his site on GBA serial data</li>
+</ul>
 
                     </main>
 
