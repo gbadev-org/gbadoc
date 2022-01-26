@@ -26,3 +26,5 @@ The following are individuals who contributed info or corrections on the origina
 - Nocturn and his tutorials
 - Uze from BeLogic for all the great information on the GBA's sound!
 - Andrew May for his site on GBA serial data
+
+Thank you to Alec Bourque for allowing us to use all assets of The Audio Advance in this documentation.
