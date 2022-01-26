@@ -8,3 +8,6 @@ language = "en"
 [build]
 build-dir = "target/book"
 create-missing = true
+
+[output.html]
+mathjax-support = true
