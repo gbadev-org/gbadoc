@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sound Channel 4 - gbadoc</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Documents the workings of the Game Boy Advance hardware">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../intro.html">Intro</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../graphics.html"><strong aria-hidden="true">2.</strong> Graphics Hardware</a></li><li class="chapter-item expanded "><a href="../audio/introduction.html"><strong aria-hidden="true">3.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../audio/directsound.html"><strong aria-hidden="true">3.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="../audio/sound1.html"><strong aria-hidden="true">3.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="../audio/sound2.html"><strong aria-hidden="true">3.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="../audio/sound3.html"><strong aria-hidden="true">3.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="../audio/sound4.html" class="active"><strong aria-hidden="true">3.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="../audio/registers.html"><strong aria-hidden="true">3.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="../ack.html"><strong aria-hidden="true">4.</strong> Acknowledgements</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">gbadoc</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="sound-channel-4"><a class="header" href="#sound-channel-4">Sound Channel 4</a></h1>
+<p>Sound channel 4 produces Pseudo-Noise with an envelope function. Noise is generated by a polynomial counter also known as a Linear-Feedback Shift Register (LFSR). LFSRs are special type of binary counter that have the particularity of not counting in the normal binary increment/decrement sequence. These counters find common uses in pseudorandom-numbers generation. Theory behind LFSRs and Polynomial counters are out of the scope of this document but a simple approach to key concepts will be described. Good references on the subjects are given at the end of this document.</p>
+<p>The pseudo-noise pattern playback frequency can be controlled by a 3-bit clock divider used to divide the Sound system's clock (4.194304Mhz). The clock divider's output is then fed into a pre-scaler which output is then used as the polynomial counter's clock. The counter can be set to user either 7 or 15 stages/steps. Resulting into a 127 or 32767 input clock cycle period. Using 7 stages give more metallic sounding effects when played faster (lower divider ratios) while 15 stages sounds much like white noise.</p>
+<p>Selection of the clock divider is done by bits 0-2 of REG_SOUND4CNT_H, where f=4.194304 Mhz/8:</p>
+<ul>
+<li>000: f*2</li>
+<li>001: f</li>
+<li>010: f/2</li>
+<li>011: f/3</li>
+<li>100: f/4</li>
+<li>101: f/5</li>
+<li>110: f/6</li>
+<li>111: f/7</li>
+</ul>
+<p>Bit 3 of REG_SOUND4CNT_H control the number of counter stages: 0=15 stages, 1=7 stages.</p>
+<p>Selection of the pre-scaler divider value is done by bits 4-7 of REG_SOUND4CNT_H, where Q is the clock divider's output:</p>
+<ul>
+<li>0000: Q/2</li>
+<li>0001: Q/2^2</li>
+<li>0010: Q/2^3</li>
+<li>0011: Q/2^4</li>
+<li>....</li>
+<li>1101: Q/2^14</li>
+<li>1110: Not used</li>
+<li>1111: Not used</li>
+</ul>
+<p>The REG_SOUND4CNT_L contains the envelope function and the sound's length and its functionality is identical to channel 1.</p>
+<p>Bit 14 of REG_SOUND4CNT_H control the loop/timed mode. If set to 1 sound plays for the duration specified in REG_SOUND4CNT_L otherwise sound plays continuously. Bit 15 resets the sound and the LSFR counter.</p>
+<p>All registers can be modified during playback but sound need to be reinitialized when modifying the envelope initial volume or the clock divider for changes to take effects.</p>
+<h2 id="how-it-works"><a class="header" href="#how-it-works">How it works</a></h2>
+<p>This section is more intended to emulator writers who wants to implement the exact sound of the original Gameboy sound system.</p>
+<p>An LFSR counter with n stages can implement a maximum of (2^n)-1 states, n representing the degree of the polynomial. All zeros state is not allowed because it locks the counters. Each state in the entire count sequence is generated once and only once.</p>
+<p>The Gameboy sound circuit implements a switchable 7/15-stages LFSR. Below is an representation of the logic used by the Gameboy. It is important to realize that channel 4 does not generate white noise per-se but Pseudo-noise. White noise is a special type of signal containing an equal amount of all frequencies and has no cycle period. LFSR counters have a cycle period of (2^n)-1 input clock cycles. Played at high speed, the pattern starts to exhibit a fundamental derived from the input clock frequency. This is clearly evident when using the 7-stages mode since the cycle is only 127 input clocks. 15-stages mode has a much bigger cycle, 32767, so the pseudo-noise sounds much more like white noise.</p>
+<p><img src="images/lfsr.gif" alt="LSFR example" /></p>
+<p>When initialized, all shift registers are set to 1. On each clock pulse, bits are shifted from left to right (on the picture) s1 being the least significant bit and the output that is sent to the channel's envelope generator. The count sequence for the 7-stage LFSR, once the sound channel is resetted is then:</p>
+<p><strong>Counter steps</strong></p>
+<table><thead><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr></thead><tbody>
+<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+</tbody></table>
+<p><img src="images/lfsroutput.gif" alt="LFSR output example" /></p>
+<p>By looking at s1 output (the the least significant bit), we can see it matches the pattern on the picture, which is a capture of the GBA output for channel 4 in 7-stage mode. Since the counter is always counting in the same sequence, the output bits can be stored in a lookup table for fast emulation of this function. By packing the bits, a 4 KB lookup table is sufficient to represent all states for both the 7 and 15 stages of the LFSR.</p>
+<h3 id="references"><a class="header" href="#references">References</a></h3>
+<p><a href="http://www.eecircle.com/applets/009/LFSR.html">n-Stage LFSR simulator Java applet</a></p>
+<p><a href="http://archives.e-insite.net/archives/ednmag/reg/1996/010496/01df4.htm">EDN article on LFSR</a></p>
+<p><a href="http://www-math.cudenver.edu/%7Ewcherowi/courses/m5410/m5410fsr.html">Theory behind LFSR</a></p>
+<pre><code class="language-C">#include &lt;gba.h&gt;
+
+void AgbMain(void){
+//Play a sound on channel 4
+
+//turn on sound circuit
+REG_SOUNDCNT_X = 0x80;
+//full volume, enable sound 4 to left and right
+REG_SOUNDCNT_L=0x4477;
+// Overall output ratio - Full
+REG_SOUNDCNT_H = 2;
+
+REG_SOUND4CNT_L=0xf700; //envellope decay, initial vol max
+REG_SOUND4CNT_H=0x8032; //Loop mode, clk div:6, 7-stage,pre-scaler:3
+
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../audio/sound3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../audio/registers.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../audio/sound3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../audio/registers.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

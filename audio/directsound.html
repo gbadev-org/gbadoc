@@ -1,0 +1,334 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Direct Sound - gbadoc</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Documents the workings of the Game Boy Advance hardware">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../intro.html">Intro</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../graphics.html"><strong aria-hidden="true">2.</strong> Graphics Hardware</a></li><li class="chapter-item expanded "><a href="../audio/introduction.html"><strong aria-hidden="true">3.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../audio/directsound.html" class="active"><strong aria-hidden="true">3.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="../audio/sound1.html"><strong aria-hidden="true">3.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="../audio/sound2.html"><strong aria-hidden="true">3.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="../audio/sound3.html"><strong aria-hidden="true">3.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="../audio/sound4.html"><strong aria-hidden="true">3.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="../audio/registers.html"><strong aria-hidden="true">3.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="../ack.html"><strong aria-hidden="true">4.</strong> Acknowledgements</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">gbadoc</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="direct-sound"><a class="header" href="#direct-sound">Direct Sound</a></h1>
+<p>Direct Sound (not to confuse with DirectSound which is a registered trademark of Microsoft) refers to the two 8-bit digitial-to-analog converters part of the Gameboy Advance sound system (GBAS). The samples to be played, which must be 8-bit signed, are loaded in consecutive adresses starting at 0x40000A0 (REG_FIFO_A). These adresses acts as a FIFO (First-In-First-Out), meaning that lower adresses bytes are played first. Playback frequency is controlled by the overflow of either Timer 0 or Timer 1, allowing the two Direct sound channels to play at different frequencies independently. Direct sound can work in two modes: DMA mode and Interrupt mode. DMA mode is the most efficient way of playing Direct sound. Because once empty, sound FIFOs are automatically reloaded with the next samples by the DMA controller, without any program intervention. The other mode uses an interrupt handler that manually load the FIFOs. This is less efficient than DMA mode but in some cases, it is the only solution.</p>
+<h2 id="direct-sound-output-control-register"><a class="header" href="#direct-sound-output-control-register">Direct Sound Output Control Register</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x082</td><td>REG_SOUNDCNT_H</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>1-0</td><td>Output sound ratio for chan. 1-4 (0=25%,1=50%,2=100%)</td><td>RW</td></tr>
+<tr><td>2</td><td>Direct sound A output ratio (0=50%, 1=100%)</td><td>RW</td></tr>
+<tr><td>3</td><td>Direct sound B output ratio (0=50%, 1=100%)</td><td>RW</td></tr>
+<tr><td>7-4</td><td>Unused</td><td></td></tr>
+<tr><td>8</td><td>Direct sound A to right output</td><td>RW</td></tr>
+<tr><td>9</td><td>Direct sound A to left output</td><td>RW</td></tr>
+<tr><td>A</td><td>Direct sound A Sampling rate timer (timer 0 or 1)</td><td>RW</td></tr>
+<tr><td>B</td><td>Direct sound A FIFO reset</td><td>RW</td></tr>
+<tr><td>C</td><td>Direct sound B to right output</td><td>RW</td></tr>
+<tr><td>D</td><td>Direct sound B to left output</td><td>RW</td></tr>
+<tr><td>E</td><td>Direct sound B Sampling rate timer (timer 0 or 1)</td><td>RW</td></tr>
+<tr><td>F</td><td>Direct sound B FIFO reset</td><td>RW</td></tr>
+</tbody></table>
+<p>Output ratios control the output volume. Set these bits when Sound 1-4 or Direct Sound plays too loud relative to each other. Direct Sound channels can be send to Left, Rigth or both outputs. Bit A and E selects which timer to use as the sampling frequncy reference. Both Direct sound channels can use the same timer, and it is usually the case for software mixing. FIFO reset prepares the Direct sound harware for playback and put the playing cursor back to FIFO's sample 0. It should always be performed before playback start.</p>
+<p>The following examples demonstrate Direct Sound playback in DMA mode and Interrupt mode.</p>
+<h2 id="dma-mode-direct-sound-example"><a class="header" href="#dma-mode-direct-sound-example">DMA Mode Direct Sound Example</a></h2>
+<p>To use DirectSound in DMA mode:</p>
+<ul>
+<li>Set DS outputs and volumes</li>
+<li>Set timer0 (or 1) count value to 0xffff-round(cpuFreq/playbackFreq)
+<ul>
+<li>ie: For 16khz, timer count=65536-round(2^24/16000)=0xFBE8</li>
+</ul>
+</li>
+<li>Set DMA channel's source to the sample's address and destination adress to either FIFOA or FIFOB adresses</li>
+<li>Reset the FIFO before starting sound by setting the FIFO reset bit.</li>
+<li>Set DMA start mode to 11 to instruct DMA to repeat on FIFO-empty requests. Many documents list this state as invalid, which is naturally not the case.
+<ul>
+<li>ie:REG_DMA1CNT_H=0xb600=DMA enabled+ start on FIFO+32bit+repeat</li>
+</ul>
+</li>
+<li>Set DMA repeat and 32bit moves and set source and destination modes to increment.</li>
+<li>Enable timer0 at Cpu frequency (clock divider=0)</li>
+</ul>
+<p>Sound should start immediately and will play past the sample if not stopped. You can use timer1 to count played samples and stop the sound. To do this, set timer 1 to cascade and enable irq for timer 1 and set its count to 0xffff-samples count. Your irq handler should stop the sound by disabling timer 0 and the dma channel(s).</p>
+<pre><code class="language-C">#include &quot;gba.h&quot;
+extern const u32 _binary_lo1234_pcm_start[]; //the sample. its a pcm wave file converted to an elf file with objcopyroda.exe (devrs.com/gba)
+
+void InterruptProcess(void) __attribute__ ((section(&quot;.iwram&quot;))); //the interrupt handler from crt0.s
+
+void InterruptProcess(void){
+//sample finished!,stop Direct sound
+REG_TM0CNT_H=0; //disable timer 0
+REG_DMA1CNT_H=0; //stop DMA
+
+//clear the interrupt(s)
+REG_IF |= REG_IF;
+}
+
+
+void AgbMain (void){
+//play a mono sound at 16khz
+//uses timer 0 as sampling rate source
+//uses timer 1 to count the samples played in order to stop the sound
+REG_SOUNDCNT_H=0x0b0F; //enable DS A&amp;B + fifo reset + use timer0 + max volume to L and R
+REG_SOUNDCNT_X=0x0080; //turn sound chip on
+
+REG_DMA1SAD=(unsigned long)_binary_lo1234_pcm_start; //dma1 source
+REG_DMA1DAD=0x040000a0; //write to FIFO A address
+REG_DMA1CNT_H=0xb600; //dma control: DMA enabled+ start on FIFO+32bit+repeat+increment source&amp;dest
+
+REG_TM1CNT_L=0x7098; //0xffff-the number of samples to play
+REG_TM1CNT_H=0xC4; //enable timer1 + irq and cascade from timer 0
+
+REG_IE=0x10; //enable irq for timer 1
+REG_IME=1; //master enable interrupts
+
+//Formula for playback frequency is: 0xFFFF-round(cpuFreq/playbackFreq)
+REG_TM0CNT_L=0xFBE8; //16khz playback freq
+REG_TM0CNT_H=0x0080; //enable timer0
+
+}
+</code></pre>
+<p>True stereo output is a simple extension of the above code:</p>
+<ul>
+<li>Set REG_SOUNDCNT_H to send DS A to right output and DS B to left output</li>
+<li>Set DMA1 source to the right buffer, and destination to DS A FIFO</li>
+<li>Set DMA2 source to the left buffer, and destination to DS B FIFO</li>
+<li>Set timer 0 as sampling rate source for both DS A&amp;B</li>
+</ul>
+<h2 id="interrupt-mode-direct-sound-example"><a class="header" href="#interrupt-mode-direct-sound-example">Interrupt Mode Direct Sound Example</a></h2>
+<p>DMA mode Direct Sound has reportedly being causing problems in multi-players games. This is because during DMA tranfers, if interrupts occurs, they are only processed upon completion of that DMA. That means possible transmission losses due to bytes in the serial buffer being overwitten before beign read. On possible solution to this problem would be the use of Interrupt mode Direct sound playback. In this mode you set a timer (again 0 or 1), to the sampling frequency, set it to generate interrupts and load the FIFO(s) in the interrupt handler. Note that this methodology might impose problems if interrupts are blocking (ie. not allowing multiple interrupts at once), however if several interrupts at once are allowed inside the handler, this should resolve the issue.</p>
+<p>To use Direct sound in Interrupt mode:</p>
+<ul>
+<li>Set DS ouputs and volume</li>
+<li>Set timer 0 frequency to 0xffff</li>
+<li>Enable timer 0, set it to generate IRQs and set the clock divider to 1024 (gives 16384 hz )</li>
+<li>In the interrupt handler:
+<ul>
+<li>Load FIFO(s) each 4 samples with 4 bytes</li>
+<li>Increment the sample counter</li>
+<li>Stop timer 0 when sample end has be reached</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-C">#include &quot;gba.h&quot;
+extern const u32 _binary_lo1234_pcm_start[]; //the sample. its an pcm wave file converted to an elf file with objcopyroda.exe (devrs.com/gba)
+void InterruptProcess(void) __attribute__ ((section(&quot;.iwram&quot;)));//the interrupt handler from crt0.s
+
+int iNextSample=0;
+int SampleSize=36712;
+
+void InterruptProcess(void){
+//load FIFO each 4 samples with 4 bytes
+if(!(iNextSample&amp;3))REG_SGFIFOA=_binary_lo1234_pcm_start[iNextSample&gt;&gt;2];
+
+iNextSample++;
+
+if(iNextSample&gt;SampleSize){
+    //sample finished!
+    REG_TM0CNT_H=0; //disable timer 0
+}
+//clear the interrupt(s)
+REG_IF |= REG_IF;
+}
+void AgbMain(void){
+//play a sample at 16Khz using interrupt mode
+REG_SOUNDCNT_H=0x0B0F; //DirectSound A + fifo reset + max volume to L and R
+REG_SOUNDCNT_X=0x0080; //turn sound chip on
+
+REG_IE=0x8; //enable timer 0 irq
+REG_IME=1; //enable interrupts
+
+/*set playback frequency. note: using anything else thank clock multipliers to serve as sample frequencies tends to generate distortion in the output. It has probably to do with timing and FIFO reloading. More testing need to be done. */
+
+REG_TM0CNT_L=0xffff;
+REG_TM0CNT_H=0x00C3; //enable timer at CPU freq/1024 +irq =16384Khz sample rate
+
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../audio/introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../audio/sound1.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../audio/introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../audio/sound1.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

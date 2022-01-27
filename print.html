@@ -4,39 +4,26 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>gbadoc</title>
-        
         <meta name="robots" content="noindex" />
-        
-        
 
 
         <!-- Custom HTML head -->
         
-
-
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Documents the workings of the Game Boy Advance hardware">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        
         <link rel="icon" href="favicon.svg">
-        
-        
         <link rel="shortcut icon" href="favicon.png">
-        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
-        
         <link rel="stylesheet" href="css/print.css" media="print">
-        
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        
         <link rel="stylesheet" href="fonts/fonts.css">
-        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -44,9 +31,9 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
 
-        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -97,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="intro.html">Intro</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">2.</strong> Graphics Hardware</a></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">3.</strong> Acknowledgements</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="intro.html">Intro</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">2.</strong> Graphics Hardware</a></li><li class="chapter-item expanded "><a href="audio/introduction.html"><strong aria-hidden="true">3.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="audio/directsound.html"><strong aria-hidden="true">3.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="audio/sound1.html"><strong aria-hidden="true">3.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="audio/sound2.html"><strong aria-hidden="true">3.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="audio/sound3.html"><strong aria-hidden="true">3.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="audio/sound4.html"><strong aria-hidden="true">3.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="audio/registers.html"><strong aria-hidden="true">3.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">4.</strong> Acknowledgements</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -105,8 +92,7 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar-hover-placeholder"></div>
+                                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -122,29 +108,24 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                        
                     </div>
 
                     <h1 class="menu-title">gbadoc</h1>
 
                     <div class="right-buttons">
-                        
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        
-                        
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -152,7 +133,6 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
@@ -170,7 +150,7 @@
 <p>The book is provided to you under the <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">Creative Commons 0 License</a>.</p>
 <p>If you'd like to ask questions, report problems, or contribute, then go to our <a href="https://github.com/gbdev/gbadoc">GitHub Repository</a>.</p>
 <p>If you want to just chat about GBA topics you can join the <a href="https://discord.io/gbadev">GBADev Discord</a>.</p>
-<h1 id="overview"><a class="header" href="#overview">Overview</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview"><a class="header" href="#overview">Overview</a></h1>
 <ul>
 <li><strong>CPU:</strong> An <a href="https://en.wikipedia.org/wiki/ARM7#ARM7TDMI">ARM7TDMI</a> core running
 at 16.78 MHz. No floating point unit.</li>
@@ -310,7 +290,7 @@ The entire region from 0x06000000 - 0x06020000 is in turn mirrored every
 <p>This is another kind of cart memory, but operates differently from SRAM or Flash ROM. Unfortunately, I don't know the details of how it can be accessed by the programmer (mail me if you have more information on it). It uses a serial connection to transmit data. The maximum size is 128 mb, but it can be any size, and is usually 4 kb or 64 kb. Like Flash ROM it has a limited life; some manufacturers cite a minimum of 100,000 rewrites per sector.</p>
 <p>There may be other regions of memory known as DEBUG ROM 1 and DEBUG ROM 2, though I really don't know whether these are a part of commercial carts or if they are mapped to some part of the internal ROM, or if they're even available on a standard GBA.</p>
 <p>Note that EWRAM, IWRAM, VRAM, OAM, Palette RAM are all initialized to zero by the BIOS (i.e. you can expect them to be zeroed at startup). </p>
-<h1 id="graphics-hardware-overview"><a class="header" href="#graphics-hardware-overview">Graphics Hardware Overview</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="graphics-hardware-overview"><a class="header" href="#graphics-hardware-overview">Graphics Hardware Overview</a></h1>
 <p>The GBA has a TFT color LCD that is 240 x 160 pixels in size and has a refresh rate of exactly 280,896 cpu cycles per frame, or around 59.73 hz. Most GBA programs will need to structure themselves around this refresh rate. Each refresh consists of a 160 scanline vertical draw (VDraw) period followed by a 68 scanline blank (VBlank) period. Furthermore, each of these scanlines consists of a 1004 cycle draw period (HDraw) followed by a 228 cycle blank period (HBlank). During the HDraw and VDraw periods the graphics hardware processes background and obj (sprite) data and draws it on the screen, while the HBlank and VBlank periods are left open so that program code can modify background and obj data without risk of creating graphical artifacts.
 Video Modes</p>
 <p>Exactly what the GBA draws on screen depends largely on the current video mode (also sometimes referred to as the screen mode or graphics mode). The GBA has 6 such modes, some of which are bitmap-based and some of which are tile-based. The video mode is set by the bottom three bits of the hardware register known as REG_DISPCNT. Background data is handled differently depending on what mode is enabled. Backgrounds can either be text backgrounds (tile based), rotate-scale backgrounds (tile based backgrounds that can be transformed), or bitmap backgrounds. The starting address and size sprite graphics memory is also dependent on video mode. It starts at 0x6010000 for tile modes and 0x6014000 for bitmapped modes.</p>
@@ -328,7 +308,755 @@ Video Modes</p>
 <p>8-Bit paletted bitmapped mode at 240x160. The bitmap starts at either 0x06000000 or 0x0600A000, depending on bit 4 of REG_DISPCNT. Swapping the map and drawing in the one that isn't displayed allows for page flipping techniques to be used. The palette is at 0x5000000, and contains 256 16-bit color entries.</p>
 <h3 id="mode-5"><a class="header" href="#mode-5">Mode 5</a></h3>
 <p>This is another 16-bit bitmapped mode, but at a smaller resolution of 160x128. The display starts at the upper left hand corner of the screen, but can be shifted using the rotation and scaling registers for BG2. The advantage of using this mode is presumably that there are two frame buffers available, and this can be used to perform page flipping effects which cannot be done in mode 3 due to the smaller memory requirements of mode 5. Bit 4 of REG_DISPCNT sets the start of the frame buffer to 0x06000000 when bit 4 is zero, and 0x600A000 when bit 4 is one. </p>
-<h1 id="acknowledgements"><a class="header" href="#acknowledgements">Acknowledgements</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h1>
+<p>The Gameboy Advance (GBA) sound system may seem to many as black magic because of the availability of information on this specific part of the machine is near inexistent. Moreover, finding relevant or accurate specs for the older Gameboy was and is still problematic. The result is that many will take little or no advantages of sound in their projects. This site will attempt to fill this gap, by providing an <em>Unofficial</em>, comprehensive and (well, as much as possible in the circumstances) accurate specification of the GBA sound system (GBAS). It is assumed that the reader will have some knowledge of the other basic functionalities of the GBA and knows how to program in C.</p>
+<p>The GBAS is a big step forward its older brothers because it now includes two Pulse Width Modulators (PWM) that act as digital-to-analog converters. This adds to the 4 sound channels present on the previous Gameboys. One important improvement to the sound system is that channel 3 's wave ram is now banked, allowing for distortion-free dynamic wave ram reloading.</p>
+<p>The GBA BIOS also contains many sound-related functions, for converting MIDI notes and playing music. BIOS may be covered in the future.</p>
+<h1 id="the-registers"><a class="header" href="#the-registers">The Registers</a></h1>
+<p>Sound registers, as for all other registers in the GBA, are memory mapped and they span from 0x0400060 to 0x40000A6.</p>
+<table><thead><tr><th>Adress</th><th>Name</th><th>Function</th></tr></thead><tbody>
+<tr><td>0x04000060</td><td>REG_SOUND1CNT_L</td><td>Sound 1 Sweep control</td></tr>
+<tr><td>0x04000062</td><td>REG_SOUND1CNT_H</td><td>Sound 1 Length, wave duty and envelope control</td></tr>
+<tr><td>0x04000064</td><td>REG_SOUND1CNT_X</td><td>Sound 1 Frequency, reset and loop control</td></tr>
+<tr><td>0x04000068</td><td>REG_SOUND2CNT_L</td><td>Sound 2 Lenght, wave duty and envelope control</td></tr>
+<tr><td>0x0400006C</td><td>REG_SOUND2CNT_H</td><td>Sound 2 Frequency, reset and loop control</td></tr>
+<tr><td>0x04000070</td><td>REG_SOUND3CNT_L</td><td>Sound 3 Enable and wave ram bank control</td></tr>
+<tr><td>0x04000072</td><td>REG_SOUND3CNT_H</td><td>Sound 3 Sound lenght and output level control</td></tr>
+<tr><td>0x04000074</td><td>REG_SOUND3CNT_X</td><td>Sound 3 Frequency, reset and loop control</td></tr>
+<tr><td>0x04000078</td><td>REG_SOUND4CNT_L</td><td>Sound 4 Length, output level and envelope control</td></tr>
+<tr><td>0x0400007C</td><td>REG_SOUND4CNT_H</td><td>Sound 4 Noise parameters, reset and loop control</td></tr>
+<tr><td>0x04000080</td><td>REG_SOUNDCNT_L</td><td>Sound 1-4 Output level and Stereo control</td></tr>
+<tr><td>0x04000082</td><td>REG_SOUNDCNT_H</td><td>Direct Sound control and Sound 1-4 output ratio</td></tr>
+<tr><td>0x04000084</td><td>REG_SOUNDCNT_X</td><td>Master sound enable and Sound 1-4 play status</td></tr>
+<tr><td>0x04000088</td><td>REG_SOUNDBIAS</td><td>Sound bias and Amplitude resolution control</td></tr>
+<tr><td>0x04000090</td><td>REG_WAVE_RAM0_L</td><td>Sound 3 samples 0-3</td></tr>
+<tr><td>0x04000092</td><td>REG_WAVE_RAM0_H</td><td>Sound 3 samples 4-7</td></tr>
+<tr><td>0x04000094</td><td>REG_WAVE_RAM1_L</td><td>Sound 3 samples 8-11</td></tr>
+<tr><td>0x04000096</td><td>REG_WAVE_RAM1_H</td><td>Sound 3 samples 12-15</td></tr>
+<tr><td>0x04000098</td><td>REG_WAVE_RAM2_L</td><td>Sound 3 samples 16-19</td></tr>
+<tr><td>0x0400009A</td><td>REG_WAVE_RAM2_H</td><td>Sound 3 samples 20-23</td></tr>
+<tr><td>0x0400009C</td><td>REG_WAVE_RAM3_L</td><td>Sound 3 samples 23-27</td></tr>
+<tr><td>0x0400009E</td><td>REG_WAVE_RAM3_H</td><td>Sound 3 samples 28-31</td></tr>
+<tr><td>0x040000A0</td><td>REG_FIFO_A_L</td><td>Direct Sound channel A samples 0-1</td></tr>
+<tr><td>0x040000A2</td><td>REG_FIFO_A_H</td><td>Direct Sound channel A samples 2-3</td></tr>
+<tr><td>0x040000A4</td><td>REG_FIFO_B_L</td><td>Direct Sound channel B samples 0-1</td></tr>
+<tr><td>0x040000A6</td><td>REG_FIFO_B_H</td><td>Direct Sound channel B samples 2-3</td></tr>
+</tbody></table>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="direct-sound"><a class="header" href="#direct-sound">Direct Sound</a></h1>
+<p>Direct Sound (not to confuse with DirectSound which is a registered trademark of Microsoft) refers to the two 8-bit digitial-to-analog converters part of the Gameboy Advance sound system (GBAS). The samples to be played, which must be 8-bit signed, are loaded in consecutive adresses starting at 0x40000A0 (REG_FIFO_A). These adresses acts as a FIFO (First-In-First-Out), meaning that lower adresses bytes are played first. Playback frequency is controlled by the overflow of either Timer 0 or Timer 1, allowing the two Direct sound channels to play at different frequencies independently. Direct sound can work in two modes: DMA mode and Interrupt mode. DMA mode is the most efficient way of playing Direct sound. Because once empty, sound FIFOs are automatically reloaded with the next samples by the DMA controller, without any program intervention. The other mode uses an interrupt handler that manually load the FIFOs. This is less efficient than DMA mode but in some cases, it is the only solution.</p>
+<h2 id="direct-sound-output-control-register"><a class="header" href="#direct-sound-output-control-register">Direct Sound Output Control Register</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x082</td><td>REG_SOUNDCNT_H</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>1-0</td><td>Output sound ratio for chan. 1-4 (0=25%,1=50%,2=100%)</td><td>RW</td></tr>
+<tr><td>2</td><td>Direct sound A output ratio (0=50%, 1=100%)</td><td>RW</td></tr>
+<tr><td>3</td><td>Direct sound B output ratio (0=50%, 1=100%)</td><td>RW</td></tr>
+<tr><td>7-4</td><td>Unused</td><td></td></tr>
+<tr><td>8</td><td>Direct sound A to right output</td><td>RW</td></tr>
+<tr><td>9</td><td>Direct sound A to left output</td><td>RW</td></tr>
+<tr><td>A</td><td>Direct sound A Sampling rate timer (timer 0 or 1)</td><td>RW</td></tr>
+<tr><td>B</td><td>Direct sound A FIFO reset</td><td>RW</td></tr>
+<tr><td>C</td><td>Direct sound B to right output</td><td>RW</td></tr>
+<tr><td>D</td><td>Direct sound B to left output</td><td>RW</td></tr>
+<tr><td>E</td><td>Direct sound B Sampling rate timer (timer 0 or 1)</td><td>RW</td></tr>
+<tr><td>F</td><td>Direct sound B FIFO reset</td><td>RW</td></tr>
+</tbody></table>
+<p>Output ratios control the output volume. Set these bits when Sound 1-4 or Direct Sound plays too loud relative to each other. Direct Sound channels can be send to Left, Rigth or both outputs. Bit A and E selects which timer to use as the sampling frequncy reference. Both Direct sound channels can use the same timer, and it is usually the case for software mixing. FIFO reset prepares the Direct sound harware for playback and put the playing cursor back to FIFO's sample 0. It should always be performed before playback start.</p>
+<p>The following examples demonstrate Direct Sound playback in DMA mode and Interrupt mode.</p>
+<h2 id="dma-mode-direct-sound-example"><a class="header" href="#dma-mode-direct-sound-example">DMA Mode Direct Sound Example</a></h2>
+<p>To use DirectSound in DMA mode:</p>
+<ul>
+<li>Set DS outputs and volumes</li>
+<li>Set timer0 (or 1) count value to 0xffff-round(cpuFreq/playbackFreq)
+<ul>
+<li>ie: For 16khz, timer count=65536-round(2^24/16000)=0xFBE8</li>
+</ul>
+</li>
+<li>Set DMA channel's source to the sample's address and destination adress to either FIFOA or FIFOB adresses</li>
+<li>Reset the FIFO before starting sound by setting the FIFO reset bit.</li>
+<li>Set DMA start mode to 11 to instruct DMA to repeat on FIFO-empty requests. Many documents list this state as invalid, which is naturally not the case.
+<ul>
+<li>ie:REG_DMA1CNT_H=0xb600=DMA enabled+ start on FIFO+32bit+repeat</li>
+</ul>
+</li>
+<li>Set DMA repeat and 32bit moves and set source and destination modes to increment.</li>
+<li>Enable timer0 at Cpu frequency (clock divider=0)</li>
+</ul>
+<p>Sound should start immediately and will play past the sample if not stopped. You can use timer1 to count played samples and stop the sound. To do this, set timer 1 to cascade and enable irq for timer 1 and set its count to 0xffff-samples count. Your irq handler should stop the sound by disabling timer 0 and the dma channel(s).</p>
+<pre><code class="language-C">#include &quot;gba.h&quot;
+extern const u32 _binary_lo1234_pcm_start[]; //the sample. its a pcm wave file converted to an elf file with objcopyroda.exe (devrs.com/gba)
+
+void InterruptProcess(void) __attribute__ ((section(&quot;.iwram&quot;))); //the interrupt handler from crt0.s
+
+void InterruptProcess(void){
+//sample finished!,stop Direct sound
+REG_TM0CNT_H=0; //disable timer 0
+REG_DMA1CNT_H=0; //stop DMA
+
+//clear the interrupt(s)
+REG_IF |= REG_IF;
+}
+
+
+void AgbMain (void){
+//play a mono sound at 16khz
+//uses timer 0 as sampling rate source
+//uses timer 1 to count the samples played in order to stop the sound
+REG_SOUNDCNT_H=0x0b0F; //enable DS A&amp;B + fifo reset + use timer0 + max volume to L and R
+REG_SOUNDCNT_X=0x0080; //turn sound chip on
+
+REG_DMA1SAD=(unsigned long)_binary_lo1234_pcm_start; //dma1 source
+REG_DMA1DAD=0x040000a0; //write to FIFO A address
+REG_DMA1CNT_H=0xb600; //dma control: DMA enabled+ start on FIFO+32bit+repeat+increment source&amp;dest
+
+REG_TM1CNT_L=0x7098; //0xffff-the number of samples to play
+REG_TM1CNT_H=0xC4; //enable timer1 + irq and cascade from timer 0
+
+REG_IE=0x10; //enable irq for timer 1
+REG_IME=1; //master enable interrupts
+
+//Formula for playback frequency is: 0xFFFF-round(cpuFreq/playbackFreq)
+REG_TM0CNT_L=0xFBE8; //16khz playback freq
+REG_TM0CNT_H=0x0080; //enable timer0
+
+}
+</code></pre>
+<p>True stereo output is a simple extension of the above code:</p>
+<ul>
+<li>Set REG_SOUNDCNT_H to send DS A to right output and DS B to left output</li>
+<li>Set DMA1 source to the right buffer, and destination to DS A FIFO</li>
+<li>Set DMA2 source to the left buffer, and destination to DS B FIFO</li>
+<li>Set timer 0 as sampling rate source for both DS A&amp;B</li>
+</ul>
+<h2 id="interrupt-mode-direct-sound-example"><a class="header" href="#interrupt-mode-direct-sound-example">Interrupt Mode Direct Sound Example</a></h2>
+<p>DMA mode Direct Sound has reportedly being causing problems in multi-players games. This is because during DMA tranfers, if interrupts occurs, they are only processed upon completion of that DMA. That means possible transmission losses due to bytes in the serial buffer being overwitten before beign read. On possible solution to this problem would be the use of Interrupt mode Direct sound playback. In this mode you set a timer (again 0 or 1), to the sampling frequency, set it to generate interrupts and load the FIFO(s) in the interrupt handler. Note that this methodology might impose problems if interrupts are blocking (ie. not allowing multiple interrupts at once), however if several interrupts at once are allowed inside the handler, this should resolve the issue.</p>
+<p>To use Direct sound in Interrupt mode:</p>
+<ul>
+<li>Set DS ouputs and volume</li>
+<li>Set timer 0 frequency to 0xffff</li>
+<li>Enable timer 0, set it to generate IRQs and set the clock divider to 1024 (gives 16384 hz )</li>
+<li>In the interrupt handler:
+<ul>
+<li>Load FIFO(s) each 4 samples with 4 bytes</li>
+<li>Increment the sample counter</li>
+<li>Stop timer 0 when sample end has be reached</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-C">#include &quot;gba.h&quot;
+extern const u32 _binary_lo1234_pcm_start[]; //the sample. its an pcm wave file converted to an elf file with objcopyroda.exe (devrs.com/gba)
+void InterruptProcess(void) __attribute__ ((section(&quot;.iwram&quot;)));//the interrupt handler from crt0.s
+
+int iNextSample=0;
+int SampleSize=36712;
+
+void InterruptProcess(void){
+//load FIFO each 4 samples with 4 bytes
+if(!(iNextSample&amp;3))REG_SGFIFOA=_binary_lo1234_pcm_start[iNextSample&gt;&gt;2];
+
+iNextSample++;
+
+if(iNextSample&gt;SampleSize){
+    //sample finished!
+    REG_TM0CNT_H=0; //disable timer 0
+}
+//clear the interrupt(s)
+REG_IF |= REG_IF;
+}
+void AgbMain(void){
+//play a sample at 16Khz using interrupt mode
+REG_SOUNDCNT_H=0x0B0F; //DirectSound A + fifo reset + max volume to L and R
+REG_SOUNDCNT_X=0x0080; //turn sound chip on
+
+REG_IE=0x8; //enable timer 0 irq
+REG_IME=1; //enable interrupts
+
+/*set playback frequency. note: using anything else thank clock multipliers to serve as sample frequencies tends to generate distortion in the output. It has probably to do with timing and FIFO reloading. More testing need to be done. */
+
+REG_TM0CNT_L=0xffff;
+REG_TM0CNT_H=0x00C3; //enable timer at CPU freq/1024 +irq =16384Khz sample rate
+
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sound-channel-1"><a class="header" href="#sound-channel-1">Sound Channel 1</a></h1>
+<p>Sound channel 1 produces square waves with variable duty cycle, frequency sweep and envelope functions. It is often referred as a quadrangular wave pattern.</p>
+<p>Frequency sweeps allows &quot;portamento&quot;-like effects where the frequency raises or decreases during playback. The amount of increase or decrease in frequency (or sweep shifts) and the rate at which it occurs (sweep time) is controllable. Frequency sweeps are controlled by REG_SOUND1CNT_L</p>
+<p>Sweep shifts are controlled by bits 0-2 and are calculated with the following formula:</p>
+<p>\( T = T \pm \frac{T}{2^n} \) where T = Wave Period and n = Sweep Shifts</p>
+<p>Sweep time (Ts) controls the delay between sweep shifts and is controlled by bits 4-6:</p>
+<ul>
+<li>000: Sweep function is off</li>
+<li>001: Ts=1 / 128Khz (7.8 ms)</li>
+<li>010: Ts=2 / 128Khz (15.6 ms)</li>
+<li>011: Ts=3 / 128Khz (23.4 ms)</li>
+<li>100: Ts=4 / 128Khz (31.3 ms)</li>
+<li>101: Ts=5 / 128Khz (39.1 ms)</li>
+<li>110: Ts=6 / 128Khz (46.9 ms)</li>
+<li>111: Ts=7 / 128Khz (54.7 ms)</li>
+</ul>
+<p>At each sweep shift, frequency can either increase (bit 3=0) or decrease (bit 3=1).</p>
+<p>Next is an example of frequency sweeps when REG_SOUND1CNT_L=0x0079 (sweep shifts=1 and sweep time=54.7 ms) and the initial frequency from REG_SOUND1CNT_X=0x0400 (~128Hz, 7.8 ms period).</p>
+<p><img src="audio/images/sweeps.gif" alt="Sweeps example" /></p>
+<p>In the above example, frequency decreases gradually. Note that sweep shifts are repeatedly performed until the new value becomes either less than 0 (the previous value is then retained) or, when incrementing, if the new frequency value exceeds the maximum frequency (131Khz or 2048 in register value). In the latter case, the sound would then stop and DMG Sound 1 status bit from REG_SOUNDCNT_X would be reset. When either sweep shifts or sweep time is zero, the frequency remains unchanged. When the sweep function is not required, set sweep shifts and sweep time to zero and set the increase/decrease bit to 1 or otherwise, sometimes, no sound will be played.</p>
+<p>The envelope function allows for fade-ins or fade-outs of the sound. It has a 4-bit resolution so it can produce 16 different amplitude levels (steps). The delay between step change (step time) is controlled by bits 8-10 of REG_SOUND1CNT_H. The duration of one step is given by: T= step time*(1/64) sec, hence a maximum fade time of ~1.64 seconds. When the step time is 0, the envelope function is disabled.</p>
+<p>Bit 11 of REG_SOUND1CNT_H controls the envelope direction: 0=envelope decreases and 1=envelope increases.</p>
+<p>The initial value of the envelope is stored in bits 12-15 of REG_SOUND1CNT_H. When decreasing, if the volume reaches 0000, the sound is muted. When increasing, if the volume reaches 1111, the envelope function stops and the volume remains at that level.</p>
+<p><img src="audio/images/envelope.gif" alt="Envelope example" /></p>
+<p>Envelope example for REG_SOUND1CNT_H=0x7400</p>
+<p>Sound 1 can be set to either play for a specified duration or continuously. This is controlled by bit 14 of REG_SOUND1CNT_X. When set to 0 (continuous mode), sound is played continuously regardless of the length data in REG_SOUND1CNT_H. When set to 1 (timed mode), sound is played for that specified length and after that the DMG Sound 1 status bit of REG_SOUNDCNT_X is reset.</p>
+<p>The sound length (bits 0-5 of REG_SOUND1CNT_H) is a value obtained from the following formula:</p>
+<p><strong>Sound length = (64-register value)*(1/256) seconds</strong></p>
+<p>When using timed mode, after the sound length has be changed, the sound channel must be resetted via bit 15 of REG_SOUND1CNT_X.</p>
+<p>Frequency (bits 0-10 of REG_SOUND1CNT_X) can be calculated from the following formula:</p>
+<p><strong>F(Hz) = 4194304/(32*(2048-register value)). The minimum frequency is 64Hz and the maximum is 131Khz.</strong></p>
+<p>The duty cycle is the ratio of the duration (time) that a signal is ON versus the total period of the signal. The longer it is ON the greater the duty cycle. Sound channel 1 support 4 different duty cycles, which produces very distinctive sounds. Duty cycle is controlled by bit 6-7 of REG_SOUND1CNT_H.</p>
+<p>Possible duty cycles:</p>
+<p><img src="audio/images/waveduty.gif" alt="Wave duty example" /></p>
+<p>All parameters can be changed dynamically while the sound is playing. The envelope initial volume parameter does not have any effects (except when set to zero) until the sound is resetted. Also, resetting the sound does not reset the oscillator (i.e.:square wave pattern is continuous) although the period is slightly longer for the cycle generated during reset (usually +~500us).</p>
+<h2 id="sound-channel-1-demo"><a class="header" href="#sound-channel-1-demo">Sound Channel 1 Demo</a></h2>
+<p><img src="audio/images/demos1.gif" alt="Demo 1 example" /></p>
+<p>A comprehensive demo is included. It shows all features of sound channel 1. The demo also allows to change the resampling frequency bit contained in REG_SOUNDBIAS. Its effects, at least on channel 1, is admittedly very subtle if not unnoticeable.</p>
+<pre><code class="language-C">#include &lt;gba.h&gt;
+
+void AgbMain(void){
+//Play a sound on channel 1
+
+//turn on sound circuit
+REG_SOUNDCNT_X = 0x80;
+//full volume, enable sound 1 to left and right
+REG_SOUNDCNT_L=0x1177;
+// Overall output ratio - Full
+REG_SOUNDCNT_H = 2;
+
+REG_SOUND1CNT_L=0x0056; //sweep shifts=6, increment, sweep time=39.1ms
+REG_SOUND1CNT_H=0xf780; //duty=50%,envelope decrement
+REG_SOUND1CNT_X=0x8400; //frequency=0x0400, loop mode
+
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sound-channel-2"><a class="header" href="#sound-channel-2">Sound Channel 2</a></h1>
+<p>Sound channel 2 produces square waves with variable duty cycle and envelope functions. Channel 2 is identical to channel 1 but without the frequency sweep function.</p>
+<p>The envelope function allows for fade-ins or fade-outs of the sound. It has a 4-bit resolution so it can produce 16 different amplitude levels (steps). The delay between step change (step time) is controlled by bits 8-10 of REG_SOUND2CNT_L. The duration of one step is given by: T= step time*(1/64) sec, hence a maximum fade time of ~1.64 seconds. When the step time is 0, the envelope function is disabled.</p>
+<p>Bit 11 of REG_SOUND2CNT_L controls the envelope direction: 0=envelope decreases and 1=envelope increases.</p>
+<p>The initial value of the envelope is stored in bits 12-15 of REG_SOUND2CNT_L. When decreasing, if the volume reaches 0000, the sound is muted. When increasing, if the volume reaches 1111, the envelope function stops and the volume remains at that level.</p>
+<p><img src="audio/images/envelope.gif" alt="Envelope example" /></p>
+<p>Envelope example for REG_SOUND2CNT_L=0x7400.</p>
+<p>Sound 2 can be set to either play for a specified duration or continuously. This is controlled by bit 14 of REG_SOUND2CNT_H. When set to 0 (continuous mode), sound is played continuously regardless of the length data in REG_SOUND2CNT_L. When set to 1 (timed mode), sound is played for that specified length and after that the DMG Sound 2 status bit of REG_SOUNDCNT_X is reset.</p>
+<p>The sound length (bits 0-5 of REG_SOUND2CNT_L) is a value obtained from the following formula:</p>
+<p><strong>Sound length = (64-register value)*(1/256) seconds</strong></p>
+<p>When using timed mode, after the sound length has be changed, the sound channel must be resetted via bit 15 of REG_SOUND2CNT_H.</p>
+<p>Frequency (bits 0-10 of REG_SOUND2CNT_H) can be calculated from the following formula:</p>
+<p><strong>F(Hz) = 4194304/(32*(2048-register value)). The minimum frequency is 64Hz and the maximum is 131Khz.</strong></p>
+<p>The duty cycle is the ratio of the duration (time) that a signal is ON versus the total period of the signal. The longer it is ON the greater the duty cycle. Sound channel 1 support 4 different duty cycles, which produces very distinctive sounds. Duty cycle is controlled by bit 6-7 of REG_SOUND2CNT_L.</p>
+<p>Possible duty cycles:</p>
+<p><img src="audio/images/waveduty.gif" alt="Wave duty example" /></p>
+<p>All parameters can be changed dynamically while the sound is playing. The envelope initial volume parameter does not have any effects (except when set to zero) until the sound is resetted. Also, resetting the sound does not reset the oscillator (i.e.:square wave pattern is continuous) although the period is slightly longer for the cycle generated during reset (usually +~500us).</p>
+<h2 id="sound-channel-2-demo"><a class="header" href="#sound-channel-2-demo">Sound Channel 2 Demo</a></h2>
+<p><img src="audio/images/demos1.gif" alt="Demo 1 example" /></p>
+<pre><code class="language-C">#include &lt;gba.h&gt;
+
+void AgbMain(void){
+//Play a sound on channel 2
+
+//turn on sound circuit
+REG_SOUNDCNT_X = 0x80;
+//full volume, enable sound 2 to left and right
+REG_SOUNDCNT_L=0x2277;
+// Overall output ratio - Full
+REG_SOUNDCNT_H = 2;
+
+REG_SOUND2CNT_L=0xf780; //duty=50%,envelope decrement
+REG_SOUND2CNT_H=0x8400; //frequency=0x0400, loop mode
+
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sound-channel-3"><a class="header" href="#sound-channel-3">Sound Channel 3</a></h1>
+<p>Channel 3 acts as a 4-bit DAC that repeatadely plays a pattern of samples. This pattern is user definable and consists of sixty-four 4-bit samples, separated in two banks and located from 0x04000090 to 0x0400009F. Channel 3 can play banks in two modes: As a single 64 samples bank or two 32 samples banks. The dual bank mode has the advantage of not needing a sound reset/restart when switching the playing bank. This allows for dynamic reloading of the wave ram without generating distortion as it was the case with previous Gameboys. Bank mode is controlled by bit 5 of REG_SOUND3CNT_L (0x0400070) and resetting it to 0 specifies dual bank mode. Bit 6 controls which bank is active for playing/reloading. If set to 0, samples are played from bank 0 and writing to the Wave Ram will store the data in Bank 1 and vice-versa.</p>
+<p>When bit 7 is set and Initial flag (Bit 15) from REG_SOUND3CNT_X is set, the wave pattern starts to play. Both banks of Wave Ram are filled with zero upon initialization of the Gameboy, Bank 0 being selected. So writing to bank 0 implie setting bit 6 to 1 before loading Wave Ram then set it back to 0 to play it. Most emulator currently ignore banks.</p>
+<p>Sound 3 can be set to either play for a specified duration (max 1 second) or continuously. This is controlled by bit E of REG_SOUND3CNT_H (0x0400074). When set to 0, sound 3 is played continuously regardless of the length data in REG_SOUND3CNT_H. When set to 1, sound is played for that specified length and after that, bit 2 of REG_SOUNDCNT_X is reset.</p>
+<p>The sound length is a 8 bit value obtained from the following formula:</p>
+<p><strong>Register = Note lenght(in seconds)*256, hence a 1 second maximum And a 3.9 millisecond minimum sound duration.</strong></p>
+<p>After the sound length has be changed, the sound channel must be resetted via bit F of REG_SOUND3CNT_H.</p>
+<p>Frequency can be calculated from the following formula:</p>
+<p><strong>F(hz) = 4194304/(32*(2048-register value)). The minimum frequency is 64Hz and the maximum is 131Khz.</strong></p>
+<p>When the sound is reset, it restarts at the specified frequency. Frequency setting and sound reset must be performed in a single write since both are write only. Note that in continuous mode, frequency can be changed without resetting the sound channel (the reset bit is ignored).</p>
+<h2 id="sound-channel-3-demo"><a class="header" href="#sound-channel-3-demo">Sound Channel 3 Demo</a></h2>
+<p><img src="audio/images/demo3.gif" alt="Demo 3 example" /></p>
+<p>A comprehensive demo is included. It shows most features of channel 3. The demo also explores two ways of stopping the sound while its playing. The counter mode, where sound stops after the time specified in the sound lenght register, and interrupt mode, where an timer interrupt stop the sound after a period of time. The problem with counter mode is that the sound channel must be resetted before restarting another note. This causes very annoying audio artefacts as demonstrated in the following picture:</p>
+<p><img src="audio/images/sound3reset.gif" alt="Sound 3 Reset example" /></p>
+<p>We can cleary see spikes at the end and start of the sound. In the demo select voice 1 and press start to swap between stop modes. When in counter mode, the clicks are clearly evident.</p>
+<p>We can set a timer interrupt to stop sound after a period of time. In the handler, we stop sound by clearing channel 3's play bit or setting its volume to zero. But both approaches tends to distort the sound, though less severely than counter mode. Here's the effect:</p>
+<p><img src="audio/images/chan3wavstop.gif" alt="Chan 3 Wav Stop example" /></p>
+<p>Using the main sound output control register REG_SOUNDCNT_L, and clear the left/right output bits gives the best results.</p>
+<pre><code class="language-C">#include &lt;gba.h&gt;
+
+void AgbMain(void){
+//Play a continuous tone using channel 3
+
+//turn on sound circuit
+REG_SOUNDCNT_X = 0x80;
+//full volume, enable sound 3 to left and right
+REG_SOUNDCNT_L=0x4477;
+// Overall output ratio - Full
+REG_SOUNDCNT_H = SOUND3OUTPUT1;
+
+//select bank 0 for writing (bank 1 playing)
+REG_SOUND3CNT_L = SOUND3BANK32 | SOUND3SETBANK1;
+//load the wave ram bank 0
+REG_WAVE_RAM0=0x10325476;
+REG_WAVE_RAM1=0x98badcfe;
+REG_WAVE_RAM2=0x10325476;
+REG_WAVE_RAM3=0x98badcfe;
+//select bank 0 for playing
+REG_SOUND3CNT_L = SOUND3BANK32 | SOUND3SETBANK0;
+
+REG_SOUND3CNT_L |= SOUND3PLAY;
+REG_SOUND3CNT_H = SOUND3OUTPUT1;
+REG_SOUND3CNT_X=SOUND3INIT|SOUND3PLAYLOOP| 1046 ; //play a C-4 in loop mode
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sound-channel-4"><a class="header" href="#sound-channel-4">Sound Channel 4</a></h1>
+<p>Sound channel 4 produces Pseudo-Noise with an envelope function. Noise is generated by a polynomial counter also known as a Linear-Feedback Shift Register (LFSR). LFSRs are special type of binary counter that have the particularity of not counting in the normal binary increment/decrement sequence. These counters find common uses in pseudorandom-numbers generation. Theory behind LFSRs and Polynomial counters are out of the scope of this document but a simple approach to key concepts will be described. Good references on the subjects are given at the end of this document.</p>
+<p>The pseudo-noise pattern playback frequency can be controlled by a 3-bit clock divider used to divide the Sound system's clock (4.194304Mhz). The clock divider's output is then fed into a pre-scaler which output is then used as the polynomial counter's clock. The counter can be set to user either 7 or 15 stages/steps. Resulting into a 127 or 32767 input clock cycle period. Using 7 stages give more metallic sounding effects when played faster (lower divider ratios) while 15 stages sounds much like white noise.</p>
+<p>Selection of the clock divider is done by bits 0-2 of REG_SOUND4CNT_H, where f=4.194304 Mhz/8:</p>
+<ul>
+<li>000: f*2</li>
+<li>001: f</li>
+<li>010: f/2</li>
+<li>011: f/3</li>
+<li>100: f/4</li>
+<li>101: f/5</li>
+<li>110: f/6</li>
+<li>111: f/7</li>
+</ul>
+<p>Bit 3 of REG_SOUND4CNT_H control the number of counter stages: 0=15 stages, 1=7 stages.</p>
+<p>Selection of the pre-scaler divider value is done by bits 4-7 of REG_SOUND4CNT_H, where Q is the clock divider's output:</p>
+<ul>
+<li>0000: Q/2</li>
+<li>0001: Q/2^2</li>
+<li>0010: Q/2^3</li>
+<li>0011: Q/2^4</li>
+<li>....</li>
+<li>1101: Q/2^14</li>
+<li>1110: Not used</li>
+<li>1111: Not used</li>
+</ul>
+<p>The REG_SOUND4CNT_L contains the envelope function and the sound's length and its functionality is identical to channel 1.</p>
+<p>Bit 14 of REG_SOUND4CNT_H control the loop/timed mode. If set to 1 sound plays for the duration specified in REG_SOUND4CNT_L otherwise sound plays continuously. Bit 15 resets the sound and the LSFR counter.</p>
+<p>All registers can be modified during playback but sound need to be reinitialized when modifying the envelope initial volume or the clock divider for changes to take effects.</p>
+<h2 id="how-it-works"><a class="header" href="#how-it-works">How it works</a></h2>
+<p>This section is more intended to emulator writers who wants to implement the exact sound of the original Gameboy sound system.</p>
+<p>An LFSR counter with n stages can implement a maximum of (2^n)-1 states, n representing the degree of the polynomial. All zeros state is not allowed because it locks the counters. Each state in the entire count sequence is generated once and only once.</p>
+<p>The Gameboy sound circuit implements a switchable 7/15-stages LFSR. Below is an representation of the logic used by the Gameboy. It is important to realize that channel 4 does not generate white noise per-se but Pseudo-noise. White noise is a special type of signal containing an equal amount of all frequencies and has no cycle period. LFSR counters have a cycle period of (2^n)-1 input clock cycles. Played at high speed, the pattern starts to exhibit a fundamental derived from the input clock frequency. This is clearly evident when using the 7-stages mode since the cycle is only 127 input clocks. 15-stages mode has a much bigger cycle, 32767, so the pseudo-noise sounds much more like white noise.</p>
+<p><img src="audio/images/lfsr.gif" alt="LSFR example" /></p>
+<p>When initialized, all shift registers are set to 1. On each clock pulse, bits are shifted from left to right (on the picture) s1 being the least significant bit and the output that is sent to the channel's envelope generator. The count sequence for the 7-stage LFSR, once the sound channel is resetted is then:</p>
+<p><strong>Counter steps</strong></p>
+<table><thead><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr></thead><tbody>
+<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+</tbody></table>
+<p><img src="audio/images/lfsroutput.gif" alt="LFSR output example" /></p>
+<p>By looking at s1 output (the the least significant bit), we can see it matches the pattern on the picture, which is a capture of the GBA output for channel 4 in 7-stage mode. Since the counter is always counting in the same sequence, the output bits can be stored in a lookup table for fast emulation of this function. By packing the bits, a 4 KB lookup table is sufficient to represent all states for both the 7 and 15 stages of the LFSR.</p>
+<h3 id="references"><a class="header" href="#references">References</a></h3>
+<p><a href="http://www.eecircle.com/applets/009/LFSR.html">n-Stage LFSR simulator Java applet</a></p>
+<p><a href="http://archives.e-insite.net/archives/ednmag/reg/1996/010496/01df4.htm">EDN article on LFSR</a></p>
+<p><a href="http://www-math.cudenver.edu/%7Ewcherowi/courses/m5410/m5410fsr.html">Theory behind LFSR</a></p>
+<pre><code class="language-C">#include &lt;gba.h&gt;
+
+void AgbMain(void){
+//Play a sound on channel 4
+
+//turn on sound circuit
+REG_SOUNDCNT_X = 0x80;
+//full volume, enable sound 4 to left and right
+REG_SOUNDCNT_L=0x4477;
+// Overall output ratio - Full
+REG_SOUNDCNT_H = 2;
+
+REG_SOUND4CNT_L=0xf700; //envellope decay, initial vol max
+REG_SOUND4CNT_H=0x8032; //Loop mode, clk div:6, 7-stage,pre-scaler:3
+
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="gba-sound-registers"><a class="header" href="#gba-sound-registers">GBA Sound Registers</a></h1>
+<table><thead><tr><th>Adress</th><th>Name</th><th>Function</th></tr></thead><tbody>
+<tr><td>0x04000060</td><td>REG_SOUND1CNT_L</td><td>Sound 1 Sweep control</td></tr>
+<tr><td>0x04000062</td><td>REG_SOUND1CNT_H</td><td>Sound 1 Length, wave duty and envelope control</td></tr>
+<tr><td>0x04000064</td><td>REG_SOUND1CNT_X</td><td>Sound 1 Frequency, reset and loop control</td></tr>
+<tr><td>0x04000068</td><td>REG_SOUND2CNT_L</td><td>Sound 2 Lenght, wave duty and envelope control</td></tr>
+<tr><td>0x0400006C</td><td>REG_SOUND2CNT_H</td><td>Sound 2 Frequency, reset and loop control</td></tr>
+<tr><td>0x04000070</td><td>REG_SOUND3CNT_L</td><td>Sound 3 Enable and wave ram bank control</td></tr>
+<tr><td>0x04000072</td><td>REG_SOUND3CNT_H</td><td>Sound 3 Sound lenght and output level control</td></tr>
+<tr><td>0x04000074</td><td>REG_SOUND3CNT_X</td><td>Sound 3 Frequency, reset and loop control</td></tr>
+<tr><td>0x04000078</td><td>REG_SOUND4CNT_L</td><td>Sound 4 Length, output level and envelope control</td></tr>
+<tr><td>0x0400007C</td><td>REG_SOUND4CNT_H</td><td>Sound 4 Noise parameters, reset and loop control</td></tr>
+<tr><td>0x04000080</td><td>REG_SOUNDCNT_L</td><td>Sound 1-4 Output level and Stereo control</td></tr>
+<tr><td>0x04000082</td><td>REG_SOUNDCNT_H</td><td>Direct Sound control and Sound 1-4 output ratio</td></tr>
+<tr><td>0x04000084</td><td>REG_SOUNDCNT_X</td><td>Master sound enable and Sound 1-4 play status</td></tr>
+<tr><td>0x04000088</td><td>REG_SOUNDBIAS</td><td>Sound bias and Amplitude resolution control</td></tr>
+<tr><td>0x04000090</td><td>REG_WAVE_RAM0_L</td><td>Sound 3 samples 0-3</td></tr>
+<tr><td>0x04000092</td><td>REG_WAVE_RAM0_H</td><td>Sound 3 samples 4-7</td></tr>
+<tr><td>0x04000094</td><td>REG_WAVE_RAM1_L</td><td>Sound 3 samples 8-11</td></tr>
+<tr><td>0x04000096</td><td>REG_WAVE_RAM1_H</td><td>Sound 3 samples 12-15</td></tr>
+<tr><td>0x04000098</td><td>REG_WAVE_RAM2_L</td><td>Sound 3 samples 16-19</td></tr>
+<tr><td>0x0400009A</td><td>REG_WAVE_RAM2_H</td><td>Sound 3 samples 20-23</td></tr>
+<tr><td>0x0400009C</td><td>REG_WAVE_RAM3_L</td><td>Sound 3 samples 23-27</td></tr>
+<tr><td>0x0400009E</td><td>REG_WAVE_RAM3_H</td><td>Sound 3 samples 28-31</td></tr>
+<tr><td>0x040000A0</td><td>REG_FIFO_A_L</td><td>Direct Sound channel A samples 0-1</td></tr>
+<tr><td>0x040000A2</td><td>REG_FIFO_A_H</td><td>Direct Sound channel A samples 2-3</td></tr>
+<tr><td>0x040000A4</td><td>REG_FIFO_B_L</td><td>Direct Sound channel B samples 0-1</td></tr>
+<tr><td>0x040000A6</td><td>REG_FIFO_B_H</td><td>Direct Sound channel B samples 2-3</td></tr>
+</tbody></table>
+<h2 id="dmg-sound-output-control"><a class="header" href="#dmg-sound-output-control">DMG Sound Output Control</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x080</td><td>REG_SOUNDCNT_L</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>2-0</td><td>DMG Left Volume</td><td>RW</td></tr>
+<tr><td>3</td><td>Vin to Left on/off (?)</td><td></td></tr>
+<tr><td>6-4</td><td>DMG Right Volume</td><td>RW</td></tr>
+<tr><td>7</td><td>Vin to Right on/off (?)</td><td></td></tr>
+<tr><td>8</td><td>DMG Sound 1 to left output</td><td>RW</td></tr>
+<tr><td>9</td><td>DMG Sound 2 to left output</td><td>RW</td></tr>
+<tr><td>A</td><td>DMG Sound 3 to left output</td><td>RW</td></tr>
+<tr><td>B</td><td>DMG Sound 4 to left output</td><td>RW</td></tr>
+<tr><td>C</td><td>DMG Sound 1 to right output</td><td>RW</td></tr>
+<tr><td>D</td><td>DMG Sound 2 to right output</td><td>RW</td></tr>
+<tr><td>E</td><td>DMG Sound 3 to right output</td><td>RW</td></tr>
+<tr><td>F</td><td>DMG Sound 4 to right output</td><td>RW</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>This register controls only the DMG output amplifiers and have no effects on the individual sound channels processing, or Direct Sound channels volume.</li>
+<li>Vin Left/Right were used on the original gameboy to enable gamepaks to provide their own sound source. It is currently unknown if this function is still supported and working on the GBA.</li>
+</ol>
+<h2 id="direct-sound-output-control-register-1"><a class="header" href="#direct-sound-output-control-register-1">Direct Sound Output Control Register</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x082</td><td>REG_SOUNDCNT_H</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>1-0</td><td>Output sound ratio for chan. 1-4 (0=25%,1=50%,2=100%)</td><td>RW</td></tr>
+<tr><td>2</td><td>Direct sound A output ratio (0=50%, 1=100%)</td><td>RW</td></tr>
+<tr><td>3</td><td>Direct sound B output ratio (0=50%, 1=100%)</td><td>RW</td></tr>
+<tr><td>7-4</td><td>Unused</td><td></td></tr>
+<tr><td>8</td><td>Direct sound A to right output</td><td>RW</td></tr>
+<tr><td>9</td><td>Direct sound A to left output</td><td>RW</td></tr>
+<tr><td>A</td><td>Direct sound A Sampling rate timer (timer 0 or 1)</td><td>RW</td></tr>
+<tr><td>B</td><td>Direct sound A FIFO reset</td><td>RW</td></tr>
+<tr><td>C</td><td>Direct sound B to right output</td><td>RW</td></tr>
+<tr><td>D</td><td>Direct sound B to left output</td><td>RW</td></tr>
+<tr><td>E</td><td>Direct sound B Sampling rate timer (timer 0 or 1)</td><td>RW</td></tr>
+<tr><td>F</td><td>Direct sound B FIFO reset</td><td>RW</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>Output ratios control the output volume. Use when DMG channels or Direct Sound plays too loud relative to each other.</li>
+<li>Direct Sound is a dual 8-bit DAC fed by data located in two FIFOs. FIFOs can be loaded manually or automatically in DMA mode when set appropriately. The DMA mode uses the timers specified in bits A and E as the sampling frequency reference. A single timer can be used for both DirectSound A&amp;B. However, 2 DMA channels (1&amp;2) must be used to output two different sounds simultaneously on both channels. Also, DMA channel start mode must be set to 11 to instruct it to repeat on FIFO-empty requests.</li>
+</ol>
+<h2 id="master-sound-output-controlstatus"><a class="header" href="#master-sound-output-controlstatus">Master Sound Output Control/Status</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x084</td><td>REG_SOUNDCNT_X</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>0</td><td>DMG Sound 1 status</td><td>R</td></tr>
+<tr><td>1</td><td>DMG Sound 2 status</td><td>R</td></tr>
+<tr><td>2</td><td>DMG Sound 3 status</td><td>R</td></tr>
+<tr><td>3</td><td>DMG Sound 4 status</td><td>R</td></tr>
+<tr><td>6-4</td><td>Unused</td><td></td></tr>
+<tr><td>7</td><td>All sound circuit enable (0=off, 1=on)</td><td>RW</td></tr>
+<tr><td>F-8</td><td>Unused</td><td></td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>Bits 0-3 are set when their respective sound channels are playing and are resetted when sound has stopped. Note that contrary to some other sources and most emulators, these bits are read-only and do not need to be set to enable the sound channels.</li>
+<li>Bit 7 turns on or off the entire sound circuit (DMG and Direct Sound). Keep this bit cleared as often as possible in order to save battery power. Some sources states that it allows batteries to last up to 10% longer.</li>
+</ol>
+<h2 id="sound-bias"><a class="header" href="#sound-bias">Sound Bias</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x088</td><td>REG_SOUNDBIAS</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>9-0</td><td>DC offset bias value</td><td>RW</td></tr>
+<tr><td>D-A</td><td>Unused</td><td></td></tr>
+<tr><td>F-E</td><td>PWM resampling resolution where: <br> 00=9bit at 32768 Hz <br> 01= 8bit at 65536 Hz <br> 10=7bit at 131072 Hz <br> 11= 6bit at 262144 Hz</td><td>RW</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>The BIAS setting is used to offset the sound output and bring it back into a signed range. When the BIOS starts up, it runs a timing loop where it slowly raises the BIAS voltage from 0 to 512. This setting should not be changed. At best, the sound will become distorted. At worst the amplifier inside the GBA could be damaged. When accessing bits FE, a read-modify-write is required.</li>
+<li>The default value for bits FE is 00. Most if not all games, uses 01 for this setting. More research is being done on this register.</li>
+</ol>
+<h2 id="directsound-fifo-a"><a class="header" href="#directsound-fifo-a">DirectSound FIFO A</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x0A0-0x0A2</td><td>REG_FIFO_A</td></tr>
+</tbody></table>
+<h3 id="0x0a0"><a class="header" href="#0x0a0">0x0A0</a></h3>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>7-0</td><td>8-Bit sample 0</td><td>W</td></tr>
+<tr><td>F-8</td><td>8-Bit sample 1</td><td>W</td></tr>
+</tbody></table>
+<h3 id="0x0a2"><a class="header" href="#0x0a2">0x0A2</a></h3>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>7-0</td><td>8-Bit sample 2</td><td>W</td></tr>
+<tr><td>F-8</td><td>8-Bit sample 3</td><td>W</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>These registers contains the samples required for Direct Sound channel A output.</li>
+<li>Reading from this register yields unpredictable results.</li>
+</ol>
+<h2 id="directsound-fifo-b"><a class="header" href="#directsound-fifo-b">DirectSound FIFO B</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x0A4-0x0A6</td><td>REG_FIFO_B</td></tr>
+</tbody></table>
+<h3 id="0x0a4"><a class="header" href="#0x0a4">0x0A4</a></h3>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>7-0</td><td>8-Bit sample 0</td><td>W</td></tr>
+<tr><td>F-8</td><td>8-Bit sample 1</td><td>W</td></tr>
+</tbody></table>
+<h3 id="0x0a6"><a class="header" href="#0x0a6">0x0A6</a></h3>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>7-0</td><td>8-Bit sample 2</td><td>W</td></tr>
+<tr><td>F-8</td><td>8-Bit sample 3</td><td>W</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>These registers contains the samples required for Direct Sound channel B output.</li>
+<li>Reading from this register yields unpredictable results.</li>
+</ol>
+<h2 id="dmg-channel-1-sweep-control"><a class="header" href="#dmg-channel-1-sweep-control">DMG Channel 1 Sweep control</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x60</td><td>REG_SOUND1CNT_L</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>2-0</td><td>Sweep shifts</td><td>RW</td></tr>
+<tr><td>3</td><td>Sweep increase/decrease: <br> 0=Addition(frequency increases) <br> 1=Subtraction (frequency decreases)</td><td>RW</td></tr>
+<tr><td>6-4</td><td>Sweep time: <br> 000: Sweep function is off <br> 001: Ts=1 / 128Khz (7.8 ms) <br> 010: Ts=2 / 128Khz (15.6 ms) <br> 011: Ts=3 / 128Khz (23.4 ms) <br> 100: Ts=4 / 128Khz (31.3 ms) <br> 101: Ts=5 / 128Khz (39.1 ms) <br> 110: Ts=6 / 128Khz (46.9 ms) <br> 111: Ts=7 / 128Khz (54.7 ms)</td><td>RW</td></tr>
+<tr><td>F-7</td><td>Unused</td><td></td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>The sound channel 1 produces a square wave with envelope and frequency sweep functions.</li>
+<li>This register controls the frequency sweep function. Sweep shifts bits controls the amount of change in frequency (either increase or decrease) at each change. The wave's new period is given by: \( T = T \pm \frac{T}{2^n} \) where n is the sweep shifts value.</li>
+<li>Sweep time is the delay between sweep shifts. After each delay, frequency changes repeatedly.</li>
+<li>When decrementing, if the frequency value gets smaller than zero, the previous value is retained. When incrementing, if the frequency gets greater than the maximum frequency (131Khz or 2048 for the register value) the sound stops.</li>
+<li>When the sweep function is not required, set the sweep time to zero and set the increase/decrease bit to 1.</li>
+<li>When Initializing the sound (REG_SOUND1CNT_X bit F=1) using sweeps, re-initialize the sound after 8 clocks or more. Otherwise the sound may stop.</li>
+</ol>
+<h2 id="dmg-channel-1-length-wave-duty-and-envelope-control"><a class="header" href="#dmg-channel-1-length-wave-duty-and-envelope-control">DMG Channel 1 Length, Wave Duty and Envelope Control</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x062</td><td>REG_SOUND1CNT_H</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>5-0</td><td>Sound length</td><td>W</td></tr>
+<tr><td>7-6</td><td>Wave duty cycle: <br> 00=12.5% <br> 01=25% <br> 10=50% <br> 11=75%</td><td>RW</td></tr>
+<tr><td>A-8</td><td>Envelope step time</td><td>RW</td></tr>
+<tr><td>B</td><td>Envelope mode: <br> 0=Envelope decreases <br> 1=Envelope increases</td><td>RW</td></tr>
+<tr><td>F-C</td><td>Initial envelope value</td><td>RW</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>The sound length is an 6 bit value obtained from the following formula: Sound length= (64-register value)*(1/256) seconds.</li>
+<li>After the sound length has been changed, the sound channel must be resetted via bit F of REG_SOUND1CNT_X (when using timed mode).</li>
+<li>Wave duty cycle control the percentage of the ON state of the square wave.</li>
+<li>The envelope step time is the delay between successive envelope increase or decrease. It is given by the following formula: T=register value*(1/64) seconds.</li>
+<li>Envelope mode control if the envelope is to increase or decrease in volume over time.</li>
+<li>The initial volume of the envelope is controlled by bit F-C. 1111 produces the maximum volume and 0000 mutes the sound.</li>
+</ol>
+<h2 id="dmg-channel-1-frequency-reset-and-loop-control"><a class="header" href="#dmg-channel-1-frequency-reset-and-loop-control">DMG Channel 1 Frequency, Reset and Loop Control</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x064</td><td>REG_SOUND1CNT_X</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>A-0</td><td>Sound frequency</td><td>W</td></tr>
+<tr><td>D-B</td><td>Unused</td><td></td></tr>
+<tr><td>E</td><td>Timed mode: <br> 0=continuous, 1=timed</td><td>RW</td></tr>
+<tr><td>F</td><td>Sound Reset</td><td>W</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>Frequency can be calculated from the following formula: F(hz)=4194304/(32*(2048-register value)). The minimum frequency is 64Hz and the maximum is 131Khz.</li>
+<li>When Bit E (Timed mode) is set to 0, sound 1 is played continuously regardless of the length data in REG_SOUND1CNT_H. When set to 1, sound is played for that specified length and after that, bit 0 of REG_SOUNDCNT_X is reset.</li>
+<li>When bit F is set to 1, the envelope is resetted to its initial value and sound restarts at the specified frequency.</li>
+<li>Frequency can always be changed without resetting the sound. However, when in continuous mode, alway set the sound lenght to zero after changing the frequency. Otherwise, the sound may stop.</li>
+</ol>
+<h2 id="dmg-channel-2-length-wave-duty-and-envelope-control"><a class="header" href="#dmg-channel-2-length-wave-duty-and-envelope-control">DMG Channel 2 Length, Wave Duty and Envelope Control</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x068</td><td>REG_SOUND2CNT_L</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>5-0</td><td>Sound length</td><td>W</td></tr>
+<tr><td>7-6</td><td>Wave duty cycle: <br> 00=12.5% <br> 01=25% <br> 10=50% <br> 11=75%</td><td>RW</td></tr>
+<tr><td>A-8</td><td>Envelope step time</td><td>RW</td></tr>
+<tr><td>B</td><td>Envelope mode: <br> 0=Envelope decreases <br> 1=Envelope increases</td><td>RW</td></tr>
+<tr><td>F-C</td><td>Initial envelope value</td><td>RW</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>The sound length is an 6 bit value obtained from the following formula: Sound length= (64-register value)*(1/256) seconds.</li>
+<li>After the sound length has been changed, the sound channel must be resetted via bit F of REG_SOUND2CNT_H (when using timed mode).</li>
+<li>Wave duty cycle control the percentage of the ON state of the square wave.</li>
+<li>The envelope step time is the delay between successive envelope increase or decrease. It is given by the following formula: T=register value*(1/64) seconds.</li>
+<li>Envelope mode control if the envelope is to increase or decrease in volume over time.</li>
+<li>The initial volume of the envelope is controlled by bit F-C. 1111 produces the maximum volume and 0000 mutes the sound.</li>
+</ol>
+<h2 id="dmg-channel-2-frequency-reset-and-loop-control"><a class="header" href="#dmg-channel-2-frequency-reset-and-loop-control">DMG Channel 2 Frequency, Reset and Loop Control</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x06C</td><td>REG_SOUND2CNT_H</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>A-0</td><td>Sound frequency</td><td>W</td></tr>
+<tr><td>D-B</td><td>Unused</td><td></td></tr>
+<tr><td>E</td><td>Timed mode: <br> 0=continuous, 1=timed</td><td>RW</td></tr>
+<tr><td>F</td><td>Sound Reset</td><td>W</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>Frequency can be calculated from the following formula: F(Hz)=4194304/(32*(2048-register value)). The minimum frequency is 64Hz and the maximum is 131Khz.</li>
+<li>When Bit E (Timed mode) is set to 0, sound 2 is played continuously regardless of the length data in REG_SOUND2CNT_L. When set to 1, sound is played for that specified length and after that, bit 1 of REG_SOUNDCNT_X is reset.</li>
+<li>When bit F is set to 1, the envelope is resetted to its initial value and sound restarts at the specified frequency.</li>
+<li>Frequency can always be changed without resetting the sound. However, when in continuous mode, alway set the sound lenght to zero after changing the frequency. Otherwise, the sound may stop.</li>
+</ol>
+<h2 id="dmg-channel-3-enable-and-wave-ram-bank-control"><a class="header" href="#dmg-channel-3-enable-and-wave-ram-bank-control">DMG Channel 3 Enable and Wave RAM Bank Control</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x070</td><td>REG_SOUND3CNT_L</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>4-0</td><td>Unused</td><td></td></tr>
+<tr><td>5</td><td>Bank Mode (0=2x32, 1=1x64)</td><td>RW</td></tr>
+<tr><td>6</td><td>Bank Select (Non set bank is written to)</td><td>RW</td></tr>
+<tr><td>7</td><td>Sound Channel 3 output enable</td><td>RW</td></tr>
+<tr><td>F-8</td><td>Unused</td><td></td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>The sound channel 3 is a circuit that can produce an arbitrary wave pattern. Samples are 4 bit, 8 samples per word, and are located in Wave Ram registers from 0x400090 to 0x40009F.</li>
+<li>In the Gameboy Advance, the Wave Ram is banked, providing the ability to play a 64 samples pattern or to select between two 32 samples patterns (Bit 5). Sound channel 3 always produces some audio artifacts (distortion) when sound is initialized. Fortunately, switching banks does not require re-initialisation during playback, thus allowing for dynamic reloading of the Wave Ram without generating any distortion.</li>
+<li>Bit 6 controls which bank is active for playing/reloading. If set to 0, samples are played from bank 0 and writing to the Wave Ram will store the data in Bank 1 and vice-versa.</li>
+<li>When bit 7 is set and Initial flag (Bit 15) from REG_SOUND3CNT_X is set, the wave pattern starts to play.</li>
+<li>Both banks of Wave Ram are filled with zero upon initialization of the Gameboy, Bank 0 being selected. So writing to bank 0 implies setting bit 6 to 1 before loading Wave Ram then set it back to 0 to play it. Most emulator currently ignore banks.</li>
+</ol>
+<h2 id="dmg-channel-3-sound-length-and-output-level-control"><a class="header" href="#dmg-channel-3-sound-length-and-output-level-control">DMG Channel 3 Sound Length and Output Level Control</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x072</td><td>REG_SOUND3CNT_H</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>7-0</td><td>Sound length</td><td>W</td></tr>
+<tr><td>C-8</td><td>Unused</td><td></td></tr>
+<tr><td>F-D</td><td>Ouput volume ratio: <br> 000=Mute <br> 001=100% <br> 100=75% <br> 010=50% <br> 011=25%</td><td>RW</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>The sound length is an 8 bit value obtained from the following formula: Register=Note length(in seconds)*256, hence a 1 second maximum and a 3.9 millisecond minimum sound duration.</li>
+<li>After the sound length has be changed, the sound channel must be resetted via bit F of REG_SOUND3CNT_H (when using timed mode).</li>
+</ol>
+<h2 id="dmg-channel-3-frequency-reset-and-loop-control"><a class="header" href="#dmg-channel-3-frequency-reset-and-loop-control">DMG Channel 3 Frequency, Reset and Loop Control</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x074</td><td>REG_SOUND3CNT_X</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>A-0</td><td>Sound frequency</td><td>W</td></tr>
+<tr><td>D-B</td><td>Unused</td><td></td></tr>
+<tr><td>E</td><td>Timed mode: <br> 0=continuous, 1=timed</td><td>RW</td></tr>
+<tr><td>F</td><td>Sound Reset</td><td>W</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>Frequency can be calculated from the following formula: F(Hz)=4194304/(32*(2048-register value)). The minimum frequency is 64Hz and the maximum is 131Khz.</li>
+<li>When Bit E (Timed mode) is set to 0, sound 3 is played continuously regardless of the length data in REG_SOUND3CNT_H. When set to 1, sound is played for that specified length and after that, bit 2 of REG_SOUNDCNT_X is reset.</li>
+<li>When bit F is set to 1, sound resets and restarts at the specified frequency. Frequency and sound reset must be performed in a single write since both are write only.</li>
+<li>Note that in continuous mode, frequency can be changed without resetting the sound channel. However, when in continuous mode, alway set the sound lenght to zero after changing the frequency. Otherwise, the sound may stop.</li>
+</ol>
+<h2 id="dmg-channel-3-wave-ram-registers"><a class="header" href="#dmg-channel-3-wave-ram-registers">DMG Channel 3 Wave RAM Registers</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x090-0x09F</td><td>REG_WAVERAM0-3</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>3-0</td><td>4-bit sample 0</td><td>RW</td></tr>
+<tr><td>7-4</td><td>4-bit sample 1</td><td>RW</td></tr>
+<tr><td>B-8</td><td>4-bit sample 2</td><td>RW</td></tr>
+<tr><td>F-C</td><td>4-bit sample 3</td><td>RW</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>Wave ram spans four 32 bit registers.</li>
+<li>Take into account that ARM store 32bit words in little-indian format. So if you load REG_WAVERAM0=0x01234567, in reality, the sample played will be 6-7-4-5-2-3-0-1.</li>
+</ol>
+<h2 id="dmg-channel-4-length-output-level-and-envelope-control"><a class="header" href="#dmg-channel-4-length-output-level-and-envelope-control">DMG Channel 4 Length, Output Level and Envelope Control</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x78</td><td>REG_SOUND4CNT_L</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>5-0</td><td>Sound length</td><td>W</td></tr>
+<tr><td>7-6</td><td>Unused</td><td></td></tr>
+<tr><td>A-8</td><td>Envelope step time</td><td>RW</td></tr>
+<tr><td>B</td><td>Envelope mode: <br> 0=Envelope decreases <br> 1=Envelope increases</td><td>RW</td></tr>
+<tr><td>F-C</td><td>Initial envelope value</td><td>RW</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>The sound length is an 6 bit value obtained from the following formula: Sound length= (64-register value)*(1/256) seconds.</li>
+<li>After the sound length has been changed, the sound channel must be resetted via bit F of REG_SOUND4CNT_H (when using timed mode).</li>
+<li>The envelope step time is the delay between successive envelope increase or decrease. It is given by the following formula: T=register value*(1/64) seconds.</li>
+<li>Envelope mode control if the envelope is to increase or decrease in volume over time.</li>
+<li>The initial volume of the envelope is controlled by bit F-C. 1111 produces the maximum volume and 0000 mutes the sound.</li>
+</ol>
+<h2 id="dmg-channel-4-noise-parameters-reset-and-loop-control"><a class="header" href="#dmg-channel-4-noise-parameters-reset-and-loop-control">DMG Channel 4 Noise Parameters, Reset and Loop Control</a></h2>
+<table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
+<tr><td>0x07C</td><td>REG_SOUND4CNT_H</td></tr>
+</tbody></table>
+<table><thead><tr><th>Bit(s)</th><th>Effect</th><th>Access</th></tr></thead><tbody>
+<tr><td>2-0</td><td>Clock divider frequency (with f=4.194304 Mhz/8) <br> 000: f*2 <br> 001: f <br> 010: f/2 <br> 011: f/3 <br> 100: f/4 <br> 101: f/5 <br> 110: f/6 <br> 111: f/7</td><td>RW</td></tr>
+<tr><td>3</td><td>Counter stages: <br> 0=15 stages, 1=7 stages</td><td>RW</td></tr>
+<tr><td>7-4</td><td>Counter Pre-Stepper frequency (with Q=clock divider's output frequency): <br> 0000: Q/2 <br> 0001: Q/2^2 <br> 0010: Q/2^3 <br> 0011: Q/2^4 <br> .... <br> 1101: Q/2^14 <br> 1110: Not used <br> 1111: Not used</td><td>RW</td></tr>
+<tr><td>D-8</td><td>Unused</td><td></td></tr>
+<tr><td>E</td><td>Timed mode: <br> 0=continuous, 1=timed</td><td>RW</td></tr>
+<tr><td>F</td><td>Sound Reset</td><td>W</td></tr>
+</tbody></table>
+<p><em>Notes</em></p>
+<ol>
+<li>Channel 4 produces pseudo-noise generated by a polynomial counter. It is based on a 7/15 stages linear-feedback shift register (LFSR). LFSR counts in a pseudo-random order where each state is generated once and only once during the whole count sequence. The sound is produced by the least significant bit's output stage.</li>
+<li>A Clock divider controlled by bits 0-2 divides the CPU frequency. Its output is then fed into the counter's pre-scaler (controlled by bits 4-7) which divides further more the frequency.</li>
+<li>The Counter stages controls the period of the polynomial counter. It is given by (2^n)-1 where n=number of stages. So for n=7, the pseudo-noise period lasts 63 input clocks. After that, the counter restarts the same count sequence.</li>
+<li>When Bit E (Timed mode) is set to 0, sound 4 is played continuously regardless of the length data in REG_SOUND4CNT_L. When set to 1, sound is played for that specified length and after that, bit 3 of REG_SOUNDCNT_X is reset.</li>
+<li>When bit F is set to 1, Envelope is set to initial value, the LFSR count sequence is resetted and the sound restarts.</li>
+<li>Note that in continuous mode, all parameters can be changed but sound need to be resetted when modifying the envelope initial volume or the clock divider for changes to take effects.</li>
+</ol>
+<h2 id="acronyms-used"><a class="header" href="#acronyms-used">Acronyms used</a></h2>
+<table><thead><tr><th>Acronym</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>DAC</td><td>Digital-to-Analog Converters</td></tr>
+<tr><td>DMA</td><td>Direct Memory Access</td></tr>
+<tr><td>DMG</td><td>The original gameboy (Dot Matrix Game)</td></tr>
+<tr><td>FIFO</td><td>First-In-First-Out</td></tr>
+</tbody></table>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="acknowledgements"><a class="header" href="#acknowledgements">Acknowledgements</a></h1>
 <p>The following are individuals who contributed info or corrections on the original CowBiteSpec document.</p>
 <ul>
 <li>Tom Happ</li>
@@ -356,14 +1084,13 @@ Video Modes</p>
 <li>Uze from BeLogic for all the great information on the GBA's sound!</li>
 <li>Andrew May for his site on GBA serial data</li>
 </ul>
+<p>Thank you to Alec Bourque for allowing us to use all assets of The Audio Advance in this documentation.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
 
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -371,49 +1098,36 @@ Video Modes</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
 
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-        
 
-        
 
-        
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
 
         <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-        
 
-        
-        
         <script type="text/javascript">
         window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
         });
         </script>
-        
-        
 
     </body>
 </html>

@@ -1,0 +1,253 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Sound Channel 1 - gbadoc</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Documents the workings of the Game Boy Advance hardware">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../intro.html">Intro</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../graphics.html"><strong aria-hidden="true">2.</strong> Graphics Hardware</a></li><li class="chapter-item expanded "><a href="../audio/introduction.html"><strong aria-hidden="true">3.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../audio/directsound.html"><strong aria-hidden="true">3.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="../audio/sound1.html" class="active"><strong aria-hidden="true">3.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="../audio/sound2.html"><strong aria-hidden="true">3.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="../audio/sound3.html"><strong aria-hidden="true">3.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="../audio/sound4.html"><strong aria-hidden="true">3.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="../audio/registers.html"><strong aria-hidden="true">3.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="../ack.html"><strong aria-hidden="true">4.</strong> Acknowledgements</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">gbadoc</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="sound-channel-1"><a class="header" href="#sound-channel-1">Sound Channel 1</a></h1>
+<p>Sound channel 1 produces square waves with variable duty cycle, frequency sweep and envelope functions. It is often referred as a quadrangular wave pattern.</p>
+<p>Frequency sweeps allows &quot;portamento&quot;-like effects where the frequency raises or decreases during playback. The amount of increase or decrease in frequency (or sweep shifts) and the rate at which it occurs (sweep time) is controllable. Frequency sweeps are controlled by REG_SOUND1CNT_L</p>
+<p>Sweep shifts are controlled by bits 0-2 and are calculated with the following formula:</p>
+<p>\( T = T \pm \frac{T}{2^n} \) where T = Wave Period and n = Sweep Shifts</p>
+<p>Sweep time (Ts) controls the delay between sweep shifts and is controlled by bits 4-6:</p>
+<ul>
+<li>000: Sweep function is off</li>
+<li>001: Ts=1 / 128Khz (7.8 ms)</li>
+<li>010: Ts=2 / 128Khz (15.6 ms)</li>
+<li>011: Ts=3 / 128Khz (23.4 ms)</li>
+<li>100: Ts=4 / 128Khz (31.3 ms)</li>
+<li>101: Ts=5 / 128Khz (39.1 ms)</li>
+<li>110: Ts=6 / 128Khz (46.9 ms)</li>
+<li>111: Ts=7 / 128Khz (54.7 ms)</li>
+</ul>
+<p>At each sweep shift, frequency can either increase (bit 3=0) or decrease (bit 3=1).</p>
+<p>Next is an example of frequency sweeps when REG_SOUND1CNT_L=0x0079 (sweep shifts=1 and sweep time=54.7 ms) and the initial frequency from REG_SOUND1CNT_X=0x0400 (~128Hz, 7.8 ms period).</p>
+<p><img src="images/sweeps.gif" alt="Sweeps example" /></p>
+<p>In the above example, frequency decreases gradually. Note that sweep shifts are repeatedly performed until the new value becomes either less than 0 (the previous value is then retained) or, when incrementing, if the new frequency value exceeds the maximum frequency (131Khz or 2048 in register value). In the latter case, the sound would then stop and DMG Sound 1 status bit from REG_SOUNDCNT_X would be reset. When either sweep shifts or sweep time is zero, the frequency remains unchanged. When the sweep function is not required, set sweep shifts and sweep time to zero and set the increase/decrease bit to 1 or otherwise, sometimes, no sound will be played.</p>
+<p>The envelope function allows for fade-ins or fade-outs of the sound. It has a 4-bit resolution so it can produce 16 different amplitude levels (steps). The delay between step change (step time) is controlled by bits 8-10 of REG_SOUND1CNT_H. The duration of one step is given by: T= step time*(1/64) sec, hence a maximum fade time of ~1.64 seconds. When the step time is 0, the envelope function is disabled.</p>
+<p>Bit 11 of REG_SOUND1CNT_H controls the envelope direction: 0=envelope decreases and 1=envelope increases.</p>
+<p>The initial value of the envelope is stored in bits 12-15 of REG_SOUND1CNT_H. When decreasing, if the volume reaches 0000, the sound is muted. When increasing, if the volume reaches 1111, the envelope function stops and the volume remains at that level.</p>
+<p><img src="images/envelope.gif" alt="Envelope example" /></p>
+<p>Envelope example for REG_SOUND1CNT_H=0x7400</p>
+<p>Sound 1 can be set to either play for a specified duration or continuously. This is controlled by bit 14 of REG_SOUND1CNT_X. When set to 0 (continuous mode), sound is played continuously regardless of the length data in REG_SOUND1CNT_H. When set to 1 (timed mode), sound is played for that specified length and after that the DMG Sound 1 status bit of REG_SOUNDCNT_X is reset.</p>
+<p>The sound length (bits 0-5 of REG_SOUND1CNT_H) is a value obtained from the following formula:</p>
+<p><strong>Sound length = (64-register value)*(1/256) seconds</strong></p>
+<p>When using timed mode, after the sound length has be changed, the sound channel must be resetted via bit 15 of REG_SOUND1CNT_X.</p>
+<p>Frequency (bits 0-10 of REG_SOUND1CNT_X) can be calculated from the following formula:</p>
+<p><strong>F(Hz) = 4194304/(32*(2048-register value)). The minimum frequency is 64Hz and the maximum is 131Khz.</strong></p>
+<p>The duty cycle is the ratio of the duration (time) that a signal is ON versus the total period of the signal. The longer it is ON the greater the duty cycle. Sound channel 1 support 4 different duty cycles, which produces very distinctive sounds. Duty cycle is controlled by bit 6-7 of REG_SOUND1CNT_H.</p>
+<p>Possible duty cycles:</p>
+<p><img src="images/waveduty.gif" alt="Wave duty example" /></p>
+<p>All parameters can be changed dynamically while the sound is playing. The envelope initial volume parameter does not have any effects (except when set to zero) until the sound is resetted. Also, resetting the sound does not reset the oscillator (i.e.:square wave pattern is continuous) although the period is slightly longer for the cycle generated during reset (usually +~500us).</p>
+<h2 id="sound-channel-1-demo"><a class="header" href="#sound-channel-1-demo">Sound Channel 1 Demo</a></h2>
+<p><img src="images/demos1.gif" alt="Demo 1 example" /></p>
+<p>A comprehensive demo is included. It shows all features of sound channel 1. The demo also allows to change the resampling frequency bit contained in REG_SOUNDBIAS. Its effects, at least on channel 1, is admittedly very subtle if not unnoticeable.</p>
+<pre><code class="language-C">#include &lt;gba.h&gt;
+
+void AgbMain(void){
+//Play a sound on channel 1
+
+//turn on sound circuit
+REG_SOUNDCNT_X = 0x80;
+//full volume, enable sound 1 to left and right
+REG_SOUNDCNT_L=0x1177;
+// Overall output ratio - Full
+REG_SOUNDCNT_H = 2;
+
+REG_SOUND1CNT_L=0x0056; //sweep shifts=6, increment, sweep time=39.1ms
+REG_SOUND1CNT_H=0xf780; //duty=50%,envelope decrement
+REG_SOUND1CNT_X=0x8400; //frequency=0x0400, loop mode
+
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../audio/directsound.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../audio/sound2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../audio/directsound.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../audio/sound2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

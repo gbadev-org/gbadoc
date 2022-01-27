@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Intro - gbadoc</title>
+        <title>Sound Channel 2 - gbadoc</title>
 
 
         <!-- Custom HTML head -->
@@ -13,21 +13,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -37,7 +37,7 @@
     <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="intro.html">Intro</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">2.</strong> Graphics Hardware</a></li><li class="chapter-item expanded "><a href="audio/introduction.html"><strong aria-hidden="true">3.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="audio/directsound.html"><strong aria-hidden="true">3.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="audio/sound1.html"><strong aria-hidden="true">3.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="audio/sound2.html"><strong aria-hidden="true">3.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="audio/sound3.html"><strong aria-hidden="true">3.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="audio/sound4.html"><strong aria-hidden="true">3.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="audio/registers.html"><strong aria-hidden="true">3.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">4.</strong> Acknowledgements</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../intro.html">Intro</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../graphics.html"><strong aria-hidden="true">2.</strong> Graphics Hardware</a></li><li class="chapter-item expanded "><a href="../audio/introduction.html"><strong aria-hidden="true">3.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../audio/directsound.html"><strong aria-hidden="true">3.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="../audio/sound1.html"><strong aria-hidden="true">3.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="../audio/sound2.html" class="active"><strong aria-hidden="true">3.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="../audio/sound3.html"><strong aria-hidden="true">3.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="../audio/sound4.html"><strong aria-hidden="true">3.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="../audio/registers.html"><strong aria-hidden="true">3.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="../ack.html"><strong aria-hidden="true">4.</strong> Acknowledgements</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -115,7 +115,7 @@
                     <h1 class="menu-title">gbadoc</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -144,18 +144,52 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<p>This is a community effort to provide an open document about the Game Boy Advance (GBA).</p>
-<p>The book is provided to you under the <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">Creative Commons 0 License</a>.</p>
-<p>If you'd like to ask questions, report problems, or contribute, then go to our <a href="https://github.com/gbdev/gbadoc">GitHub Repository</a>.</p>
-<p>If you want to just chat about GBA topics you can join the <a href="https://discord.io/gbadev">GBADev Discord</a>.</p>
+                        <h1 id="sound-channel-2"><a class="header" href="#sound-channel-2">Sound Channel 2</a></h1>
+<p>Sound channel 2 produces square waves with variable duty cycle and envelope functions. Channel 2 is identical to channel 1 but without the frequency sweep function.</p>
+<p>The envelope function allows for fade-ins or fade-outs of the sound. It has a 4-bit resolution so it can produce 16 different amplitude levels (steps). The delay between step change (step time) is controlled by bits 8-10 of REG_SOUND2CNT_L. The duration of one step is given by: T= step time*(1/64) sec, hence a maximum fade time of ~1.64 seconds. When the step time is 0, the envelope function is disabled.</p>
+<p>Bit 11 of REG_SOUND2CNT_L controls the envelope direction: 0=envelope decreases and 1=envelope increases.</p>
+<p>The initial value of the envelope is stored in bits 12-15 of REG_SOUND2CNT_L. When decreasing, if the volume reaches 0000, the sound is muted. When increasing, if the volume reaches 1111, the envelope function stops and the volume remains at that level.</p>
+<p><img src="images/envelope.gif" alt="Envelope example" /></p>
+<p>Envelope example for REG_SOUND2CNT_L=0x7400.</p>
+<p>Sound 2 can be set to either play for a specified duration or continuously. This is controlled by bit 14 of REG_SOUND2CNT_H. When set to 0 (continuous mode), sound is played continuously regardless of the length data in REG_SOUND2CNT_L. When set to 1 (timed mode), sound is played for that specified length and after that the DMG Sound 2 status bit of REG_SOUNDCNT_X is reset.</p>
+<p>The sound length (bits 0-5 of REG_SOUND2CNT_L) is a value obtained from the following formula:</p>
+<p><strong>Sound length = (64-register value)*(1/256) seconds</strong></p>
+<p>When using timed mode, after the sound length has be changed, the sound channel must be resetted via bit 15 of REG_SOUND2CNT_H.</p>
+<p>Frequency (bits 0-10 of REG_SOUND2CNT_H) can be calculated from the following formula:</p>
+<p><strong>F(Hz) = 4194304/(32*(2048-register value)). The minimum frequency is 64Hz and the maximum is 131Khz.</strong></p>
+<p>The duty cycle is the ratio of the duration (time) that a signal is ON versus the total period of the signal. The longer it is ON the greater the duty cycle. Sound channel 1 support 4 different duty cycles, which produces very distinctive sounds. Duty cycle is controlled by bit 6-7 of REG_SOUND2CNT_L.</p>
+<p>Possible duty cycles:</p>
+<p><img src="images/waveduty.gif" alt="Wave duty example" /></p>
+<p>All parameters can be changed dynamically while the sound is playing. The envelope initial volume parameter does not have any effects (except when set to zero) until the sound is resetted. Also, resetting the sound does not reset the oscillator (i.e.:square wave pattern is continuous) although the period is slightly longer for the cycle generated during reset (usually +~500us).</p>
+<h2 id="sound-channel-2-demo"><a class="header" href="#sound-channel-2-demo">Sound Channel 2 Demo</a></h2>
+<p><img src="images/demos1.gif" alt="Demo 1 example" /></p>
+<pre><code class="language-C">#include &lt;gba.h&gt;
+
+void AgbMain(void){
+//Play a sound on channel 2
+
+//turn on sound circuit
+REG_SOUNDCNT_X = 0x80;
+//full volume, enable sound 2 to left and right
+REG_SOUNDCNT_L=0x2277;
+// Overall output ratio - Full
+REG_SOUNDCNT_H = 2;
+
+REG_SOUND2CNT_L=0xf780; //duty=50%,envelope decrement
+REG_SOUND2CNT_H=0x8400; //frequency=0x0400, loop mode
+
+}
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../audio/sound1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
-                            <a rel="next" href="overview.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../audio/sound3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -165,8 +199,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../audio/sound1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
-                    <a rel="next" href="overview.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../audio/sound3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -181,13 +218,13 @@
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
 
