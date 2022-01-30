@@ -6,7 +6,7 @@ The pseudo-noise pattern playback frequency can be controlled by a 3-bit clock d
 
 Selection of the clock divider is done by bits 0-2 of REG_SOUND4CNT_H, where f=4.194304 Mhz/8:
 
-- 000: f*2
+- 000: f\*2
 - 001: f
 - 010: f/2
 - 011: f/3
@@ -48,37 +48,37 @@ When initialized, all shift registers are set to 1. On each clock pulse, bits ar
 
 **Counter steps**
 
-| | | | | | | |
-|-|-|-|-|-|-|-|
-|1|1|1|1|1|1|1|
-|0|1|1|1|1|1|1|
-|0|0|1|1|1|1|1|
-|0|0|0|1|1|1|1|
-|0|0|0|0|1|1|1|
-|0|0|0|0|0|1|1|
-|0|0|0|0|0|0|1|
-|1|0|0|0|0|0|0|
-|0|1|0|0|0|0|0|
-|0|0|1|0|0|0|0|
-|0|0|0|1|0|0|0|
-|0|0|0|0|1|0|0|
-|0|0|0|0|0|1|0|
-|1|0|0|0|0|0|1|
-|1|1|0|0|0|0|0|
-|0|1|1|0|0|0|0|
-|0|0|1|1|0|0|0|
-|0|0|0|1|1|0|0|
-|0|0|0|0|1|1|0|
-|1|0|0|0|0|1|1|
-|0|1|0|0|0|0|1|
-|1|0|1|0|0|0|0|
-|0|1|0|1|0|0|0|
-|0|0|1|0|1|0|0|
-|0|0|0|1|0|1|0|
-|1|0|0|0|1|0|1|
-|1|1|0|0|0|1|0|
-|1|1|1|0|0|0|1|
-|1|1|1|1|0|0|0|
+|     |     |     |     |     |     |     |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1   | 1   | 1   | 1   | 1   | 1   | 1   |
+| 0   | 1   | 1   | 1   | 1   | 1   | 1   |
+| 0   | 0   | 1   | 1   | 1   | 1   | 1   |
+| 0   | 0   | 0   | 1   | 1   | 1   | 1   |
+| 0   | 0   | 0   | 0   | 1   | 1   | 1   |
+| 0   | 0   | 0   | 0   | 0   | 1   | 1   |
+| 0   | 0   | 0   | 0   | 0   | 0   | 1   |
+| 1   | 0   | 0   | 0   | 0   | 0   | 0   |
+| 0   | 1   | 0   | 0   | 0   | 0   | 0   |
+| 0   | 0   | 1   | 0   | 0   | 0   | 0   |
+| 0   | 0   | 0   | 1   | 0   | 0   | 0   |
+| 0   | 0   | 0   | 0   | 1   | 0   | 0   |
+| 0   | 0   | 0   | 0   | 0   | 1   | 0   |
+| 1   | 0   | 0   | 0   | 0   | 0   | 1   |
+| 1   | 1   | 0   | 0   | 0   | 0   | 0   |
+| 0   | 1   | 1   | 0   | 0   | 0   | 0   |
+| 0   | 0   | 1   | 1   | 0   | 0   | 0   |
+| 0   | 0   | 0   | 1   | 1   | 0   | 0   |
+| 0   | 0   | 0   | 0   | 1   | 1   | 0   |
+| 1   | 0   | 0   | 0   | 0   | 1   | 1   |
+| 0   | 1   | 0   | 0   | 0   | 0   | 1   |
+| 1   | 0   | 1   | 0   | 0   | 0   | 0   |
+| 0   | 1   | 0   | 1   | 0   | 0   | 0   |
+| 0   | 0   | 1   | 0   | 1   | 0   | 0   |
+| 0   | 0   | 0   | 1   | 0   | 1   | 0   |
+| 1   | 0   | 0   | 0   | 1   | 0   | 1   |
+| 1   | 1   | 0   | 0   | 0   | 1   | 0   |
+| 1   | 1   | 1   | 0   | 0   | 0   | 1   |
+| 1   | 1   | 1   | 1   | 0   | 0   | 0   |
 
 ![LFSR output example](images/lfsroutput.gif)
 
@@ -95,18 +95,21 @@ By looking at s1 output (the the least significant bit), we can see it matches t
 ```C
 #include <gba.h>
 
-void AgbMain(void){
-//Play a sound on channel 4
+void AgbMain(void) {
+  //Play a sound on channel 4
 
-//turn on sound circuit
-REG_SOUNDCNT_X = 0x80;
-//full volume, enable sound 4 to left and right
-REG_SOUNDCNT_L=0x4477;
-// Overall output ratio - Full
-REG_SOUNDCNT_H = 2;
+  //turn on sound circuit
+  REG_SOUNDCNT_X = 0x80;
+  //full volume, enable sound 4 to left and right
+  REG_SOUNDCNT_L = 0x4477;
+  // Overall output ratio - Full
+  REG_SOUNDCNT_H = 2;
 
-REG_SOUND4CNT_L=0xf700; //envellope decay, initial vol max
-REG_SOUND4CNT_H=0x8032; //Loop mode, clk div:6, 7-stage,pre-scaler:3
+
+  //envellope decay, initial vol max
+  REG_SOUND4CNT_L = 0xf700;
+  //Loop mode, clk div:6, 7-stage,pre-scaler:3
+  REG_SOUND4CNT_H = 0x8032;
 
 }
 ```

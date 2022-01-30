@@ -27,7 +27,7 @@ Next is an example of frequency sweeps when REG_SOUND1CNT_L=0x0079 (sweep shifts
 
 In the above example, frequency decreases gradually. Note that sweep shifts are repeatedly performed until the new value becomes either less than 0 (the previous value is then retained) or, when incrementing, if the new frequency value exceeds the maximum frequency (131Khz or 2048 in register value). In the latter case, the sound would then stop and DMG Sound 1 status bit from REG_SOUNDCNT_X would be reset. When either sweep shifts or sweep time is zero, the frequency remains unchanged. When the sweep function is not required, set sweep shifts and sweep time to zero and set the increase/decrease bit to 1 or otherwise, sometimes, no sound will be played.
 
-The envelope function allows for fade-ins or fade-outs of the sound. It has a 4-bit resolution so it can produce 16 different amplitude levels (steps). The delay between step change (step time) is controlled by bits 8-10 of REG_SOUND1CNT_H. The duration of one step is given by: T= step time*(1/64) sec, hence a maximum fade time of ~1.64 seconds. When the step time is 0, the envelope function is disabled.
+The envelope function allows for fade-ins or fade-outs of the sound. It has a 4-bit resolution so it can produce 16 different amplitude levels (steps). The delay between step change (step time) is controlled by bits 8-10 of REG_SOUND1CNT_H. The duration of one step is given by: T= step time\*(1/64) sec, hence a maximum fade time of ~1.64 seconds. When the step time is 0, the envelope function is disabled.
 
 Bit 11 of REG_SOUND1CNT_H controls the envelope direction: 0=envelope decreases and 1=envelope increases.
 
@@ -66,19 +66,23 @@ A comprehensive demo is included. It shows all features of sound channel 1. The 
 ```C
 #include <gba.h>
 
-void AgbMain(void){
-//Play a sound on channel 1
+void AgbMain(void) {
+  //Play a sound on channel 1
 
-//turn on sound circuit
-REG_SOUNDCNT_X = 0x80;
-//full volume, enable sound 1 to left and right
-REG_SOUNDCNT_L=0x1177;
-// Overall output ratio - Full
-REG_SOUNDCNT_H = 2;
+  //turn on sound circuit
+  REG_SOUNDCNT_X = 0x80;
+  //full volume, enable sound 1 to left and right
+  REG_SOUNDCNT_L = 0x1177;
+  // Overall output ratio - Full
+  REG_SOUNDCNT_H = 2;
 
-REG_SOUND1CNT_L=0x0056; //sweep shifts=6, increment, sweep time=39.1ms
-REG_SOUND1CNT_H=0xf780; //duty=50%,envelope decrement
-REG_SOUND1CNT_X=0x8400; //frequency=0x0400, loop mode
+  //sweep shifts=6, increment, sweep time=39.1ms
+  REG_SOUND1CNT_L = 0x0056;
+
+  //duty=50%,envelope decrement
+  REG_SOUND1CNT_H = 0xf780;
+  //frequency=0x0400, loop mode
+  REG_SOUND1CNT_X = 0x8400;
 
 }
 ```

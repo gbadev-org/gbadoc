@@ -2,7 +2,7 @@
 
 Sound channel 2 produces square waves with variable duty cycle and envelope functions. Channel 2 is identical to channel 1 but without the frequency sweep function.
 
-The envelope function allows for fade-ins or fade-outs of the sound. It has a 4-bit resolution so it can produce 16 different amplitude levels (steps). The delay between step change (step time) is controlled by bits 8-10 of REG_SOUND2CNT_L. The duration of one step is given by: T= step time*(1/64) sec, hence a maximum fade time of ~1.64 seconds. When the step time is 0, the envelope function is disabled.
+The envelope function allows for fade-ins or fade-outs of the sound. It has a 4-bit resolution so it can produce 16 different amplitude levels (steps). The delay between step change (step time) is controlled by bits 8-10 of REG_SOUND2CNT_L. The duration of one step is given by: T= step time\*(1/64) sec, hence a maximum fade time of ~1.64 seconds. When the step time is 0, the envelope function is disabled.
 
 Bit 11 of REG_SOUND2CNT_L controls the envelope direction: 0=envelope decreases and 1=envelope increases.
 
@@ -39,18 +39,20 @@ All parameters can be changed dynamically while the sound is playing. The envelo
 ```C
 #include <gba.h>
 
-void AgbMain(void){
-//Play a sound on channel 2
+void AgbMain(void) {
+  //Play a sound on channel 2
 
-//turn on sound circuit
-REG_SOUNDCNT_X = 0x80;
-//full volume, enable sound 2 to left and right
-REG_SOUNDCNT_L=0x2277;
-// Overall output ratio - Full
-REG_SOUNDCNT_H = 2;
+  //turn on sound circuit
+  REG_SOUNDCNT_X = 0x80;
+  //full volume, enable sound 2 to left and right
+  REG_SOUNDCNT_L = 0x2277;
+  // Overall output ratio - Full
+  REG_SOUNDCNT_H = 2;
 
-REG_SOUND2CNT_L=0xf780; //duty=50%,envelope decrement
-REG_SOUND2CNT_H=0x8400; //frequency=0x0400, loop mode
+  //duty=50%,envelope decrement
+  REG_SOUND2CNT_L = 0xf780;
+  //frequency=0x0400, loop mode
+  REG_SOUND2CNT_H = 0x8400;
 
 }
 ```

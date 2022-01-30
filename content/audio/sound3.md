@@ -37,28 +37,29 @@ Using the main sound output control register REG_SOUNDCNT_L, and clear the left/
 ```C
 #include <gba.h>
 
-void AgbMain(void){
-//Play a continuous tone using channel 3
+void AgbMain(void) {
+  //Play a continuous tone using channel 3
 
-//turn on sound circuit
-REG_SOUNDCNT_X = 0x80;
-//full volume, enable sound 3 to left and right
-REG_SOUNDCNT_L=0x4477;
-// Overall output ratio - Full
-REG_SOUNDCNT_H = SOUND3OUTPUT1;
+  //turn on sound circuit
+  REG_SOUNDCNT_X = 0x80;
+  //full volume, enable sound 3 to left and right
+  REG_SOUNDCNT_L = 0x4477;
+  // Overall output ratio - Full
+  REG_SOUNDCNT_H = SOUND3OUTPUT1;
 
-//select bank 0 for writing (bank 1 playing)
-REG_SOUND3CNT_L = SOUND3BANK32 | SOUND3SETBANK1;
-//load the wave ram bank 0
-REG_WAVE_RAM0=0x10325476;
-REG_WAVE_RAM1=0x98badcfe;
-REG_WAVE_RAM2=0x10325476;
-REG_WAVE_RAM3=0x98badcfe;
-//select bank 0 for playing
-REG_SOUND3CNT_L = SOUND3BANK32 | SOUND3SETBANK0;
+  //select bank 0 for writing (bank 1 playing)
+  REG_SOUND3CNT_L = SOUND3BANK32 | SOUND3SETBANK1;
+  //load the wave ram bank 0
+  REG_WAVE_RAM0 = 0x10325476;
+  REG_WAVE_RAM1 = 0x98badcfe;
+  REG_WAVE_RAM2 = 0x10325476;
+  REG_WAVE_RAM3 = 0x98badcfe;
+  //select bank 0 for playing
+  REG_SOUND3CNT_L = SOUND3BANK32 | SOUND3SETBANK0;
 
-REG_SOUND3CNT_L |= SOUND3PLAY;
-REG_SOUND3CNT_H = SOUND3OUTPUT1;
-REG_SOUND3CNT_X=SOUND3INIT|SOUND3PLAYLOOP| 1046 ; //play a C-4 in loop mode
+  REG_SOUND3CNT_L |= SOUND3PLAY;
+  REG_SOUND3CNT_H = SOUND3OUTPUT1;
+  //play a C-4 in loop mode
+  REG_SOUND3CNT_X = SOUND3INIT | SOUND3PLAYLOOP | 1046;
 }
 ```
