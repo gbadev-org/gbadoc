@@ -165,18 +165,20 @@
 <p><img src="images/demos1.gif" alt="Demo 1 example" /></p>
 <pre><code class="language-C">#include &lt;gba.h&gt;
 
-void AgbMain(void){
-//Play a sound on channel 2
+void AgbMain(void) {
+  //Play a sound on channel 2
 
-//turn on sound circuit
-REG_SOUNDCNT_X = 0x80;
-//full volume, enable sound 2 to left and right
-REG_SOUNDCNT_L=0x2277;
-// Overall output ratio - Full
-REG_SOUNDCNT_H = 2;
+  //turn on sound circuit
+  REG_SOUNDCNT_X = 0x80;
+  //full volume, enable sound 2 to left and right
+  REG_SOUNDCNT_L = 0x2277;
+  // Overall output ratio - Full
+  REG_SOUNDCNT_H = 2;
 
-REG_SOUND2CNT_L=0xf780; //duty=50%,envelope decrement
-REG_SOUND2CNT_H=0x8400; //frequency=0x0400, loop mode
+  //duty=50%,envelope decrement
+  REG_SOUND2CNT_L = 0xf780;
+  //frequency=0x0400, loop mode
+  REG_SOUND2CNT_H = 0x8400;
 
 }
 </code></pre>

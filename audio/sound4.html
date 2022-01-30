@@ -219,18 +219,21 @@
 <p><a href="http://www-math.cudenver.edu/%7Ewcherowi/courses/m5410/m5410fsr.html">Theory behind LFSR</a></p>
 <pre><code class="language-C">#include &lt;gba.h&gt;
 
-void AgbMain(void){
-//Play a sound on channel 4
+void AgbMain(void) {
+  //Play a sound on channel 4
 
-//turn on sound circuit
-REG_SOUNDCNT_X = 0x80;
-//full volume, enable sound 4 to left and right
-REG_SOUNDCNT_L=0x4477;
-// Overall output ratio - Full
-REG_SOUNDCNT_H = 2;
+  //turn on sound circuit
+  REG_SOUNDCNT_X = 0x80;
+  //full volume, enable sound 4 to left and right
+  REG_SOUNDCNT_L = 0x4477;
+  // Overall output ratio - Full
+  REG_SOUNDCNT_H = 2;
 
-REG_SOUND4CNT_L=0xf700; //envellope decay, initial vol max
-REG_SOUND4CNT_H=0x8032; //Loop mode, clk div:6, 7-stage,pre-scaler:3
+
+  //envellope decay, initial vol max
+  REG_SOUND4CNT_L = 0xf700;
+  //Loop mode, clk div:6, 7-stage,pre-scaler:3
+  REG_SOUND4CNT_H = 0x8032;
 
 }
 </code></pre>

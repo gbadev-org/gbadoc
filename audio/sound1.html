@@ -184,19 +184,23 @@
 <p>A comprehensive demo is included. It shows all features of sound channel 1. The demo also allows to change the resampling frequency bit contained in REG_SOUNDBIAS. Its effects, at least on channel 1, is admittedly very subtle if not unnoticeable.</p>
 <pre><code class="language-C">#include &lt;gba.h&gt;
 
-void AgbMain(void){
-//Play a sound on channel 1
+void AgbMain(void) {
+  //Play a sound on channel 1
 
-//turn on sound circuit
-REG_SOUNDCNT_X = 0x80;
-//full volume, enable sound 1 to left and right
-REG_SOUNDCNT_L=0x1177;
-// Overall output ratio - Full
-REG_SOUNDCNT_H = 2;
+  //turn on sound circuit
+  REG_SOUNDCNT_X = 0x80;
+  //full volume, enable sound 1 to left and right
+  REG_SOUNDCNT_L = 0x1177;
+  // Overall output ratio - Full
+  REG_SOUNDCNT_H = 2;
 
-REG_SOUND1CNT_L=0x0056; //sweep shifts=6, increment, sweep time=39.1ms
-REG_SOUND1CNT_H=0xf780; //duty=50%,envelope decrement
-REG_SOUND1CNT_X=0x8400; //frequency=0x0400, loop mode
+  //sweep shifts=6, increment, sweep time=39.1ms
+  REG_SOUND1CNT_L = 0x0056;
+
+  //duty=50%,envelope decrement
+  REG_SOUND1CNT_H = 0xf780;
+  //frequency=0x0400, loop mode
+  REG_SOUND1CNT_X = 0x8400;
 
 }
 </code></pre>
