@@ -187,40 +187,55 @@
 </ul>
 <p>Sound should start immediately and will play past the sample if not stopped. You can use timer1 to count played samples and stop the sound. To do this, set timer 1 to cascade and enable irq for timer 1 and set its count to 0xffff-samples count. Your irq handler should stop the sound by disabling timer 0 and the dma channel(s).</p>
 <pre><code class="language-C">#include &quot;gba.h&quot;
-extern const u32 _binary_lo1234_pcm_start[]; //the sample. its a pcm wave file converted to an elf file with objcopyroda.exe (devrs.com/gba)
 
-void InterruptProcess(void) __attribute__ ((section(&quot;.iwram&quot;))); //the interrupt handler from crt0.s
+//the sample. its a pcm wave file converted to an elf file with objcopyroda.exe (devrs.com/gba)
+extern const u32 _binary_lo1234_pcm_start[];
 
-void InterruptProcess(void){
-//sample finished!,stop Direct sound
-REG_TM0CNT_H=0; //disable timer 0
-REG_DMA1CNT_H=0; //stop DMA
+//the interrupt handler from crt0.s
+void InterruptProcess(void) __attribute__((section(&quot;.iwram&quot;)));
 
-//clear the interrupt(s)
-REG_IF |= REG_IF;
-}
+void InterruptProcess(void) {
+    //sample finished!,stop Direct sound
+    REG_TM0CNT_H = 0; //disable timer 0
+    REG_DMA1CNT_H = 0; //stop DMA
+
+    //clear the interrupt(s)
+    REG_IF |= REG_IF;
 
 
-void AgbMain (void){
-//play a mono sound at 16khz
-//uses timer 0 as sampling rate source
-//uses timer 1 to count the samples played in order to stop the sound
-REG_SOUNDCNT_H=0x0b0F; //enable DS A&amp;B + fifo reset + use timer0 + max volume to L and R
-REG_SOUNDCNT_X=0x0080; //turn sound chip on
+void AgbMain(void) {
+    //play a mono sound at 16khz
+    //uses timer 0 as sampling rate source
+    //uses timer 1 to count the samples played in order to stop the sound
 
-REG_DMA1SAD=(unsigned long)_binary_lo1234_pcm_start; //dma1 source
-REG_DMA1DAD=0x040000a0; //write to FIFO A address
-REG_DMA1CNT_H=0xb600; //dma control: DMA enabled+ start on FIFO+32bit+repeat+increment source&amp;dest
+    //enable DS A&amp;B + fifo reset + use timer0 + max volume to L and R
+    REG_SOUNDCNT_H = 0x0b0F;
+    //turn sound chip on
+    REG_SOUNDCNT_X = 0x0080;
 
-REG_TM1CNT_L=0x7098; //0xffff-the number of samples to play
-REG_TM1CNT_H=0xC4; //enable timer1 + irq and cascade from timer 0
+    //dma1 source
+    REG_DMA1SAD = (unsigned long) _binary_lo1234_pcm_start;
+    //write to FIFO A address
+    REG_DMA1DAD = 0x040000a0;
+    //dma control: DMA enabled+ start on FIFO+32bit+repeat+increment source&amp;dest
+    REG_DMA1CNT_H = 0xb600;
 
-REG_IE=0x10; //enable irq for timer 1
-REG_IME=1; //master enable interrupts
+    //0xffff-the number of samples to play
+    REG_TM1CNT_L = 0x7098;
+    //enable timer1 + irq and cascade from timer 0
+    REG_TM1CNT_H = 0xC4;
 
-//Formula for playback frequency is: 0xFFFF-round(cpuFreq/playbackFreq)
-REG_TM0CNT_L=0xFBE8; //16khz playback freq
-REG_TM0CNT_H=0x0080; //enable timer0
+    //enable irq for timer 1
+    REG_IE = 0x10;
+    //master enable interrupts
+    REG_IME = 1;
+
+    //Formula for playback frequency is: 0xFFFF-round(cpuFreq/playbackFreq)
+
+    //16khz playback freq
+    REG_TM0CNT_L = 0xFBE8;
+    //enable timer0
+    REG_TM0CNT_H = 0x0080;
 
 }
 </code></pre>
@@ -247,38 +262,48 @@ REG_TM0CNT_H=0x0080; //enable timer0
 </li>
 </ul>
 <pre><code class="language-C">#include &quot;gba.h&quot;
-extern const u32 _binary_lo1234_pcm_start[]; //the sample. its an pcm wave file converted to an elf file with objcopyroda.exe (devrs.com/gba)
-void InterruptProcess(void) __attribute__ ((section(&quot;.iwram&quot;)));//the interrupt handler from crt0.s
 
-int iNextSample=0;
-int SampleSize=36712;
+//the sample. its an pcm wave file converted to an elf file with objcopyroda.exe (devrs.com/gba)
+extern const u32 _binary_lo1234_pcm_start[];
+//the interrupt handler from crt0.s
+void InterruptProcess(void) __attribute__((section(&quot;.iwram&quot;)));
 
-void InterruptProcess(void){
-//load FIFO each 4 samples with 4 bytes
-if(!(iNextSample&amp;3))REG_SGFIFOA=_binary_lo1234_pcm_start[iNextSample&gt;&gt;2];
+int iNextSample = 0;
+int SampleSize = 36712;
 
-iNextSample++;
+void InterruptProcess(void) {
+  //load FIFO each 4 samples with 4 bytes
+  if (!(iNextSample &amp; 3)) REG_SGFIFOA = _binary_lo1234_pcm_start[iNextSample &gt;&gt; 2];
 
-if(iNextSample&gt;SampleSize){
+  iNextSample++;
+
+  if (iNextSample &gt; SampleSize) {
     //sample finished!
-    REG_TM0CNT_H=0; //disable timer 0
+    REG_TM0CNT_H = 0; //disable timer 0
+  }
+  //clear the interrupt(s)
+  REG_IF |= REG_IF;
 }
-//clear the interrupt(s)
-REG_IF |= REG_IF;
-}
-void AgbMain(void){
-//play a sample at 16Khz using interrupt mode
-REG_SOUNDCNT_H=0x0B0F; //DirectSound A + fifo reset + max volume to L and R
-REG_SOUNDCNT_X=0x0080; //turn sound chip on
 
-REG_IE=0x8; //enable timer 0 irq
-REG_IME=1; //enable interrupts
+void AgbMain(void) {
+    //play a sample at 16Khz using interrupt mode
 
-/*set playback frequency. note: using anything else thank clock multipliers to serve as sample frequencies tends to generate distortion in the output. It has probably to do with timing and FIFO reloading. More testing need to be done. */
+    //DirectSound A + fifo reset + max volume to L and R
+    REG_SOUNDCNT_H = 0x0B0F;
 
-REG_TM0CNT_L=0xffff;
-REG_TM0CNT_H=0x00C3; //enable timer at CPU freq/1024 +irq =16384Khz sample rate
+    //turn sound chip on
+    REG_SOUNDCNT_X = 0x0080;
 
+    //enable timer 0 irq
+    REG_IE = 0x8;
+    //enable interrupts
+    REG_IME = 1;
+
+    /*set playback frequency. note: using anything else thank clock multipliers to serve as sample frequencies tends to generate distortion in the output. It has probably to do with timing and FIFO reloading. More testing need to be done. */
+
+    REG_TM0CNT_L = 0xffff;
+    //enable timer at CPU freq/1024 +irq =16384Khz sample rate
+    REG_TM0CNT_H = 0x00C3;
 }
 </code></pre>
 
