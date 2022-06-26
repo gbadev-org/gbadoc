@@ -1,15 +1,10 @@
 # Bootleg Carts
 
-Bootleg carts, sometimes called repro carts, are illegal game carts sold from China.  These can be
-easily found on websites like [AliExpress](https://aliexpress.com) by searching for "gameboy
-advance":
+Bootleg carts, sometimes called repro carts, are illegal game carts sold from China.  At the time of
+writing, some members of the GBADev community have purchased them for around $5/cart.
 
-![Bootleg Carts on AliExpress.com](images/aliexpress.png)
-
-At the time of writing, they are typically around $5/cart.
-
-From discussion with store owners, these carts cannot be ordered blank -- they are created with
-copywritted games already on them (usually the popular games, Pokemon, Mario, etc).
+From discussion with store owners in China, these carts cannot be ordered blank -- they are created
+with copywritted games already on them (usually the popular games, Pokemon, Mario, etc).
 
 However, these carts _can_ be cleaned and overwritten with homebrew games.
 
