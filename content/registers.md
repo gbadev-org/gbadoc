@@ -29,9 +29,9 @@ COLOR="#9900CC"> </FONT><FONT COLOR="#0099FF">A</FONT><FONT COLOR="#9900CC">  C<
 ## 0x04000000 - 0x04000054 - Graphics Hardware Registers
 
 
-<a id="REG_DISPCNT"></a>
-
-### 0x04000000 - REG_DISPCNT (The display control register)
+<h3 id="REG_DISPCNT"><a class="header" href="#REG_DISPCNT">
+0x04000000 - REG_DISPCNT (The display control register)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">                           <FONT COLOR="#FF0000">R</FONT>
@@ -60,9 +60,9 @@ COLOR="#9900CC"> </FONT><FONT COLOR="#0099FF">A</FONT><FONT COLOR="#9900CC">  C<
 | <tt>  F <FONT COLOR="#008800">(W)</FONT></tt> | Enable Sprite Windows  |
 
 
-<a id="REG_DISPSTAT"></a>
-
+<h3 id="REG_DISPSTAT"><a class="header" href="#REG_DISPSTAT">
 ### 0x04000004 - REG_DISPSTAT
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">                <FONT COLOR="#FF0000">      </FONT>       <FONT COLOR="#FF0000">R R R</FONT>
@@ -83,18 +83,21 @@ COLOR="#9900CC">G</FONT> <FONT COLOR="#FF0099">W</FONT> </PRE>
 | <tt>8-F <FONT COLOR="#9900CC">(T)</FONT></tt> | Vcount line trigger. Set this to the VCount value you wish to trigger an interrupt.
 
 
-<a id="REG_VCOUNT"></a>
-
-### 0x04000006 - LCY / REG_VCOUNT (Read Only)
+<h3 id="REG_VCOUNT"><a class="header" href="#REG_VCOUNT">
+0x04000006 - LCY / REG_VCOUNT (Read Only)
+</a></h3>
 
 This location stores the current y location of the LCD hardware. It is incremented as the lines are drawn. The 160 lines of display are followed by 68 lines of Vblank period, before the whole thing starts again for the next frame. Waiting for this register to reach 160 is one way to synchronize a program to 60Hz.
 
+
 ## 0x04000008 - 0x0400001E - Background Registers
 
-
-<a id="REG_BGCNT"></a>
-
-### 0x04000008 - REG_BG0CNT <br> 0x0400000A - REG_BG1CNT <br> 0x0400000C - REG_BG2CNT <br> 0x0400000E - REG_BG3CNT
+<h3 id="REG_BGCNT"><a class="header" href="#REG_BGCNT">
+0x04000008 - REG_BG0CNT <br>
+0x0400000A - REG_BG1CNT <br>
+0x0400000C - REG_BG2CNT <br>
+0x0400000E - REG_BG3CNT
+</a></h3>
 
 These addresses set up the four background layers. The format is:
 
@@ -116,20 +119,16 @@ COLOR="#0099FF">C</FONT> X X  <FONT COLOR="#9900CC">S S</FONT> <FONT COLOR="#FF0
 | <tt>E-F <FONT COLOR="#9900CC">(Z)</FONT></tt> | <p>Size of tile map </p><p>For ["text" backgrounds](backgrounds.md#text-backgrounds): </p><p>`00` = 256x256 (32x32 tiles)  <br>`01` = 512x256 (64x32 tiles)  <br>`10` = 256x512 (32x64 tiles)  <br>`11` = 512x512 (64x64 tiles)</p> <p>For [rotational backgrounds](backgrounds.md#scalerotate-backgrounds):</p><p>`00` = 128x128 (16x16 tiles)  <br>`01` = 256x256 (32x32 tiles)  <br>`10` = 512x512 (64x64 tiles) <br>`11` = 1024x1024 (128x128 tiles)</p>
 
 
-<a id="REG_BGOFS"></a>
-<a id="REG_BGHOFS"></a>
-<a id="REG_BGHOFS"></a>
-<a id="REG_BG0HOFS"></a>
-<a id="REG_BG0VOFS"></a>
-<a id="REG_BG0HOFS"></a>
-<a id="REG_BG1VOFS"></a>
-<a id="REG_BG1HOFS"></a>
-<a id="REG_BG2VOFS"></a>
-<a id="REG_BG2HOFS"></a>
-<a id="REG_BG3VOFS"></a>
-<a id="REG_BG3HOFS"></a>
-
-### 0x04000010 - REG_BG0HOFS Horizontal scroll co-ordinate for BG0 (Write Only) <br> 0x04000012 - REG_BG0VOFS Vertical scroll co-ordinate for BG0 (Write Only) <br> 0x04000014 - REG_BG1HOFS Horizontal scroll co-ordinate for BG1 (Write Only) <br> 0x04000016 - REG_BG1VOFS Vertical scroll co-ordinate for BG1 (Write Only) <br> 0x04000018 - REG_BG2HOFS Horizontal scroll co-ordinate for BG2 (Write Only) <br> 0x0400001A - REG_BG2VOFS Vertical scroll co-ordinate for BG2 (Write Only) <br> 0x0400001C - REG_BG3HOFS Horizontal scroll co-ordinate for BG3 (Write Only) <br> 0x0400001E - REG_BG3VOFS Vertical scroll co-ordinate for BG3 (Write Only)
+<h3 id="REG_BGOFS"><a class="header" href="#REG_BGOFS">
+<span id="REG_BG0HOFS"></span>0x04000010 - REG_BG0HOFS Horizontal scroll co-ordinate for BG0 (Write Only) <br>
+<span id="REG_BG0VOFS"></span>0x04000012 - REG_BG0VOFS Vertical scroll co-ordinate for BG0 (Write Only) <br>
+<span id="REG_BG1VOFS"></span>0x04000014 - REG_BG1HOFS Horizontal scroll co-ordinate for BG1 (Write Only) <br>
+<span id="REG_BG1HOFS"></span>0x04000016 - REG_BG1VOFS Vertical scroll co-ordinate for BG1 (Write Only) <br>
+<span id="REG_BG2VOFS"></span>0x04000018 - REG_BG2HOFS Horizontal scroll co-ordinate for BG2 (Write Only) <br>
+<span id="REG_BG2HOFS"></span>0x0400001A - REG_BG2VOFS Vertical scroll co-ordinate for BG2 (Write Only) <br>
+<span id="REG_BG3VOFS"></span>0x0400001C - REG_BG3HOFS Horizontal scroll co-ordinate for BG3 (Write Only) <br>
+<span id="REG_BG3HOFS"></span>0x0400001E - REG_BG3VOFS Vertical scroll co-ordinate for BG3 (Write Only)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -142,9 +141,9 @@ These registers are only effective for [text backgrounds](backgrounds.md#text-ba
 
 * * *
 
-<a id="bg-rot-scale"></a>
-
-## 0x04000020 - 0x04000026 / 0x04000030 - 0x04000036 - Background Rotation/Scaling Registers (Write Only)
+<h2 id="bg-rot-scale"><a class="header" href="#bg-rot-scale">
+0x04000020 - 0x04000026 / 0x04000030 - 0x04000036 - Background Rotation/Scaling Registers (Write Only)
+</a></h2>
 
 These registers affect the translation, rotation, and scaling of tile-based [rotate/scale backgrounds](backgrounds.md#scalerotate-backgrounds) as well as the [bitmapped backgrounds](backgrounds.md#bitmapped-backgrounds) (which should be treated as BG2 for this purpose). The function of these registers is very hard to describe in words but easy to see the effects of on screen. I highly recommend checking out Stephen Stair's RSDemo - it lets you see the contents of the regs as you modify them as well as the effect they have on the background. Should also be somewhat useful for figuring out sprite rotation and scaling.
 
@@ -162,19 +161,31 @@ These registers affect the translation, rotation, and scaling of tile-based [rot
 
 These registers apply only to [Rotate/Scale backgrounds](backgrounds.md#scalerotate-backgrounds). Individual descriptions follow:
 
-### 0x04000020 - REG_BG2PA (BG2 Read Source Pixel X Increment) (Write Only) <br> 0x04000030 - REG_BG3PA (BG3 Read Source Pixel X Increment) (Write Only)
+<h3 id="REG_BGPA"><a class="header" href="#REG_BGPA">
+0x04000020 - REG_BG2PA (BG2 Read Source Pixel X Increment) (Write Only) <br>
+0x04000030 - REG_BG3PA (BG3 Read Source Pixel X Increment) (Write Only)
+</a></h3>
 
 The effect of these registers is to scale the background (relative to the upper left corner) in the x direction by an amount equal to 1/(register value).
 
-### 0x04000022 - REG_BG2PB (BG2 Write Destination Pixel X Increment) (Write Only) <br> 0x04000032 - REG_BG3PB (BG3 Write Destination Pixel X Increment) (Write Only)
+<h3 id="REG_BGPB"><a class="header" href="#REG_BGPB">
+0x04000022 - REG_BG2PB (BG2 Write Destination Pixel X Increment) (Write Only) <br>
+0x04000032 - REG_BG3PB (BG3 Write Destination Pixel X Increment) (Write Only)
+</a></h3>
 
 The effect of these registers is to shear the x coordinates of the background over y, relative to the upper left corner. A value of 0 will result in no shearing, a value of 1.00 will make the background appear to be sheared left as you go down the screen, and a value of -1 will make the background appear sheared right as you go down the screen.
 
-### 0x04000024 - REG_BG2PC (BG2 Read Source Pixel Y Increment) (Write Only) <br> 0x04000034 - REG_BG3PC (BG3 Read Source Pixel Y Increment) (Write Only)
+<h3 id="REG_BGPC"><a class="header" href="#REG_BGPC">
+0x04000024 - REG_BG2PC (BG2 Read Source Pixel Y Increment) (Write Only) <br>
+0x04000034 - REG_BG3PC (BG3 Read Source Pixel Y Increment) (Write Only)
+</a></h3>
 
 The effect of these registers is to shear the y coordinates of the background over x, relative to the upper left corner. A value of 0 will result in no shearing, a value of 1.00 will make the background appear to be sheared upwards to the right, and a value of -1 will make the background appear sheared downwards and to the right.
 
-### 0x04000026 - REG_BG2PD (BG2 Write Destination Pixel Y Increment) (Write Only) <br> 0x04000036 - REG_BG3PD (BG3 Write Destination Pixel Y Increment) (Write Only)
+<h3 id="REG_BGPD"><a class="header" href="#REG_BGPD">
+0x04000026 - REG_BG2PD (BG2 Write Destination Pixel Y Increment) (Write Only) <br>
+0x04000036 - REG_BG3PD (BG3 Write Destination Pixel Y Increment) (Write Only)
+</a></h3>
 
 The effect of these registers is to scale the background in the y direction (relative to the upper left corner) by an amount equal to 1/(register value).
 
@@ -182,11 +193,17 @@ The effect of these registers is to scale the background in the y direction (rel
 * * *
 
 
-### 0x04000028 - REG_BG2X (X Coordinate for BG2 Rotational Background) (Write Only) <br> 0x04000038 - REG_BG3X (X Coordinate for BG3 Rotational Background) (Write Only)
+<h3 id="REG_BGX"><a class="header" href="#REG_BGX">
+0x04000028 - REG_BG2X (X Coordinate for BG2 Rotational Background) (Write Only) <br>
+0x04000038 - REG_BG3X (X Coordinate for BG3 Rotational Background) (Write Only)
+</a></h3>
 
-### 0x0400002C - REG_BG2Y (Y Coordinate for BG2 Rotational Background) (Write Only) <br> 0x0400003C - REG_BG3Y (Y Coordinate for BG3 Rotational Background) (Write Only)
+<h3 id="REG_BGY"><a class="header" href="#REG_BGY">
+0x0400002C - REG_BG2Y (Y Coordinate for BG2 Rotational Background) (Write Only) <br>
+0x0400003C - REG_BG3Y (Y Coordinate for BG3 Rotational Background) (Write Only)
+</a></h3>
 
-<div>
+<div style="font-size: 80%">
 <PRE style="width: min-content; margin: 16px auto">31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
 X  X  X  X  <FONT COLOR="#0099FF"> S</FONT>  <FONT COLOR="#9900CC">I  I  I   I  I  I  I   I  I  I  I   I  I  I  I   I  I  I I</FONT> <FONT
 COLOR="#9900CC"> </FONT><FONT COLOR="#FF0099">F F F F  F F F F</FONT> </PRE>
@@ -205,12 +222,14 @@ These registers define the location of the pixel that appears at 0,0. They are v
 
 * * *
 
-## 0x04000040 - 0x0400004A - Windowing Registers
+<h2 id="windowing-registers"><a class="header" href="#windowing-registers">
+0x04000040 - 0x0400004A - Windowing Registers
+</a></h2>
 
-<a id="REG_WIN0H"></a>
-<a id="REG_WIN1H"></a>
-
-### 0x04000040 - REG_WIN0H Window 0 X Coordinates) (Write Only) <br> 0x04000042 - REG_WIN1H Window 1 X Coordinates) (Write Only)
+<h3 id="REG_WINH"><a class="header" href="#REG_WINH"></a>
+<span id="REG_WIN0H"></span>0x04000040 - REG_WIN0H Window 0 X Coordinates) (Write Only) <br>
+<span id="REG_WIN1H"></span>0x04000042 - REG_WIN1H Window 1 X Coordinates) (Write Only)
+</h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -223,10 +242,10 @@ These registers define the location of the pixel that appears at 0,0. They are v
 | <tt>8-F <FONT COLOR="#9900CC">(L)</FONT></tt> | X coordinate for the leftmost side of the window 
 
 
-<a id="REG_WIN0V"></a>
-<a id="REG_WIN1V"></a>
-
-### 0x04000044 - REG_WIN0V Window 0 Y Coordinates) (Write Only) <br> 0x04000046 - REG_WIN1V Window 1 Y Coordinates) (Write Only)
+<h3 id="REG_WINV"><a class="header" href="#REG_WINV">
+<span id="REG_WIN0V"></span>0x04000044 - REG_WIN0V Window 0 Y Coordinates) (Write Only) <br>
+<span id="REG_WIN1V"></span>0x04000046 - REG_WIN1V Window 1 Y Coordinates) (Write Only)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -240,9 +259,9 @@ These registers define the location of the pixel that appears at 0,0. They are v
 
 
 
-<a id="REG_WININ"></a>
-
-### 0x04000048 - REG_WININ (Inside Window Settings)
+<h3 id="REG_WININ"><a class="header" href="#REG_WININ">
+0x04000048 - REG_WININ (Inside Window Settings)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -268,9 +287,9 @@ COLOR="#9900CC">H</FONT> <FONT COLOR="#FF0099">G</FONT> </PRE>
 | <tt>D <FONT COLOR="#9900CC">(T)</FONT></tt> | Blends in win1
 
 
-<a id="REG_WINOUT"></a>
-
-### 0x0400004A - REG_WINOUT (Outside Window and Sprite Window)
+<h3 id="REG_WINOUT"><a class="header" href="#REG_WINOUT">
+0x0400004A - REG_WINOUT (Outside Window and Sprite Window)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -300,10 +319,15 @@ COLOR="#9900CC">H</FONT> <FONT COLOR="#FF0099">G</FONT> </PRE>
 
 * * *
 
-## 0x0400004C - 0x04000054 - Effects Registers
+<h2 id="effects-registers"><a class="header" href="#effects-registers">
+0x0400004C - 0x04000054 - Effects Registers
+</a></h2>
 
 
-### 0x0400004C - REG_MOSAIC (Write Only)
+
+<h3 id="REG_MOSAIC"><a class="header" href="#REG_MOSAIC">
+0x0400004C - REG_MOSAIC (Write Only)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -322,10 +346,9 @@ COLOR="#FF0099"> I I I I</FONT> </PRE>
 Use this register to control the size of the mosaic on backgrounds/sprites that have mosaic enabled..
 
 
-
-<a id="REG_BLDCNT"></a>
-
-### 0x04000050 - REG_BLDCNT
+<h3 id="REG_BLDCNT"><a class="header" href="#REG_BLDCNT">
+0x04000050 - REG_BLDCNT
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -363,8 +386,9 @@ Other things to note about alpha blends:
 * Unfortunately, it is not possible to alpha blend sprites against one another, no matter how your prioritize them. Alpha blended sprites that are "in front of" other sprites will blend with the other target layers while still occluding the sprites behind them (i.e. it will look like the portion of the non-blended sprite that is behind the blended one has disappeared), for a most unnatural effect.
 
 
-
-### 0x04000052 - REG_BLDALPHA (Write Only)
+<h3 id="REG_BLDALPHA"><a class="header" href="#REG_BLDALPHA">
+0x04000052 - REG_BLDALPHA (Write Only)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -380,7 +404,9 @@ COLOR="#FF0099">A  A A A A</FONT> </PRE>
 Use this in conjunction with [REG_BLDCNT](#REG_BLDCNT) to determine the amount of blending between layers. An unblended pixel of normal intensity is is considered to have a coefficient of 16. Coefficient A and Coefficient B determine the ratio of each of the sources that will get mixed into the final image. Thus, if A is 12 and B is 4, the resulting image will appear to be 12/16 the color of A and 4/16 the color of B. Note that A and B can add up to be greater than 16 (for an additive or brightening effect) or less than 16 (for a darkening effect).
 
 
-### 0x04000054 - REG_BLDY (Write Only)
+<h3 id="REG_BLDY"><a class="header" href="#REG_BLDY">
+0x04000054 - REG_BLDY (Write Only)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -397,16 +423,16 @@ The higher the value, the greater the fade. 16 is the peak fade value; values fr
 
 * * *
 
-<a id="sound-control"></a>
-
-## 0x040000060 - 0x0400000A6 (Sound Controls)
+<h2 id="sound-control"><a class="header" href="#sound-control">
+0x040000060 - 0x0400000A6 (Sound Controls)
+</a></h2>
 
 Note: I've obtained this info (most of it verbatim) from Uze's [BeLogic](http://belogic.com/gba/) unofficial GBA sound info site, which gives a much more thorough explanation as well as some sample source code and demos. Thanks to Uze for providing such a great resource on GBA sound.
 
 
-<a id="REG_SOUND1CNT_L"></a>
-
-### 0x04000060 - REG_SOUND1CNT_L (Sound 1 Sweep control)
+<h3 id="REG_SOUND1CNT_L"><a class="header" href="#REG_SOUND1CNT_L">
+0x04000060 - REG_SOUND1CNT_L (Sound 1 Sweep control)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -423,9 +449,9 @@ COLOR="#FF0099">S S<B> </B>S</FONT></PRE>
 Sound channel 1 produces a square wave with envelope and frequency sweep functions. This register controls the frequency sweep function. When the sweep function is not required, set the sweep time to zero and set the increase/decrease bit to 1.
 
 
-<a id="REG_SOUND1CNT_H"></a>
-
-### 0x04000062 - REG_SOUND1CNT_H (Sound 1 Length, wave duty and envelope control)
+<h3 id="REG_SOUND1CNT_H"><a class="header" href="#REG_SOUND1CNT_H">
+0x04000062 - REG_SOUND1CNT_H (Sound 1 Length, wave duty and envelope control)
+</a></h3>
 
 
 <div>
@@ -444,9 +470,9 @@ COLOR="#9900CC">D D</FONT> <FONT COLOR="#FF0099">L L  L L L L</FONT></PRE>
 | <tt>C-F <FONT COLOR="#FF3300">(I)</FONT></tt> | <p>Initial Envelope value. `1111` produces the maximum volume and `0000` mutes the sound. When sound 1 is playing, modifying the volume envelope bits has no effect until the sound is resetted.</p>
 
 
-<a id="REG_SOUND1CNT_X"></a>
-
-### 0x04000064 - REG_SOUND1CNT_X (Sound 1 Frequency, reset and loop control)
+<h3 id="REG_SOUND1CNT_X"><a class="header" href="#REG_SOUND1CNT_X">
+0x04000064 - REG_SOUND1CNT_X (Sound 1 Frequency, reset and loop control)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#CC9900">W</FONT>         <FONT COLOR="#CC9900"> W W W  W W W W  W W W W</FONT>
@@ -461,9 +487,9 @@ F E D C  B A 9 8  7 6 5 4  3 2 1 0
 | <tt>  F <FONT COLOR="#0099FF">(R)</FONT></tt> | <p>Sound reset. When set, sound resets and restarts at the specified frequency. When sound 1 is playing, modifying the volume envelope bits has no effect until the sound is resetted. Frequency and sound reset must be perfomed in a single write since both are write only. Frequency can always be changed without resetting the sound channel. </p>
 
 
-<a id="REG_SOUND2CNT_L"></a>
-
-### 0x04000068 - REG_SOUND2CNT_L (Sound 2 Length, wave duty and envelope control)
+<h3 id="REG_SOUND2CNT_L"><a class="header" href="#REG_SOUND2CNT_L">
+0x04000068 - REG_SOUND2CNT_L (Sound 2 Length, wave duty and envelope control)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">                     <FONT COLOR="#CC9900"> W W  W W W W</FONT>
@@ -481,9 +507,9 @@ COLOR="#FF0099">L L  L L L L</FONT></PRE>
 | <tt>C-F <FONT COLOR="#FF3300">(I)</FONT></tt> | <p>Initial Envelope value. `1111` produces the maximum volume and `0000` mutes the sound. When sound 2 is playing, modifying the volume envelope bits has no effect until the sound is resetted.</p>
 
 
-<a id="REG_SOUND2CNT_H"></a>
-
-### 0x0400006C- REG_SOUND2CNT_H (Sound 2 Frequency, reset and loop control)
+<h3 id="REG_SOUND2CNT_H"><a class="header" href="#REG_SOUND2CNT_H">
+0x0400006C- REG_SOUND2CNT_H (Sound 2 Frequency, reset and loop control)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#CC9900">W</FONT>       <FONT COLOR="#CC9900">   W W W  W W W W  W W W W</FONT>
@@ -498,9 +524,9 @@ F E D C  B A 9 8  7 6 5 4  3 2 1 0
 | <tt>  F <FONT COLOR="#0099FF">(R)</FONT></tt> | <p>Sound reset. When set, sound resets and restarts at the specified frequency. When sound 2 is playing, modifying the volume envelope bits has no effect until the sound is resetted. Frequency and sound reset must be perfomed in a single write since both are write only. Frequency can always be changed without resetting the sound channel.</p>
 
 
-<a id="REG_SOUND3CNT_L"></a>
-
-### 0x04000070 - REG_SOUND3CNT_L (Sound 3 Enable and wave ram bank control)
+<h3 id="REG_SOUND3CNT_L"><a class="header" href="#REG_SOUND3CNT_L">
+0x04000070 - REG_SOUND3CNT_L (Sound 3 Enable and wave ram bank control)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -519,9 +545,9 @@ Sound channel 3 is a circuit that can produce an arbitrary wave pattern. Samples
 Both banks of Wave Ram are filled with zero upon initialization of the Gameboy, Bank 0 being selected. So writing to bank 0 implies setting bit 6 to 1 before loading Wave Ram then set it back to 0 to play it.
 
 
-<a id="REG_SOUND3CNT_H"></a>
-
-### 0x04000072 - REG_SOUND3CNT_H (Sound 3 Sound length and output level control)
+<h3 id="REG_SOUND3CNT_H"><a class="header" href="#REG_SOUND3CNT_H">
+0x04000072 - REG_SOUND3CNT_H (Sound 3 Sound length and output level control)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">                  <FONT COLOR="#CC9900">W W W W  W W W W</FONT>
@@ -535,9 +561,9 @@ F E D C  B A 9 8  7 6 5 4  3 2 1 0
 | <tt>D-F <FONT COLOR="#9900CC">(R)</FONT></tt> | <p>Output volume ratio:</p><p>`000` = Mute<br>`001` = 100%<br>`100` = 75%<br>`010` = 50%<br>`011` = 25%</p>
 
 
-<a id="REG_SOUND3CNT_X"></a>
-
-### 0x04000074 - REG_SOUND3CNT_X (Sound 3 Frequency, reset and loop control)
+<h3 id="REG_SOUND3CNT_X"><a class="header" href="#REG_SOUND3CNT_X">
+0x04000074 - REG_SOUND3CNT_X (Sound 3 Frequency, reset and loop control)
+</a></h3>
 
 <div>
 <PRE><FONT COLOR="#CC9900">W</FONT>          <FONT COLOR="#CC9900">W W W  W W W W  W W W W</FONT>
@@ -552,9 +578,9 @@ F E D C  B A 9 8  7 6 5 4  3 2 1 0
 | <tt>  F <FONT COLOR="#0099FF">(R)</FONT></tt> | <p>Sound reset. When set, sound resets and restarts at the specified frequency. Frequency and sound reset must be perfomed in a single write since both are write only. In continuous mode, frequency can be changed without resetting the sound channel.</p>
 
 
-<a id="REG_SOUND4CNT_L"></a>
-
-### 0x04000078 - REG_SOUND4CNT_L (Sound 4 Length, output level and envelope control)
+<h3 id="REG_SOUND4CNT_L"><a class="header" href="#REG_SOUND4CNT_L">
+0x04000078 - REG_SOUND4CNT_L (Sound 4 Length, output level and envelope control)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">                     <FONT COLOR="#CC9900">W W  W W W W</FONT>
@@ -571,9 +597,9 @@ COLOR="#FF0099">L L  L L L L</FONT></PRE>
 | <tt>D-F <FONT COLOR="#008800">(I)</FONT></tt> | <p>Initial Envelope value. `1111` produces the maximum volume and `0000` mutes the sound.</p>
 
 
-<a id="REG_SOUND4CNT_H"></a>
-
-### 0x0400007C - REG_SOUND4CNT_H (Sound 4 Noise parameters, reset and loop control)
+<h3 id="REG_SOUND4CNT_H"><a class="header" href="#REG_SOUND4CNT_H">
+0x0400007C - REG_SOUND4CNT_H (Sound 4 Noise parameters, reset and loop control)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#CC9900">W</FONT><B>
@@ -593,9 +619,9 @@ COLOR="#9900CC">S</FONT> <FONT COLOR="#FF0099">C C C</FONT></PRE>
 Channel 4 produces pseudo-noise generated by a polynomial counter. It is based on a 7/15 stages linear-feedback shift register (LFSR). LFSR counts in a pseudo-random order where each state is generated once and only once during the whole count sequence. The sound is produced by the least significant bit's output stage.
 
 
-<a id="REG_SOUNDCNT_L"></a>
-
-### 0x04000080 - REG_SOUNDCNT_L (Sound 1-4 Output level and Stereo control)
+<h3 id="REG_SOUNDCNT_L"><a class="header" href="#REG_SOUNDCNT_L">
+0x04000080 - REG_SOUNDCNT_L (Sound 1-4 Output level and Stereo control)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">                           <FONT COLOR="#FF0000">?</FONT>
@@ -624,9 +650,9 @@ COLOR="#008800"> J</FONT> <FONT COLOR="#0099FF">I I I</FONT> <FONT COLOR="#9900C
 This register controls only the DMG output amplifiers and have no effects on the individual sound channels' processing, or Direct Sound channels' volume.
 
 
-<a id="REG_SOUNDCNT_H"></a>
-
-### 0x04000082 - REG_SOUNDCNT_H (Direct Sound control and Sound 1-4 output ratio)
+<h3 id="REG_SOUNDCNT_H"><a class="header" href="#REG_SOUNDCNT_H">
+0x04000082 - REG_SOUNDCNT_H (Direct Sound control and Sound 1-4 output ratio)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#CC9900">W        W</FONT>      
@@ -653,9 +679,9 @@ COLOR="#0099FF"> I</FONT> <FONT COLOR="#9900CC">H</FONT> <FONT COLOR="#FF0099">G
 This register is used in controlling Direct Sound on the GBA. Output ratios control the volume, in percentage, that gets output to the speakers.
 
 
-<a id="REG_SOUNDCNT_X"></a>
-
-### 0x04000084 - REG_SOUNDCNT_X (Master sound enable and Sound 1-4 play status)
+<h3 id="REG_SOUNDCNT_X"><a class="header" href="#REG_SOUNDCNT_X">
+0x04000084 - REG_SOUNDCNT_X (Master sound enable and Sound 1-4 play status)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">                           R R R R</FONT>
@@ -675,9 +701,9 @@ COLOR="#008800">J</FONT> <FONT COLOR="#0099FF">I</FONT> <FONT COLOR="#9900CC">H<
 
 This register is used to monitor the play status of sounds and to turn on or off all sound circuits. Turning the sound circuits off saves battery power, allowing them to last up to 10% longer.
 
-<a id="REG_SOUNDBIAS"></a>
-
-### 0x04000088 - REG_SOUNDBIAS (Sound bias and Amplitude resolution control)
+<h3 id="REG_SOUNDBIAS"><a class="header" href="#REG_SOUNDBIAS">
+0x04000088 - REG_SOUNDBIAS (Sound bias and Amplitude resolution control)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -693,27 +719,26 @@ The BIAS setting is used to offset the sound output and bring it back into a sig
 
 When accessing bits F-E, a read-modify-write is required. The default value for bits F-E is 00. Most if not all games use 01 for this setting.
 
-
-<a id="REG_WAVE_RAM0_L"></a>
-<a id="REG_WAVE_RAM0_H"></a>
-<a id="REG_WAVE_RAM1_L"></a>
-<a id="REG_WAVE_RAM1_H"></a>
-<a id="REG_WAVE_RAM2_L"></a>
-<a id="REG_WAVE_RAM2_H"></a>
-<a id="REG_WAVE_RAM3_L"></a>
-<a id="REG_WAVE_RAM3_H"></a>
-
-### 0x04000090 - REG_WAVE_RAM0_L (Sound 3 samples 0-3) <br> 0x04000092 - REG_WAVE_RAM0_H (Sound 3 samples 4-7) <br> 0x04000094 - REG_WAVE_RAM1_L (Sound 3 samples 8-11) <br> 0x04000096 - REG_WAVE_RAM1_H (Sound 3 samples 12-15) <br> 0x04000098 - REG_WAVE_RAM2_L (Sound 3 samples 16-19) <br> 0x0400009A - REG_WAVE_RAM2_H (Sound 3 samples 20-23) <br> 0x0400009C - REG_WAVE_RAM3_L (Sound 3 samples 23-27) <br> 0x0400009E - REG_WAVE_RAM3_H (Sound 3 samples 28-31)
+<h3 id="REG_WAVE_RAM"><a class="header" href="#REG_WAVE_RAM">
+0x04000090 - REG_WAVE_RAM0_L (Sound 3 samples 0-3) <br>
+0x04000092 - REG_WAVE_RAM0_H (Sound 3 samples 4-7) <br>
+0x04000094 - REG_WAVE_RAM1_L (Sound 3 samples 8-11) <br>
+0x04000096 - REG_WAVE_RAM1_H (Sound 3 samples 12-15) <br>
+0x04000098 - REG_WAVE_RAM2_L (Sound 3 samples 16-19) <br>
+0x0400009A - REG_WAVE_RAM2_H (Sound 3 samples 20-23) <br>
+0x0400009C - REG_WAVE_RAM3_L (Sound 3 samples 23-27) <br>
+0x0400009E - REG_WAVE_RAM3_H (Sound 3 samples 28-31)
+</a></h3>
 
 These registers together contain four (4 bytes each) 4-bit wave RAM samples for Sound channel 3.
 
 
-<a id="REG_FIFO_A_L"></a>
-<a id="REG_FIFO_A_H"></a>
-<a id="REG_FIFO_B_L"></a>
-<a id="REG_FIFO_B_H"></a>
-
-### 0x040000A0 - REG_FIFO_A_L (Direct Sound channel A samples 0-1)(Write Only) <br> 0x040000A2 - REG_FIFO_A_H (Direct Sound channel A samples 2-3)(Write Only) <br> 0x040000A4 - REG_FIFO_B_L (Direct Sound channel B samples 0-1)(Write Only) <br> 0x040000A6 - REG_FIFO_B_H (Direct Sound channel B samples 2-3)(Write Only)
+<h3 id="REG_FIFO"><a class="header" href="#REG_FIFO">
+0x040000A0 - REG_FIFO_A_L (Direct Sound channel A samples 0-1)(Write Only) <br>
+0x040000A2 - REG_FIFO_A_H (Direct Sound channel A samples 2-3)(Write Only) <br>
+0x040000A4 - REG_FIFO_B_L (Direct Sound channel B samples 0-1)(Write Only) <br>
+0x040000A6 - REG_FIFO_B_H (Direct Sound channel B samples 2-3)(Write Only)
+</a></h3>
 
 These are the locations of the Direct Sound 8-bit FIFO samples, from which Direct Sound pulls the music data to be played on the speakers. Note that there are only 8 bytes total for all your samples. You repeatedly fill these from a buffer of your own using [DMA0](#REG_DMA0CNT) or [DMA1](#REG_DMA1CNT), or by using timer [interrupts](#Hardware Interrupts).
 
@@ -726,13 +751,13 @@ Note that reading from these registers can yield unpredictable results. It might
 
 * * *
 
-<a id="dma-source-registers"></a>
+<h2 id="dma-source-registers"><a class="header" href="#dma-source-registers">
+0x040000B0, 0x040000BC, 0x040000C8, 0x040000D4 (DMA Source Registers)(Write Only)
+</a></h2>
 
-## 0x040000B0, 0x040000BC, 0x040000C8, 0x040000D4 (DMA Source Registers)(Write Only)
-
-<a id="REG_DMA0SAD"></a>
-
-### 0x040000B0 - REG_DMA0SAD (DMA0 Source Address) (Write Only)
+<h3 id="REG_DMA0SAD"><a class="header" href="#REG_DMA0SAD">
+0x040000B0 - REG_DMA0SAD (DMA0 Source Address) (Write Only)
+</a></h3>
 
 <div style="font-size: 80%">
 <PRE>31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
@@ -745,11 +770,11 @@ X  X  X  X   X  <FONT COLOR="#FF0099">A  A  A   A  A  A  A   A  A  A  A   A  A  
 
 This is the source address for DMA channel 0 transfers. Note that it is 27-bit.
 
-<a id="REG_DMA1SAD"></a>
-<a id="REG_DMA2SAD"></a>
-<a id="REG_DMA3SAD"></a>
-
-### 0x040000BC - REG_DMA1SAD (DMA1 Source Address) <br> 0x040000C8 - REG_DMA2SAD (DMA2 Source Address) <br> 0x040000D4 - REG_DMA3SAD (DMA3 Source Address)
+<h3 id="REG_DMA1SAD"><a class="header" href="#REG_DMA1SAD">
+0x040000BC - REG_DMA1SAD (DMA1 Source Address) <br>
+0x040000C8 - REG_DMA2SAD (DMA2 Source Address) <br>
+0x040000D4 - REG_DMA3SAD (DMA3 Source Address)
+</a></h3>
 
 <div style="font-size: 80%">
 <PRE>31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
@@ -762,15 +787,15 @@ X  X  X  X  <FONT COLOR="#FF0099"> A  A  A  A   A  A  A  A   A  A  A  A   A  A  
 
 This is the source address for DMA channel 1, 2, or 3 transfers. Note that it is 28-bit.
 
-<a id="dma-destination-registers"></a>
+<h3 id="dma-destination-registers"><a class="header" href="#dma-destination-registers">
+0x040000B4, 0x040000C0, 0x040000CC, 0x040000D8 (DMA Destination Registers) (Write Only)
+</a></h3>
 
-## 0x040000B4, 0x040000C0, 0x040000CC, 0x040000D8 (DMA Destination Registers) (Write Only)
-
-<a id="REG_DMA0DAD"></a>
-<a id="REG_DMA1DAD"></a>
-<a id="REG_DMA2DAD"></a>
-
-### 0x040000B4 - REG_DMA0DAD (DMA0 Destination Address) <br> 0x040000C0 - REG_DMA1DAD (DMA1 Destination Address) <br> 0x040000CC - REG_DMA2DAD (DMA2 Destination Address)
+<h3 id="REG_DMA0DAD"><a class="header" href="#REG_DMA0DAD">
+0x040000B4 - REG_DMA0DAD (DMA0 Destination Address) <br>
+0x040000C0 - REG_DMA1DAD (DMA1 Destination Address) <br>
+0x040000CC - REG_DMA2DAD (DMA2 Destination Address)
+</a></h3>
 
 <div style="font-size: 80%">
 <PRE>31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
@@ -783,9 +808,9 @@ X  X  X  X   X  <FONT COLOR="#FF0099">A  A  A   A  A  A  A   A  A  A  A   A  A  
 
 This is the dest address for DMA channel 0, 1, and 2 transfers. Note that it is 27-bit.
 
-<a id="REG_DMA3DAD"></a>
-
-### 0x040000D8 - REG_DMA3DAD (DMA3 Destination Address)(Write Only)
+<h3 id="REG_DMA3DAD"><a class="header" href="#REG_DMA3DAD">
+0x040000D8 - REG_DMA3DAD (DMA3 Destination Address)(Write Only)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
@@ -798,16 +823,16 @@ X  X  X  X  <FONT COLOR="#FF0099"> A  A  A  A   A  A  A  A   A  A  A  A   A  A  
 
 This is the dest address for DMA channel 3 transfers. Note that it is 28-bit.
 
-<a id="dma-count-registers"></a>
+<h2 id="dma-count-registers"><a class="header" href="#dma-count-registers">
+0x040000B8, 0x040000C4, 0x040000D0, 0x040000DC (DMA Count Registers) (Write Only)
+</a></h2>
 
-## 0x040000B8, 0x040000C4, 0x040000D0, 0x040000DC (DMA Count Registers) (Write Only)
-
-<a id="REG_DMA0CNT_L"></a>
-<a id="REG_DMA1CNT_L"></a>
-<a id="REG_DMA2CNT_L"></a>
-<a id="REG_DMA3CNT_L"></a>
-
-### 0x040000B8 - REG_DMA0CNT_L (DMA0 Count Register) <br> 0x040000C4 - REG_DMA1CNT_L (DMA1 Count Register) <br> 0x040000D0 - REG_DMA2CNT_L (DMA2 Count Register) <br> 0x040000DC - REG_DMA3CNT_L (DMA3 Count Register)
+<h3 id="REG_DMA0CNT_L"><a class="header" href="#REG_DMA0CNT_L">
+0x040000B8 - REG_DMA0CNT_L (DMA0 Count Register) <br>
+0x040000C4 - REG_DMA1CNT_L (DMA1 Count Register) <br>
+0x040000D0 - REG_DMA2CNT_L (DMA2 Count Register) <br>
+0x040000DC - REG_DMA3CNT_L (DMA3 Count Register)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -818,17 +843,22 @@ X X <FONT COLOR="#FF0099">L L  L L L L  L L L L  L L L L</FONT> </PRE>
 |---------|---------------------------------------------------------|
 | <tt>0-D <FONT COLOR="#FF0099">(L)</FONT></tt> | Number of words or halfwords to copy
 
-<a id="dma-control-registers"></a>
-<a id="REG_DMA0CNT"></a>
-<a id="REG_DMA1CNT"></a>
-<a id="REG_DMA2CNT"></a>
-<a id="REG_DMA3CNT"></a>
-
-## 0x040000BA, 0x040000C6, 0x040000D2, 0x040000DE (DMA Control Registers)
+<h2 id="dma-control-registers"><a class="header" href="#dma-control-registers">
+<span id="REG_DMA0CNT"></span>
+<span id="REG_DMA1CNT"></span>
+<span id="REG_DMA2CNT"></span>
+<span id="REG_DMA3CNT"></span>
+0x040000BA, 0x040000C6, 0x040000D2, 0x040000DE (DMA Control Registers)
+</a></h2>
 
 (Note: In some places you will see the DMA control and DMA count registers depicted as a single 32-bit register called REG_DMAXCNT. I opted to treat them as two 16-bit registers for sake of clarity.)
 
-### 0x040000BA - REG_DMA0CNT_H (DMA0 Control Register) <br> 0x040000C6 - REG_DMA1CNT_H (DMA1 Control Register) <br> 0x040000D2 - REG_DMA2CNT_H (DMA2 Control Register) <br> 0x040000DE - REG_DMA3CNT_H (DMA3 Control Register)
+<h3 id="REG_DMA0CNT_H"><a class="header" href="#REG_DMA0CNT_H">
+0x040000BA - REG_DMA0CNT_H (DMA0 Control Register) <br>
+0x040000C6 - REG_DMA1CNT_H (DMA1 Control Register) <br>
+0x040000D2 - REG_DMA2CNT_H (DMA2 Control Register) <br>
+0x040000DE - REG_DMA3CNT_H (DMA3 Control Register)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">         ?             </FONT>
@@ -860,7 +890,7 @@ Specific DMAs have the following properties:
 
 * **DMA3**: This is is the lowest priority and thus often used as a "general purpose" DMA. Using this DMA for your basic memory transfers ensures that sound FIFO DMA and other time-critical DMA are not delayed, making audio or visual artifacts less likely.
 
-<a id="DMANote"></a>
+<h3 id="DMANote"><a class="header" href="#DMANote"></a></h3>
 
 \* _(Originally I had assumed a direct mapping between the source/destination registers and the current transfer address, and thus this section of the doc distinguished between transfers which wrote-back to the registers and those which did not. This appears to have been an incorrect assumption, and was brought to light as I delved further into sound emulation)_
 
@@ -914,7 +944,6 @@ COLOR="#CC3300">2</FONT>
 </PRE>
 </div>
 
-
 Note that it is not possible to DMA transfer from or to SRAM (Cart RAM) or BIOS, and (obviously) it is not possible to transfer to ROM.
 
 Thanks to Kay for supplying these transfer statistics!!
@@ -924,17 +953,16 @@ Thanks to Kay for supplying these transfer statistics!!
 
 * * *
 
-<a id="timer-registers"></a>
+<h2 id="timer-registers"><a class="header" href="#timer-registers">
+0x04000100 - 0x0400010E (Timer registers)
+</a></h2>
 
-## 0x04000100 - 0x0400010E (Timer registers)
-
-
-<a id="REG_TM0D"></a>
-<a id="REG_TM1D"></a>
-<a id="REG_TM2D"></a>
-<a id="REG_TM3D"></a>
-
-### 0x04000100 - REG_TM0D (Timer 0 Data) <br> 0x04000104 - REG_TM1D (Timer 1 Data) <br> 0x04000108 - REG_TM2D (Timer 2 Data) <br> 0x0400010C - REG_TM3D (Timer 3 Data)
+<h3 id="REG_TMD"><a class="header" href="#REG_TMD">
+<span id="REG_TM0D">0x04000100 - REG_TM0D (Timer 0 Data)</span> <br>
+<span id="REG_TM1D">0x04000104 - REG_TM1D (Timer 1 Data)</span> <br>
+<span id="REG_TM2D">0x04000108 - REG_TM2D (Timer 2 Data)</span> <br>
+<span id="REG_TM3D">0x0400010C - REG_TM3D (Timer 3 Data)</span>
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -954,12 +982,12 @@ To set the rate of playback in hz, write the value 0xFFFF - (2^24/Plaback Freq i
 When using interrupts, set the start value of these to 0, but use [REG_TMXCNT](#REG_TM0CNT) to change the update frequency to 1024, thus causing an interrupt rate of 16.384khz.
 
 
-<a id="REG_TM0CNT"></a>
-<a id="REG_TM1CNT"></a>
-<a id="REG_TM2CNT"></a>
-<a id="REG_TM3CNT"></a>
-
-### 0x04000102 - REG_TM0CNT (Timer 0 Control) <br> 0x04000106 - REG_TM1CNT (Timer 1 Control) <br> 0x0400010A - REG_TM2CNT (Timer 2 Control) <br> 0x0400010E - REG_TM3CNT (Timer 3 Control)
+<h3 id="REG_TMCNT"><a class="header" href="#REG_TMCNT">
+<span id="REG_TM0CNT">0x04000102 - REG_TM0CNT (Timer 0 Control)</span> <br>
+<span id="REG_TM1CNT">0x04000106 - REG_TM1CNT (Timer 1 Control)</span> <br>
+<span id="REG_TM2CNT">0x0400010A - REG_TM2CNT (Timer 2 Control)</span> <br>
+<span id="REG_TM3CNT">0x0400010E - REG_TM3CNT (Timer 3 Control)</span>
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">                             *</FONT>
@@ -980,19 +1008,19 @@ COLOR="#9900CC">C </FONT><FONT COLOR="#FF0099">F F</FONT></PRE>
 * * *
 
 
-<a id="serial-communication-registers"></a>
-
-## 0x04000120 - 0x0400012A - Serial Communication Registers
+<h2 id="serial-communication-registers"><a class="header" href="#serial-communication-registers">
+0x04000120 - 0x0400012A - Serial Communication Registers
+</a></h2>
 
 Note: All of the serial comm information originates from [Andrew May's description](http://members.truepath.com/AndrewMay/GBA.html) of the GBA linker hardware, which in turn was compiled from various other sources on the web. My thanks to ePAc for discovering his site and putting the information into a format consistent with the rest of this spec. If anybody else has information to add to this, please [send us a PR](https://github.com/gbadev-org/gbadoc).
 
 
-<a id="REG_SCD0"></a>
-<a id="REG_SCD1"></a>
-<a id="REG_SCD2"></a>
-<a id="REG_SCD3"></a>
-
-### 0x04000120 - REG_SCD0 (Master/Slave 0 destination reg) (Read Only) <br> 0x04000122 - REG_SCD1 (Slave 1 destination reg) (Read Only) <br> 0x04000124 - REG_SCD2 (Slave 2 destination reg) (Read Only) <br> 0x04000126 - REG_SCD3 (Slave 3 destination reg) (Read Only)
+<h3 id="REG_SCD"><a class="header" href="#REG_SCD">
+<span id="REG_SCD0">0x04000120 - REG_SCD0 (Master/Slave 0 destination reg) (Read Only)</span> <br>
+<span id="REG_SCD1">0x04000122 - REG_SCD1 (Slave 1 destination reg) (Read Only)</span> <br>
+<span id="REG_SCD2">0x04000124 - REG_SCD2 (Slave 2 destination reg) (Read Only)</span> <br>
+<span id="REG_SCD3">0x04000126 - REG_SCD3 (Slave 3 destination reg) (Read Only)</span>
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">
@@ -1011,9 +1039,9 @@ F E D C  B A 9 8  7 6 5 4  3 2 1 0
 - SCD3 contains the data sent by the last slave (slave3)
 
 
-<a id="REG_SCCNT_L"></a>
-
-### 0x04000128 - REG_SCCNT_L (Serial Communication channel control register)
+<h3 id="REG_SCCNT_L"><a class="header" href="#REG_SCCNT_L">
+0x04000128 - REG_SCCNT_L (Serial Communication channel control register)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">                    R               </FONT> 
@@ -1051,9 +1079,9 @@ It is unclear to me how each GBA knows what ID it is; perhaps this value is auto
 Note from me: I have a suspicion that some of these bits are write-only. Please let me know if you find out more.
 
 
-<a id="REG_SCCNT_H"></a>
-
-### 0x0400012A - REG_SCCNT_H (Serial Communication Source Register)
+<h3 id="REG_SCCNT_H"><a class="header" href="#REG_SCCNT_H">
+0x0400012A - REG_SCCNT_H (Serial Communication Source Register)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -1066,12 +1094,13 @@ Note from me: I have a suspicion that some of these bits are write-only. Please 
 
 * * *
 
-**Addresses 0x04000130 - 0x04000132 - Keypad Input and Control Registers
+<h2 id="keypad-input-and-control-registers"><a class="header" href="#keypad-input-and-control-registers">
+Addresses 0x04000130 - 0x04000132 - Keypad Input and Control Registers
+</a></h2>
 
-
-<a id="REG_KEYINPUT"></a>
-
-### 0x04000130 - REG_KEYINPUT (The input register) (Read Only)
+<h3 id="REG_KEYINPUT"><a class="header" href="#REG_KEYINPUT">
+0x04000130 - REG_KEYINPUT (The input register) (Read Only)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">             R R  R R R R  R R R R</FONT>
@@ -1097,9 +1126,9 @@ COLOR="#0099FF"> E</FONT> <FONT COLOR="#9900CC">B</FONT> <FONT COLOR="#FF0099">A
 This register stores the state of the GBA's buttons. Each of the inputs is active low. This means that a '0' bit indicates that the key is pressed, while a '1' bit indicates that the key is not pressed. In general a game which samples these (rather than using interrupts) should do so at least once every refresh (60hz), or more in the case of fast action fighting games (like Street Fighter).
 
 
-<a id="REG_KEYCNT"></a>
-
-### 0x04000132 - REG_KEYCNT (Key Control Register)
+<h3 id="REG_KEYCNT"><a class="header" href="#REG_KEYCNT">
+0x04000132 - REG_KEYCNT (Key Control Register)
+</a></h3>
 
 <div>
 F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -1125,9 +1154,9 @@ Use this register to set which keypresses generate interrupts. The appropriate b
 
 * * *
 
-<a id="REG_RCNT"></a>
-
-### 0x04000134 - REG_RCNT
+<h3 id="REG_RCNT"><a class="header" href="#REG_RCNT">
+0x04000134 - REG_RCNT
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">    <FONT COLOR="#FF0000">R R  R R R                 R R</FONT>  
@@ -1139,11 +1168,13 @@ This register appears to give direct access to the different lines of the link p
 
 
 
-## 0x04000200 - 0x04000208 - Interrupt Registers
+<h2 id="interrupt-registers"><a class="header" href="#interrupt-registers">
+0x04000200 - 0x04000208 - Interrupt Registers
+</a></h2>
 
-<a id="REG_IE"></a>
-
-### 0x04000200 - REG_IE (Interrupt Enable Register)
+<h3 id="REG_IE"><a class="header" href="#REG_IE">
+0x04000200 - REG_IE (Interrupt Enable Register)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -1174,9 +1205,9 @@ COLOR="#0099FF">C </FONT><FONT COLOR="#9900CC">H </FONT><FONT COLOR="#FF0099">V<
 Use this register to mask out which interrupts are enabled or disabled.
 
 
-<a id="REG_IF"></a>
-
-### 0x04000202 - REG_IF (Interrupt Flags Regster)
+<h3 id="REG_IF"><a class="header" href="#REG_IF">
+0x04000202 - REG_IF (Interrupt Flags Regster)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -1206,9 +1237,9 @@ COLOR="#0099FF">C </FONT><FONT COLOR="#9900CC">H </FONT><FONT COLOR="#FF0099">V<
 This register will determine which interrupt is currently being serviced. When your interrupt service routine get scalled, check these flags to determine what called it. In order to keep yourself from servicing the wrong interrupt at a later time, you should reset the flags to 0 by writing a 1 to them.
 
 
-<a id="REG_WAITCNT"></a>
-
-### 0x04000204 - REG_WAITCNT (Wait State Control)
+<h3 id="REG_WAITCNT"><a class="header" href="#REG_WAITCNT">
+0x04000204 - REG_WAITCNT (Wait State Control)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">R   </FONT>
@@ -1235,9 +1266,9 @@ COLOR="#0099FF">J</FONT><FONT COLOR="#9900CC">  I I</FONT> <FONT COLOR="#FF0099"
 Use this register to control wait state settings and the prefetch buffer for ROM and SRAM. Thanks to [Damian Yerrick](http://pineight.com/contact/) for contributing this info, and for pointing me to some relevant reading material.
 
 
-<a id="REG_IME"></a>
-
-### 0x04000208 - REG_IME (Interrupt Master Enable)
+<h3 id="REG_IME"><a class="header" href="#REG_IME">
+0x04000208 - REG_IME (Interrupt Master Enable)
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -1253,9 +1284,9 @@ X X X X  X X X X  X X X X  X X X <FONT COLOR="#FF0099">M</FONT>
 
 * * *
 
-<a id="REG_PAUSE"></a>
-
-### 0x04000300 - REG_PAUSE
+<h3 id="REG_PAUSE"><a class="header" href="#REG_PAUSE">
+0x04000300 - REG_PAUSE
+</a></h3>
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">? ? ? ?  ? ? ? ?  ? ? ? ?  ? ? ? ?</FONT>
