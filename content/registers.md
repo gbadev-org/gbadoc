@@ -1131,8 +1131,12 @@ This register stores the state of the GBA's buttons. Each of the inputs is activ
 </a></h3>
 
 <div>
+<PRE style="width: min-content; margin: 16px auto">
 F E D C  B A 9 8  7 6 5 4  3 2 1 0 
-T K X X  X X J I  D U L R  S E B A 
+<FONT COLOR="#9900CC">T</FONT> <FONT COLOR="#FF0099">K</FONT> <FONT COLOR="#BBBBBB">X X  X X </FONT><FONT COLOR="#FF3300">J </FONT><FONT
+COLOR="#008800">I</FONT><FONT COLOR="#0099FF">  D</FONT> <FONT COLOR="#9900CC">U</FONT> <FONT COLOR="#FF0099">L</FONT> <FONT
+COLOR="#FF3300">R</FONT> <FONT COLOR="#008800"> S</FONT><FONT COLOR="#0099FF"> E</FONT> <FONT COLOR="#9900CC">B</FONT> <FONT
+COLOR="#FF0099">A</FONT></PRE>
 </div>
 
 | Bits    | Description                                             |
