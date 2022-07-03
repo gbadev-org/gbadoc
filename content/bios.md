@@ -1,5 +1,5 @@
 
-# BIOS (Software Interrupts - partially implemented in CowBite)
+# BIOS (Software Interrupts)
 
 The BIOS calls are basically SWI instructions; the value passed into the instruction tells the CPU which interrupt to execute. There is very little public domain information on the BIOS. Marat Fayzullin has a listing of the BIOS calls on his VGBA website, and Forgotten has added a list to his [Visual Boy Advance FAQ](http://vboy.emuhq.com/faq.shtml). It is using these, in combination with observing the behavior of various demos in CowBite and other emulators that I was able to piece together what I have here.
 
