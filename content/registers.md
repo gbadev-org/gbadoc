@@ -984,7 +984,7 @@ COLOR="#9900CC">C </FONT><FONT COLOR="#FF0099">F F</FONT></PRE>
 
 ## 0x4000120 - 0x400012A - Serial Communication Registers
 
-Note: All of the serial comm information originates from [Andrew May's description](http://members.truepath.com/AndrewMay/GBA.html) of the GBA linker hardware, which in turn was compiled from various other sources on the web. My thanks to ePAc for discovering his site and putting the information into a format consistent with the rest of this spec. If anybody else has information to add to this, don't hesitate to mail me.
+Note: All of the serial comm information originates from [Andrew May's description](http://members.truepath.com/AndrewMay/GBA.html) of the GBA linker hardware, which in turn was compiled from various other sources on the web. My thanks to ePAc for discovering his site and putting the information into a format consistent with the rest of this spec. If anybody else has information to add to this, please [send us a PR](https://github.com/gbadev-org/gbadoc).
 
 
 <a id="REG_SCD0"></a>
@@ -1136,7 +1136,7 @@ F E D C  B A 9 8  7 6 5 4  3 2 1 0
 </PRE>
 </div>
 
-This register appears to give direct access to the different lines of the link port. If you happen to have more information about which bit corresponds to which line, please [send us a PR](https://github.com/gbadev-org/gbadoc) or get in touch on [IRC or Discord](http://gbadev.net/).
+This register appears to give direct access to the different lines of the link port. If you happen to have more information about which bit corresponds to which line, please [send us a PR](https://github.com/gbadev-org/gbadoc) or get in touch on [IRC or Discord](https://gbadev.net/).
 
 
 
