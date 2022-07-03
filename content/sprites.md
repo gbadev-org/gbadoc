@@ -64,7 +64,7 @@ COLOR="#FF0099">I  I I I I  I I I I</FONT>  (standard sprites)
 
 | Bits    | Description                                             |
 |---------|---------------------------------------------------------|
-| <tt>0-9 <FONT COLOR="#FF0099">(T)</FONT></tt> | <p>Tile number. This value indexes selects the bitmap of the tile to be displayed by indexing into the tile data area. Each index refernces 32 bytes, so the memory address of a tile is roughly `0x6010000 + T*32`. (see [Sprite Tile Data](#sprite-tile-data) for details)</p>
+| <tt>0-9 <FONT COLOR="#FF0099">(T)</FONT></tt> | <p>Tile number. This value indexes selects the bitmap of the tile to be displayed by indexing into the tile data area. Each index refernces 32 bytes, so the memory address of a tile is roughly `0x06010000 + T*32`. (see [Sprite Tile Data](#sprite-tile-data) for details)</p>
 | <tt>A-B <FONT COLOR="#9900CC">(P)</FONT></tt> | <p>Priority. This controls the priority of the sprite. Note that sprites take precedence over backgrounds of the same priority.  See the [description of priority](registers.md#priority) under REG_BG0 - REG_BG3 for a more detailed explanation.</p>
 | <tt>C-F <FONT COLOR="#0099FF">(L)</FONT></tt> | <p>Palette number. If you use 16 color [palettes](memory.md#palette-ram), this tells you which palette number to use.</p>
 

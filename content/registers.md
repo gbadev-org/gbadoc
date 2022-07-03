@@ -26,12 +26,12 @@ COLOR="#9900CC"> </FONT><FONT COLOR="#0099FF">A</FONT><FONT COLOR="#9900CC">  C<
 
 * * *
 
-## 0x4000000 - 0x4000054 - Graphics Hardware Registers
+## 0x04000000 - 0x04000054 - Graphics Hardware Registers
 
 
 <a id="REG_DISPCNT"></a>
 
-### 0x4000000 - REG_DISPCNT (The display control register)
+### 0x04000000 - REG_DISPCNT (The display control register)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">                           <FONT COLOR="#FF0000">R</FONT>
@@ -62,7 +62,7 @@ COLOR="#9900CC"> </FONT><FONT COLOR="#0099FF">A</FONT><FONT COLOR="#9900CC">  C<
 
 <a id="REG_DISPSTAT"></a>
 
-### 0x4000004 - REG_DISPSTAT
+### 0x04000004 - REG_DISPSTAT
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">                <FONT COLOR="#FF0000">      </FONT>       <FONT COLOR="#FF0000">R R R</FONT>
@@ -85,16 +85,16 @@ COLOR="#9900CC">G</FONT> <FONT COLOR="#FF0099">W</FONT> </PRE>
 
 <a id="REG_VCOUNT"></a>
 
-### 0x4000006 - LCY / REG_VCOUNT (Read Only)
+### 0x04000006 - LCY / REG_VCOUNT (Read Only)
 
 This location stores the current y location of the LCD hardware. It is incremented as the lines are drawn. The 160 lines of display are followed by 68 lines of Vblank period, before the whole thing starts again for the next frame. Waiting for this register to reach 160 is one way to synchronize a program to 60Hz.
 
-## 0x4000008 - 0x400001E - Background Registers
+## 0x04000008 - 0x0400001E - Background Registers
 
 
 <a id="REG_BGCNT"></a>
 
-### 0x4000008 - REG_BG0CNT <br> 0x400000A - REG_BG1CNT <br> 0x400000C - REG_BG2CNT <br> 0x400000E - REG_BG3CNT
+### 0x04000008 - REG_BG0CNT <br> 0x0400000A - REG_BG1CNT <br> 0x0400000C - REG_BG2CNT <br> 0x0400000E - REG_BG3CNT
 
 These addresses set up the four background layers. The format is:
 
@@ -108,10 +108,10 @@ COLOR="#0099FF">C</FONT> X X  <FONT COLOR="#9900CC">S S</FONT> <FONT COLOR="#FF0
 | Bits    | Description                                             |
 |---------|---------------------------------------------------------|
 | <tt>0-1 <FONT COLOR="#FF0099">(P)</FONT></tt> | <p id="priority">Priority: `00` = highest, `11` = lowest</p><p>Priorities are ordered as follows: <pre>"Front" <br> 1. Sprite with priority 0 <br> 2. BG with     priority 0 <br> 3. Sprite with priority 1 <br> 4. BG with     priority 1 <br> 5. Sprite with priority 2 <br> 6. BG with     priority 2 <br> 7. Sprite with priority 3 <br> 8. BG with     priority 3 <br> 9. Backdrop <br> "Back"</pre></p> <p>When multiple backgrounds have the same priority, the order from front to back is:  BG0, BG1, BG2, BG3.  Sprites of the same priority are ordered similarly, with the first sprite in OAM appearing in front. </p>
-| <tt>2-3 <FONT COLOR="#9900CC">(S)</FONT></tt> | Starting address of character tile data <br> Address = 0x6000000 + S \* 0x4000
+| <tt>2-3 <FONT COLOR="#9900CC">(S)</FONT></tt> | Starting address of character tile data <br> Address = 0x06000000 + S \* 0x4000
 | <tt>  6 <FONT COLOR="#0099FF">(C)</FONT></tt> | Mosiac effect - 1 on, 0 off
 | <tt>  7 <FONT COLOR="#008800">(A)</FONT></tt> | [Color palette](memory.md#palette-ram) type - <br>1 - standard 256 color pallete <br>0 - each tile uses one of 16 different 16 color palettes (no effect on rotates/scale backgrounds, which are always 256 color)
-| <tt>8-C <FONT COLOR="#FF3300">(M)</FONT></tt> | Starting address of character tile map Address = 0x6000000 + M \* 0x800
+| <tt>8-C <FONT COLOR="#FF3300">(M)</FONT></tt> | Starting address of character tile map Address = 0x06000000 + M \* 0x800
 | <tt>  D <FONT COLOR="#FF0099">(V)</FONT></tt> | Screen Over. Used to determine whether [rotational backgrounds](backgrounds.md#scalerotate-backgrounds) get tiled repeatedly at the edges or are displayed as a single "tile" with the area outside transparent. This is forced to 0 (read only) for backgrounds  0 and 1 (only).
 | <tt>E-F <FONT COLOR="#9900CC">(Z)</FONT></tt> | <p>Size of tile map </p><p>For ["text" backgrounds](backgrounds.md#text-backgrounds): </p><p>`00` = 256x256 (32x32 tiles)  <br>`01` = 512x256 (64x32 tiles)  <br>`10` = 256x512 (32x64 tiles)  <br>`11` = 512x512 (64x64 tiles)</p> <p>For [rotational backgrounds](backgrounds.md#scalerotate-backgrounds):</p><p>`00` = 128x128 (16x16 tiles)  <br>`01` = 256x256 (32x32 tiles)  <br>`10` = 512x512 (64x64 tiles) <br>`11` = 1024x1024 (128x128 tiles)</p>
 
@@ -129,7 +129,7 @@ COLOR="#0099FF">C</FONT> X X  <FONT COLOR="#9900CC">S S</FONT> <FONT COLOR="#FF0
 <a id="REG_BG3VOFS"></a>
 <a id="REG_BG3HOFS"></a>
 
-### 0x4000010 - REG_BG0HOFS Horizontal scroll co-ordinate for BG0 (Write Only) <br> 0x4000012 - REG_BG0VOFS Vertical scroll co-ordinate for BG0 (Write Only) <br> 0x4000014 - REG_BG1HOFS Horizontal scroll co-ordinate for BG1 (Write Only) <br> 0x4000016 - REG_BG1VOFS Vertical scroll co-ordinate for BG1 (Write Only) <br> 0x4000018 - REG_BG2HOFS Horizontal scroll co-ordinate for BG2 (Write Only) <br> 0x400001A - REG_BG2VOFS Vertical scroll co-ordinate for BG2 (Write Only) <br> 0x400001C - REG_BG3HOFS Horizontal scroll co-ordinate for BG3 (Write Only) <br> 0x400001E - REG_BG3VOFS Vertical scroll co-ordinate for BG3 (Write Only)
+### 0x04000010 - REG_BG0HOFS Horizontal scroll co-ordinate for BG0 (Write Only) <br> 0x04000012 - REG_BG0VOFS Vertical scroll co-ordinate for BG0 (Write Only) <br> 0x04000014 - REG_BG1HOFS Horizontal scroll co-ordinate for BG1 (Write Only) <br> 0x04000016 - REG_BG1VOFS Vertical scroll co-ordinate for BG1 (Write Only) <br> 0x04000018 - REG_BG2HOFS Horizontal scroll co-ordinate for BG2 (Write Only) <br> 0x0400001A - REG_BG2VOFS Vertical scroll co-ordinate for BG2 (Write Only) <br> 0x0400001C - REG_BG3HOFS Horizontal scroll co-ordinate for BG3 (Write Only) <br> 0x0400001E - REG_BG3VOFS Vertical scroll co-ordinate for BG3 (Write Only)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -144,7 +144,7 @@ These registers are only effective for [text backgrounds](backgrounds.md#text-ba
 
 <a id="bg-rot-scale"></a>
 
-## 0x4000020 - 0x4000026 / 0x4000030 - 0x4000036 - Background Rotation/Scaling Registers (Write Only)
+## 0x04000020 - 0x04000026 / 0x04000030 - 0x04000036 - Background Rotation/Scaling Registers (Write Only)
 
 These registers affect the translation, rotation, and scaling of tile-based [rotate/scale backgrounds](backgrounds.md#scalerotate-backgrounds) as well as the [bitmapped backgrounds](backgrounds.md#bitmapped-backgrounds) (which should be treated as BG2 for this purpose). The function of these registers is very hard to describe in words but easy to see the effects of on screen. I highly recommend checking out Stephen Stair's RSDemo - it lets you see the contents of the regs as you modify them as well as the effect they have on the background. Should also be somewhat useful for figuring out sprite rotation and scaling.
 
@@ -162,19 +162,19 @@ These registers affect the translation, rotation, and scaling of tile-based [rot
 
 These registers apply only to [Rotate/Scale backgrounds](backgrounds.md#scalerotate-backgrounds). Individual descriptions follow:
 
-### 0x4000020 - REG_BG2PA (BG2 Read Source Pixel X Increment) (Write Only) <br> 0x4000030 - REG_BG3PA (BG3 Read Source Pixel X Increment) (Write Only)
+### 0x04000020 - REG_BG2PA (BG2 Read Source Pixel X Increment) (Write Only) <br> 0x04000030 - REG_BG3PA (BG3 Read Source Pixel X Increment) (Write Only)
 
 The effect of these registers is to scale the background (relative to the upper left corner) in the x direction by an amount equal to 1/(register value).
 
-### 0x4000022 - REG_BG2PB (BG2 Write Destination Pixel X Increment) (Write Only) <br> 0x4000032 - REG_BG3PB (BG3 Write Destination Pixel X Increment) (Write Only)
+### 0x04000022 - REG_BG2PB (BG2 Write Destination Pixel X Increment) (Write Only) <br> 0x04000032 - REG_BG3PB (BG3 Write Destination Pixel X Increment) (Write Only)
 
 The effect of these registers is to shear the x coordinates of the background over y, relative to the upper left corner. A value of 0 will result in no shearing, a value of 1.00 will make the background appear to be sheared left as you go down the screen, and a value of -1 will make the background appear sheared right as you go down the screen.
 
-### 0x4000024 - REG_BG2PC (BG2 Read Source Pixel Y Increment) (Write Only) <br> 0x4000034 - REG_BG3PC (BG3 Read Source Pixel Y Increment) (Write Only)
+### 0x04000024 - REG_BG2PC (BG2 Read Source Pixel Y Increment) (Write Only) <br> 0x04000034 - REG_BG3PC (BG3 Read Source Pixel Y Increment) (Write Only)
 
 The effect of these registers is to shear the y coordinates of the background over x, relative to the upper left corner. A value of 0 will result in no shearing, a value of 1.00 will make the background appear to be sheared upwards to the right, and a value of -1 will make the background appear sheared downwards and to the right.
 
-### 0x4000026 - REG_BG2PD (BG2 Write Destination Pixel Y Increment) (Write Only) <br> 0x4000036 - REG_BG3PD (BG3 Write Destination Pixel Y Increment) (Write Only)
+### 0x04000026 - REG_BG2PD (BG2 Write Destination Pixel Y Increment) (Write Only) <br> 0x04000036 - REG_BG3PD (BG3 Write Destination Pixel Y Increment) (Write Only)
 
 The effect of these registers is to scale the background in the y direction (relative to the upper left corner) by an amount equal to 1/(register value).
 
@@ -182,9 +182,9 @@ The effect of these registers is to scale the background in the y direction (rel
 * * *
 
 
-### 0x4000028 - REG_BG2X (X Coordinate for BG2 Rotational Background) (Write Only) <br> 0x4000038 - REG_BG3X (X Coordinate for BG3 Rotational Background) (Write Only)
+### 0x04000028 - REG_BG2X (X Coordinate for BG2 Rotational Background) (Write Only) <br> 0x04000038 - REG_BG3X (X Coordinate for BG3 Rotational Background) (Write Only)
 
-### 0x400002C - REG_BG2Y (Y Coordinate for BG2 Rotational Background) (Write Only) <br> 0x400003C - REG_BG3Y (Y Coordinate for BG3 Rotational Background) (Write Only)
+### 0x0400002C - REG_BG2Y (Y Coordinate for BG2 Rotational Background) (Write Only) <br> 0x0400003C - REG_BG3Y (Y Coordinate for BG3 Rotational Background) (Write Only)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
@@ -205,12 +205,12 @@ These registers define the location of the pixel that appears at 0,0. They are v
 
 * * *
 
-## 0x4000040 - 0x400004A - Windowing Registers
+## 0x04000040 - 0x0400004A - Windowing Registers
 
 <a id="REG_WIN0H"></a>
 <a id="REG_WIN1H"></a>
 
-### 0x4000040 - REG_WIN0H Window 0 X Coordinates) (Write Only) <br> 0x4000042 - REG_WIN1H Window 1 X Coordinates) (Write Only)
+### 0x04000040 - REG_WIN0H Window 0 X Coordinates) (Write Only) <br> 0x04000042 - REG_WIN1H Window 1 X Coordinates) (Write Only)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -226,7 +226,7 @@ These registers define the location of the pixel that appears at 0,0. They are v
 <a id="REG_WIN0V"></a>
 <a id="REG_WIN1V"></a>
 
-### 0x4000044 - REG_WIN0V Window 0 Y Coordinates) (Write Only) <br> 0x4000046 - REG_WIN1V Window 1 Y Coordinates) (Write Only)
+### 0x04000044 - REG_WIN0V Window 0 Y Coordinates) (Write Only) <br> 0x04000046 - REG_WIN1V Window 1 Y Coordinates) (Write Only)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -242,7 +242,7 @@ These registers define the location of the pixel that appears at 0,0. They are v
 
 <a id="REG_WININ"></a>
 
-### 0x4000048 - REG_WININ (Inside Window Settings)
+### 0x04000048 - REG_WININ (Inside Window Settings)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -270,7 +270,7 @@ COLOR="#9900CC">H</FONT> <FONT COLOR="#FF0099">G</FONT> </PRE>
 
 <a id="REG_WINOUT"></a>
 
-### 0x400004A - REG_WINOUT (Outside Window and Sprite Window)
+### 0x0400004A - REG_WINOUT (Outside Window and Sprite Window)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -300,10 +300,10 @@ COLOR="#9900CC">H</FONT> <FONT COLOR="#FF0099">G</FONT> </PRE>
 
 * * *
 
-## 0x400004C - 0x4000054 - Effects Registers
+## 0x0400004C - 0x04000054 - Effects Registers
 
 
-### 0x400004C - REG_MOSAIC (Write Only)
+### 0x0400004C - REG_MOSAIC (Write Only)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -325,7 +325,7 @@ Use this register to control the size of the mosaic on backgrounds/sprites that 
 
 <a id="REG_BLDCNT"></a>
 
-### 0x4000050 - REG_BLDCNT
+### 0x04000050 - REG_BLDCNT
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -364,7 +364,7 @@ Other things to note about alpha blends:
 
 
 
-### 0x4000052 - REG_BLDALPHA (Write Only)
+### 0x04000052 - REG_BLDALPHA (Write Only)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -380,7 +380,7 @@ COLOR="#FF0099">A  A A A A</FONT> </PRE>
 Use this in conjunction with [REG_BLDCNT](#REG_BLDCNT) to determine the amount of blending between layers. An unblended pixel of normal intensity is is considered to have a coefficient of 16. Coefficient A and Coefficient B determine the ratio of each of the sources that will get mixed into the final image. Thus, if A is 12 and B is 4, the resulting image will appear to be 12/16 the color of A and 4/16 the color of B. Note that A and B can add up to be greater than 16 (for an additive or brightening effect) or less than 16 (for a darkening effect).
 
 
-### 0x4000054 - REG_BLDY (Write Only)
+### 0x04000054 - REG_BLDY (Write Only)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -728,11 +728,11 @@ Note that reading from these registers can yield unpredictable results. It might
 
 <a id="dma-source-registers"></a>
 
-## 0x40000B0, 0x40000BC, 0x40000C8, 0x40000D4 (DMA Source Registers)(Write Only)
+## 0x040000B0, 0x040000BC, 0x040000C8, 0x040000D4 (DMA Source Registers)(Write Only)
 
 <a id="REG_DMA0SAD"></a>
 
-### 0x40000B0 - REG_DMA0SAD (DMA0 Source Address) (Write Only)
+### 0x040000B0 - REG_DMA0SAD (DMA0 Source Address) (Write Only)
 
 <div style="font-size: 80%">
 <PRE>31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
@@ -749,7 +749,7 @@ This is the source address for DMA channel 0 transfers. Note that it is 27-bit.
 <a id="REG_DMA2SAD"></a>
 <a id="REG_DMA3SAD"></a>
 
-### 0x40000BC - REG_DMA1SAD (DMA1 Source Address) <br> 0x40000C8 - REG_DMA2SAD (DMA2 Source Address) <br> 0x40000D4 - REG_DMA3SAD (DMA3 Source Address)
+### 0x040000BC - REG_DMA1SAD (DMA1 Source Address) <br> 0x040000C8 - REG_DMA2SAD (DMA2 Source Address) <br> 0x040000D4 - REG_DMA3SAD (DMA3 Source Address)
 
 <div style="font-size: 80%">
 <PRE>31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
@@ -764,13 +764,13 @@ This is the source address for DMA channel 1, 2, or 3 transfers. Note that it is
 
 <a id="dma-destination-registers"></a>
 
-## 0x40000B4, 0x40000C0, 0x40000CC, 0x40000D8 (DMA Destination Registers) (Write Only)
+## 0x040000B4, 0x040000C0, 0x040000CC, 0x040000D8 (DMA Destination Registers) (Write Only)
 
 <a id="REG_DMA0DAD"></a>
 <a id="REG_DMA1DAD"></a>
 <a id="REG_DMA2DAD"></a>
 
-### 0x40000B4 - REG_DMA0DAD (DMA0 Destination Address) <br> 0x40000C0 - REG_DMA1DAD (DMA1 Destination Address) <br> 0x40000CC - REG_DMA2DAD (DMA2 Destination Address)
+### 0x040000B4 - REG_DMA0DAD (DMA0 Destination Address) <br> 0x040000C0 - REG_DMA1DAD (DMA1 Destination Address) <br> 0x040000CC - REG_DMA2DAD (DMA2 Destination Address)
 
 <div style="font-size: 80%">
 <PRE>31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
@@ -785,7 +785,7 @@ This is the dest address for DMA channel 0, 1, and 2 transfers. Note that it is 
 
 <a id="REG_DMA3DAD"></a>
 
-### 0x40000D8 - REG_DMA3DAD (DMA3 Destination Address)(Write Only)
+### 0x040000D8 - REG_DMA3DAD (DMA3 Destination Address)(Write Only)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
@@ -800,14 +800,14 @@ This is the dest address for DMA channel 3 transfers. Note that it is 28-bit.
 
 <a id="dma-count-registers"></a>
 
-## 0x40000B8, 0x40000C4, 0x40000D0, 0x40000DC (DMA Count Registers) (Write Only)
+## 0x040000B8, 0x040000C4, 0x040000D0, 0x040000DC (DMA Count Registers) (Write Only)
 
 <a id="REG_DMA0CNT_L"></a>
 <a id="REG_DMA1CNT_L"></a>
 <a id="REG_DMA2CNT_L"></a>
 <a id="REG_DMA3CNT_L"></a>
 
-### 0x40000B8 - REG_DMA0CNT_L (DMA0 Count Register) <br> 0x40000C4 - REG_DMA1CNT_L (DMA1 Count Register) <br> 0x40000D0 - REG_DMA2CNT_L (DMA2 Count Register) <br> 0x40000DC - REG_DMA3CNT_L (DMA3 Count Register)
+### 0x040000B8 - REG_DMA0CNT_L (DMA0 Count Register) <br> 0x040000C4 - REG_DMA1CNT_L (DMA1 Count Register) <br> 0x040000D0 - REG_DMA2CNT_L (DMA2 Count Register) <br> 0x040000DC - REG_DMA3CNT_L (DMA3 Count Register)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -824,11 +824,11 @@ X X <FONT COLOR="#FF0099">L L  L L L L  L L L L  L L L L</FONT> </PRE>
 <a id="REG_DMA2CNT"></a>
 <a id="REG_DMA3CNT"></a>
 
-## 0x40000BA, 0x40000C6, 0x40000D2, 0x40000DE (DMA Control Registers)
+## 0x040000BA, 0x040000C6, 0x040000D2, 0x040000DE (DMA Control Registers)
 
 (Note: In some places you will see the DMA control and DMA count registers depicted as a single 32-bit register called REG_DMAXCNT. I opted to treat them as two 16-bit registers for sake of clarity.)
 
-### 0x40000BA - REG_DMA0CNT_H (DMA0 Control Register) <br> 0x40000C6 - REG_DMA1CNT_H (DMA1 Control Register) <br> 0x40000D2 - REG_DMA2CNT_H (DMA2 Control Register) <br> 0x40000DE - REG_DMA3CNT_H (DMA3 Control Register)
+### 0x040000BA - REG_DMA0CNT_H (DMA0 Control Register) <br> 0x040000C6 - REG_DMA1CNT_H (DMA1 Control Register) <br> 0x040000D2 - REG_DMA2CNT_H (DMA2 Control Register) <br> 0x040000DE - REG_DMA3CNT_H (DMA3 Control Register)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">         ?             </FONT>
@@ -854,7 +854,7 @@ DMA transfers may occur on an interrupt if the start mode bits are set for this.
 
 Specific DMAs have the following properties:
 
-* **DMA0**: This DMA is the highester priority, but cannot be used to access cartridge memory (addresses 0x8000000 and higher). It is suitable for time-critical operations such as transfering scale and rotate data to the background scaling registers. Since it takes precedence over other DMAs, it will not be postponed or interrupted (possibly causing undesirable results such as screen artifacts).
+* **DMA0**: This DMA is the highester priority, but cannot be used to access cartridge memory (addresses 0x08000000 and higher). It is suitable for time-critical operations such as transfering scale and rotate data to the background scaling registers. Since it takes precedence over other DMAs, it will not be postponed or interrupted (possibly causing undesirable results such as screen artifacts).
 
 * **DMA1** and **DMA2**: These are the only DMA that can be used for sound FIFO. If start mode "11" is set, the DMA will be triggered on FIFO empty. I believe that FIFO A always sends its empty requests to DMA1 and that FIFO B sends its empty requests only to DMA2, though I don't have any verification of this.
 
@@ -926,7 +926,7 @@ Thanks to Kay for supplying these transfer statistics!!
 
 <a id="timer-registers"></a>
 
-## 0x4000100 - 0x400010E (Timer registers)
+## 0x04000100 - 0x0400010E (Timer registers)
 
 
 <a id="REG_TM0D"></a>
@@ -934,7 +934,7 @@ Thanks to Kay for supplying these transfer statistics!!
 <a id="REG_TM2D"></a>
 <a id="REG_TM3D"></a>
 
-### 0x4000100 - REG_TM0D (Timer 0 Data) <br> 0x4000104 - REG_TM1D (Timer 1 Data) <br> 0x4000108 - REG_TM2D (Timer 2 Data) <br> 0x400010C - REG_TM3D (Timer 3 Data)
+### 0x04000100 - REG_TM0D (Timer 0 Data) <br> 0x04000104 - REG_TM1D (Timer 1 Data) <br> 0x04000108 - REG_TM2D (Timer 2 Data) <br> 0x0400010C - REG_TM3D (Timer 3 Data)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -959,7 +959,7 @@ When using interrupts, set the start value of these to 0, but use [REG_TMXCNT](#
 <a id="REG_TM2CNT"></a>
 <a id="REG_TM3CNT"></a>
 
-### 0x4000102 - REG_TM0CNT (Timer 0 Control) <br> 0x4000106 - REG_TM1CNT (Timer 1 Control) <br> 0x400010A - REG_TM2CNT (Timer 2 Control) <br> 0x400010E - REG_TM3CNT (Timer 3 Control)
+### 0x04000102 - REG_TM0CNT (Timer 0 Control) <br> 0x04000106 - REG_TM1CNT (Timer 1 Control) <br> 0x0400010A - REG_TM2CNT (Timer 2 Control) <br> 0x0400010E - REG_TM3CNT (Timer 3 Control)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">                             *</FONT>
@@ -982,7 +982,7 @@ COLOR="#9900CC">C </FONT><FONT COLOR="#FF0099">F F</FONT></PRE>
 
 <a id="serial-communication-registers"></a>
 
-## 0x4000120 - 0x400012A - Serial Communication Registers
+## 0x04000120 - 0x0400012A - Serial Communication Registers
 
 Note: All of the serial comm information originates from [Andrew May's description](http://members.truepath.com/AndrewMay/GBA.html) of the GBA linker hardware, which in turn was compiled from various other sources on the web. My thanks to ePAc for discovering his site and putting the information into a format consistent with the rest of this spec. If anybody else has information to add to this, please [send us a PR](https://github.com/gbadev-org/gbadoc).
 
@@ -992,7 +992,7 @@ Note: All of the serial comm information originates from [Andrew May's descripti
 <a id="REG_SCD2"></a>
 <a id="REG_SCD3"></a>
 
-### 0x4000120 - REG_SCD0 (Master/Slave 0 destination reg) (Read Only) <br> 0x4000122 - REG_SCD1 (Slave 1 destination reg) (Read Only) <br> 0x4000124 - REG_SCD2 (Slave 2 destination reg) (Read Only) <br> 0x4000126 - REG_SCD3 (Slave 3 destination reg) (Read Only)
+### 0x04000120 - REG_SCD0 (Master/Slave 0 destination reg) (Read Only) <br> 0x04000122 - REG_SCD1 (Slave 1 destination reg) (Read Only) <br> 0x04000124 - REG_SCD2 (Slave 2 destination reg) (Read Only) <br> 0x04000126 - REG_SCD3 (Slave 3 destination reg) (Read Only)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">
@@ -1013,7 +1013,7 @@ F E D C  B A 9 8  7 6 5 4  3 2 1 0
 
 <a id="REG_SCCNT_L"></a>
 
-### 0x4000128 - REG_SCCNT_L (Serial Communication channel control register)
+### 0x04000128 - REG_SCCNT_L (Serial Communication channel control register)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">                    R               </FONT> 
@@ -1053,7 +1053,7 @@ Note from me: I have a suspicion that some of these bits are write-only. Please 
 
 <a id="REG_SCCNT_H"></a>
 
-### 0x400012A - REG_SCCNT_H (Serial Communication Source Register)
+### 0x0400012A - REG_SCCNT_H (Serial Communication Source Register)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -1066,12 +1066,12 @@ Note from me: I have a suspicion that some of these bits are write-only. Please 
 
 * * *
 
-**Addresses 0x4000130 - 0x4000132 - Keypad Input and Control Registers
+**Addresses 0x04000130 - 0x04000132 - Keypad Input and Control Registers
 
 
 <a id="REG_KEYINPUT"></a>
 
-### 0x4000130 - REG_KEYINPUT (The input register) (Read Only)
+### 0x04000130 - REG_KEYINPUT (The input register) (Read Only)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">             R R  R R R R  R R R R</FONT>
@@ -1099,7 +1099,7 @@ This register stores the state of the GBA's buttons. Each of the inputs is activ
 
 <a id="REG_KEYCNT"></a>
 
-### 0x4000132 - REG_KEYCNT (Key Control Register)
+### 0x04000132 - REG_KEYCNT (Key Control Register)
 
 <div>
 F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -1127,7 +1127,7 @@ Use this register to set which keypresses generate interrupts. The appropriate b
 
 <a id="REG_RCNT"></a>
 
-### 0x4000134 - REG_RCNT
+### 0x04000134 - REG_RCNT
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">    <FONT COLOR="#FF0000">R R  R R R                 R R</FONT>  
@@ -1139,11 +1139,11 @@ This register appears to give direct access to the different lines of the link p
 
 
 
-## 0x4000200 - 0x4000208 - Interrupt Registers
+## 0x04000200 - 0x04000208 - Interrupt Registers
 
 <a id="REG_IE"></a>
 
-### 0x4000200 - REG_IE (Interrupt Enable Register)
+### 0x04000200 - REG_IE (Interrupt Enable Register)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -1176,7 +1176,7 @@ Use this register to mask out which interrupts are enabled or disabled.
 
 <a id="REG_IF"></a>
 
-### 0x4000202 - REG_IF (Interrupt Flags Regster)
+### 0x04000202 - REG_IF (Interrupt Flags Regster)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -1208,7 +1208,7 @@ This register will determine which interrupt is currently being serviced. When y
 
 <a id="REG_WAITCNT"></a>
 
-### 0x4000204 - REG_WAITCNT (Wait State Control)
+### 0x04000204 - REG_WAITCNT (Wait State Control)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">R   </FONT>
@@ -1237,7 +1237,7 @@ Use this register to control wait state settings and the prefetch buffer for ROM
 
 <a id="REG_IME"></a>
 
-### 0x4000208 - REG_IME (Interrupt Master Enable)
+### 0x04000208 - REG_IME (Interrupt Master Enable)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
@@ -1255,7 +1255,7 @@ X X X X  X X X X  X X X X  X X X <FONT COLOR="#FF0099">M</FONT>
 
 <a id="REG_PAUSE"></a>
 
-### 0x4000300 - REG_PAUSE
+### 0x04000300 - REG_PAUSE
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">? ? ? ?  ? ? ? ?  ? ? ? ?  ? ? ? ?</FONT>

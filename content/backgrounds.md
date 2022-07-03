@@ -17,11 +17,11 @@ In text backgrounds, the data for each pixel is stored as an 8 or 4 bit palette 
 
 ### Scale/Rotate Backgrounds
 
-These backgrounds are also tile-based, and operate similarly to Text Backgrounds. However, these backgrounds may also be [scaled or rotated](registers.md#bg-rot-scale). Additionally they may only use an 8-bit palette, and can vary in size from 128 to 1024 pixels across. The palette is at `0x5000000`, and contains 256 16-bit [color entries](graphics.md#color-format)
+These backgrounds are also tile-based, and operate similarly to Text Backgrounds. However, these backgrounds may also be [scaled or rotated](registers.md#bg-rot-scale). Additionally they may only use an 8-bit palette, and can vary in size from 128 to 1024 pixels across. The palette is at `0x05000000`, and contains 256 16-bit [color entries](graphics.md#color-format)
 
 ### Bitmapped Backgrounds
 
-These backgrounds vary depending on the [video mode](graphics.md#video-modes), but in all cases they rely on a single buffer upon which the image is drawn, either using an 8-bit palette or 16-bit color entries themsevles. Bitmap backgrounds are treated as BG2 for purposes of rotation, scaling, and blending. In the bitmap modes the frame buffer data extends into the obj tile data region, limiting it to the range from `0x6014000` - `0x6018000` (sprite indices 512 - 1024).
+These backgrounds vary depending on the [video mode](graphics.md#video-modes), but in all cases they rely on a single buffer upon which the image is drawn, either using an 8-bit palette or 16-bit color entries themsevles. Bitmap backgrounds are treated as BG2 for purposes of rotation, scaling, and blending. In the bitmap modes the frame buffer data extends into the obj tile data region, limiting it to the range from `0x06014000` - `0x06018000` (sprite indices 512 - 1024).
 
 ## Background Map Entry Format
 

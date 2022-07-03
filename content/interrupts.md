@@ -46,7 +46,7 @@ So, the basic model for setting up interrupts is:
     * `0x04000200` ([REG_IE](registers.md#REG_IE)) masks which interrupts will actually be serviced (?)
     * `0x04000208` ([REG_IME](registers.md#REG_IME)) Turns all interrupts on or off.
 
-3. When the interrupt is reached, the code at the address at `0x3007FFC` gets loaded into the CPU. To prevent unwanted errors/behavior, the first thing this code should do is disable interrupts.
+3. When the interrupt is reached, the code at the address at `0x03007FFC` gets loaded into the CPU. To prevent unwanted errors/behavior, the first thing this code should do is disable interrupts.
 
 4. To determine what interrupt this is, check the flags in `0x04000202` ([REG_IF](registers.md#REG_IF)). Unset the flag by writing a 1 to that bit.
 

@@ -8,7 +8,7 @@ The GBA BIOS also contains many sound-related functions, for converting MIDI not
 
 # The Registers
 
-Sound registers, as for all other registers in the GBA, are memory mapped and they span from 0x0400060 to 0x40000A6.
+Sound registers, as for all other registers in the GBA, are memory mapped and they span from 0x04000060 to 0x040000A6.
 
 | Adress     | Name            | Function                                          |
 | ---------- | --------------- | ------------------------------------------------- |

@@ -5,7 +5,7 @@ The BIOS calls are basically SWI instructions; the value passed into the instruc
 
 ### `0x00`: SoftReset
 
-Resets the GBA and runs the code at address `0x2000000` or `0x8000000` depending on the contents of `0x3007ffa` (0 means `0x8000000` and anything else means `0x2000000`).
+Resets the GBA and runs the code at address `0x02000000` or `0x08000000` depending on the contents of `0x03007ffa` (0 means `0x08000000` and anything else means `0x02000000`).
 
 ### `0x01`: RegisterRamReset
 
