@@ -1284,8 +1284,8 @@ X X X X  X X X X  X X X X  X X X <FONT COLOR="#FF0099">M</FONT>
 
 * * *
 
-<h3 id="REG_PAUSE"><a class="header" href="#REG_PAUSE">
-0x04000300 - REG_PAUSE
+<h3 id="REG_HALTCNT"><a class="header" href="#REG_HALTCNT">
+0x04000300 - REG_HALTCNT
 </a></h3>
 
 <div>
