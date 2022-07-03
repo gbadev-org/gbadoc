@@ -10,8 +10,6 @@
 * [Hardware Interrupts](interrupts.md)
 * [BIOS (Software Interrupts)](bios.md)
 * [Memory-Mapped Hardware Registers](registers.md)
-* [Miscellaneous/Weirdness](misc.md)
-* [Links](links.md)
 * [Acknowledgements](ack.md)
 
 <!-- * [Overview](overview.md)

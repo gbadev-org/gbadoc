@@ -1033,7 +1033,7 @@ COLOR="#FF0099">B B</FONT></PRE>
 | <tt>C-D <FONT COLOR="#FF0099">(M)</FONT></tt> | Comm Mode - `00` = 8bit, `01` = 32bit, `10` = Multilink, `11` = UART
 | <tt>  E <FONT COLOR="#9900CC">(I)</FONT></tt> | Enable Comm Interupt
 
-Using the link port and a link cable, the GBA can transmit serial data in one of four modes: 8 bit, 32 bit, Multilink, and UART. At the moment I only have info on the multilink mode. [Mail me](mailto:SorcererXIII@yahoo.com) if you know more about the other modes.
+Using the link port and a link cable, the GBA can transmit serial data in one of four modes: 8 bit, 32 bit, Multilink, and UART. At the moment this document only contains info on the multilink mode. Please [send us a PR](https://github.com/gbadev-org/gbadoc) if you know more about the other modes.
 
 #### Multilink Mode
 
@@ -1126,9 +1126,9 @@ Use this register to set which keypresses generate interrupts. The appropriate b
 
 * * *
 
-<a id="REG_R"></a>
+<a id="REG_RCNT"></a>
 
-### 0x4000134 - REG_R
+### 0x4000134 - REG_RCNT
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">    <FONT COLOR="#FF0000">R R  R R R                 R R</FONT>  
@@ -1136,9 +1136,7 @@ F E D C  B A 9 8  7 6 5 4  3 2 1 0
 </PRE>
 </div>
 
-This register appears to give direct access to the different lines of the link port. If you happen to have more information about which bit corresponds to which line, by all means [mail me](mailto:SorcererXIII@yahoo.com) about it so I can update the doc.
-
-Also, I used the name listed in Eloist's [gba.h](gba.h). I don't think it is very descriptive. If anyone has seen a better name for this register, let me know and I will change it. Otherwise I will probably change it to something like "REG_SCLINES" or "REG_SCPIN".
+This register appears to give direct access to the different lines of the link port. If you happen to have more information about which bit corresponds to which line, please [send us a PR](https://github.com/gbadev-org/gbadoc) or get in touch on [IRC or Discord](http://gbadev.net/).
 
 
 
