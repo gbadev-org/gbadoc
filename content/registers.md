@@ -1069,10 +1069,9 @@ Note from me: I have a suspicion that some of these bits are write-only. Please 
 **Addresses 0x4000130 - 0x4000132 - Keypad Input and Control Registers
 
 
-<a id="REG_KEY"></a>
 <a id="REG_KEYINPUT"></a>
 
-### 0x4000130 - REG_KEY (The input register) (Read Only)
+### 0x4000130 - REG_KEYINPUT (The input register) (Read Only)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">             R R  R R R R  R R R R</FONT>
