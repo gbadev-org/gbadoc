@@ -6,7 +6,7 @@ tt {
 }
 </style>
 
-The following section describes the function of each of the memory-mapped addresses in IO RAM. The register naming scheme is based on a variant of the popular [gba.h](gba.h) by Eloist (specifically, that used by Uze in the examples on his Audio Advance site).
+The following section describes the function of each of the memory-mapped addresses in IO RAM. The register naming scheme is based on a variant of the popular [gba.h](http://www.cs.rit.edu/~tjh8300/CowBite/gba.h) by Eloist (specifically, that used by Uze in the examples on his Audio Advance site).
 
 The notation for each entry is as follows:
 <div style="font-size: 85%">
@@ -26,7 +26,9 @@ COLOR="#9900CC"> </FONT><FONT COLOR="#0099FF">A</FONT><FONT COLOR="#9900CC">  C<
 
 * * *
 
-## 0x04000000 - 0x04000054 - Graphics Hardware Registers
+<h2 id="graphics-hardware-registers"><a class="header" href="#graphics-hardware-registers">
+0x04000000 - 0x04000054 - Graphics Hardware Registers
+</a></h2>
 
 
 <h3 id="REG_DISPCNT"><a class="header" href="#REG_DISPCNT">
@@ -61,7 +63,7 @@ COLOR="#9900CC"> </FONT><FONT COLOR="#0099FF">A</FONT><FONT COLOR="#9900CC">  C<
 
 
 <h3 id="REG_DISPSTAT"><a class="header" href="#REG_DISPSTAT">
-### 0x04000004 - REG_DISPSTAT
+0x04000004 - REG_DISPSTAT
 </a></h3>
 
 <div>
@@ -89,8 +91,9 @@ COLOR="#9900CC">G</FONT> <FONT COLOR="#FF0099">W</FONT> </PRE>
 
 This location stores the current y location of the LCD hardware. It is incremented as the lines are drawn. The 160 lines of display are followed by 68 lines of Vblank period, before the whole thing starts again for the next frame. Waiting for this register to reach 160 is one way to synchronize a program to 60Hz.
 
-
-## 0x04000008 - 0x0400001E - Background Registers
+<h2 id="background-registers"><a class="header" href="#background-registers">
+0x04000008 - 0x0400001E - Background Registers
+</a></h2>
 
 <h3 id="REG_BGCNT"><a class="header" href="#REG_BGCNT">
 0x04000008 - REG_BG0CNT <br>
@@ -141,7 +144,7 @@ These registers are only effective for [text backgrounds](backgrounds.md#text-ba
 
 * * *
 
-<h2 id="bg-rot-scale"><a class="header" href="#bg-rot-scale">
+<h2 id="background-rotation-scaling-registers"><a class="header" href="#background-rotation-scaling-registers">
 0x04000020 - 0x04000026 / 0x04000030 - 0x04000036 - Background Rotation/Scaling Registers (Write Only)
 </a></h2>
 

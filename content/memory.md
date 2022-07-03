@@ -75,7 +75,7 @@ Mirrors: Bytes 0x06010000 - 0x06017FFF is mirrored from 0x06018000 - 0x0601FFFF.
         0x20000 bytes from 0x06000000 - 0x06FFFFFF.
 </pre>
 
-The video RAM is used to store the frame buffer in [bitmapped](backgrounds.md#bitmapped-backgrounds) modes, and the tile data and tile maps for tile-based ["text"](backgrounds.md#text-backgrounds) and [rotate/scale](registers.md#bg-rot-scale) modes.
+The video RAM is used to store the frame buffer in [bitmapped](backgrounds.md#bitmapped-backgrounds) modes, and the tile data and tile maps for tile-based ["text"](backgrounds.md#text-backgrounds) and [rotate/scale](registers.md#background-rotation-scaling-registers) modes.
 
 ### OAM
 
