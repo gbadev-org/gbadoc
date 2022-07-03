@@ -1207,9 +1207,9 @@ COLOR="#0099FF">C </FONT><FONT COLOR="#9900CC">H </FONT><FONT COLOR="#FF0099">V<
 This register will determine which interrupt is currently being serviced. When your interrupt service routine get scalled, check these flags to determine what called it. In order to keep yourself from servicing the wrong interrupt at a later time, you should reset the flags to 0 by writing a 1 to them.
 
 
-<a id="REG_WSCNT"></a>
+<a id="REG_WAITCNT"></a>
 
-### 0x4000204 - REG_WSCNT (Wait State Control)
+### 0x4000204 - REG_WAITCNT (Wait State Control)
 
 <div>
 <PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">R   </FONT>

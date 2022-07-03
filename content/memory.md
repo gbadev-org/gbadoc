@@ -103,7 +103,7 @@ The following areas of memory are technically cart-dependent, but can generally 
 Start: 0x08000000
 Size:  The size of the cartridge (0 - 32 megabytes) 
 Port Size: 16 bit
-<a href="registers.html#REG_WSCNT">Wait State</a>: 0
+<a href="registers.html#REG_WAITCNT">Wait State</a>: 0
 </pre>
 
 The ROM in the game cartridge appears in this area. If a cartridge is present on startup, the instruction found at location `0x08000000` is loaded into the program counter and execution begins from there. Note that the transfers to and from ROM are all 16 bits wide.
@@ -114,7 +114,7 @@ The ROM in the game cartridge appears in this area. If a cartridge is present on
 Start: 0x0A000000
 Size:  The size of the cartridge (0 - 32 megabytes)
 Port Size:  16 bit
-<a href="registers.html#REG_WSCNT">Wait State</a>: 1
+<a href="registers.html#REG_WAITCNT">Wait State</a>: 1
 </pre>
 
 This is a mirror of the ROM above. Used to allow multiple speed ROMs in a single game pak.
@@ -125,7 +125,7 @@ This is a mirror of the ROM above. Used to allow multiple speed ROMs in a single
 Start: 0x0C000000
 Size:  The size of the cartridge (0 - 32 megabytes)
 Port Size: 16 bit
-<a href="registers.html#REG_WSCNT">Wait State</a>: 2
+<a href="registers.html#REG_WAITCNT">Wait State</a>: 2
 </pre>
 
 This is a mirror of the ROM above. Used to allow multiple speed ROMs in a single game pak.
