@@ -1122,6 +1122,21 @@ writing, some members of the GBADev community have purchased them for around $5/
 with copywritted games already on them (usually the popular games, Pokemon, Mario, etc).</p>
 <p>However, these carts <em>can</em> be cleaned and overwritten with homebrew games.</p>
 <p>This guide will describe how to develop games for bootleg carts.</p>
+<ol>
+<li><a href="bootleg-carts/introduction.html#size-of-carts">Size of Carts</a></li>
+<li><a href="bootleg-carts/introduction.html#removing-label">Removing Label</a></li>
+<li><a href="bootleg-carts/introduction.html#flashing-cart">Flashing Cart</a></li>
+<li><a href="bootleg-carts/introduction.html#batteryless-saving">Batteryless Saving</a></li>
+<li><a href="bootleg-carts/introduction.html#hardware-used-in-carts">Hardware Used in Carts</a></li>
+<li><a href="bootleg-carts/introduction.html#swapping-of-d0d1">Swapping of D0/D1</a></li>
+<li><a href="bootleg-carts/introduction.html#understanding-commands">Understanding Commands</a></li>
+<li><a href="bootleg-carts/introduction.html#querying-for-information">Querying for Information</a></li>
+<li><a href="bootleg-carts/introduction.html#detecting-if-d0d1-are-swapped">Detecting if D0/D1 are Swapped</a></li>
+<li><a href="bootleg-carts/introduction.html#understanding-region-layout">Understanding Region Layout</a></li>
+<li><a href="bootleg-carts/introduction.html#erasing-a-sector">Erasing a Sector</a></li>
+<li><a href="bootleg-carts/introduction.html#saving-data">Saving Data</a></li>
+<li><a href="bootleg-carts/introduction.html#final-thoughts">Final Thoughts</a></li>
+</ol>
 <h2 id="size-of-carts"><a class="header" href="#size-of-carts">Size of Carts</a></h2>
 <p>The carts typically range in size from 4MB to 32MB, with 16MB being the most common.</p>
 <p>If your game requires a lot of storage space, then you will be more restricted in which carts you
@@ -1155,7 +1170,7 @@ the cart with your game.</p>
 <p>I personally like GBxCart RW the best because it works on Mac OSX, runs from the command line, and
 is <a href="https://github.com/lesserkuma/FlashGBX">open source</a>.  To flash your game using GBxCart RW,
 after installing FlashGBX on your system, you run:</p>
-<pre><code>python3 -m FlashGBX --mode agb --action flash-rom MyGame.gba
+<pre><code class="language-bash">python3 -m FlashGBX --mode agb --action flash-rom MyGame.gba
 </code></pre>
 <p>Joey Jr works on Windows and doesn't require any installation, since the cart will show up as an
 external drive.  You simply drag your game on to the drive in Windows Explorer (or <code>copy</code> from the
@@ -1172,7 +1187,7 @@ increases the cost of manufacturing.</p>
 contents won't persist after power off (so it acts as an 8-bit RAM).</p>
 <p>So how can a game developer make a game that saves player progress?</p>
 <p>By using the same technique that the flashers use - writing data to the ROM itself.</p>
-<h3 id="hardware-used-in-carts"><a class="header" href="#hardware-used-in-carts">Hardware used in Carts</a></h3>
+<h2 id="hardware-used-in-carts"><a class="header" href="#hardware-used-in-carts">Hardware Used in Carts</a></h2>
 <p><img src="bootleg-carts/images/chips.jpg" alt="Cart Chips" /></p>
 <p>In order to flash data to the cart, you will need to know what chips are in the cart.</p>
 <p>For this guide, I will assume the cart is using a <code>S29GL128N</code> chip.  You can usually read the chip
@@ -1190,7 +1205,7 @@ exact chip, but instead just a category of chips.</p>
 <li>Writing the data to the sector</li>
 </ol>
 <p>This is accomplished by writing special values to the ROM, at special address locations.</p>
-<h3 id="swapping-of-d0d1"><a class="header" href="#swapping-of-d0d1">Swapping of D0/D1</a></h3>
+<h2 id="swapping-of-d0d1"><a class="header" href="#swapping-of-d0d1">Swapping of D0/D1</a></h2>
 <p><strong>IMPORTANT NOTE:</strong> Many carts will swap the D0 and D1 lines!</p>
 <p>This means when the specification says you need to write <code>0x55</code>, then you actually need to write
 <code>0x56</code> because bits 0 and 1 are swapped (<code>01010101</code> -&gt; <code>01010110</code>).</p>
@@ -1199,12 +1214,12 @@ swapped as well.</p>
 <p>This <em>does not</em> affect the data written to the ROM.  If you want <code>0x4321</code> written to memory, then
 just write <code>0x4321</code>, because it will be swapped on write, and swapped again on read, cancelling it
 out.</p>
-<h3 id="understanding-commands"><a class="header" href="#understanding-commands">Understanding Commands</a></h3>
+<h2 id="understanding-commands"><a class="header" href="#understanding-commands">Understanding Commands</a></h2>
 <p>The table on page 57 shows the different commands available for the <code>S29GL128N</code>:</p>
 <p><img src="bootleg-carts/images/commands.png" alt="S29GL128N Commands" /></p>
 <p>You can see that this information also exists in the FlashGBX source code, <a href="https://github.com/lesserkuma/FlashGBX/blob/9b44a9959bf9fd6bab5f1005ce1c757d2f456fa7/FlashGBX/config/fc_AGB_MSP55LV128M.txt">in the
 config</a>:</p>
-<pre><code>&quot;reset&quot;:[
+<pre><code class="language-javascript">&quot;reset&quot;:[
   [ 0, 0xF0 ]
 ],
 &quot;read_identifier&quot;:[
@@ -1242,18 +1257,88 @@ _FLASH_WRITE(0xAAA, 0x90);
 code from the ROM.  You will need to <a href="https://github.com/lesserkuma/goombacolor/blob/f2bae8eb5087de14008250032c82cf5d294131cd/src/main.c#L553">load the code into
 EWRAM</a>
 or IWRAM so that the bus between the GBA and the cart doesn't have extra reads to execute code.</p>
-<h3 id="querying-for-information"><a class="header" href="#querying-for-information">Querying for Information</a></h3>
+<h2 id="querying-for-information"><a class="header" href="#querying-for-information">Querying for Information</a></h2>
 <p>There is a standard protocol used by all flash chips called the <a href="https://en.wikipedia.org/wiki/Common_Flash_Memory_Interface">Common Flash Memory
 Interface</a> (CFI).</p>
 <p>You can use CFI to query a lot of information about the chip you're interacting with.  The chip
 specifications should have a section on CFI.</p>
-<p>TODO: write more information about CFI and sector layout.</p>
-<h3 id="erasing-a-sector"><a class="header" href="#erasing-a-sector">Erasing a Sector</a></h3>
+<p>Two things in particular you probably want is whether D0/D1 are swapped, and the region layout.</p>
+<h2 id="detecting-if-d0d1-are-swapped"><a class="header" href="#detecting-if-d0d1-are-swapped">Detecting if D0/D1 are Swapped</a></h2>
+<p>You can detect if D0/D1 are swapped by putting the chip in CFI mode, then reading the bytes at
+<code>0x20</code>, <code>0x22</code>, and <code>0x24</code>.  These values are hardcoded to <code>'Q'</code>, <code>'R'</code>, <code>'Y'</code>, but if D0/D1 are
+swapped, you'll instead see <code>'R'</code>, <code>'Q'</code>, <code>'Z'</code>.</p>
+<p>Here is some example code:</p>
+<pre><code class="language-c">// reset the chip
+_FLASH_WRITE(0, 0xF0);
+// enter CFI mode
+_FLASH_WRITE(0xAA, 0x98);
+
+// read the header
+u16 Q = *(((u16 *)AGB_ROM)+(0x20/2));
+u16 R = *(((u16 *)AGB_ROM)+(0x22/2));
+u16 Y = *(((u16 *)AGB_ROM)+(0x24/2));
+bool swapBits = false;
+
+if (Q == 'Q' &amp;&amp; R == 'R' &amp;&amp; Y == 'Y') {
+  // CFI mode is enabled, D0/D1 are not swapped
+  swapBits = false;
+}
+else if (Q == 'R' &amp;&amp; R == 'Q' &amp;&amp; Y == 'Z') {
+  // CFI mode is enabled, D0/D1 are swapped
+  swapBits = true;
+}
+else {
+  // chip didn't enter CFI mode, try something else
+}
+</code></pre>
+<p>Once you know if D0/D1 are swapped, you can write a helper function for reading bytes from the ROM:</p>
+<pre><code class="language-c">u8 readByte(int addr, bool swapBits) {
+  u8 data = *(((u16 *)AGB_ROM)+(addr/2));
+  if (swapBits) {
+    data =
+      (data &amp; 0xfc) |
+      ((data &amp; 1) &lt;&lt; 1) |
+      ((data &amp; 2) &gt;&gt; 1);
+  }
+  return data;
+}
+</code></pre>
+<h2 id="understanding-region-layout"><a class="header" href="#understanding-region-layout">Understanding Region Layout</a></h2>
+<p>The region layout is useful for calculating where the sectors start, and how large they are.
+Assuming you want to overwrite sectors at the end of the ROM, you need to figure out what
+address(es) to write to.</p>
+<p>There are 1-4 regions, and each region has a sector count and sector size.</p>
+<p>After entering CFI mode, you can read the region layout from memory:</p>
+<p><img src="bootleg-carts/images/regions.png" alt="Region Layout Memory Locations" /></p>
+<p>Here's some example code:</p>
+<pre><code class="language-c">// assuming we are already in CFI mode
+int regionCount = readByte(0x58, swapBits);
+struct {
+  int sectorCount;
+  int sectorSize;
+} regions[4] = {0};
+
+for (int region = 0; region &lt; regionCount; region++) {
+  int sectorCountLow  = readByte(0x5A + region * 8, swapBits);
+  int sectorCountHigh = readByte(0x5C + region * 8, swapBits);
+  int sectorSizeLow   = readByte(0x5E + region * 8, swapBits);
+  int sectorSizeHigh  = readByte(0x60 + region * 8, swapBits);
+
+  // note we must add one!
+  regions[region].sectorCount =
+    ((sectorCountHigh &lt;&lt; 8) | sectorCountLow) + 1;
+
+  // note we must multiply by 256!
+  regions[region].sectorSize =
+    ((sectorSizeHigh &lt;&lt; 8) | sectorSizeLow) &lt;&lt; 8;
+}
+</code></pre>
+<h2 id="erasing-a-sector"><a class="header" href="#erasing-a-sector">Erasing a Sector</a></h2>
 <p>Erasing a sector will set all the values in that sector to <code>0xFFFF</code>.</p>
 <p>This is fairly straight forward, you can use
 <a href="https://github.com/lesserkuma/goombacolor/blob/f2bae8eb5087de14008250032c82cf5d294131cd/src/main.c#L657">goombacolor</a>
 as a reference:</p>
-<pre><code>// Erase flash sector
+<pre><code class="language-c">// Erase flash sector
 _FLASH_WRITE(sa, 0xF0);
 _FLASH_WRITE(0xAAA, 0xA9);
 _FLASH_WRITE(0x555, 0x56);
@@ -1278,10 +1363,10 @@ _FLASH_WRITE(sa, 0xF0);
 <li>Waits in a loop until it reads <code>0xFFFF</code> from the sector, indicating the erase is finished</li>
 <li>Resets the chip again</li>
 </ol>
-<h3 id="saving-data"><a class="header" href="#saving-data">Saving Data</a></h3>
+<h2 id="saving-data"><a class="header" href="#saving-data">Saving Data</a></h2>
 <p>Once again, <a href="https://github.com/lesserkuma/goombacolor/blob/f2bae8eb5087de14008250032c82cf5d294131cd/src/main.c#L673">goombacolor</a>
 is a great reference:</p>
-<pre><code>for (int i=0; i&lt;AGB_SRAM_SIZE; i+=2) {
+<pre><code class="language-c">for (int i=0; i&lt;AGB_SRAM_SIZE; i+=2) {
   _FLASH_WRITE(0xAAA, 0xA9);
   _FLASH_WRITE(0x555, 0x56);
   _FLASH_WRITE(0xAAA, 0xA0);
@@ -1310,6 +1395,21 @@ that saves to SRAM so that emulators can save the data.</p>
 before it was actually finished.  See the section on DQ7 Data Polling on page 59 to understand why
 this won't happen.  In summary, DQ7 will always be the opposite of whatever was written until the
 write goes through.</p>
+<h2 id="final-thoughts"><a class="header" href="#final-thoughts">Final Thoughts</a></h2>
+<p>This guide is a starting point, but it cannot replace experimentation.  Now that you understand the
+basic idea, here are some things you will want to consider:</p>
+<ol>
+<li>If a user shuts off power during a save, then the save will be incomplete.  You can backup the
+save into another sector to ensure the data will always be recoverable.</li>
+<li>If you want your game to work on emulators, you will still need to save to SRAM.  However, if you
+don't care about emulators, then you can have much larger save files (for example, reserving 8 MB
+for game code, 4 MB for save data, and 4 MB for backup).</li>
+<li>Different chips have different commands, so if you want to support multiple chips, you will need
+a method to detect which chip you're on, and use the appropriate commands.
+<a href="https://github.com/lesserkuma/FlashGBX/blob/master/FlashGBX/hw_GBxCartRW.py#L1469">FlashGBX</a> and
+<a href="https://github.com/lesserkuma/goombacolor/blob/main/src/main.c#L554">goombacolor</a>
+are great references for this, and they both use different methods.</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="acknowledgements"><a class="header" href="#acknowledgements">Acknowledgements</a></h1>
 <p>The following are individuals who contributed info or corrections on the original CowBiteSpec document.</p>
 <ul>
