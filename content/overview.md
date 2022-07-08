@@ -28,7 +28,7 @@
 
 Programs run on the GBA are usually contained in a "Game Pak". A "Game Pak" consists mainly of ROM and possibly Cart RAM (in the form of SRAM, Flash ROM, or EEPROM, used mainly for save game info). The ROM is where compiled code and data is stored. Unlike home computers, workstations, or servers, there are no disks or other drives, so everything that might otherwise have been stored as separate resource files must be compiled into the program ROM itself. Luckily there are tools to aid in this process.
 
-The primary means a program accesses specialized hardware for graphics, sound, and other IO is through the memory-mapped IO. Memory mapped IO is a means of communicating with hardware by writing to/reading from specific memory addresses that are "mapped" to internal hardware functions. For example, you might write to address 0x4000000 with the value "0x0100", which tells the hardware "enable background 0 and graphics mode 0". A secondary means is through the BIOS, which is embedded in the internal GBA system ROM. Using software interrupts it is possible to access pre-programmed (and hopefully optimized) routines lying in the the system ROM. These routines then access the hardware through the memory-mapped IO.
+The primary means a program accesses specialized hardware for graphics, sound, and other IO is through the memory-mapped IO. Memory mapped IO is a means of communicating with hardware by writing to/reading from specific memory addresses that are "mapped" to internal hardware functions. For example, you might write to address 0x04000000 with the value "0x0100", which tells the hardware "enable background 0 and graphics mode 0". A secondary means is through the BIOS, which is embedded in the internal GBA system ROM. Using software interrupts it is possible to access pre-programmed (and hopefully optimized) routines lying in the the system ROM. These routines then access the hardware through the memory-mapped IO.
 
 Other regions of memory that are directly mapped to the hardware are Palette RAM (which is a table consisting of all the available colors), VRAM (which performs a similar function to the video RAM on a PC - and thensome), and OAM (which contains the attributes for hardware accelerated sprites). 
 
@@ -160,7 +160,7 @@ This is either SRAM or Flash ROM. Used primarily for saving game data. SRAM can 
 
 ### EEPROM
 
-This is another kind of cart memory, but operates differently from SRAM or Flash ROM. Unfortunately, I don't know the details of how it can be accessed by the programmer (mail me if you have more information on it). It uses a serial connection to transmit data. The maximum size is 128 mb, but it can be any size, and is usually 4 kb or 64 kb. Like Flash ROM it has a limited life; some manufacturers cite a minimum of 100,000 rewrites per sector.
+This is another kind of cart memory, but operates differently from SRAM or Flash ROM. Unfortunately, I don't know the details of how it can be accessed by the programmer ([send us a PR](https://github.com/gbadev-org/gbadoc) if you have more information on it). It uses a serial connection to transmit data. The maximum size is 128 mb, but it can be any size, and is usually 4 kb or 64 kb. Like Flash ROM it has a limited life; some manufacturers cite a minimum of 100,000 rewrites per sector.
 
 There may be other regions of memory known as DEBUG ROM 1 and DEBUG ROM 2, though I really don't know whether these are a part of commercial carts or if they are mapped to some part of the internal ROM, or if they're even available on a standard GBA.
 

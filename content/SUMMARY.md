@@ -1,9 +1,15 @@
 # GBA Doc
 
-[Intro](intro.md)
-
-* [Overview](overview.md)
-* [Graphics Hardware](graphics.md)
+* [Intro](intro.md)
+* [CPU](cpu.md)
+* [Memory](memory.md)
+* [Graphics Hardware Overview](graphics.md)
+* [Backgrounds](backgrounds.md)
+* [OAM (Sprites)](sprites.md)
+* [Windowing](windowing.md)
+* [Hardware Interrupts](interrupts.md)
+* [BIOS (Software Interrupts)](bios.md)
+* [Memory-Mapped Hardware Registers](registers.md)
 * [Audio](audio/introduction.md)
     * [Direct Sound](audio/directsound.md)
     * [Sound Channel 1](audio/sound1.md)
