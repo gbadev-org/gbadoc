@@ -19,7 +19,7 @@ Enabling objs and one or more backgrounds in [REG_DISPCNT](registers.md#REG_DISP
 
 ### Mode 0
 
-In this mode, four text background layers can be shown. In this mode backgrounds 0 - 3 all count as ["text"](backgrounds.md#text-backgrounds) backgrounds, and cannot be scaled or rotated. Check out the section on [text backgrounds](#Text Backgrounds) for details on this.
+In this mode, four text background layers can be shown. In this mode backgrounds 0 - 3 all count as ["text"](backgrounds.md#text-backgrounds) backgrounds, and cannot be scaled or rotated. Check out the section on [text backgrounds](backgrounds.md#text-backgrounds) for details on this.
 
 ### Mode 1
 

@@ -6,17 +6,17 @@ tt {
 }
 </style>
 
-This section is intended to be an overview only, detailing those aspects of the CPU which are important to understand when developing for the GBA in particular. A more thorough description of the ARM7tdmi CPU can be found in the [technical reference manuals](http://www.arm.com/arm/TRMs?OpenDocument) on [ARM's website](http://www.arm.com).  
-  
+This section is intended to be an overview only, detailing those aspects of the CPU which are important to understand when developing for the GBA in particular. A more thorough description of the ARM7tdmi CPU can be found in the [technical reference manuals](http://www.arm.com/arm/TRMs?OpenDocument) on [ARM's website](http://www.arm.com).
+
 The CPU is a 16.78 MHz ARM7tdmi RISC processor. It is a 32-bit processor but can be switched to "Thumb" state, which allows it to handle a special subset of 16-bit instructions that map to 32-bit counterparts. Instructions follow a three-stage pipeline: fetch, decode, execute. As a result, the [program counter](#r15 (PC)) always points two instructions ahead of the one currently being executed.
 
 ## CPU Registers
 
 16 registers are visible to the user at any given time, though there are 20 [banked registers](#banked-registers) which get swapped in whenever the CPU changes to various priveleged modes. The registers visible in user mode are as follows:
 
-* **r0-r12:** General purpose registers, for use in every day operations  
+* **r0-r12:** General purpose registers, for use in every day operations
 
-* **r13 (SR):** Stack pointer Register. Used primarily for maintaining the address of the stack. This default value (initialized by the BIOS) differs depending on the current [processor mode](#processor-modes), as follows:
+* **r13 (SP):** Stack pointer Register. Used primarily for maintaining the address of the stack. This default value (initialized by the BIOS) differs depending on the current [processor mode](#processor-modes), as follows:
 
   <pre>
   User/System:  0x03007F00
@@ -24,11 +24,11 @@ The CPU is a 16.78 MHz ARM7tdmi RISC processor. It is a 32-bit processor but can
   Supervisor:   0x03007FE0
   </pre>
 
-  As far as I know the other modes do not have default stack pointers.  
-  
-* **r14 (LR):** Link Register. Used primarily to store the address following a "bl" (branch and link) instruction (as used in function calls)  
+  As far as I know the other modes do not have default stack pointers.
 
-* <a id="r15"></a> **r15 (PC):** The Program Counter. Because the ARM7tdmi uses a 3-stage pipeline, this register always contains an address which is 2 instructions ahead of the one currrently being executed. In 32-bit ARM state, it is 8 bytes ahead, while in 16-bit Thumb state it is 4 bytes ahead.  
+* **r14 (LR):** Link Register. Used primarily to store the address following a "bl" (branch and link) instruction (as used in function calls)
+
+* <a id="r15"></a> **r15 (PC):** The Program Counter. Because the ARM7tdmi uses a 3-stage pipeline, this register always contains an address which is 2 instructions ahead of the one currrently being executed. In 32-bit ARM state, it is 8 bytes ahead, while in 16-bit Thumb state it is 4 bytes ahead.
 
 * **CPSR:** The Current Program Status Register. This contains the status bits relevant to the CPU:
 
@@ -56,10 +56,10 @@ The CPU is a 16.78 MHz ARM7tdmi RISC processor. It is a 32-bit processor but can
 
 The ARM7tdmi has six modes: user, system, IRQ, FIQ, SVC, Undef, and Abt. The default is user mode. Certain events will trigger a mode switch. Some modes cause an alternate set of registers to be swapped in, effectively replacing the current set of registers until the mode is exited.
 
-* **<span id="User">User</span>:** This is the default mode.  
-  
-* **<span id="System">System</span>:** This is intended to be a priveleged user mode for the operating system. As far as I can tell it is otherwise the same as User mode. I am not sure if the GBA ever enters System mode during [BIOS](bios.md)) calls.  
-  
+* **<span id="User">User</span>:** This is the default mode.
+
+* **<span id="System">System</span>:** This is intended to be a priveleged user mode for the operating system. As far as I can tell it is otherwise the same as User mode. I am not sure if the GBA ever enters System mode during [BIOS](bios.md)) calls.
+
 * **<span id="IRQ">IRQ</span>:** This mode is entered when an Interrupt Request is triggered. Any interrupt handler on the GBA will be called in IRQ mode.
 
     * <a id="banked-registers"></a> Banked registers: The ARM7tdmi has several sets of banked registers that get swapped in place of normal user mode registers when a priveleged mode is entered, to be swapped back out again once the mode is exited. In IRQ mode, r13\_irq and r14\_irq will be swapped in to replace r13 and r14. The current [CPSR](#CPSR) contents gets saved in the SPSR\_irq register.
@@ -82,7 +82,7 @@ The ARM7tdmi has six modes: user, system, IRQ, FIQ, SVC, Undef, and Abt. The def
 
 ### CPU State
 
-The ARM7tdmi has two possible states, either of which may be entered without fear of losing register contents or current processor mode.  
+The ARM7tdmi has two possible states, either of which may be entered without fear of losing register contents or current processor mode.
 
 **To enter Thumb State**: In this state the CPU executes 16-bit, halfword-aligned instructions. There are two ways it can be entered:
 
