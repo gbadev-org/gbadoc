@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="intro.html">Intro</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">2.</strong> Graphics Hardware</a></li><li class="chapter-item expanded "><a href="audio/introduction.html"><strong aria-hidden="true">3.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="audio/directsound.html"><strong aria-hidden="true">3.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="audio/sound1.html"><strong aria-hidden="true">3.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="audio/sound2.html"><strong aria-hidden="true">3.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="audio/sound3.html"><strong aria-hidden="true">3.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="audio/sound4.html"><strong aria-hidden="true">3.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="audio/registers.html"><strong aria-hidden="true">3.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="bootleg-carts/introduction.html"><strong aria-hidden="true">4.</strong> Bootleg Carts</a></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">5.</strong> Acknowledgements</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="cpu.html"><strong aria-hidden="true">2.</strong> CPU</a></li><li class="chapter-item expanded "><a href="memory.html"><strong aria-hidden="true">3.</strong> Memory</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">4.</strong> Graphics Hardware Overview</a></li><li class="chapter-item expanded "><a href="backgrounds.html"><strong aria-hidden="true">5.</strong> Backgrounds</a></li><li class="chapter-item expanded "><a href="sprites.html"><strong aria-hidden="true">6.</strong> OAM (Sprites)</a></li><li class="chapter-item expanded "><a href="windowing.html"><strong aria-hidden="true">7.</strong> Windowing</a></li><li class="chapter-item expanded "><a href="interrupts.html"><strong aria-hidden="true">8.</strong> Hardware Interrupts</a></li><li class="chapter-item expanded "><a href="bios.html"><strong aria-hidden="true">9.</strong> BIOS (Software Interrupts)</a></li><li class="chapter-item expanded "><a href="registers.html"><strong aria-hidden="true">10.</strong> Memory-Mapped Hardware Registers</a></li><li class="chapter-item expanded "><a href="audio/introduction.html"><strong aria-hidden="true">11.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="audio/directsound.html"><strong aria-hidden="true">11.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="audio/sound1.html"><strong aria-hidden="true">11.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="audio/sound2.html"><strong aria-hidden="true">11.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="audio/sound3.html"><strong aria-hidden="true">11.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="audio/sound4.html"><strong aria-hidden="true">11.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="audio/registers.html"><strong aria-hidden="true">11.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="bootleg-carts/introduction.html"><strong aria-hidden="true">12.</strong> Bootleg Carts</a></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">13.</strong> Acknowledgements</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -150,170 +150,1776 @@
 <p>The book is provided to you under the <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">Creative Commons 0 License</a>.</p>
 <p>If you'd like to ask questions, report problems, or contribute, then go to our <a href="https://github.com/gbdev/gbadoc">GitHub Repository</a>.</p>
 <p>If you want to just chat about GBA topics you can join the <a href="https://discord.io/gbadev">GBADev Discord</a>.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="overview"><a class="header" href="#overview">Overview</a></h1>
+<h2 id="the-basics"><a class="header" href="#the-basics">The Basics</a></h2>
+<p>From the programmer's perspective, the system is composed of the following:</p>
 <ul>
-<li><strong>CPU:</strong> An <a href="https://en.wikipedia.org/wiki/ARM7#ARM7TDMI">ARM7TDMI</a> core running
-at 16.78 MHz. No floating point unit.</li>
-<li><strong>Screen:</strong> A 2.9 inch LCD screen with a 240 by 160 resolution.</li>
-<li><strong>Video:</strong> Runs at approximately 59.72 Hz. Supports tiled graphics in &quot;text&quot; or
-&quot;affine&quot; modes, as well as bitmap graphics. 5-bit per channel RGB color.</li>
-<li><strong>Audio:</strong> Supports 8-bit wave output as well as the legacy Procedural Sound
-Generator (PSG) chips from the Game Boy.</li>
-<li><strong>Input:</strong> Directional pad (up, down, left, right, plus diagonals), four primary
-buttons (A, B, L, R), two secondary buttons (Start, Select).</li>
-<li><strong>Memory:</strong>
+<li><a href="cpu.html">CPU</a> - A 16.78 Mhz ARM7tdmi</li>
+<li><a href="memory.html">Memory</a> - 8 to 11 distinct areas of memory (depending on the Game Pak).</li>
+<li><a href="registers.html">IO</a> - Special hardware functions available to the programmer, primarily pertaining to graphics, sound, DMA, timers, serial communication, key input, and interrupts.</li>
+</ul>
+<p>Programs run on the GBA are usually contained in a &quot;Game Pak&quot;. A &quot;Game Pak&quot; consists mainly of <a href="memory.html#game-pak-rom">ROM</a> and possibly <a href="memory.html#cart-ram">Cart RAM</a> (in the form of SRAM, Flash ROM, or EEPROM, used mainly for save game info). The ROM is where compiled code and data is stored. Unlike home computers, workstations, or servers, there are no disks or other drives, so everything that might otherwise have been stored as separate resource files must be compiled into the program ROM itself. Luckily there are tools to aid in this process.</p>
+<p>The primary means a program accesses specialized hardware for graphics, sound, and other IO is through the <a href="registers.html">memory-mapped IO</a>. Memory mapped IO is a means of communicating with hardware by writing to/reading from specific memory addresses that are &quot;mapped&quot; to internal hardware functions. For example, you might write to address <a href="registers.html#REG_DISPCNT">0x04000000</a> with the value &quot;0x0100&quot;, which tells the hardware &quot;enable background 0 and graphics mode 0&quot;. A secondary means is through the <a href="memory.html#system-rom">BIOS</a>, which is embedded in the internal GBA system ROM. Using <a href="bios.html">software interrupts</a> it is possible to access pre-programmed (and hopefully optimized) routines lying in the the system ROM. These routines then access the hardware through the memory-mapped IO.</p>
+<p>Other regions of memory that are directly mapped to the hardware are <a href="memory.html#palette-ram">Palette RAM</a> (which is a table consisting of all the available colors), <a href="memory.html#vram">VRAM</a> (which performs a similar function to the video RAM on a PC - and thensome), and <a href="memory.html#oam">OAM</a> (which contains the attributes for hardware accelerated sprites).</p>
+<h2 id="programming-for-the-gba"><a class="header" href="#programming-for-the-gba">Programming for the GBA</a></h2>
+<p>C, C++, and ARM/Thumb assembly are the most common languages used in GBA development, mainly because they are fast and relatively low level (i.e. there is a large degree of correspondance between the structure of the language and underlying instruction set of the architecture).</p>
+<p>The two main development kits are <a href="https://devkitpro.org/">devkitARM</a> and <a href="https://github.com/felixjones/gba-toolchain">gba-toolchain</a>, but it's also surprisingly easy to <a href="https://github.com/AntonioND/gba-bootstrap">roll your own</a> using vanilla ARM GCC. Newer systems programming languages such as Rust, D, Nim and Zig are also increasingly used.</p>
+<p>Most GBA programs are structured around the timing of the CPU and graphics hardware. The LCD has a refresh rate of about 59.73 hz, with each refresh consisting of a <a href="graphics.html#VDraw">vertical draw</a> period (when the GBA is drawing the screen) followed by a <a href="graphics.html#VBlank">vertical blank</a> period (when nothing is being drawn). The vertical draw and vertical blank periods are further subdivided into <a href="graphics.html#HDraw">horizontal draw and blank</a> periods. Programs typically use the VBlank and possibly the HBlank periods to update VRAM or graphics hardware registers in order to avoid unwanted visual artifacts, leaving the VDraw and HDraw periods to perform any software processing that will not effect the display. Common methods of syncing to VBlank include polling <a href="registers.html#REG_STAT">REG_DISPSTAT</a> or <a href="registers.html#REG_VCOUNT">REG_VCOUNT</a>, calling the <a href="bios.html#0x05-vblankintrwait">VBlankIntrWait</a> BIOS function, or setting up an <a href="interrupts.html">interrupt</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cpu"><a class="header" href="#cpu">CPU</a></h1>
+<style>
+tt {
+  white-space: pre;
+}
+</style>
+<p>This section is intended to be an overview only, detailing those aspects of the CPU which are important to understand when developing for the GBA in particular. A more thorough description of the ARM7tdmi CPU can be found in the <a href="http://www.arm.com/arm/TRMs?OpenDocument">technical reference manuals</a> on <a href="http://www.arm.com">ARM's website</a>.</p>
+<p>The CPU is a 16.78 MHz ARM7tdmi RISC processor. It is a 32-bit processor but can be switched to &quot;Thumb&quot; state, which allows it to handle a special subset of 16-bit instructions that map to 32-bit counterparts. Instructions follow a three-stage pipeline: fetch, decode, execute. As a result, the <a href="cpu.html#r15" title="PC">program counter</a> always points two instructions ahead of the one currently being executed.</p>
+<h2 id="cpu-registers"><a class="header" href="#cpu-registers">CPU Registers</a></h2>
+<p>16 registers are visible to the user at any given time, though there are 20 <a href="cpu.html#banked-registers">banked registers</a> which get swapped in whenever the CPU changes to various priveleged modes. The registers visible in user mode are as follows:</p>
 <ul>
-<li>32k of CPU internal RAM (a small portion of this is pre-allocated)</li>
-<li>256k of CPU external RAM (totally free for any use)</li>
-<li>96k of Video RAM (the structure here depends on the video mode)</li>
-<li>128 Object entries, used to display &quot;sprites&quot;.</li>
-<li>32 Affine parameter entries.</li>
-<li>256 palette entries for Backgrounds (&quot;backdrop&quot; plus 255 usable colors).</li>
-<li>256 palette entries for Objects (of which 255 are usable).</li>
-<li>Supports ROMs of up to 32MB in size.</li>
+<li>
+<p><strong>r0-r12:</strong> General purpose registers, for use in every day operations</p>
+</li>
+<li>
+<p><strong>r13 (SR):</strong> Stack pointer Register. Used primarily for maintaining the address of the stack. This default value (initialized by the BIOS) differs depending on the current <a href="cpu.html#processor-modes">processor mode</a>, as follows:</p>
+<pre>
+User/System:  0x03007F00
+IRQ:          0x03007FA0
+Supervisor:   0x03007FE0
+</pre>
+<p>As far as I know the other modes do not have default stack pointers.</p>
+</li>
+<li>
+<p><strong>r14 (LR):</strong> Link Register. Used primarily to store the address following a &quot;bl&quot; (branch and link) instruction (as used in function calls)</p>
+</li>
+<li>
+<p><a id="r15"></a> <strong>r15 (PC):</strong> The Program Counter. Because the ARM7tdmi uses a 3-stage pipeline, this register always contains an address which is 2 instructions ahead of the one currrently being executed. In 32-bit ARM state, it is 8 bytes ahead, while in 16-bit Thumb state it is 4 bytes ahead.</p>
+</li>
+<li>
+<p><strong>CPSR:</strong> The Current Program Status Register. This contains the status bits relevant to the CPU:</p>
+<div style="font-size: 80%">
+<PRE style="width: min-content; margin: 16px auto">31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
+<FONT COLOR="#008800"> N </FONT> <FONT COLOR="#0099FF">Z </FONT> <FONT COLOR="#9900CC">C</FONT> <FONT COLOR="#FF0099"> V</FONT> <FONT
+  COLOR="#FF3300">  R  R  R  R   R  R  R  R   R  R  R  R   R  R  R  R   R  R R R </FONT><FONT COLOR="#008800"> I </FONT><FONT
+  COLOR="#0099FF">F</FONT> <FONT COLOR="#9900CC">T</FONT> <FONT COLOR="#FF0099">M  M M M M</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt> 0-4 <FONT COLOR="#FF0099">(M)</FONT></tt></td><td><p>Mode bits. These indicate the current processor mode:</p><p><code>10000</code> - User mode<br><code>10001</code> - FIQ mode<br><code>10010</code> - IRQ mode<br><code>10011</code> - Supervisor mode<br><code>10111</code> - Abort mode<br><code>11011</code> - Undefined mode<br><code>11111</code> - System mode<br></p></td></tr>
+<tr><td><tt>   5 <FONT COLOR="#9900CC">(T)</FONT></tt></td><td><a href="cpu.html#cpu-state">Thumb state</a> indicator. If set, the CPU is in Thumb state.  Otherwise it operates in normal ARM state. Software should never attempt to modify this bit itself.</td></tr>
+<tr><td><tt>   6 <FONT COLOR="#0099FF">(F)</FONT></tt></td><td>FIQ interrupt disable. Set this to disable FIQ interrupts.</td></tr>
+<tr><td><tt>   7 <FONT COLOR="#008800">(I)</FONT></tt></td><td><a href="interrupts.html">IRQ interrupt</a> disable. Set this to disable IRQ interrupts. On the GBA this is set by default whenever IRQ mode is entered. Why or how this is the case, I do not know.</td></tr>
+<tr><td><tt>8-27 <FONT COLOR="#FF3300">(R)</FONT></tt></td><td>Reserved</td></tr>
+<tr><td><tt>  28 <FONT COLOR="#FF0099">(V)</FONT></tt></td><td>Overflow condition code</td></tr>
+<tr><td><tt>  29 <FONT COLOR="#9900CC">(C)</FONT></tt></td><td>Carry/Borrow/Extend condition code</td></tr>
+<tr><td><tt>  30 <FONT COLOR="#0099FF">(Z)</FONT></tt></td><td>Zero/Equal condition code</td></tr>
+<tr><td><tt>  31 <FONT COLOR="#008800">(N)</FONT></tt></td><td>Negative/Less than condition code</td></tr>
+</tbody></table>
+</div></li>
+</ul>
+<h2 id="processor-modes"><a class="header" href="#processor-modes">Processor Modes</a></h2>
+<p>The ARM7tdmi has six modes: user, system, IRQ, FIQ, SVC, Undef, and Abt. The default is user mode. Certain events will trigger a mode switch. Some modes cause an alternate set of registers to be swapped in, effectively replacing the current set of registers until the mode is exited.</p>
+<ul>
+<li>
+<p><strong><span id="User">User</span>:</strong> This is the default mode.</p>
+</li>
+<li>
+<p><strong><span id="System">System</span>:</strong> This is intended to be a priveleged user mode for the operating system. As far as I can tell it is otherwise the same as User mode. I am not sure if the GBA ever enters System mode during <a href="bios.html">BIOS</a>) calls.</p>
+</li>
+<li>
+<p><strong><span id="IRQ">IRQ</span>:</strong> This mode is entered when an Interrupt Request is triggered. Any interrupt handler on the GBA will be called in IRQ mode.</p>
+<ul>
+<li><a id="banked-registers"></a> Banked registers: The ARM7tdmi has several sets of banked registers that get swapped in place of normal user mode registers when a priveleged mode is entered, to be swapped back out again once the mode is exited. In IRQ mode, r13_irq and r14_irq will be swapped in to replace r13 and r14. The current <a href="cpu.html#CPSR">CPSR</a> contents gets saved in the SPSR_irq register.</li>
 </ul>
 </li>
-<li><strong>Other Peripherals:</strong>
+<li>
+<p><strong><span id="FIQ">FIQ</span>:</strong> This mode is entered when a Fast Interrupt Request is triggered. Since all of the hardware interrupts on the GBA generate IRQs, this mode goes unused by default, though it would be possible to switch to this mode manually using the &quot;msr&quot; instruction.</p>
 <ul>
-<li>Serial port that supports up to four devices in the network.</li>
-<li>Four Direct Memory Access (DMA) units. These perform faster memory copies
-than the CPU can, and they can be set to automatically activate at
-particular times, but the CPU is paused when they are active.</li>
-<li>Four timer units.</li>
+<li>Banked registers: r8_fiq, r9_fiq, r10_fiq, r11_fiq, r12_fiq, r13_fiq, r14_fiq, and SPSR_fiq.</li>
+</ul>
+</li>
+<li>
+<p><strong><span id="SVC">SVC</span>:</strong> Supervisor mode. Entered when a SWI (software interrupt) call is executed. The GBA enters this state when calling the <a href="bios.html">BIOS</a> via SWI instructions.</p>
+<ul>
+<li>Banked registers: r13_svc, r14_svc, SPSR_svc.</li>
+</ul>
+</li>
+<li>
+<p><strong><span id="ABT">ABT</span>:</strong> Abort mode. Entered after data or instruction prefetch abort.</p>
+<ul>
+<li>Banked registers: r13_abt, r14_abt, SPSR_abt.</li>
+</ul>
+</li>
+<li>
+<p><strong><span id="UND">UND</span>:</strong> Undefined mode. Entered when an undefined instruction is executed.</p>
+<ul>
+<li>Banked registers: r13_und, r14_und, SPSR_und.</li>
 </ul>
 </li>
 </ul>
-<p>Programs run on the GBA are usually contained in a &quot;Game Pak&quot;. A &quot;Game Pak&quot; consists mainly of ROM and possibly Cart RAM (in the form of SRAM, Flash ROM, or EEPROM, used mainly for save game info). The ROM is where compiled code and data is stored. Unlike home computers, workstations, or servers, there are no disks or other drives, so everything that might otherwise have been stored as separate resource files must be compiled into the program ROM itself. Luckily there are tools to aid in this process.</p>
-<p>The primary means a program accesses specialized hardware for graphics, sound, and other IO is through the memory-mapped IO. Memory mapped IO is a means of communicating with hardware by writing to/reading from specific memory addresses that are &quot;mapped&quot; to internal hardware functions. For example, you might write to address 0x4000000 with the value &quot;0x0100&quot;, which tells the hardware &quot;enable background 0 and graphics mode 0&quot;. A secondary means is through the BIOS, which is embedded in the internal GBA system ROM. Using software interrupts it is possible to access pre-programmed (and hopefully optimized) routines lying in the the system ROM. These routines then access the hardware through the memory-mapped IO.</p>
-<p>Other regions of memory that are directly mapped to the hardware are Palette RAM (which is a table consisting of all the available colors), VRAM (which performs a similar function to the video RAM on a PC - and thensome), and OAM (which contains the attributes for hardware accelerated sprites). </p>
-<h2 id="memory-map"><a class="header" href="#memory-map">Memory Map</a></h2>
+<h3 id="cpu-state"><a class="header" href="#cpu-state">CPU State</a></h3>
+<p>The ARM7tdmi has two possible states, either of which may be entered without fear of losing register contents or current processor mode.</p>
+<p><strong>To enter Thumb State</strong>: In this state the CPU executes 16-bit, halfword-aligned instructions. There are two ways it can be entered:</p>
+<ul>
+<li>A BX rn, where rn contains the address of the thumb instructions to be executed, +1. Bit 0 must be 1 or the switch won't be made and the CPU will try to interperet the binary Thumb code as 32-bit ARM instructions.</li>
+<li>Returning from an <a href="interrupts.html">interrupt</a> that was entered while in Thumb mode.</li>
+<li>Executing any arithmetic instruction with the PC as the target and the 'S' bit of the instruction set, with bit 0 of the new PC being 1.</li>
+</ul>
+<p><strong>To Enter ARM State:</strong> This is the default state. It executes 32-bit, word-aligned instructions. When in Thumb state, the CPU can be switched back to ARM state by:</p>
+<ul>
+<li>A BX rn, where rn contains the address of the ARM instructions to be executed. Bit 0 must be 0.</li>
+<li>Entering an <a href="interrupts.html">interrupt</a>.</li>
+</ul>
+<p><strong>For more complete information on the ARM7tdmi, be sure to check out ARM's <a href="http://www.arm.com/arm/TRMs?OpenDocument">technical reference manuals</a>.</strong></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="memory"><a class="header" href="#memory">Memory</a></h1>
 <p>The following are the general areas of memory as seen by the CPU, and what they are used for.</p>
-<h3 id="system-rom-bios"><a class="header" href="#system-rom-bios">System ROM (BIOS)</a></h3>
-<ul>
-<li>Start: 0x00000000</li>
-<li>End:  0x0003FFF</li>
-<li>Size: 16kb </li>
-<li>Port Size: 32 bit</li>
-<li>Wait State: 0</li>
-</ul>
-<p>0x0 - 0x00003FFF contain the BIOS, which is executable but not readable. Any attempt to read in the area from 0x0 to 0x1FFFFFFF will result in failure; what you will see on a read is the current prefetched instruction (the instruction after the instruction used to view the memory area), thus giving the appearance that this area of memory consists of a repeating byte pattern.</p>
-<h3 id="external-work-ram-ewram"><a class="header" href="#external-work-ram-ewram">External Work RAM (EWRAM)</a></h3>
-<ul>
-<li>Start: 0x02000000</li>
-<li>End:   0x0203FFFF</li>
-<li>Size:  256kb</li>
-<li>Port Size: 16 bit</li>
-<li>Mirrors:  Every 0x40000 bytes from 0x02000000 to 0x02FFFFFF</li>
-</ul>
-<p>This space is available for your game's data and code. If a multiboot cable is present on startup, the BIOS automatically detects it and downloads binary code from the cable and places it in this area, and execution begins with the instruction at address 0x02000000 (the default is 0x08000000). Though this is the largest area of RAM available on the GBA, memory transfers to and from EWRAM are 16 bits wide and thus consume more cycles than necessary for 32 bit accesses. Thus it is advised that 32 bit ARM code be placed in IWRAM rather than EWRAM.</p>
-<h3 id="internal-work-ram-iwram"><a class="header" href="#internal-work-ram-iwram">Internal Work RAM (IWRAM)</a></h3>
-<ul>
-<li>Start: 0x03000000</li>
-<li>End:   0x03007FFF</li>
-<li>Size:  32kb</li>
-<li>Port Size: 32 bit</li>
-<li>Mirrors:  Every 0x8000 bytes from 0x03000000 to 0x03FFFFFF</li>
-</ul>
-<p>This space is also available for use. It is the fastest of all the GBA's RAM, being internally embedded in the ARM7 CPU chip package and having a 32 bit bus. As the bus for ROM and EWRAM is only 16 bits wide, the greatest efficiency will be gained by placing 32 bit ARM code in IWRAM while leaving thumb code for EWRAM or ROM memory.</p>
+<h3 id="system-rom"><a class="header" href="#system-rom">System ROM</a></h3>
+<pre>
+Start: 0x00000000
+End:   0x00003FFF
+Size:  16kb 
+Port Size: 32 bit
+Wait State: 0
+</pre>
+<p><code>0x0</code> - <code>0x00003FFF</code> contain the <a href="bios.html">BIOS</a>, which is executable but not readable. Any attempt to read in the area from <code>0x0</code> to <code>0x1FFFFFFF</code> will result in failure; what you will see on a read is the current prefetched instruction (the instruction after the instruction used to view the memory area), thus giving the appearance that this area of memory consists of a repeating byte pattern.</p>
+<h3 id="external-work-ram"><a class="header" href="#external-work-ram">External Work RAM</a></h3>
+<pre>
+Start: 0x02000000
+End:   0x0203FFFF
+Size:  256kb
+Port Size: 16 bit
+Mirrors:  Every 0x40000 bytes from 0x02000000 to 0x02FFFFFF
+</pre>
+<p>This space is available for your game's data and code. If a multiboot cable is present on startup, the BIOS automatically detects it and downloads binary code from the cable and places it in this area, and execution begins with the instruction at address <code>0x02000000</code> (the default is <code>0x08000000</code>). Though this is the largest area of RAM available on the GBA, memory transfers to and from EWRAM are 16 bits wide and thus consume more cycles than necessary for 32 bit accesses. Thus it is advised that 32 bit ARM code be placed in <a href="memory.html#internal-work-ram">IWRAM</a> rather than EWRAM.</p>
+<h3 id="internal-work-ram"><a class="header" href="#internal-work-ram">Internal Work RAM</a></h3>
+<pre>
+Start: 0x03000000
+End:   0x03007FFF
+Size:  32kb
+Port Size: 32 bit
+Mirrors:  Every 0x8000 bytes from 0x03000000 to 0x03FFFFFF
+</pre>
+<p>This space is also available for use. It is the fastest of all the GBA's RAM, being internally embedded in the ARM7 CPU chip package and having a 32 bit bus. As the bus for <a href="memory.html#game-pak-rom">ROM</a> and <a href="memory.html#external-work-ram">EWRAM</a> is only 16 bits wide, the greatest efficiency will be gained by placing 32 bit ARM code in IWRAM while leaving thumb code for EWRAM or ROM memory.</p>
 <h3 id="io-ram"><a class="header" href="#io-ram">IO Ram</a></h3>
-<ul>
-<li>Start: 0x04000000</li>
-<li>End:   0x040003FF (0x04010000)</li>
-<li>Size:  1Kb</li>
-<li>Port Size:  Dual ported 32 bit</li>
-<li>Mirrors:  The word at 0x04000800 (only!) is mirrored every 0x10000 bytes
-from 0x04000000 - 0x04FFFFFF.</li>
-</ul>
-<p>This area contains a mirror of the ASIC (Application Specific Integrated Circuit) registers on the GBA. This area of memory is used to control the graphics, sound, DMA, and other features. See memory-mapped IO registers for details on the function of each register.</p>
-<h3 id="palette-ram-palram"><a class="header" href="#palette-ram-palram">Palette RAM (PALRAM)</a></h3>
-<ul>
-<li>Start: 0x05000000</li>
-<li>End:   0x050003FF</li>
-<li>Size:  1kb</li>
-<li>Port Size:  16 bit</li>
-<li>Mirrors: Every 0x400 bytes from 0x05000000 to 0x5FFFFFF</li>
-</ul>
-<p>This area specifies the 16-bit color values for the paletted modes. There are two areas of the palette: one for backgrounds (0x05000000) and another for sprites (0x05000200). Each of these is either indexed as a single, 256-color palette, or as 16 individual 16-color palettes, depending on the settings of a particular sprite or background.</p>
-<h3 id="video-ram-vram"><a class="header" href="#video-ram-vram">Video RAM (VRAM)</a></h3>
-<ul>
-<li>Start: 0x06000000</li>
-<li>End:   0x06017FFF</li>
-<li>Size:  96kb</li>
-<li>Port Size: 16 bit</li>
-<li>Mirrors: Bytes 0x06010000 - 0x06017FFF is mirrored from 0x06018000 - 0x0601FFFF.
-The entire region from 0x06000000 - 0x06020000 is in turn mirrored every
-0x20000 bytes from 0x06000000 - 0x06FFFFFF.</li>
-</ul>
-<p>The video RAM is used to store the frame buffer in bitmapped modes, and the tile data and tile maps for tile-based &quot;text&quot; and rotate/scale modes.</p>
-<h3 id="obj-attribute-memory-oam"><a class="header" href="#obj-attribute-memory-oam">OBJ Attribute Memory (OAM)</a></h3>
-<ul>
-<li>Start: 0x07000000</li>
-<li>End:   0x070003FF</li>
-<li>Size:  1kb</li>
-<li>Port Size: 32 bit</li>
-<li>Mirrors: Every 0x400 bytes from 0x07000000 to 0x07FFFFFF</li>
-</ul>
-<p>This is the Object Attribute Memory, and is used to control the GBA's sprites.</p>
+<pre>
+Start: 0x04000000
+End:   0x040003FF (0x04010000)
+Size:  1Kb
+Port Size:  Dual ported 32 bit
+Mirrors:  The word at 0x04000800 (only!) is mirrored every 0x10000 bytes
+          from 0x04000000 - 0x04FFFFFF.
+</pre>
+<p>This area contains a mirror of the ASIC (Application Specific Integrated Circuit) registers on the GBA. This area of memory is used to control the graphics, sound, DMA, and other features. See <a href="registers.html">memory-mapped IO registers</a> for details on the function of each register.</p>
+<h3 id="palette-ram"><a class="header" href="#palette-ram">Palette RAM</a></h3>
+<pre>
+Start: 0x05000000
+End:   0x050003FF
+Size:  1kb
+Port Size:  16 bit
+Mirrors: Every 0x400 bytes from 0x05000000 to 0x5FFFFFF
+</pre>
+<p>This area specifies the <a href="graphics.html#color-format">16-bit color</a> values for the paletted modes. There are two areas of the palette: one for backgrounds (<code>0x05000000</code>) and another for sprites (<code>0x05000200</code>). Each of these is either indexed as a single, 256-color palette, or as 16 individual 16-color palettes, depending on the settings of a particular <a href="sprites.html#attr0">sprite</a> or background.</p>
+<h3 id="vram"><a class="header" href="#vram">VRAM</a></h3>
+<pre>
+Start: 0x06000000
+End:   0x06017FFF
+Size:  96kb
+Port Size: 16 bit
+Mirrors: Bytes 0x06010000 - 0x06017FFF is mirrored from 0x06018000 - 0x0601FFFF.
+        The entire region from 0x06000000 - 0x06020000 is in turn mirrored every
+        0x20000 bytes from 0x06000000 - 0x06FFFFFF.
+</pre>
+<p>The video RAM is used to store the frame buffer in <a href="backgrounds.html#bitmapped-backgrounds">bitmapped</a> modes, and the tile data and tile maps for tile-based <a href="backgrounds.html#text-backgrounds">&quot;text&quot;</a> and <a href="registers.html#background-rotation-scaling-registers">rotate/scale</a> modes.</p>
+<h3 id="oam"><a class="header" href="#oam">OAM</a></h3>
+<pre>
+Start: 0x07000000
+End:   0x070003FF
+Size:  1kb
+Port Size: 32 bit
+Mirrors: Every 0x400 bytes from 0x07000000 to 0x07FFFFFF
+</pre>
+<p>This is the Object Attribute Memory, and is used to control the GBA's <a href="oam.html">sprites</a>.</p>
+<br>
+<hr />
+<br>
 <p>The following areas of memory are technically cart-dependent, but can generally be expected to behave as described.</p>
-<h3 id="game-pak-image-0-rom"><a class="header" href="#game-pak-image-0-rom">Game Pak, Image 0 (ROM)</a></h3>
-<ul>
-<li>Start: 0x08000000</li>
-<li>Size:  The size of the cartridge (0 - 32 megabytes) </li>
-<li>Port Size: 16 bit</li>
-<li>Wait State: 0</li>
-</ul>
-<p>The ROM in the game cartridge appears in this area. If a cartridge is present on startup, the instruction found at location 0x08000000 is loaded into the program counter and execution begins from there. Note that the transfers to and from ROM are all 16 bits wide.</p>
-<h3 id="game-pak-image-1-rom"><a class="header" href="#game-pak-image-1-rom">Game Pak, Image 1 (ROM)</a></h3>
-<ul>
-<li>Start: 0x0A000000</li>
-<li>Size:  The size of the cartridge (0 - 32 megabytes)</li>
-<li>Port Size:  16 bit</li>
-<li>Wait State: 1</li>
-</ul>
+<h3 id="game-pak-rom"><a class="header" href="#game-pak-rom">Game Pak ROM</a></h3>
+<pre>
+Start: 0x08000000
+Size:  The size of the cartridge (0 - 32 megabytes) 
+Port Size: 16 bit
+<a href="registers.html#REG_WAITCNT">Wait State</a>: 0
+</pre>
+<p>The ROM in the game cartridge appears in this area. If a cartridge is present on startup, the instruction found at location <code>0x08000000</code> is loaded into the program counter and execution begins from there. Note that the transfers to and from ROM are all 16 bits wide.</p>
+<h3 id="game-pak-rom-image-1"><a class="header" href="#game-pak-rom-image-1">Game Pak ROM Image 1</a></h3>
+<pre>
+Start: 0x0A000000
+Size:  The size of the cartridge (0 - 32 megabytes)
+Port Size:  16 bit
+<a href="registers.html#REG_WAITCNT">Wait State</a>: 1
+</pre>
 <p>This is a mirror of the ROM above. Used to allow multiple speed ROMs in a single game pak.</p>
-<h3 id="game-pak-image-2-rom"><a class="header" href="#game-pak-image-2-rom">Game Pak, Image 2 (ROM)</a></h3>
-<ul>
-<li>Start: 0x0C000000</li>
-<li>Size:  The size of the cartridge (0 - 32 megabytes)</li>
-<li>Port Size: 16 bit</li>
-<li>Wait State: 2</li>
-</ul>
+<h3 id="game-pak-rom-image-2"><a class="header" href="#game-pak-rom-image-2">Game Pak ROM Image 2</a></h3>
+<pre>
+Start: 0x0C000000
+Size:  The size of the cartridge (0 - 32 megabytes)
+Port Size: 16 bit
+<a href="registers.html#REG_WAITCNT">Wait State</a>: 2
+</pre>
 <p>This is a mirror of the ROM above. Used to allow multiple speed ROMs in a single game pak.</p>
-<h3 id="game-pak-ram"><a class="header" href="#game-pak-ram">Game Pak RAM</a></h3>
-<ul>
-<li>Start: 0x0E000000 (also seem to appear at 0x0F000000)</li>
-<li>Size:  0 - 64 kb</li>
-<li>Port Size: 8 bit</li>
-</ul>
+<h3 id="cart-ram"><a class="header" href="#cart-ram">Cart RAM</a></h3>
+<pre>
+Start: 0x0E000000 (also seem to appear at 0x0F000000)
+Size:  0 - 64 kb
+Port Size: 8 bit
+</pre>
 <p>This is either SRAM or Flash ROM. Used primarily for saving game data. SRAM can be up to 64kb but is usually 32 kb. It has a battery backup so has the longest life (in terms of how many times it can be written to) of all backup methods. Flash ROM is usually 64 kb. Its lifespan is determined by the number of rewrites that can be done per sector (a 10,000 rewrite minimum is cited by some manufacturers).</p>
 <h3 id="eeprom"><a class="header" href="#eeprom">EEPROM</a></h3>
-<p>This is another kind of cart memory, but operates differently from SRAM or Flash ROM. Unfortunately, I don't know the details of how it can be accessed by the programmer (mail me if you have more information on it). It uses a serial connection to transmit data. The maximum size is 128 mb, but it can be any size, and is usually 4 kb or 64 kb. Like Flash ROM it has a limited life; some manufacturers cite a minimum of 100,000 rewrites per sector.</p>
+<p>This is another kind of cart memory, but operates differently from SRAM or Flash ROM. Unfortunately, I don't know the details of how it can be accessed by the programmer (<a href="https://github.com/gbadev-org/gbadoc">send us a PR</a> if you have more information on it). It uses a serial connection to transmit data. The maximum size is 128 mb, but it can be any size, and is usually 4 kb or 64 kb. Like Flash ROM it has a limited life; some manufacturers cite a minimum of 100,000 rewrites per sector.</p>
 <p>There may be other regions of memory known as DEBUG ROM 1 and DEBUG ROM 2, though I really don't know whether these are a part of commercial carts or if they are mapped to some part of the internal ROM, or if they're even available on a standard GBA.</p>
-<p>Note that EWRAM, IWRAM, VRAM, OAM, Palette RAM are all initialized to zero by the BIOS (i.e. you can expect them to be zeroed at startup). </p>
+<p>Note that EWRAM, IWRAM, VRAM, OAM, Palette RAM are all initialized to zero by the BIOS (i.e. you can expect them to be zeroed at startup).</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="graphics-hardware-overview"><a class="header" href="#graphics-hardware-overview">Graphics Hardware Overview</a></h1>
-<p>The GBA has a TFT color LCD that is 240 x 160 pixels in size and has a refresh rate of exactly 280,896 cpu cycles per frame, or around 59.73 hz. Most GBA programs will need to structure themselves around this refresh rate. Each refresh consists of a 160 scanline vertical draw (VDraw) period followed by a 68 scanline blank (VBlank) period. Furthermore, each of these scanlines consists of a 1004 cycle draw period (HDraw) followed by a 228 cycle blank period (HBlank). During the HDraw and VDraw periods the graphics hardware processes background and obj (sprite) data and draws it on the screen, while the HBlank and VBlank periods are left open so that program code can modify background and obj data without risk of creating graphical artifacts.
-Video Modes</p>
-<p>Exactly what the GBA draws on screen depends largely on the current video mode (also sometimes referred to as the screen mode or graphics mode). The GBA has 6 such modes, some of which are bitmap-based and some of which are tile-based. The video mode is set by the bottom three bits of the hardware register known as REG_DISPCNT. Background data is handled differently depending on what mode is enabled. Backgrounds can either be text backgrounds (tile based), rotate-scale backgrounds (tile based backgrounds that can be transformed), or bitmap backgrounds. The starting address and size sprite graphics memory is also dependent on video mode. It starts at 0x6010000 for tile modes and 0x6014000 for bitmapped modes.</p>
-<p>Enabling objs and one or more backgrounds in REG_DISPCNT will cause the GBA to draw the specified backgrounds and objs in order of priority.</p>
+<p>The GBA has a TFT color LCD that is 240 x 160 pixels in size and has a refresh rate of exactly 280,896 cpu cycles per frame, or around 59.73 hz. Most GBA programs will need to structure themselves around this refresh rate.</p>
+<p><a id="VBlank"></a>
+<a id="VDraw"></a>
+<a id="HBlank"></a>
+<a id="HDraw"></a></p>
+<p>Each refresh consists of a 160 scanline vertical draw (VDraw) period followed by a 68 scanline blank (VBlank) period. Furthermore, each of these scanlines consists of a 1004 cycle draw period (HDraw) followed by a 228 cycle blank period (HBlank).</p>
+<p>During the HDraw and VDraw periods the graphics hardware processes background and obj (sprite) data and draws it on the screen, while the HBlank and VBlank periods are left open so that program code can modify background and obj data without risk of creating graphical artifacts.</p>
+<h2 id="video-modes"><a class="header" href="#video-modes">Video Modes</a></h2>
+<p>Exactly what the GBA draws on screen depends largely on the current video mode (also sometimes referred to as the <em>screen mode</em> or <em>graphics mode</em>). The GBA has 6 such modes, some of which are bitmap-based and some of which are tile-based. The video mode is set by the bottom three bits of the hardware register known as <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a>. Background data is handled differently depending on what mode is enabled. Backgrounds can either be <a href="backgrounds.html#text-backgrounds">text backgrounds</a> (tile based), <a href="backgrounds.html#scalerotate-backgrounds">rotate-scale backgrounds</a> (tile based backgrounds that can be transformed), or <a href="backgrounds.html#bitmapped-backgrounds">bitmap backgrounds</a>. The number of sprites available on screen is also dependent on the mode; modes with tile-based backgrounds support 128 sprites, while modes with bitmapped backgrounds will only support 64 sprites.</p>
+<p>Enabling objs and one or more backgrounds in <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a> will cause the GBA to draw the specified backgrounds and objs in order of priority.</p>
 <h3 id="mode-0"><a class="header" href="#mode-0">Mode 0</a></h3>
-<p>In this mode, four text background layers can be shown. In this mode backgrounds 0 - 3 all count as &quot;text&quot; backgrounds, and cannot be scaled or rotated. Check out the section on text backgrounds for details on this.</p>
+<p>In this mode, four text background layers can be shown. In this mode backgrounds 0 - 3 all count as <a href="backgrounds.html#text-backgrounds">&quot;text&quot;</a> backgrounds, and cannot be scaled or rotated. Check out the section on [text backgrounds](#Text Backgrounds) for details on this.</p>
 <h3 id="mode-1"><a class="header" href="#mode-1">Mode 1</a></h3>
-<p>This mode is similar in most respects to Mode 0, the main difference being that only 3 backgrounds are accessible -- 0, 1, and 2. Bgs 0 and 1 are text backgrounds, while bg 2 is a rotation/scaling background.</p>
+<p>This mode is similar in most respects to Mode 0, the main difference being that only 3 backgrounds are accessible -- 0, 1, and 2. Bgs 0 and 1 are <a href="backgrounds.html#text-backgrounds">text backgrounds</a>, while bg 2 is a <a href="backgrounds.html#scalerotate-backgrounds">rotation/scaling</a> background.</p>
 <h3 id="mode-2"><a class="header" href="#mode-2">Mode 2</a></h3>
-<p>Like modes 0 and 1, this uses tiled backgrounds. It uses backgrounds 2 and 3, both of which are rotate/scale backgrounds.</p>
+<p>Like modes 0 and 1, this uses tiled backgrounds. It uses backgrounds 2 and 3, both of which are <a href="backgrounds.html#scalerotate-backgrounds">rotate/scale backgrounds</a>.</p>
 <h3 id="mode-3"><a class="header" href="#mode-3">Mode 3</a></h3>
-<p>Standard 16-bit bitmapped (non-paletted) 240x160 mode. The map starts at 0x06000000 and is 0x12C00 bytes long. See the Color Format table above for the format of these bytes.</p>
-<p>This allows the full color range to be displayed at once. Unfortunately, the frame buffer in this mode is too large for page flipping to be possible. One option to get around this would be to copy a frame buffer from work RAM into VRAM during the retrace, or (so I have heard) to use DMA3 with the start mode bits set to 11.</p>
+<p>Standard 16-bit bitmapped (non-paletted) 240x160 mode. The map starts at <code>0x06000000</code> and is <code>0x12C00</code> bytes long. See the <a href="graphics.html#color-format">Color Format</a> table above for the format of these bytes.</p>
+<p>This allows the full color range to be displayed at once. Unfortunately, the frame buffer in this mode is too large for page flipping to be possible. One option to get around this would be to copy a frame buffer from work RAM into VRAM during the retrace, or (so I have heard) to use <a href="registers.html#REG_DMA3CNT">DMA3</a> with the start mode bits set to 11.</p>
 <h3 id="mode-4"><a class="header" href="#mode-4">Mode 4</a></h3>
-<p>8-Bit paletted bitmapped mode at 240x160. The bitmap starts at either 0x06000000 or 0x0600A000, depending on bit 4 of REG_DISPCNT. Swapping the map and drawing in the one that isn't displayed allows for page flipping techniques to be used. The palette is at 0x5000000, and contains 256 16-bit color entries.</p>
+<p>8-Bit paletted bitmapped mode at 240x160. The bitmap starts at either <code>0x06000000</code> or <code>0x0600A000</code>, depending on bit 3 of <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a>. Swapping the map and drawing in the one that isn't displayed allows for page flipping techniques to be used. The palette is at <code>0x05000000</code>, and contains 256 16-bit [color entries](#Color Format).</p>
 <h3 id="mode-5"><a class="header" href="#mode-5">Mode 5</a></h3>
-<p>This is another 16-bit bitmapped mode, but at a smaller resolution of 160x128. The display starts at the upper left hand corner of the screen, but can be shifted using the rotation and scaling registers for BG2. The advantage of using this mode is presumably that there are two frame buffers available, and this can be used to perform page flipping effects which cannot be done in mode 3 due to the smaller memory requirements of mode 5. Bit 4 of REG_DISPCNT sets the start of the frame buffer to 0x06000000 when bit 4 is zero, and 0x600A000 when bit 4 is one. </p>
+<p>This is another 16-bit bitmapped mode, but at a smaller resolution of 160x128. The display starts at the upper left hand corner of the screen, but can be shifted using the rotation and scaling registers for BG2. The advantage of using this mode is presumably that there are two frame buffers available, and this can be used to perform page flipping effects which cannot be done in mode 3 due to the smaller memory requirements of mode 5. Bit 3 of <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a> sets the start of the frame buffer to <code>0x06000000</code> when bit 3 is zero, and <code>0x0600A000</code> when bit 3 is one.</p>
+<h2 id="color-format"><a class="header" href="#color-format">Color Format</a></h2>
+<p>All colors (both paletted and bitmapped) are represented as a 16 bit value, using 5 bits for red, green, and blue, and ignoring bit 15. In the case of paletted memory, pixels in an image are represented as 8 bit or 4 bit indices into the <a href="graphics.html#Palette">palette RAM</a> starting at <code>0x05000000</code> for backgrounds and <code>0x05002000</code> for sprites. Each palette is a table consisiting of 256 16-bit color entries. In the case of the bitmapped backgrounds in modes 3 and 4, pixels are represented as the 16-bit color values themselves.</p>
+<html>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0
+<FONT COLOR="#BBBBBB">X</FONT> <FONT COLOR="#0000DD">B B B  B B</FONT> <FONT COLOR="#008800">G G  G G G</FONT> <FONT
+COLOR="#DD0000">R  R R R R</FONT></PRE>
+<PRE>0-4 <FONT COLOR="#DD0000">(R)</FONT> = Red
+5-9 <FONT COLOR="#008800">(G)</FONT> = Green
+A-F <FONT COLOR="#0000DD">(B)</FONT> = Blue</PRE>
+</html>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="backgrounds"><a class="header" href="#backgrounds">Backgrounds</a></h1>
+<style>
+tt {
+  white-space: pre;
+}
+</style>
+<p>Depending on the current <a href="graphics.html#video-modes">video mode</a>, three different types of backgrounds are available. They are:</p>
+<h3 id="text-backgrounds"><a class="header" href="#text-backgrounds">Text Backgrounds</a></h3>
+<p>These are tile-based backgrounds that descend from the usage of tiles to display characters in text modes of a PC or workstation. They are made up of 8x8 tiles, the bitmaps of which are stored at the tile data address. The address of this data is set using registers <a href="registers.html#REG_BGCNT">REG_BG0CNT - REG_BG3CNT</a>. The <a href="registers.html#REG_BGOFS">HOFS / VOFS</a> registers can be used to scroll around a larger area of up to 512x512 pixels (or 64 x 64 tiles).</p>
+<p>In text backgrounds, the data for each pixel is stored as an 8 or 4 bit palette index. In 8-bit mode, the <a href="memory.html#palette-ram">palette</a> is at <code>0x05000000</code> stores a 15-bit color value for each of the 256 palette entries. In 4-bit mode, the the map index contains a 4-bit value indicating which of 16 16-color palettes to use for each tile. Each of these palettes is 32 bytes long and can be found at <code>0x05000000</code>, <code>0x05000020</code>, etc.</p>
+<h3 id="scalerotate-backgrounds"><a class="header" href="#scalerotate-backgrounds">Scale/Rotate Backgrounds</a></h3>
+<p>These backgrounds are also tile-based, and operate similarly to Text Backgrounds. However, these backgrounds may also be <a href="registers.html#background-rotation-scaling-registers">scaled or rotated</a>. Additionally they may only use an 8-bit palette, and can vary in size from 128 to 1024 pixels across. The palette is at <code>0x05000000</code>, and contains 256 16-bit <a href="graphics.html#color-format">color entries</a></p>
+<h3 id="bitmapped-backgrounds"><a class="header" href="#bitmapped-backgrounds">Bitmapped Backgrounds</a></h3>
+<p>These backgrounds vary depending on the <a href="graphics.html#video-modes">video mode</a>, but in all cases they rely on a single buffer upon which the image is drawn, either using an 8-bit palette or 16-bit color entries themsevles. Bitmap backgrounds are treated as BG2 for purposes of rotation, scaling, and blending. In the bitmap modes the frame buffer data extends into the obj tile data region, limiting it to the range from <code>0x06014000</code> - <code>0x06018000</code> (sprite indices 512 - 1024).</p>
+<h2 id="background-map-entry-format"><a class="header" href="#background-map-entry-format">Background Map Entry Format</a></h2>
+<h3 id="text-background-map-format"><a class="header" href="#text-background-map-format">Text Background Map Format</a></h3>
+<p>The tile map, which stores the layout of the tiles on screen, begins at the tile map address found for a particular background, detrmined by <a href="registers.html#REG_BG0">REG_BG0CNT - REG_BG3CNT</a>. It has a selectable size up to 512x512. The tile map contains a 16-bit entry for each tile, with has the following format:</p>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#008800">L L L L</FONT>  <FONT COLOR="#0099FF">V</FONT> <FONT COLOR="#9900CC">H</FONT> <FONT COLOR="#FF0099">T T  T T T T  T T T T</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-9 <FONT COLOR="#FF0099">(T)</FONT></tt></td><td>The tile number</td></tr>
+<tr><td><tt>  A <FONT COLOR="#9900CC">(H)</FONT></tt></td><td>If this bit is set, the tile is flipped horizontally left to right.</td></tr>
+<tr><td><tt>  B <FONT COLOR="#0099FF">(V)</FONT></tt></td><td>If this bit is set, the tile is flipped vertically upside down.</td></tr>
+<tr><td><tt>C-F <FONT COLOR="#008800">(L)</FONT></tt></td><td>Palette number</td></tr>
+</tbody></table>
+</div>
+<p>For 256 x 256 and 256 x 512 backgrounds, the formula for calculating a map index is roughly,</p>
+<pre><code>mapEntry = tileMapAddress[(tileY * 32) + tileX]
+</code></pre>
+<p>For text mode sizes 512 x 256 and 512 x 512 backgrounds, however, the map is 64 tiles across, and these are stored in blocks of 32 * 32 tiles. This means that to calculate the map entry that would appear 33 tiles or more across the background, the following equation should be used:</p>
+<pre><code>mapEntry = tileMap[(tileY * 32) + (tileX - 32) + 32*32]
+</code></pre>
+<p>For entries 33 tiles or more down (in mode 11), use</p>
+<pre><code>mapEntry = tileMap[((tileY-32) * 32) + tileX + 2*32*32]
+</code></pre>
+<p>And for entries 33 tiles or more down and 33 tiles or more across,</p>
+<pre><code>mapEntry = tileMap[((tileY-32) * 32) + (tileX-32) + 3*32*32]
+</code></pre>
+<h3 id="rotational-background-map-format"><a class="header" href="#rotational-background-map-format">Rotational Background Map Format</a></h3>
+<p>This is the same idea as the text background map format, but you only have 8 bits for each entry. The format for the tile map entries is:</p>
+<html>
+<PRE style="width: min-content; margin: 16px auto">7 6 5 4 3 2 1 0 
+<FONT COLOR="#FF0099">T T T T T T T T</FONT> </PRE>
+</html>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-7 <FONT COLOR="#FF0099">(T)</FONT></tt></td><td>The tile number</td></tr>
+</tbody></table>
+</div>
+<p>Rotational backgrounds do not divide tile maps into blocks.</p>
+<br>
+<hr />
+<br>
+<p>For specific details on the format of background data and map entries, check out the section on <a href="registers.html#REG_BGCNT">REG_BG0CNT - REG_BG3CNT</a> (addresses <code>0x04000008</code> - <code>0x0400000E</code>).</p>
+<p>In all modes, up to 128 sprites can be displayed as well as the 4 background layers. These use the second <a href="memory.html#palette-ram">palette</a> which is located at <code>0x05000200</code>. See the <a href="sprites.html">OAM</a> section for details on how to display sprites.</p>
+<p>Both background tiles and sprites use palette entry 0 as the transparent color. Pixels in this color will not be drawn, and allow other background layers and sprites to show through.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="oam-sprites"><a class="header" href="#oam-sprites">OAM (sprites)</a></h1>
+<style>
+tt {
+  white-space: pre;
+}
+</style>
+<p>The GBA supports 128 simultaneous sprites. These can be up to 64x64 pixels in size. The OAM, which starts at <code>0x07000000</code>, has one entry for each of the 128 sprites. Intermixed with this data are the rotation/scaling attributes, of which there are 32 sets of 4 16 bit values.</p>
+<p>Each OAM entry is 8 bytes long and has the following format:</p>
+<p><a id="attr0"></a></p>
+<h2 id="bytes-1-and-2-attribute-0"><a class="header" href="#bytes-1-and-2-attribute-0">Bytes 1 and 2 (Attribute 0)</a></h2>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0
+<FONT COLOR="#9900CC">S S</FONT> <FONT COLOR="#FF0099">A</FONT> <FONT COLOR="#FF3300">M</FONT>  <FONT COLOR="#008800">T T</FONT> <FONT
+COLOR="#0099FF">D</FONT> <FONT COLOR="#9900CC">R</FONT> <FONT COLOR="#FF0099"> J J J J  J J J J</FONT>
+</PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-7 <FONT COLOR="#FF0099">(J)</FONT></tt></td><td>Y co-ordinate of the sprite (pixels). Note that for regular sprites, this is the y coordinate of the upper left corner. For rotate/scale sprites, this is the y coordinate of the sprite's center. center . Note on Coordinates: The values actually wrap around: to achieve a -1 y coordinate, use y = 255.</td></tr>
+<tr><td><tt>  8 <FONT COLOR="#9900CC">(R)</FONT></tt></td><td>Rotation/Scaling on/off</td></tr>
+<tr><td><tt>  9 <FONT COLOR="#0099FF">(D)</FONT></tt></td><td><code>0</code> = sprite is single sized; <br> <code>1</code> = sprite is virtually double sized; allowing sheared sprite pixels to overflow sprite the size (specified by bits 14 - 15 of <a href="sprites.html#attr1">OAM attribute 1</a>). A 16x16 sized sprite is treated internaly as a 32x32 sprite. This specification comes in evidence when rotating a sprite at 45°, since the H/V size of the sprite becomes SQRT(16² + 16²) = SQRT(512) =~ 22.62 pixels. This will cause the sprite to appear clipped if this bit is set to 0.  (Thanks to Kay for the description)</td></tr>
+<tr><td><tt>A-B <FONT COLOR="#008800">(T)</FONT></tt></td><td><code>00</code> = normal<br> <code>01</code> = semi-transparent<br> <code>10</code> = obj window<br> <code>11</code> = illegal code<br> Note that semi-transparent sprites appear as transparent even if <a href="registers.html#REG_BLDCNT">REG_BLDCNT</a> has the sprites bit turned off.  Also note that sprites cannot be blended against one another.  For more details, see <a href="registers.html#REG_BLDCNT">REG_BLDCNT</a>.</td></tr>
+<tr><td><tt>  C <FONT COLOR="#FF3300">(M)</FONT></tt></td><td>enables mosaic for this sprite.</td></tr>
+<tr><td><tt>  D <FONT COLOR="#FF0099">(A)</FONT></tt></td><td>256 color if on, 16 color if off</td></tr>
+<tr><td><tt>E-F <FONT COLOR="#9900CC">(S)</FONT></tt></td><td>Sprite shape. This determines the size of the sprite when combined with bits E-F of attr1. See below for more info.</td></tr>
+</tbody></table>
+</div>
+<p><a id="attr1"></a></p>
+<h2 id="bytes-3-and-4-attribute-1"><a class="header" href="#bytes-3-and-4-attribute-1">Bytes 3 and 4 (Attribute 1)</a></h2>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0
+<FONT COLOR="#008800">S S</FONT><FONT COLOR="#0099FF"> V</FONT> <FONT COLOR="#9900CC">H</FONT>  <FONT COLOR="#BBBBBB">X X X</FONT> <FONT
+COLOR="#FF0099">I  I I I I  I I I I</FONT>  (standard sprites)
+<FONT COLOR="#008800">S S</FONT> <FONT COLOR="#FF3300">F F  F F F</FONT> <FONT COLOR="#FF0099">I  I I I I  I I I I </FONT> (rotation/scaling on)</PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-8 <FONT COLOR="#FF0099">(I)</FONT></tt></td><td>X coordinate of the sprite (pixels). For regular sprites, this is the x coordinate of the upper left corner. For rotate/scale sprites, this is the x coordinate of the sprite's center.  Note on coordinates: The values actually wrap around. To achieve a -1 x, use x = 511.</td></tr>
+<tr><td><tt>C   <FONT COLOR="#9900CC">(H)</FONT></tt></td><td>The flip horizinal bit</td></tr>
+<tr><td><tt>D   <FONT COLOR="#0099FF">(V)</FONT></tt></td><td>The flip vertical bit</td></tr>
+<tr><td><tt>9-D <FONT COLOR="#FF3300">(F)</FONT></tt></td><td>For rotation scaling sprites, the index into the rotation data to be used for that sprite. This index can be from 0 - 31. The rotation/scaling data is located in OAM <a href="sprites.html#attr3">attribute 3</a> (bytes 7 and 8). However, instead of the rotation and scaling data going with the corresponding sprite, it is separated accross four sequential sprites. This index can be thought of as referencing into an array of four-sprite blocks, 32 bytes each.</td></tr>
+<tr><td><tt>E-F <FONT COLOR="#008800">(S)</FONT></tt></td><td><p>Size of the sprite. The top two bits of the size value are found in <a href="sprites.html#attr0">attribute 0</a> and the bottom two bits are in attribute 1. This forms a 4-bit value which sets the size of the sprite in the following way:</p><p><pre><FONT COLOR="#9900CC">00</FONT><FONT COLOR="#008800">00</FONT>: 8  x 8         <FONT COLOR="#9900CC">10</FONT><FONT COLOR="#008800">00</FONT>: 8  x 16<br><FONT COLOR="#9900CC">00</FONT><FONT COLOR="#008800">01</FONT>: 16 x 16        <FONT COLOR="#9900CC">10</FONT><FONT COLOR="#008800">01</FONT>: 8  x 32<br><FONT COLOR="#9900CC">00</FONT><FONT COLOR="#008800">10</FONT>: 32 x 32        <FONT COLOR="#9900CC">10</FONT><FONT COLOR="#008800">10</FONT>: 16 x 32<br><FONT COLOR="#9900CC">00</FONT><FONT COLOR="#008800">11</FONT>: 64 x 64        <FONT COLOR="#9900CC">10</FONT><FONT COLOR="#008800">11</FONT>: 32 x 64<br><FONT COLOR="#9900CC">01</FONT><FONT COLOR="#008800">00</FONT>: 16 x 8         <FONT COLOR="#9900CC">11</FONT><FONT COLOR="#008800">00</FONT>: Not used<br><FONT COLOR="#9900CC">01</FONT><FONT COLOR="#008800">01</FONT>: 32 x 8         <FONT COLOR="#9900CC">11</FONT><FONT COLOR="#008800">01</FONT>: Not used<br><FONT COLOR="#9900CC">01</FONT><FONT COLOR="#008800">10</FONT>: 32 x 16        <FONT COLOR="#9900CC">11</FONT><FONT COLOR="#008800">10</FONT>: Not used<br><FONT COLOR="#9900CC">01</FONT><FONT COLOR="#008800">11</FONT>: 64 x 32        <FONT COLOR="#9900CC">11</FONT><FONT COLOR="#008800">11</FONT>: Not used</pre></p></td></tr>
+</tbody></table>
+</div>
+<p><a id="attr2"></a></p>
+<h2 id="bytes-5-and-6-attribute-2"><a class="header" href="#bytes-5-and-6-attribute-2">Bytes 5 and 6 (Attribute 2)</a></h2>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0
+<FONT COLOR="#0099FF">L L L L</FONT>  <FONT COLOR="#9900CC">P P</FONT> <FONT COLOR="#FF0099">T T  T T T T  T T T T</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-9 <FONT COLOR="#FF0099">(T)</FONT></tt></td><td><p>Tile number. This value indexes selects the bitmap of the tile to be displayed by indexing into the tile data area. Each index refernces 32 bytes, so the memory address of a tile is roughly <code>0x06010000 + T*32</code>. (see <a href="sprites.html#sprite-tile-data">Sprite Tile Data</a> for details)</p></td></tr>
+<tr><td><tt>A-B <FONT COLOR="#9900CC">(P)</FONT></tt></td><td><p>Priority. This controls the priority of the sprite. Note that sprites take precedence over backgrounds of the same priority.  See the <a href="registers.html#priority">description of priority</a> under REG_BG0 - REG_BG3 for a more detailed explanation.</p></td></tr>
+<tr><td><tt>C-F <FONT COLOR="#0099FF">(L)</FONT></tt></td><td><p>Palette number. If you use 16 color <a href="memory.html#palette-ram">palettes</a>, this tells you which palette number to use.</p></td></tr>
+</tbody></table>
+</div>
+<p><a id="attr3"></a></p>
+<h2 id="bytes-7-and-8-attribute-3"><a class="header" href="#bytes-7-and-8-attribute-3">Bytes 7 and 8 (Attribute 3)</a></h2>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0
+<FONT COLOR="#0099FF">S</FONT> <FONT COLOR="#9900CC">I I I  I I I I</FONT>  <FONT COLOR="#FF0099">F F F F  F F F F</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-7 <FONT COLOR="#FF0099">(F)</FONT></tt></td><td>Fraction.</td></tr>
+<tr><td><tt>8-E <FONT COLOR="#9900CC">(I)</FONT></tt></td><td>Integer</td></tr>
+<tr><td><tt>  F <FONT COLOR="#0099FF">(S)</FONT></tt></td><td>Sign bit</td></tr>
+</tbody></table>
+</div>
+<p>These bytes control sprite rotation and scaling. Instead of the rotation and scaling data going with the corresponding sprite, it is separated accross four sequential sprites. This is indexed by bits 9 - 13 in <a href="sprites.html#attr1">attribute 1</a>. Note that these are all relative to the center of the sprite (background rotation/scaling is relative to the upper left). Starting with sprite 0 and repeating every 4 sprites, they appear in the following order:</p>
+<ul>
+<li>
+<p><strong>Sprite 0, Attribute 3 - PA (DX)</strong></p>
+<p>Scales the sprite in the x direction by an amount equal to 1/(register value). Thus, a value of 1.0 results in the original image size, while a value of 2 is half as large, and a value of .5 is twice as large.</p>
+</li>
+<li>
+<p><strong>Sprite 1, Attribute 3 - PB (DMX)</strong></p>
+<p>Shears the x coordinates of the sprite over y. A value of 0 will result in no shearing, a value of 1.00 will make the image appear to be sheared left going down the screen, and a value of -1 will make the image appear sheared right going down the screen.</p>
+</li>
+<li>
+<p><strong>Sprite 2, Attribute 3 - PC (DY)</strong></p>
+<p>Shears the y coordinates of the sprite over x. A value of 0 will result in no shearing, a value of 1.00 will make the image appear to be sheared upwards to the right, and a value of -1 will make the image appear sheared downwards and to the right.</p>
+</li>
+<li>
+<p><strong>Sprite 3, Attribute 3 - PD (DMY)</strong></p>
+<p>Scales the image in the y direction by an amount equal to 1/(register value). Thus, a value of 1.0 results in the original image size, while a value of 2 is half as large, and a value of .5 is twice as large.</p>
+</li>
+</ul>
+<h2 id="to-make-a-sprite-rotate-and-scale"><a class="header" href="#to-make-a-sprite-rotate-and-scale">To Make a Sprite Rotate and Scale</a></h2>
+<p>The basic form of the equations for rotating and scaling is as follows:</p>
+<pre>
+  pa = x_scale * cos(angle)
+  pb = y_scale * sin(angle)
+  pc = x_scale * -sin(angle)
+  pd = y_scale * cos(angle)</pre>
+<h2 id="sprite-tile-data"><a class="header" href="#sprite-tile-data">Sprite Tile Data</a></h2>
+<p>The tile data area contains the actual bitmap for each tile. The sprites do not share tile data with the BG layers as on the Gameboy Color. The sprite tile data starts at <code>0x06010000</code>. All tiles are 8x8 pixels large. Sprites use the second <a href="memory.html#palette-ram">palette</a> which begins at <code>0x05000200</code>. For 256 color sprites, there are 64 bytes per tile, one byte per pixel. This is an 8-bit value which is an index into the 256 color palette. For 16-color sprites, <a href="sprites.html#attr2">attribute 2</a> of the OAM data contains a 4 bit index into 16 16-color palettes, and sprites have 32 bytes per tile, with 4 bits per pixel. Note that the tile index references 32 bytes at a time, so in the case of 256 color sprite tiles, you will want to set your tile number to reference ever other index (i.e. 0, 2, 4, 6, etc.).</p>
+<p>Another thing to note is that in the bitmapped modes (3-5) the memory required to hold background data is larger than 0x10000 bytes, forcing the GBA to cut away from available sprite tile data. Thus in these modes you may only reference sprites tiles of indices 512 and up.</p>
+<p>When the sprite is larger than 8x8 pixels, multiple tiles are glued together to make the sprite's width horizontally, and then vertically. How this is done depends on whether character data is stored in 2D or 1D mode (determined by bit 6 of <a href="registers.html#REG_DISPCNT">DISPCNT</a>).</p>
+<h3 id="1d-mapping"><a class="header" href="#1d-mapping">1D Mapping</a></h3>
+<p>In 1D mode, tiles are stored sequentially. If you were to set up a 32x32 16-color sprite, and set the tile number to 5, the sprite would be displayed as follows:</p>
+<pre>
+---------------------
+| 5  | 6  | 7  | 8  |
+|    |    |    |    |
+---------------------
+| 9  | 10 | 11 | 12 |
+|    |    |    |    |
+---------------------
+| 13 | 14 | 15 | 16 |
+|    |    |    |    |
+---------------------
+| 17 | 18 | 19 | 20 |
+|    |    |    |    |
+---------------------
+</pre>
+<h3 id="2d-mapping"><a class="header" href="#2d-mapping">2D Mapping</a></h3>
+<p>Tiles on each row of the sprite are stored 32 slots in. Using the same 32x32 sprite above, with a tile number of 5, the sprite would be displayed as:</p>
+<pre>
+---------------------
+| 5  | 6  | 7  | 8  |
+|    |    |    |    |
+---------------------
+| 37 | 38 | 39 | 40 |
+|    |    |    |    |
+---------------------
+| 69 | 70 | 71 | 72 |
+|    |    |    |    |
+---------------------
+| 101| 102| 103| 104|
+|    |    |    |    |
+---------------------
+</pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="windowing"><a class="header" href="#windowing">Windowing</a></h1>
+<p>Windowing is a method of dividing the screen into subsections known as (surprise) windows. The windows serve as boundary areas to determine where various layers of the GBA will be shown and where they will be clipped. There are two primary windows, win0 and win1, which can be enabled in <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a>. There is also the &quot;obj&quot; window, which can be thought of as another window which is defined by the visible regions of the objs on screen. Finally there is the &quot;outside&quot; or &quot;out&quot; window - the area of the screen not already occupied by any other winodw.</p>
+<p>The position and size of WIN0 and WIN1 are determined by <a href="registers.html#REG_WIN0H">REG_WIN0H</a>, <a href="registers.html#REG_WIN1H">REG_WIN1H</a>, <a href="registers.html#REG_WIN0V">REG_WIN0V</a>, and <a href="registers.html#REG_WIN1V">REG_WIN1V</a> (I/O offsets 0x40, 0x42, 0x44, 0x46).</p>
+<p>Exactly which characters and backgrounds appear within or without win0, win1, and the obj window is determined by <a href="registers.html#REG_WIN_IN">REG_WININ</a> and <a href="registers.html#REG_WIN_OUT">REG_WINOUT</a> (0x48 and 0x4A).</p>
+<p>Here are some things to keep in mind when using windows:</p>
+<ul>
+<li>
+<p>WIN0 and WIN1 are drawn from the left and top boundary up to but not including the right and bottom boundaries.</p>
+</li>
+<li>
+<p>Everything in WIN0 appears &quot;above&quot; WIN1 (i.e. it has higher priority), and everything in windows 0 &amp; 1 appears above the WINOUT and obj windows.</p>
+</li>
+<li>
+<p>If a bg or the obj's are turned off in dispcnt, they're off in all windows regardless of the settings in win_in and win_out.</p>
+</li>
+<li>
+<p>If only one window is on, WINOUT affects everything outside of it. If both windows are on, WINOUT affects everything outside both of them. i.e. it affects <em>(!WIN0) &amp;&amp; (!WIN1)</em>.</p>
+</li>
+<li>
+<p>If a window is on, but the effective display bits are all clear, the backdrop is displayed.</p>
+</li>
+<li>
+<p>If the window left coordinate is greater than the window right coordinate, the window will be drawn outside of this region (i.e. to the left and to the right) rather than in the area inbetween.</p>
+</li>
+<li>
+<p>Likewise, if the window top coordinate is greater than the window bottom coordinate, the window will be drawn to the top and the bottom.</p>
+</li>
+<li>
+<p>A completely inverted window is drawn in the area outside of the &quot;+&quot; shaped region defined by its boundaries.</p>
+</li>
+</ul>
+<p>Windows can be used in console games for a variety of different effects. Though the window registers define a square region, differently shaped windows can be achieved by using <a href="registers.html#REG_DMA0CNT">HDMA</a> or <a href="interrupts.html">hblank interrupts</a> to change the parameters each scanline. Lantern lighting (when the hero has a lantern or flashlight that illuminates a certain region of a cave) and x-ray vision (use of the window to cut away layers that are in front) are two common effects created with windows. More are certainly possible.</p>
+<p>Thanks again to gbcft for most of these notes and for his extensive testing on the nature of windowing.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hardware-interrupts"><a class="header" href="#hardware-interrupts">Hardware Interrupts</a></h1>
+<p>Figuring out hardware interrupts was kind of painful. Everything below is what I have gleaned from reading <a href="http://www.arm.com">ARM's docs</a>, the list, the advice of other emulator and demo authors, and from various other emulator's debug info. I hope it is of some use to you. Let me know if you find any errors or typos.</p>
+<p><strong>Key points:</strong></p>
+<p>All hardware interrupt vectors lie in the BIOS. You cannot handle interrupts directly, you must go through the BIOS. Thus, the instructions for exception handling in the ARM docs do not apply directly since we cannot handle the exceptions directly.</p>
+<p>Interrupts are enabled by setting the flags in the <a href="registers.html#REG_IE">REG_IE</a> and hardware registers like <a href="registers.html#REG_DISPSTAT">REG_DISPSTAT</a>, <a href="registers.html#REG_KEYCNT">REG_KEYCNT</a>, and <a href="registers.html#REG_DMA0CNT">REG_DMAXCNT</a>. The flag must be set in both REG_IE and the corresponding hardware register for it to work. When the interrupt signal is sent, the appropriate flag is set in <a href="registers.html#REG_IF">REG_IF</a>. The program code unsets this flag (by writing a 1 to that bit) in order to keep track of what interrupts have been handled.</p>
+<p><strong>When an interrupt occurs, the CPU does the following:</strong></p>
+<ol>
+<li>Switches state to IRQ mode, bank-swaps the current stack register and link register (thus preserving their old values), saves the CPSR in <code>SPSR_irq</code>, and sets bit 7 (interrupt disable) in the CPSR.</li>
+<li>Saves the address of the next instruction in <code>LR_irq</code> compensating for Thumb/ARM depending on the mode you are in.</li>
+<li>Switches to <a href="cpu.html#cpu-state">ARM state</a>, executes code in BIOS at a hardware interrupt vector (which you, the programmer, never see)</li>
+</ol>
+<p><strong>The BIOS code picks up at the hardware interrupt vector and does the following:</strong></p>
+<ol start="4">
+<li>Pushes registers <code>0 - 3</code>, <code>12</code>, <code>LR_irq</code> (which cointains the address following the instruction when the interrupt occrued) onto the stack</li>
+<li>Places the address for the next instruction (in the BIOS, not in your code) in <code>LR</code></li>
+<li>Loads the address found at <code>0x03007FFC</code></li>
+<li>Branches to that address.</li>
+</ol>
+<p><strong>The program code at that address is executed.</strong></p>
+<ol start="8">
+<li>It is the responsiblity of the code at that address to return once finished, using <code>BX LR_irq</code></li>
+</ol>
+<p><strong>The BIOS finishes up where your code leaves off:</strong></p>
+<ol start="9">
+<li>It restores registers <code>0 - 3</code>, <code>12</code>, <code>LR_irq</code></li>
+<li>Branches to the intruction found in <code>LR</code>, using a <code>SUBS PC, LR_irq, #4</code></li>
+</ol>
+<p><strong>Upon receiving the SUBS PC, LR_irq, #4 instruction, the CPU</strong></p>
+<ol start="11">
+<li>copies the <code>SPSR_irq</code> back into the CPSR, restoring the status bits to their state when the interrupt occurred, and bank swaps back in the stack register ad link register. The CPU will thus be placed in the correct state (<a href="cpu.html#cpu-state">ARM</a> or <a href="cpu.html#cpu-state">Thumb</a>) it was in when the exception occurred.</li>
+</ol>
+<br>
+<p>So, the basic model for setting up interrupts is:</p>
+<ol>
+<li>
+<p>Place the address for your interrupt code at <code>0x03007FFC</code>.</p>
+</li>
+<li>
+<p>Turn on the interrupts you wish to use:</p>
+<ul>
+<li><a href="registers.html#REG_STAT">REG_DISPSTAT</a>, <a href="registers.html#REG_TM0CNT">REG_TMXCNT</a>, <a href="registers.html#REG_KEYCNT">REG_KEYCNT</a>, or <a href="registers.html#REG_DMA0CNT">REG_DMAXCNT</a> tell the hardware which interrupts to send</li>
+<li><code>0x04000200</code> (<a href="registers.html#REG_IE">REG_IE</a>) masks which interrupts will actually be serviced (?)</li>
+<li><code>0x04000208</code> (<a href="registers.html#REG_IME">REG_IME</a>) Turns all interrupts on or off.</li>
+</ul>
+</li>
+<li>
+<p>When the interrupt is reached, the code at the address at <code>0x03007FFC</code> gets loaded into the CPU. To prevent unwanted errors/behavior, the first thing this code should do is disable interrupts.</p>
+</li>
+<li>
+<p>To determine what interrupt this is, check the flags in <code>0x04000202</code> (<a href="registers.html#REG_IF">REG_IF</a>). Unset the flag by writing a 1 to that bit.</p>
+</li>
+<li>
+<p>Once finished with the service routine, reenable interrupts and execute a <code>BX LR</code> (<em>not</em> a <code>SUBS PC, LR #4</code>, which is what the BIOS does). The BIOS will then take over and return your program to where execution left off.</p>
+</li>
+</ol>
+<h2 id="types-of-hardware-interrupts"><a class="header" href="#types-of-hardware-interrupts">Types of Hardware Interrupts</a></h2>
+<p>Enable these interrupts using <a href="registers.html#REG_STAT">REG_DISPSTAT</a>, <a href="registers.html#REG_TM0CNT">REG_TMXCNT</a>, <a href="registers.html#REG_KEYCNT">REG_KEYCNT</a>, or <a href="registers.html#REG_DMA0CNT">REG_DMAXCNT</a>, then setting the correct flags in <a href="registers.html#REG_IE">REG_IE</a> and <a href="registers.html#REG_IME">REG_IME</a>.</p>
+<ul>
+<li>
+<p><strong>V-Blank</strong>: Occurs when the <a href="registers.html#REG_VCOUNT">vcount</a> reaches 160, or 0xA0. (Enable in <a href="registers.html#REG_STAT">REG_DISPSTAT</a>)</p>
+</li>
+<li>
+<p><strong>H-Blank</strong>: Occurs at the end of every raster line, from 0 - 228. H-blank interrupts DO occur during v-blank (unlike hdma, which does not), so write your code accordingly. Thanks to gbcft for verifying this. (Enable in <a href="registers.html#REG_STAT">REG_DISPSTAT</a>)</p>
+</li>
+<li>
+<p><strong>Serial</strong>: I am unsure about this; I presume it has to do with the link cable.</p>
+</li>
+<li>
+<p><strong>V-Count</strong>: Occurs when the <a href="registers.html#REG_VCOUNT">vcount</a> reaches the number specified in <a href="registers.html#REG_STAT">REG_DISPSTAT</a>.</p>
+</li>
+<li>
+<p><strong>Timer</strong>: These occur whenever one of the <a href="registers.html#timer-registers">timer registers</a> is set to cause an interrupt whenever it overflows. Enable in <a href="registers.html#REG_TM0CNT">REG_TMXCNT</a>.</p>
+</li>
+<li>
+<p><strong>DMA</strong>: These occur after a DMA transfer, according to the flags in the <a href="registers.html#REG_DMA0CNT">DMA_CNT</a> registers and in <a href="registers.html#REG_IE">REG_IE</a>. Enable in <a href="registers.html#REG_DMA0CNT">REG_DMAXCNT</a>.</p>
+</li>
+<li>
+<p><strong>Key</strong>: Occurs when the user presses or releases the buttons specified in <a href="registers.html#REG_KEYCNT">REG_KEYCNT</a>.</p>
+</li>
+<li>
+<p><strong>Cartridge</strong>: Occurs when the user yanks out or inserts the cartridge out while the GBA is still running. For a cartridge interrupt to work properly the ISR must reside in RAM. It is possible to switch cartridges and have the routine resume execution on a completely different ROM.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bios-software-interrupts"><a class="header" href="#bios-software-interrupts">BIOS (Software Interrupts)</a></h1>
+<p>The BIOS calls are basically SWI instructions; the value passed into the instruction tells the CPU which interrupt to execute. There is very little public domain information on the BIOS. Marat Fayzullin has a listing of the BIOS calls on his VGBA website, and Forgotten has added a list to his <a href="http://vboy.emuhq.com/faq.shtml">Visual Boy Advance FAQ</a>. It is using these, in combination with observing the behavior of various demos in CowBite and other emulators that I was able to piece together what I have here.</p>
+<h3 id="0x00-softreset"><a class="header" href="#0x00-softreset"><code>0x00</code>: SoftReset</a></h3>
+<p>Resets the GBA and runs the code at address <code>0x02000000</code> or <code>0x08000000</code> depending on the contents of <code>0x03007ffa</code> (0 means <code>0x08000000</code> and anything else means <code>0x02000000</code>).</p>
+<h3 id="0x01-registerramreset"><a class="header" href="#0x01-registerramreset"><code>0x01</code>: RegisterRamReset</a></h3>
+<p>Performs a selective reset of memory and I/O registers.</p>
+<pre>
+Input: r0 = reset flags
+</pre>
+<h3 id="0x02-halt"><a class="header" href="#0x02-halt"><code>0x02</code>: Halt</a></h3>
+<p>Halts CPU execution until an interrupt occurs.</p>
+<h3 id="0x03-stop"><a class="header" href="#0x03-stop"><code>0x03</code>: Stop</a></h3>
+<p>Stops the CPU and LCD until the enabled interrupt (keypad, cartridge or serial) occurs.</p>
+<h3 id="0x04-intrwait"><a class="header" href="#0x04-intrwait"><code>0x04</code>: IntrWait</a></h3>
+<p>Waits for the given interrupt to happen.</p>
+<pre>
+Input: r0 = initial flag clear, r1 = interrupt to wait
+</pre>
+<h3 id="0x05-vblankintrwait"><a class="header" href="#0x05-vblankintrwait"><code>0x05</code>: VBlankIntrWait</a></h3>
+<p>Waits for vblank to occur. Waits based on interrupt rather than polling in order to save battery power.</p>
+<p>Equivalent of calling IntrWait with r0=1 and r1=1.</p>
+<h3 id="0x06-div"><a class="header" href="#0x06-div"><code>0x06</code>: Div</a></h3>
+<pre>
+Input: r0 = numerator, r1 = denominator  
+Output: r0 = numerator/denominator;
+        r1 = numerator % denominator;  
+        r3 = abs (numerator/denominator)
+</pre>
+<h3 id="0x07-divarm"><a class="header" href="#0x07-divarm"><code>0x07</code>: DivArm</a></h3>
+<pre>
+Input: r0 = denominator, r1 = numerator
+Output: r0 = numerator/denominator;
+        r1 = numerator % denominator;
+        r3 = abs (numerator/denominator)
+</pre>
+<h3 id="0x08-sqrt"><a class="header" href="#0x08-sqrt"><code>0x08</code>: Sqrt</a></h3>
+<pre>
+Input: r0 = number
+Output: r0 = sqrt(number)
+</pre>
+<h3 id="0x09-arctan"><a class="header" href="#0x09-arctan"><code>0x09</code>: ArcTan</a></h3>
+<pre>
+Input: r0 = angle (signed 16-bit)
+Output: r0 = arctan(angle)
+</pre>
+<h3 id="0x0a-arctan2"><a class="header" href="#0x0a-arctan2"><code>0x0A</code>: ArcTan2</a></h3>
+<p>Calculates the arctangent of the given point.</p>
+<pre>
+Input: r0 = X (signed 16-bit), r1 = Y (signed 16-bit)
+Output: r0 = arctan
+</pre>
+<h3 id="0x0b-cpuset"><a class="header" href="#0x0b-cpuset"><code>0x0B</code>: CPUSet</a></h3>
+<p>Performs a memory transfer.</p>
+<pre>
+Input: r0 = source address, r1 = dest address
+r2 (guess) - formatted like DMA transfer
+bit26 = 32 or 16 bit transfer
+bits 15 - 0 = number of transfers
+</pre>
+<h3 id="0x0c-cpufastset"><a class="header" href="#0x0c-cpufastset"><code>0x0C</code>: CPUFastSet</a></h3>
+<pre>
+Also performs a memory transfer, in 32-bit blocks, presumably with some optimization (and limitations?). I believe the register parameters are set up the same as, or at least similar to, those for CPUSet.
+</pre>
+<h3 id="0x0d-bioschecksum"><a class="header" href="#0x0d-bioschecksum"><code>0x0D</code>: BiosChecksum</a></h3>
+<p>Calculates the checksum of the whole BIOS by adding every 32-bit word from the BIOS.</p>
+<pre>
+Output: r0 = BIOS checksum
+</pre>
+<h3 id="0x0e-bgaffineset"><a class="header" href="#0x0e-bgaffineset"><code>0x0E</code>: BgAffineSet</a></h3>
+<p>Calculates the affine parameters for sprites (rotation and scaling).</p>
+<pre>
+Input: r0 = source, r1 = dest, r2 = number of calculations, r3 = offset between calculations
+</pre>
+<h3 id="0x0f-objaffineset"><a class="header" href="#0x0f-objaffineset"><code>0x0F</code>: ObjAffineSet</a></h3>
+<h3 id="0x10-bitunpack"><a class="header" href="#0x10-bitunpack"><code>0x10</code>: BitUnPack</a></h3>
+<p>Unpacks bit packed data.</p>
+<pre>
+Input: r0 = source, r1 = dest, r2 = unpack parameters
+</pre>
+<h3 id="0x11-lz77uncompwram"><a class="header" href="#0x11-lz77uncompwram"><code>0x11</code>: LZ77UnCompWRAM</a></h3>
+<p>Uncompresses LZSS data 8 bits at a time</p>
+<pre>
+Input: r0 = source address, r1 = dest address
+</pre>
+<h3 id="0x12-lz77uncompvram"><a class="header" href="#0x12-lz77uncompvram"><code>0x12</code>: LZ77UnCompVRAM</a></h3>
+<p>Uncompresses LZSS data 16 bits at a time</p>
+<pre>
+Input: r0 = source address, r1 = dest address
+</pre>
+<p>Note: The LZ77 decompressors actually decompress LZSS, not LZ77, which is slightly different. You will have to look on the web to find the algorithm as it is beyond the scope of this document. The following assumes a general famliarity with LZSS.</p>
+<p>On the GBA, the ring buffer or &quot;window&quot; is of size 4096, the minumim compressed length is 3 and the maximum compressed length is 18. Looking into a compressed buffer you will find the size of the uncompressed memory in bytes 2, 3, and 4 (I'm not sure what the first byte does, but it seems to always be set to &quot;01&quot;), followed by the coded data. This is divided up into sections consisting of an 8 bit key followed by a corresponding eight items of varying size. The upper bits in the key correspond to the items with lower addresses and vice versa. For each bit set in the key, the corresponding item will be 16 bits; the top bits four being the number of bytes to output, minus 3, and the bottom sixteen bits being the offset behind the current window position from which to output. For each bit which is not set, the corresponding item is an uncompressed byte and gets sent to the output.</p>
+<p>Thanks to Markus for providing me with some source that helped me figure out all of this.</p>
+<h3 id="0x13-huffuncomp"><a class="header" href="#0x13-huffuncomp"><code>0x13</code>: HuffUnComp</a></h3>
+<p>Unpacks data compressed with Huffman and writes it 32-bits at a time.</p>
+<pre>
+Input: r0 = source address, r1 = dest address
+</pre>
+<h3 id="0x14-rluncompwram"><a class="header" href="#0x14-rluncompwram"><code>0x14</code>: RLUnCompWRAM</a></h3>
+<p>Uncompresses RLE data 8 bits at a time</p>
+<pre>
+Input: r0 = source address, r1 = dest address
+</pre>
+<h3 id="0x15-rluncompvram"><a class="header" href="#0x15-rluncompvram"><code>0x15</code>: RLUnCompVRAM</a></h3>
+<p>Uncompresses RLE data 16 bits at a time</p>
+<pre>
+Input: r0 = source address, r1 = dest address
+</pre>
+<h3 id="0x16-diff8bitunfilterwram"><a class="header" href="#0x16-diff8bitunfilterwram"><code>0x16</code>: Diff8bitUnFilterWRAM</a></h3>
+<p>Unpacks data filtered with 8-bit difference and writes it 8-bits at a time.</p>
+<pre>
+Input: r0 = source, r1 = dest
+</pre>
+<h3 id="0x17-diff8bitunfiltervram"><a class="header" href="#0x17-diff8bitunfiltervram"><code>0x17</code>: Diff8bitUnFilterVRAM</a></h3>
+<p>Unpacks data filtered with 8-bit difference and writes it 16-bits at a time.</p>
+<pre>
+Input: r0 = source, r1 = dest
+</pre>
+<h3 id="0x18-diff16bitunfilter"><a class="header" href="#0x18-diff16bitunfilter"><code>0x18</code>: Diff16bitUnFilter</a></h3>
+<p>Unpacks data filtered with 16-bit difference and writes it 16-bits at a time.</p>
+<pre>
+Input: r0 = source, r1 = dest
+</pre>
+<h3 id="0x19-soundbiaschange"><a class="header" href="#0x19-soundbiaschange"><code>0x19</code>: SoundBiasChange</a></h3>
+<p>Sets the sound bias from 0 to 0x200 or from 0x200 to 0 depending on the value of R0.</p>
+<pre>
+Input: r0 = 0 to set it to 0, other values to set it to 0x200
+</pre>
+<h3 id="0x1a-sounddriverinit"><a class="header" href="#0x1a-sounddriverinit"><code>0x1A</code>: SoundDriverInit</a></h3>
+<p>Initializes the built in sound driver.</p>
+<pre>
+Input: r0 = SoundArea
+</pre>
+<h3 id="0x1b-sounddrivermode"><a class="header" href="#0x1b-sounddrivermode"><code>0x1B</code>: SoundDriverMode</a></h3>
+<p>Sets the operation of the built in sound driver.</p>
+<pre>
+Input: r0 = operation mode
+</pre>
+<h3 id="0x1c-sounddrivermain"><a class="header" href="#0x1c-sounddrivermain"><code>0x1C</code>: SoundDriverMain</a></h3>
+<p>Main function of the built in sound driver that is called by applications every VBlank period to render the sound.</p>
+<h3 id="0x1d-sounddrivervsync"><a class="header" href="#0x1d-sounddrivervsync"><code>0x1D</code>: SoundDriverVSync</a></h3>
+<h3 id="0x1e-soundchannelclear"><a class="header" href="#0x1e-soundchannelclear"><code>0x1E</code>: SoundChannelClear</a></h3>
+<h3 id="0x1f-midikey2freq"><a class="header" href="#0x1f-midikey2freq"><code>0x1F</code>: MIDIKey2Freq</a></h3>
+<h3 id="ox20-musicplayeropen"><a class="header" href="#ox20-musicplayeropen"><code>Ox20</code>: MusicPlayerOpen</a></h3>
+<h3 id="0x21-musicplayerstart"><a class="header" href="#0x21-musicplayerstart"><code>0x21</code>: MusicPlayerStart</a></h3>
+<h3 id="0x22-musicplayerstop"><a class="header" href="#0x22-musicplayerstop"><code>0x22</code>: MusicPlayerStop</a></h3>
+<h3 id="0x23-musicplayercontinue"><a class="header" href="#0x23-musicplayercontinue"><code>0x23</code>: MusicPlayerContinue</a></h3>
+<h3 id="0x24-musicplayerfadeout"><a class="header" href="#0x24-musicplayerfadeout"><code>0x24</code>: MusicPlayerFadeOut</a></h3>
+<h3 id="0x25-multiboot"><a class="header" href="#0x25-multiboot"><code>0x25</code>: MultiBoot</a></h3>
+<h3 id="0x26-"><a class="header" href="#0x26-"><code>0x26</code>: ??</a></h3>
+<h3 id="0x27-"><a class="header" href="#0x27-"><code>0x27</code>: ??</a></h3>
+<h3 id="0x28-sounddrivervsyncoff"><a class="header" href="#0x28-sounddrivervsyncoff"><code>0x28</code>: SoundDriverVSyncOff</a></h3>
+<h3 id="0x29-sounddrivervsyncon"><a class="header" href="#0x29-sounddrivervsyncon"><code>0x29</code>: SoundDriverVSyncOn</a></h3>
+<h3 id="-fiqmasterenable"><a class="header" href="#-fiqmasterenable"><code>?</code>: FIQMasterEnable</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="memory-mapped-hardware-registers"><a class="header" href="#memory-mapped-hardware-registers">Memory-Mapped Hardware Registers</a></h1>
+<style>
+tt {
+  white-space: pre;
+}
+</style>
+<p>The following section describes the function of each of the memory-mapped addresses in IO RAM. The register naming scheme is based on a variant of the popular <a href="http://www.cs.rit.edu/%7Etjh8300/CowBite/gba.h">gba.h</a> by Eloist (specifically, that used by Uze in the examples on his Audio Advance site).</p>
+<p>The notation for each entry is as follows:</p>
+<div style="font-size: 85%">
+<PRE style="width: min-content; margin: 16px auto">                           <FONT COLOR="#FF0000">R</FONT>       <span style="opacity:0.8">&lt;- </span>'<FONT COLOR="#FF0000">R</FONT>' <span style="opacity:0.8">means &quot;Read Only&quot;, '</span><FONT COLOR="#CC9900">W</FONT><span style="opacity:0.8">' means &quot;Write Only&quot;</span>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0   <span style="opacity:0.8">&lt;- These are the bits</span>
+<FONT COLOR="#008800">W</FONT> <FONT COLOR="#0099FF">V</FONT> <FONT COLOR="#9900CC">U</FONT> <FONT COLOR="#FF0099">S</FONT>  <FONT
+COLOR="#FF3300">L</FONT> <FONT COLOR="#008800">K</FONT> <FONT COLOR="#0099FF">J</FONT> <FONT COLOR="#9900CC">I</FONT>  <FONT
+COLOR="#FF0099">F</FONT><FONT COLOR="#009999"> </FONT><FONT COLOR="#FF3300">D</FONT> <FONT COLOR="#008800">B</FONT><FONT
+COLOR="#9900CC"> </FONT><FONT COLOR="#0099FF">A</FONT><FONT COLOR="#9900CC">  C</FONT> <FONT COLOR="#FF0099">M M M</FONT>   <span style="opacity:0.8">&lt;- These letters are used in the key.
+                                     Entries marked with an '</span>X<span style="opacity:0.8">' usually 
+                                     serve no function, are unwriteable,
+                                     and remain at 0.</span></PRE>
+</div>
+<br>
+<hr />
+<h2 id="graphics-hardware-registers"><a class="header" href="registers.html#graphics-hardware-registers">
+0x04000000 - 0x04000054 - Graphics Hardware Registers
+</a></h2>
+<h3 id="REG_DISPCNT"><a class="header" href="registers.html#REG_DISPCNT">
+0x04000000 - REG_DISPCNT (The display control register)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">                           <FONT COLOR="#FF0000">R</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#008800">W</FONT> <FONT COLOR="#0099FF">V</FONT> <FONT COLOR="#9900CC">U</FONT> <FONT COLOR="#FF0099">S</FONT>  <FONT
+COLOR="#FF3300">L</FONT> <FONT COLOR="#008800">K</FONT> <FONT COLOR="#0099FF">J</FONT> <FONT COLOR="#9900CC">I</FONT>  <FONT
+COLOR="#FF0099">F</FONT><FONT COLOR="#009999"> </FONT><FONT COLOR="#FF3300">D</FONT> <FONT COLOR="#008800">B</FONT><FONT
+COLOR="#9900CC"> </FONT><FONT COLOR="#0099FF">A</FONT><FONT COLOR="#9900CC">  C</FONT> <FONT COLOR="#FF0099">M M M</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-2 <FONT COLOR="#FF0099">(M)</FONT></tt></td><td>The video mode. See <a href="graphics.html#video-modes">video modes</a> for details.</td></tr>
+<tr><td><tt>  3 <FONT COLOR="#9900CC">(C)</FONT></tt></td><td>Game Boy Color mode. Read only - should stay at 0.</td></tr>
+<tr><td><tt>  4 <FONT COLOR="#0099FF">(A)</FONT></tt></td><td>This bit controls the starting address of the bitmap in bitmapped modes and is used for page flipping. See the description of the specific <a href="graphics.html#video-modes">video mode</a> for details.</td></tr>
+<tr><td><tt>  5 <FONT COLOR="#008800">(B)</FONT></tt></td><td>Force processing during hblank. Setting this causes the display controller to process data earlier and longer, beginning from the end of the previous scanline up to the end of the current one. This added processing time can help prevent flickering when there are too many sprites on a scanline.</td></tr>
+<tr><td><tt>  6 <FONT COLOR="#FF3300">(D)</FONT></tt></td><td>Sets whether <a href="sprites.html">sprites</a> stored in VRAM use 1 dimension or 2. <br> <code>0</code> = 2D: each row of tiles is stored 32x64 bytes in from the start of the previous row. <br> <code>1</code> = 1D: tiles are are stored sequentially.</td></tr>
+<tr><td><tt>  7 <FONT COLOR="#FF0099">(F)</FONT></tt></td><td>Force the display to go blank when set. This can be used to save power  when the display isn't needed, or to blank the screen when it is being built up (such as in mode 3, which has only one framebuffer). On the SNES, transfers rates to VRAM were improved during a forced blank; it is logical to assume that this would also hold true on the GBA.</td></tr>
+<tr><td><tt>  8 <FONT COLOR="#9900CC">(I)</FONT></tt></td><td>If set, enable display of BG0.</td></tr>
+<tr><td><tt>  9 <FONT COLOR="#0099FF">(J)</FONT></tt></td><td>If set, enable display of BG1.</td></tr>
+<tr><td><tt>  A <FONT COLOR="#008800">(K)</FONT></tt></td><td>If set, enable display of BG2.</td></tr>
+<tr><td><tt>  B <FONT COLOR="#FF3300">(L)</FONT></tt></td><td>If set, enable display of BG3.</td></tr>
+<tr><td><tt>  C <FONT COLOR="#FF0099">(S)</FONT></tt></td><td>If set, enable display of sprites.</td></tr>
+<tr><td><tt>  D <FONT COLOR="#9900CC">(U)</FONT></tt></td><td>Enable Window 0</td></tr>
+<tr><td><tt>  E <FONT COLOR="#0099FF">(V)</FONT></tt></td><td>Enable Window 1</td></tr>
+<tr><td><tt>  F <FONT COLOR="#008800">(W)</FONT></tt></td><td>Enable Sprite Windows</td></tr>
+</tbody></table>
+</div><h3 id="REG_DISPSTAT"><a class="header" href="registers.html#REG_DISPSTAT">
+0x04000004 - REG_DISPSTAT
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">                <FONT COLOR="#FF0000">      </FONT>       <FONT COLOR="#FF0000">R R R</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#9900CC">T T T T  T T T T</FONT>  X X<FONT COLOR="#663300"> </FONT><FONT
+COLOR="#FF0099">Y</FONT> <FONT COLOR="#FF3300">H</FONT>  <FONT COLOR="#008800">V</FONT> <FONT COLOR="#0099FF">Z</FONT> <FONT
+COLOR="#9900CC">G</FONT> <FONT COLOR="#FF0099">W</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>  0 <FONT COLOR="#FF0099">(W)</FONT></tt></td><td>V Refresh status. This will be 0 during VDraw, and 1 during VBlank.  VDraw lasts for 160 scanlines; VBlank follows after that and lasts 68 scanlines. Checking this is one alternative to checking <a href="registers.html#REG_VCOUNT">REG_VCOUNT</a>.</td></tr>
+<tr><td><tt>  1 <FONT COLOR="#9900CC">(G)</FONT></tt></td><td>H Refresh status. This will be 0 during HDraw, and 1 during HBlank HDraw lasts for approximately 1004 cycles; HBlank follows, and lasts approximately 228 cycles, though the time and length of HBlank may in fact vary based on the number of sprites and on rotation/scaling/blending effects being performed on the current line.</td></tr>
+<tr><td><tt>  2 <FONT COLOR="#0099FF">(Z)</FONT></tt></td><td>VCount Triggered Status. Gets set to 1 when a Y trigger interrupt occurs.</td></tr>
+<tr><td><tt>  3 <FONT COLOR="#008800">(V)</FONT></tt></td><td>Enables LCD's VBlank <a href="interrupts.html">IRQ</a>. This interrupt goes off at the start of VBlank.</td></tr>
+<tr><td><tt>  4 <FONT COLOR="#FF3300">(H)</FONT></tt></td><td>Enables LCD's HBlank <a href="interrupts.html">IRQ</a>. This interrupt goes off at the start of HBlank.</td></tr>
+<tr><td><tt>  5 <FONT COLOR="#FF0099">(Y)</FONT></tt></td><td>Enable VCount trigger <a href="interrupts.html">IRQ</a>. Goes off when VCount line trigger is reached.</td></tr>
+<tr><td><tt>8-F <FONT COLOR="#9900CC">(T)</FONT></tt></td><td>Vcount line trigger. Set this to the VCount value you wish to trigger an interrupt.</td></tr>
+</tbody></table>
+</div><h3 id="REG_VCOUNT"><a class="header" href="registers.html#REG_VCOUNT">
+0x04000006 - LCY / REG_VCOUNT (Read Only)
+</a></h3>
+<p>This location stores the current y location of the LCD hardware. It is incremented as the lines are drawn. The 160 lines of display are followed by 68 lines of Vblank period, before the whole thing starts again for the next frame. Waiting for this register to reach 160 is one way to synchronize a program to 60Hz.</p>
+<h2 id="background-registers"><a class="header" href="registers.html#background-registers">
+0x04000008 - 0x0400001E - Background Registers
+</a></h2>
+<h3 id="REG_BGCNT"><a class="header" href="registers.html#REG_BGCNT">
+0x04000008 - REG_BG0CNT <br>
+0x0400000A - REG_BG1CNT <br>
+0x0400000C - REG_BG2CNT <br>
+0x0400000E - REG_BG3CNT
+</a></h3>
+<p>These addresses set up the four background layers. The format is:</p>
+<div>
+<PRE style="width: min-content; margin: 16px auto">    <FONT COLOR="#DD0000">?</FONT>             
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#9900CC">Z Z</FONT> <FONT COLOR="#FF0099">V</FONT> <FONT COLOR="#FF3300">M  M M M M</FONT> <FONT COLOR="#008800"> A</FONT> <FONT
+COLOR="#0099FF">C</FONT> X X  <FONT COLOR="#9900CC">S S</FONT> <FONT COLOR="#FF0099">P P</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-1 <FONT COLOR="#FF0099">(P)</FONT></tt></td><td><p id="priority">Priority: <code>00</code> = highest, <code>11</code> = lowest</p><p>Priorities are ordered as follows: <pre>&quot;Front&quot; <br> 1. Sprite with priority 0 <br> 2. BG with     priority 0 <br> 3. Sprite with priority 1 <br> 4. BG with     priority 1 <br> 5. Sprite with priority 2 <br> 6. BG with     priority 2 <br> 7. Sprite with priority 3 <br> 8. BG with     priority 3 <br> 9. Backdrop <br> &quot;Back&quot;</pre></p> <p>When multiple backgrounds have the same priority, the order from front to back is:  BG0, BG1, BG2, BG3.  Sprites of the same priority are ordered similarly, with the first sprite in OAM appearing in front. </p></td></tr>
+<tr><td><tt>2-3 <FONT COLOR="#9900CC">(S)</FONT></tt></td><td>Starting address of character tile data <br> Address = 0x06000000 + S * 0x4000</td></tr>
+<tr><td><tt>  6 <FONT COLOR="#0099FF">(C)</FONT></tt></td><td>Mosiac effect - 1 on, 0 off</td></tr>
+<tr><td><tt>  7 <FONT COLOR="#008800">(A)</FONT></tt></td><td><a href="memory.html#palette-ram">Color palette</a> type - <br>1 - standard 256 color pallete <br>0 - each tile uses one of 16 different 16 color palettes (no effect on rotates/scale backgrounds, which are always 256 color)</td></tr>
+<tr><td><tt>8-C <FONT COLOR="#FF3300">(M)</FONT></tt></td><td>Starting address of character tile map Address = 0x06000000 + M * 0x800</td></tr>
+<tr><td><tt>  D <FONT COLOR="#FF0099">(V)</FONT></tt></td><td>Screen Over. Used to determine whether <a href="backgrounds.html#scalerotate-backgrounds">rotational backgrounds</a> get tiled repeatedly at the edges or are displayed as a single &quot;tile&quot; with the area outside transparent. This is forced to 0 (read only) for backgrounds  0 and 1 (only).</td></tr>
+<tr><td><tt>E-F <FONT COLOR="#9900CC">(Z)</FONT></tt></td><td><p>Size of tile map </p><p>For <a href="backgrounds.html#text-backgrounds">&quot;text&quot; backgrounds</a>: </p><p><code>00</code> = 256x256 (32x32 tiles)  <br><code>01</code> = 512x256 (64x32 tiles)  <br><code>10</code> = 256x512 (32x64 tiles)  <br><code>11</code> = 512x512 (64x64 tiles)</p> <p>For <a href="backgrounds.html#scalerotate-backgrounds">rotational backgrounds</a>:</p><p><code>00</code> = 128x128 (16x16 tiles)  <br><code>01</code> = 256x256 (32x32 tiles)  <br><code>10</code> = 512x512 (64x64 tiles) <br><code>11</code> = 1024x1024 (128x128 tiles)</p></td></tr>
+</tbody></table>
+</div><h3 id="REG_BGOFS"><a class="header" href="registers.html#REG_BGOFS">
+<span id="REG_BG0HOFS"></span>0x04000010 - REG_BG0HOFS Horizontal scroll co-ordinate for BG0 (Write Only) <br>
+<span id="REG_BG0VOFS"></span>0x04000012 - REG_BG0VOFS Vertical scroll co-ordinate for BG0 (Write Only) <br>
+<span id="REG_BG1VOFS"></span>0x04000014 - REG_BG1HOFS Horizontal scroll co-ordinate for BG1 (Write Only) <br>
+<span id="REG_BG1HOFS"></span>0x04000016 - REG_BG1VOFS Vertical scroll co-ordinate for BG1 (Write Only) <br>
+<span id="REG_BG2VOFS"></span>0x04000018 - REG_BG2HOFS Horizontal scroll co-ordinate for BG2 (Write Only) <br>
+<span id="REG_BG2HOFS"></span>0x0400001A - REG_BG2VOFS Vertical scroll co-ordinate for BG2 (Write Only) <br>
+<span id="REG_BG3VOFS"></span>0x0400001C - REG_BG3HOFS Horizontal scroll co-ordinate for BG3 (Write Only) <br>
+<span id="REG_BG3HOFS"></span>0x0400001E - REG_BG3VOFS Vertical scroll co-ordinate for BG3 (Write Only)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X X X  X X <FONT COLOR="#FF0099">S S  S S S S  S S S S</FONT> </PRE>
+<PRE>0-9<FONT COLOR="#FF0099"> (S)</FONT> = Scroll value (pixels) </PRE>
+</div>
+<p>These registers are only effective for <a href="backgrounds.html#text-backgrounds">text backgrounds</a>; they set the pixel that is displayed in the top left hand corner of the GBA's display. In other words, a value of -5, -5 puts the upper left hand corner of your background at x=5,y=5. All four BG planes wrap when they reach their right or bottom edges.</p>
+<hr />
+<h2 id="background-rotation-scaling-registers"><a class="header" href="registers.html#background-rotation-scaling-registers">
+0x04000020 - 0x04000026 / 0x04000030 - 0x04000036 - Background Rotation/Scaling Registers (Write Only)
+</a></h2>
+<p>These registers affect the translation, rotation, and scaling of tile-based <a href="backgrounds.html#scalerotate-backgrounds">rotate/scale backgrounds</a> as well as the <a href="backgrounds.html#bitmapped-backgrounds">bitmapped backgrounds</a> (which should be treated as BG2 for this purpose). The function of these registers is very hard to describe in words but easy to see the effects of on screen. I highly recommend checking out Stephen Stair's RSDemo - it lets you see the contents of the regs as you modify them as well as the effect they have on the background. Should also be somewhat useful for figuring out sprite rotation and scaling.</p>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#0099FF">S</FONT> <FONT COLOR="#9900CC">I I I  I I I I</FONT> <FONT COLOR="#FF0099"> F F F F  F F F F</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-7 <FONT COLOR="#FF0099">(F)</FONT></tt></td><td>Fraction</td></tr>
+<tr><td><tt>8-E <FONT COLOR="#9900CC">(I)</FONT></tt></td><td>Integer</td></tr>
+<tr><td><tt>  F <FONT COLOR="#0099FF">(S)</FONT></tt></td><td>Sign bit</td></tr>
+</tbody></table>
+</div>
+<p>These registers apply only to <a href="backgrounds.html#scalerotate-backgrounds">Rotate/Scale backgrounds</a>. Individual descriptions follow:</p>
+<h3 id="REG_BGPA"><a class="header" href="registers.html#REG_BGPA">
+0x04000020 - REG_BG2PA (BG2 Read Source Pixel X Increment) (Write Only) <br>
+0x04000030 - REG_BG3PA (BG3 Read Source Pixel X Increment) (Write Only)
+</a></h3>
+<p>The effect of these registers is to scale the background (relative to the upper left corner) in the x direction by an amount equal to 1/(register value).</p>
+<h3 id="REG_BGPB"><a class="header" href="registers.html#REG_BGPB">
+0x04000022 - REG_BG2PB (BG2 Write Destination Pixel X Increment) (Write Only) <br>
+0x04000032 - REG_BG3PB (BG3 Write Destination Pixel X Increment) (Write Only)
+</a></h3>
+<p>The effect of these registers is to shear the x coordinates of the background over y, relative to the upper left corner. A value of 0 will result in no shearing, a value of 1.00 will make the background appear to be sheared left as you go down the screen, and a value of -1 will make the background appear sheared right as you go down the screen.</p>
+<h3 id="REG_BGPC"><a class="header" href="registers.html#REG_BGPC">
+0x04000024 - REG_BG2PC (BG2 Read Source Pixel Y Increment) (Write Only) <br>
+0x04000034 - REG_BG3PC (BG3 Read Source Pixel Y Increment) (Write Only)
+</a></h3>
+<p>The effect of these registers is to shear the y coordinates of the background over x, relative to the upper left corner. A value of 0 will result in no shearing, a value of 1.00 will make the background appear to be sheared upwards to the right, and a value of -1 will make the background appear sheared downwards and to the right.</p>
+<h3 id="REG_BGPD"><a class="header" href="registers.html#REG_BGPD">
+0x04000026 - REG_BG2PD (BG2 Write Destination Pixel Y Increment) (Write Only) <br>
+0x04000036 - REG_BG3PD (BG3 Write Destination Pixel Y Increment) (Write Only)
+</a></h3>
+<p>The effect of these registers is to scale the background in the y direction (relative to the upper left corner) by an amount equal to 1/(register value).</p>
+<hr />
+<h3 id="REG_BGX"><a class="header" href="registers.html#REG_BGX">
+0x04000028 - REG_BG2X (X Coordinate for BG2 Rotational Background) (Write Only) <br>
+0x04000038 - REG_BG3X (X Coordinate for BG3 Rotational Background) (Write Only)
+</a></h3>
+<h3 id="REG_BGY"><a class="header" href="registers.html#REG_BGY">
+0x0400002C - REG_BG2Y (Y Coordinate for BG2 Rotational Background) (Write Only) <br>
+0x0400003C - REG_BG3Y (Y Coordinate for BG3 Rotational Background) (Write Only)
+</a></h3>
+<div style="font-size: 80%">
+<PRE style="width: min-content; margin: 16px auto">31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
+X  X  X  X  <FONT COLOR="#0099FF"> S</FONT>  <FONT COLOR="#9900CC">I  I  I   I  I  I  I   I  I  I  I   I  I  I  I   I  I  I I</FONT> <FONT
+COLOR="#9900CC"> </FONT><FONT COLOR="#FF0099">F F F F  F F F F</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt> 0-7<FONT COLOR="#FF0099">(F)</FONT></tt></td><td>Fraction</td></tr>
+<tr><td><tt>8-26<FONT COLOR="#9900CC">(I)</FONT></tt></td><td>Integer</td></tr>
+<tr><td><tt>  27<FONT COLOR="#0099FF">(S)</FONT></tt></td><td>Sign bit</td></tr>
+</tbody></table>
+</div>
+<p>These registers define the location of the pixel that appears at 0,0. They are very similar to the background scrolling registers, <a href="registers.html#REG_BGHOFS">REG_HOFS</a> and <a href="registers.html#REG_BGVOFS">REG_VOFS</a>, which become disabled when a <a href="backgrounds.html#scalerotate-backgrounds">rotate/ scale background</a> is in use.</p>
+<hr />
+<h2 id="windowing-registers"><a class="header" href="registers.html#windowing-registers">
+0x04000040 - 0x0400004A - Windowing Registers
+</a></h2>
+<h3 id="REG_WINH"><a class="header" href="registers.html#REG_WINH"></a>
+<span id="REG_WIN0H"></span>0x04000040 - REG_WIN0H Window 0 X Coordinates) (Write Only) <br>
+<span id="REG_WIN1H"></span>0x04000042 - REG_WIN1H Window 1 X Coordinates) (Write Only)
+</h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#9900CC">L L L L  L L L L</FONT> <FONT COLOR="#FF0099"> R R R R  R R R R</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-7 <FONT COLOR="#FF0099">(R)</FONT></tt></td><td>X coordinate for the rightmost side of the window</td></tr>
+<tr><td><tt>8-F <FONT COLOR="#9900CC">(L)</FONT></tt></td><td>X coordinate for the leftmost side of the window</td></tr>
+</tbody></table>
+</div><h3 id="REG_WINV"><a class="header" href="registers.html#REG_WINV">
+<span id="REG_WIN0V"></span>0x04000044 - REG_WIN0V Window 0 Y Coordinates) (Write Only) <br>
+<span id="REG_WIN1V"></span>0x04000046 - REG_WIN1V Window 1 Y Coordinates) (Write Only)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#9900CC">T T T T  T T T T</FONT>  <FONT COLOR="#FF0099">B B B B  B B B B</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-7 <FONT COLOR="#FF0099">(B)</FONT></tt></td><td>Y coordinate for the bottom of the window</td></tr>
+<tr><td><tt>8-F <FONT COLOR="#9900CC">(T)</FONT></tt></td><td>Y coordinate for the top of the window</td></tr>
+</tbody></table>
+</div><h3 id="REG_WININ"><a class="header" href="registers.html#REG_WININ">
+0x04000048 - REG_WININ (Inside Window Settings)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X <FONT COLOR="#9900CC">T</FONT> <FONT COLOR="#FF0099">S</FONT> <FONT COLOR="#FF3300"> R</FONT> <FONT
+COLOR="#008800">Q</FONT> <FONT COLOR="#0099FF">P</FONT> <FONT COLOR="#9900CC">O</FONT>  X X <FONT
+COLOR="#FF0099">L</FONT> <FONT COLOR="#FF3300">K</FONT>  <FONT COLOR="#008800">J</FONT> <FONT COLOR="#0099FF">I</FONT> <FONT
+COLOR="#9900CC">H</FONT> <FONT COLOR="#FF0099">G</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0 <FONT COLOR="#FF0099">(G)</FONT></tt></td><td>BG0 in win0</td></tr>
+<tr><td><tt>1 <FONT COLOR="#9900CC">(H)</FONT></tt></td><td>BG1 in win0</td></tr>
+<tr><td><tt>2 <FONT COLOR="#0099FF">(I)</FONT></tt></td><td>BG2 in win0</td></tr>
+<tr><td><tt>3 <FONT COLOR="#008800">(J)</FONT></tt></td><td>BG3 in win0</td></tr>
+<tr><td><tt>4 <FONT COLOR="#FF3300">(K)</FONT></tt></td><td>Sprites in win0</td></tr>
+<tr><td><tt>5 <FONT COLOR="#FF0099">(L)</FONT></tt></td><td>Blends in win0</td></tr>
+<tr><td><tt>8 <FONT COLOR="#9900CC">(O)</FONT></tt></td><td>BG0 in win1</td></tr>
+<tr><td><tt>9 <FONT COLOR="#0099FF">(P)</FONT></tt></td><td>BG1 in win1</td></tr>
+<tr><td><tt>A <FONT COLOR="#008800">(Q)</FONT></tt></td><td>BG2 in win1</td></tr>
+<tr><td><tt>B <FONT COLOR="#FF3300">(R)</FONT></tt></td><td>BG3 in win1</td></tr>
+<tr><td><tt>C <FONT COLOR="#FF0099">(S)</FONT></tt></td><td>Sprites in win1</td></tr>
+<tr><td><tt>D <FONT COLOR="#9900CC">(T)</FONT></tt></td><td>Blends in win1</td></tr>
+</tbody></table>
+</div><h3 id="REG_WINOUT"><a class="header" href="registers.html#REG_WINOUT">
+0x0400004A - REG_WINOUT (Outside Window and Sprite Window)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X <FONT COLOR="#9900CC">T</FONT> <FONT COLOR="#FF0099">S</FONT> <FONT COLOR="#FF3300"> R</FONT> <FONT
+COLOR="#008800">Q</FONT> <FONT COLOR="#0099FF">P</FONT> <FONT COLOR="#9900CC">O</FONT>  X X <FONT
+COLOR="#FF0099">L</FONT> <FONT COLOR="#FF3300">K</FONT> <FONT COLOR="#008800"> J</FONT> <FONT COLOR="#0099FF">I</FONT> <FONT
+COLOR="#9900CC">H</FONT> <FONT COLOR="#FF0099">G</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td>0 <FONT COLOR="#FF0099">(G)</FONT></tt></td><td>BG0 outside</td></tr>
+<tr><td>1 <FONT COLOR="#9900CC">(H)</FONT></tt></td><td>BG1 outside</td></tr>
+<tr><td>2 <FONT COLOR="#0099FF">(I)</FONT></tt></td><td>BG2 outside</td></tr>
+<tr><td>3 <FONT COLOR="#008800">(J)</FONT></tt></td><td>BG3 outside</td></tr>
+<tr><td>4 <FONT COLOR="#FF3300">(K)</FONT></tt></td><td>Sprites in win0</td></tr>
+<tr><td>5 <FONT COLOR="#FF0099">(L)</FONT></tt></td><td>Blends in win0</td></tr>
+<tr><td>8 <FONT COLOR="#9900CC">(O)</FONT></tt></td><td>BG0 in sprite win</td></tr>
+<tr><td>9 <FONT COLOR="#0099FF">(P)</FONT></tt></td><td>BG1 in sprite win</td></tr>
+<tr><td>A <FONT COLOR="#008800">(Q)</FONT></tt></td><td>BG2 in sprite win</td></tr>
+<tr><td>B <FONT COLOR="#FF3300">(R)</FONT></tt></td><td>BG3 in sprite win</td></tr>
+<tr><td>C <FONT COLOR="#FF0099">(S)</FONT></tt></td><td>Sprites in sprite win</td></tr>
+<tr><td>D <FONT COLOR="#9900CC">(T)</FONT></tt></td><td>Blends in sprite win</td></tr>
+</tbody></table>
+</div><br>
+<br>
+<hr />
+<h2 id="effects-registers"><a class="header" href="registers.html#effects-registers">
+0x0400004C - 0x04000054 - Effects Registers
+</a></h2>
+<h3 id="REG_MOSAIC"><a class="header" href="registers.html#REG_MOSAIC">
+0x0400004C - REG_MOSAIC (Write Only)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#008800">V V V V</FONT> <FONT COLOR="#0099FF"> U U U U</FONT>  <FONT COLOR="#9900CC">J J J J</FONT> <FONT
+COLOR="#FF0099"> I I I I</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-3 <FONT COLOR="#FF0099">(I)</FONT></tt></td><td>BG X Size</td></tr>
+<tr><td><tt>4-7 <FONT COLOR="#9900CC">(J)</FONT></tt></td><td>BG Y Size</td></tr>
+<tr><td><tt>8-B <FONT COLOR="#0099FF">(U)</FONT></tt></td><td>Sprite X Size</td></tr>
+<tr><td><tt>C-F <FONT COLOR="#008800">(V)</FONT></tt></td><td>Sprite Y Size</td></tr>
+</tbody></table>
+</div>
+<p>Use this register to control the size of the mosaic on backgrounds/sprites that have mosaic enabled..</p>
+<h3 id="REG_BLDCNT"><a class="header" href="registers.html#REG_BLDCNT">
+0x04000050 - REG_BLDCNT
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X <FONT COLOR="#0099FF">T</FONT> <FONT COLOR="#9900CC">S</FONT> <FONT COLOR="#FF0099"> R</FONT> <FONT
+COLOR="#FF3300">Q</FONT> <FONT COLOR="#008800">P</FONT> <FONT COLOR="#0099FF">O</FONT> <FONT COLOR="#9900CC"> M M</FONT> <FONT
+COLOR="#FF0099">L</FONT> <FONT COLOR="#FF3300">K</FONT>  <FONT COLOR="#008800">J</FONT> <FONT COLOR="#0099FF">I</FONT> <FONT
+COLOR="#9900CC">H</FONT> <FONT COLOR="#FF0099">G</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>  0 <FONT COLOR="#FF0099">(G)</FONT></tt></td><td>Blend BG0 (source)</td></tr>
+<tr><td><tt>  1 <FONT COLOR="#9900CC">(H)</FONT></tt></td><td>Blend Bg1 (source)</td></tr>
+<tr><td><tt>  2 <FONT COLOR="#0099FF">(I)</FONT></tt></td><td>Blend BG2 (source)</td></tr>
+<tr><td><tt>  3 <FONT COLOR="#008800">(J)</FONT></tt></td><td>Blend BG3 (source)</td></tr>
+<tr><td><tt>  4 <FONT COLOR="#FF3300">(K)</FONT></tt></td><td>Blend sprites (source)</td></tr>
+<tr><td><tt>  5 <FONT COLOR="#FF0099">(L)</FONT></tt></td><td>Blend backdrop (source)</td></tr>
+<tr><td><tt>6-7 <FONT COLOR="#9900CC">(M)</FONT></tt></td><td><p>Blend Mode</p><p>There are four different modes:</p><p><code>00</code> = All effects off <br><code>01</code> = Alpha blend <br><code>10</code> = Lighten (fade to white) <br><code>11</code> = Darken (fade to black)</p></td></tr>
+<tr><td><tt>  8 <FONT COLOR="#0099FF">(O)</FONT></tt></td><td>Blend BG0 (target)</td></tr>
+<tr><td><tt>  9 <FONT COLOR="#008800">(P)</FONT></tt></td><td>Blend BG1 (target)</td></tr>
+<tr><td><tt>  A <FONT COLOR="#FF3300">(Q)</FONT></tt></td><td>Blend BG2 (target)</td></tr>
+<tr><td><tt>  B <FONT COLOR="#FF0099">(R)</FONT></tt></td><td>Blend BG3 (target)</td></tr>
+<tr><td><tt>  C <FONT COLOR="#9900CC">(S)</FONT></tt></td><td>Blend sprites (target)</td></tr>
+<tr><td><tt>  D <FONT COLOR="#0099FF">(T)</FONT></tt></td><td>Blend backdrop (target)</td></tr>
+</tbody></table>
+</div>
+<p>Use this register to determine the blending mode and which layer(s) you wish to perform blending on. In the case of alpha blends (Mode 01), specify the layers that are &quot;on top&quot; using the source flags (bits 0 - 5) and the layers that are on the bottom using the target flags (bits 8-13). The target layer must be below the source layer in terms of its <a href="registers.html#priority">priority</a>, or the blend will not take effect.</p>
+<p>Other things to note about alpha blends:</p>
+<ul>
+<li>If there is more than one target layer, the blend will only occur for a target with lower priority in areas where it shows through targets of higher priority due to the transparent pixel being set</li>
+<li>Source layers will only blend with areas of a target layer that are visible beneath them. If another layer is blocking the way (even if it is another source layer), there will be no blend and the original source color will be drawn.</li>
+<li>As a result of these two conditions, it is never possible for any given pixel to be a blend of more than 2 layers. This eliminates the possiblity of using these registers to have 3 or more layers of translucent graphics showing through one another.</li>
+<li>A layer cannot blend with itself.</li>
+<li>If an obj has semi-transparency enabled, it will blend normally (as if it were specified as a source layer)</li>
+<li>Unfortunately, it is not possible to alpha blend sprites against one another, no matter how your prioritize them. Alpha blended sprites that are &quot;in front of&quot; other sprites will blend with the other target layers while still occluding the sprites behind them (i.e. it will look like the portion of the non-blended sprite that is behind the blended one has disappeared), for a most unnatural effect.</li>
+</ul>
+<h3 id="REG_BLDALPHA"><a class="header" href="registers.html#REG_BLDALPHA">
+0x04000052 - REG_BLDALPHA (Write Only)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X X <FONT COLOR="#9900CC">B  B B B B</FONT>  X X X <FONT
+COLOR="#FF0099">A  A A A A</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-4 <FONT COLOR="#FF0099">(A)</FONT></tt></td><td>Coefficient A, the source pixel (layer above)</td></tr>
+<tr><td><tt>8-C <FONT COLOR="#9900CC">(B)</FONT></tt></td><td>Coefficient B, the target pixel (layer below)</td></tr>
+</tbody></table>
+</div>
+<p>Use this in conjunction with <a href="registers.html#REG_BLDCNT">REG_BLDCNT</a> to determine the amount of blending between layers. An unblended pixel of normal intensity is is considered to have a coefficient of 16. Coefficient A and Coefficient B determine the ratio of each of the sources that will get mixed into the final image. Thus, if A is 12 and B is 4, the resulting image will appear to be 12/16 the color of A and 4/16 the color of B. Note that A and B can add up to be greater than 16 (for an additive or brightening effect) or less than 16 (for a darkening effect).</p>
+<h3 id="REG_BLDY"><a class="header" href="registers.html#REG_BLDY">
+0x04000054 - REG_BLDY (Write Only)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X X X  X X X X  X X X <FONT COLOR="#FF0099">F  F F F F</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-4 <FONT COLOR="#FF0099">(F)</FONT></tt></td><td>The lighten/darken value</td></tr>
+</tbody></table>
+</div>
+<p>This is the amount by which to lighten or darken the source layers (as specified in <a href="registers.html#REG_BLDCNT">REG_BLDCNT</a>) .
+The higher the value, the greater the fade. 16 is the peak fade value; values from 16 - 31 shade the layer with either pure black (for a darken) or pure white (for a lighten).</p>
+<hr />
+<h2 id="sound-control"><a class="header" href="registers.html#sound-control">
+0x040000060 - 0x0400000A6 (Sound Controls)
+</a></h2>
+<p>Note: I've obtained this info (most of it verbatim) from Uze's <a href="http://belogic.com/gba/">BeLogic</a> unofficial GBA sound info site, which gives a much more thorough explanation as well as some sample source code and demos. Thanks to Uze for providing such a great resource on GBA sound.</p>
+<h3 id="REG_SOUND1CNT_L"><a class="header" href="registers.html#REG_SOUND1CNT_L">
+0x04000060 - REG_SOUND1CNT_L (Sound 1 Sweep control)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X X X  X X X X  X <FONT COLOR="#0099FF">T T T</FONT> <FONT COLOR="#9900CC"> A</FONT> <FONT
+COLOR="#FF0099">S S<B> </B>S</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-2 <FONT COLOR="#FF0099">(S)</FONT></tt></td><td><p>Number of sweep shifts. These control the amount of change in  frequency (either increase or decrease) at each change. The wave's new period is given by: T=T±T/(2n), where <em>n</em> is the sweep shift's value.</p></td></tr>
+<tr><td><tt>  3 <FONT COLOR="#9900CC">(A)</FONT></tt></td><td><p>Sweep increase or decrease. When decrementing, if the frequency value gets smaller than zero, the previous value is retained. When incrementing, if the frequency gets greater than the maximum frequency (131Khz or 2048 for the register value) the sound stops.</p><p><code>0</code> = Addition (frequency increase)<br><code>1</code> = Subtraction (frequency decrease)</p></td></tr>
+<tr><td><tt>4-6 <FONT COLOR="#0099FF">(T)</FONT></tt></td><td><p>Sweep Time. This is the delay between sweep shifts. After each delay, the frequency increments or decrements.</p> <p><code>000</code>:  Disable sweep function <br><code>001</code>:  Ts=1 / 128khz (7.8 ms) <br><code>010</code>:  Ts=2 / 128khz (15.6 ms) <br><code>011</code>:  Ts=3 / 128 khz (23.4 ms) <br><code>100</code>:  Ts=4 / 128 khz (31.3 ms) <br><code>101</code>:  Ts=5 / 128 khz (39.1 ms) <br><code>110</code>:  Ts=6 / 128 khz (46.9 ms) <br><code>111</code>:  Ts=7 / 128 khz (54.7 ms)</p></td></tr>
+</tbody></table>
+</div>
+<p>Sound channel 1 produces a square wave with envelope and frequency sweep functions. This register controls the frequency sweep function. When the sweep function is not required, set the sweep time to zero and set the increase/decrease bit to 1.</p>
+<h3 id="REG_SOUND1CNT_H"><a class="header" href="registers.html#REG_SOUND1CNT_H">
+0x04000062 - REG_SOUND1CNT_H (Sound 1 Length, wave duty and envelope control)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">                    <FONT COLOR="#CC9900">  W W  W W W W</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#FF3300">I I I I</FONT> <FONT COLOR="#008800"> M</FONT> <FONT COLOR="#0099FF">T T T</FONT>  <FONT
+COLOR="#9900CC">D D</FONT> <FONT COLOR="#FF0099">L L  L L L L</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-5 <FONT COLOR="#FF0099">(L)</FONT></tt></td><td><p>Sound length. This is a 6 bit value obtained from the following formula:</p><p><code>Sound length = (64-register value)*(1/256) seconds</code></p><p>After the sound length has been changed, the sound channel must be resetted via bit <code>F</code> of <a href="registers.html#REG_SOUND1CNT_X">REG_SOUND1CNT_X</a> (when using timed mode).</p></td></tr>
+<tr><td><tt>6-7 <FONT COLOR="#9900CC">(D)</FONT></tt></td><td><p>Wave duty cycle. This controls the percentage of the ON state of the square wave.</p><p><code>00</code> = 12.5%<br> <code>01</code> = 25%<br> <code>10</code> = 50%<br> <code>11</code> = 75%</p></td></tr>
+<tr><td><tt>8-A <FONT COLOR="#0099FF">(T)</FONT></tt></td><td><p>Envelope step time. This is the delay between successive envelope increase or decrease. It is given by the following formula:</p><p><code>Time = register value * (1/64) seconds</code></p></td></tr>
+<tr><td><tt>  B <FONT COLOR="#008800">(M)</FONT></tt></td><td><p>Envelope mode. Controls if the envelope is to increase or decrease in volume over time.</p><p><code>0</code> = Envelope decreases<br><code>1</code> = Envelope increases</p></td></tr>
+<tr><td><tt>C-F <FONT COLOR="#FF3300">(I)</FONT></tt></td><td><p>Initial Envelope value. <code>1111</code> produces the maximum volume and <code>0000</code> mutes the sound. When sound 1 is playing, modifying the volume envelope bits has no effect until the sound is resetted.</p></td></tr>
+</tbody></table>
+</div><h3 id="REG_SOUND1CNT_X"><a class="header" href="registers.html#REG_SOUND1CNT_X">
+0x04000064 - REG_SOUND1CNT_X (Sound 1 Frequency, reset and loop control)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#CC9900">W</FONT>         <FONT COLOR="#CC9900"> W W W  W W W W  W W W W</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#0099FF">R</FONT> <FONT COLOR="#9900CC">T</FONT> X X  X <FONT COLOR="#FF0099">F F F  F F F F  F F F F</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-A <FONT COLOR="#FF0099">(F)</FONT></tt></td><td><p>Sound frequency. The minimum frequency is 64Hz and the maximum is 131Khz. Can be calculated from the following formula: </p><p><code>F(hz) = 4194304 / (32 * (2048-register value))</code></p></td></tr>
+<tr><td><tt>  E <FONT COLOR="#9900CC">(T)</FONT></tt></td><td><p>Timed sound. When set to 0, sound 1 is played continuously regardless of the length data in <a href="registers.html#REG_SOUND1CNT_H">REG_SOUND1CNT_H</a>. When set to 1, sound is played for that specified length and after that, bit 0 of <a href="registers.html#REG_SOUNDCNT_X">REG_SOUNDCNT_X</a> is reset.</p></td></tr>
+<tr><td><tt>  F <FONT COLOR="#0099FF">(R)</FONT></tt></td><td><p>Sound reset. When set, sound resets and restarts at the specified frequency. When sound 1 is playing, modifying the volume envelope bits has no effect until the sound is resetted. Frequency and sound reset must be perfomed in a single write since both are write only. Frequency can always be changed without resetting the sound channel. </p></td></tr>
+</tbody></table>
+</div><h3 id="REG_SOUND2CNT_L"><a class="header" href="registers.html#REG_SOUND2CNT_L">
+0x04000068 - REG_SOUND2CNT_L (Sound 2 Length, wave duty and envelope control)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">                     <FONT COLOR="#CC9900"> W W  W W W W</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#FF3300">I I I I</FONT> <FONT COLOR="#008800"> M</FONT> <FONT COLOR="#0099FF">T T T</FONT> <FONT COLOR="#9900CC"> D D</FONT> <FONT
+COLOR="#FF0099">L L  L L L L</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-5 <FONT COLOR="#FF0099">(L)</FONT></tt></td><td><p>Sound length. This is a 6 bit value obtained from the following formula:</p><p><code>Sound length = (64-register value)*(1/256) seconds</code>.</p><p>After the sound length has been changed, the sound channel must be resetted via bit F of <a href="registers.html#REG_SOUND2CNT_H">REG_SOUND1CNT_X</a> (when using timed mode).</p></td></tr>
+<tr><td><tt>6-7 <FONT COLOR="#9900CC">(D)</FONT></tt></td><td><p>Wave duty cycle. This controls the percentage of the ON state of the square wave.</p><p><code>00</code> = 12.5%<br><code>01</code> = 25%<br><code>10</code> = 50%<br><code>11</code> = 75%</p></td></tr>
+<tr><td><tt>8-A <FONT COLOR="#0099FF">(T)</FONT></tt></td><td><p>Envelope step time. This is the delay between successive envelope increase or decrease. It is given by the following formula:</p><p><code>Time = register value * (1/64) seconds</code>.</p></td></tr>
+<tr><td><tt>  B <FONT COLOR="#008800">(M)</FONT></tt></td><td><p>Envelope mode. Controls if the envelope is to increase or decrease in volume over time.</p><p><code>0</code> = Envelope decreases<br><code>1</code> = Envelope increases</p></td></tr>
+<tr><td><tt>C-F <FONT COLOR="#FF3300">(I)</FONT></tt></td><td><p>Initial Envelope value. <code>1111</code> produces the maximum volume and <code>0000</code> mutes the sound. When sound 2 is playing, modifying the volume envelope bits has no effect until the sound is resetted.</p></td></tr>
+</tbody></table>
+</div><h3 id="REG_SOUND2CNT_H"><a class="header" href="registers.html#REG_SOUND2CNT_H">
+0x0400006C- REG_SOUND2CNT_H (Sound 2 Frequency, reset and loop control)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#CC9900">W</FONT>       <FONT COLOR="#CC9900">   W W W  W W W W  W W W W</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#0099FF">R</FONT> <FONT COLOR="#9900CC">T</FONT> X X  X <FONT COLOR="#FF0099">F F F  F F F F  F F F F</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-A <FONT COLOR="#FF0099">(F)</FONT></tt></td><td><p>Sound frequency. The minimum frequency is 64Hz and the maximum is 131Khz. Can be calculated from the following formula:</p><p><code>F(hz) = 4194304 / (32 * (2048-register value))</code></p></td></tr>
+<tr><td><tt>  E <FONT COLOR="#9900CC">(T)</FONT></tt></td><td><p>Timed sound. When set to 0, sound 2 is played continuously regardless of the length data in <a href="registers.html#REG_SOUND2CNT_L">REG_SOUND2CNT_L</a>. When set to 1, sound is played for that specified length and after that, bit 1 of <a href="registers.html#REG_SOUNDCNT_X">REG_SOUNDCNT_X</a> is reset.</p></td></tr>
+<tr><td><tt>  F <FONT COLOR="#0099FF">(R)</FONT></tt></td><td><p>Sound reset. When set, sound resets and restarts at the specified frequency. When sound 2 is playing, modifying the volume envelope bits has no effect until the sound is resetted. Frequency and sound reset must be perfomed in a single write since both are write only. Frequency can always be changed without resetting the sound channel.</p></td></tr>
+</tbody></table>
+</div><h3 id="REG_SOUND3CNT_L"><a class="header" href="registers.html#REG_SOUND3CNT_L">
+0x04000070 - REG_SOUND3CNT_L (Sound 3 Enable and wave ram bank control)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X X X  X X X X <FONT COLOR="#0099FF"> N</FONT> <FONT COLOR="#9900CC">S</FONT> <FONT
+COLOR="#FF0099">M</FONT> X  X X X X</PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>5 <FONT COLOR="#FF0099">(M)</FONT></tt></td><td>Bank Mode (<code>0</code> = 2 x 32 sample banks, <code>1</code> = 1 x 64 sample bank)</td></tr>
+<tr><td><tt>6 <FONT COLOR="#9900CC">(S)</FONT></tt></td><td>Bank Select. Controls which bank is active for playing/reloading. If set to 0, samples are played from bank 0 and writing to the Wave Ram will store the data in Bank 1, and vice-versa.</td></tr>
+<tr><td><tt>7 <FONT COLOR="#0099FF">(N)</FONT></tt></td><td>Sound Channel 3 output enable. When this is set and bit 15 from <a href="registers.html#REG_SOUND3CNT_X">REG_SOUND3CNT_X</a> is set, the sound starts to play.</td></tr>
+</tbody></table>
+</div>
+<p>Sound channel 3 is a circuit that can produce an arbitrary wave pattern. Samples are 4 bit, 8 samples per word, and are located in <a href="registers.html#REG_WAVE_RAM0_L">Wave Ram registers</a> from 0x400090 to 0x40009F. The Wave Ram is banked, providing the ability to play a 64 samples pattern or to select between two 32 samples patterns (Bit 5). Sound channel 3 always produces some audio artifacts (distortion) when sound is initialized. Fortunately, switching banks does not require re-initialisation during playback, thus allowing for dynamic reloading of the Wave Ram without generating any distortion.</p>
+<p>Both banks of Wave Ram are filled with zero upon initialization of the Gameboy, Bank 0 being selected. So writing to bank 0 implies setting bit 6 to 1 before loading Wave Ram then set it back to 0 to play it.</p>
+<h3 id="REG_SOUND3CNT_H"><a class="header" href="registers.html#REG_SOUND3CNT_H">
+0x04000072 - REG_SOUND3CNT_H (Sound 3 Sound length and output level control)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">                  <FONT COLOR="#CC9900">W W W W  W W W W</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#9900CC">R R R</FONT> X  X X X X <FONT COLOR="#FF0099"> L L L L  L L L L</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-7 <FONT COLOR="#FF0099">(L)</FONT></tt></td><td><p>Sound length. The sound length is an 8 bit value obtained from the following formula:</p> <p><code>Register = Note length (in seconds) * 256</code></p> <p>Hence a 1 second maximum and a 3.9 millisecond minimum sound duration. After the sound length has be changed, the sound channel must be resetted via bit F of <a href="registers.html#REG_SOUNDCNT_X">REG_SOUND3CNT_X</a>.</p></td></tr>
+<tr><td><tt>D-F <FONT COLOR="#9900CC">(R)</FONT></tt></td><td><p>Output volume ratio:</p><p><code>000</code> = Mute<br><code>001</code> = 100%<br><code>100</code> = 75%<br><code>010</code> = 50%<br><code>011</code> = 25%</p></td></tr>
+</tbody></table>
+</div><h3 id="REG_SOUND3CNT_X"><a class="header" href="registers.html#REG_SOUND3CNT_X">
+0x04000074 - REG_SOUND3CNT_X (Sound 3 Frequency, reset and loop control)
+</a></h3>
+<div>
+<PRE><FONT COLOR="#CC9900">W</FONT>          <FONT COLOR="#CC9900">W W W  W W W W  W W W W</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#0099FF">R</FONT> <FONT COLOR="#9900CC">T</FONT> X X  X <FONT COLOR="#FF0099">F F F  F F F F  F F F F</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-A <FONT COLOR="#FF0099">(F)</FONT></tt></td><td><p>Sound frequency. The minimum frequency is 64Hz and the maximum is 131Khz. Can be calculated from the following formula:</p><p><code>F(hz) = 4194304 / (32 * (2048-register value))</code></p></td></tr>
+<tr><td><tt>  E <FONT COLOR="#9900CC">(T)</FONT></tt></td><td><p>Timed sound. When set to 0, sound 3 is played continuously regardless of the length data in <a href="registers.html#REG_SOUND3CNT_H">REG_SOUND3CNT_H</a>. When set to 1, sound is played for that specified length and after that, bit 2 of <a href="registers.html#REG_SOUNDCNT_X">REG_SOUNDCNT_X</a> is reset.</p></td></tr>
+<tr><td><tt>  F <FONT COLOR="#0099FF">(R)</FONT></tt></td><td><p>Sound reset. When set, sound resets and restarts at the specified frequency. Frequency and sound reset must be perfomed in a single write since both are write only. In continuous mode, frequency can be changed without resetting the sound channel.</p></td></tr>
+</tbody></table>
+</div><h3 id="REG_SOUND4CNT_L"><a class="header" href="registers.html#REG_SOUND4CNT_L">
+0x04000078 - REG_SOUND4CNT_L (Sound 4 Length, output level and envelope control)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">                     <FONT COLOR="#CC9900">W W  W W W W</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#008800">I I I I</FONT><FONT COLOR="#0099FF">  M</FONT> <FONT COLOR="#9900CC">T T T</FONT>  X X <FONT
+COLOR="#FF0099">L L  L L L L</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-5 <FONT COLOR="#FF0099">(L)</FONT></tt></td><td><p>Sound length. This is a 6 bit value obtained from the following formula:</p><p><code>Sound length = (64-register value)\*(1/256) seconds</code></p><p>After the sound length has been changed, the sound channel must be resetted via bit F of <a href="registers.html#REG_SOUND4CNT_H">REG_SOUND4CNT_H</a> (when using timed mode). </p></td></tr>
+<tr><td><tt>8-A <FONT COLOR="#9900CC">(T)</FONT></tt></td><td><p>Envelope step time. This is the delay between successive envelope increase or decrease. It is given by the following formula:</p><p><code>Time = register value * (1/64) seconds</code></p></td></tr>
+<tr><td><tt>  B <FONT COLOR="#0099FF">(M)</FONT></tt></td><td><p>Envelope mode. Controls if the envelope is to increase or decrease in volume over time.</p><p><code>0</code> = Envelope decreases<br><code>1</code> = Envelope increases</p></td></tr>
+<tr><td><tt>D-F <FONT COLOR="#008800">(I)</FONT></tt></td><td><p>Initial Envelope value. <code>1111</code> produces the maximum volume and <code>0000</code> mutes the sound.</p></td></tr>
+</tbody></table>
+</div><h3 id="REG_SOUND4CNT_H"><a class="header" href="registers.html#REG_SOUND4CNT_H">
+0x0400007C - REG_SOUND4CNT_H (Sound 4 Noise parameters, reset and loop control)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#CC9900">W</FONT><B>
+</B>F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#FF3300">R</FONT> <FONT COLOR="#008800">T</FONT> X X  X X X X <FONT COLOR="#0099FF"> P P P P</FONT>  <FONT
+COLOR="#9900CC">S</FONT> <FONT COLOR="#FF0099">C C C</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-2 <FONT COLOR="#FF0099">(C)</FONT></tt></td><td><p>Clock divider frequency. This divides the CPU frequency. Its output is then fed into the counter's pre-scaler (controlled by bits 4-7) which further devides the frequency.</p><p><code>000</code> = f*2   (f = 4.194304 Mhz/8)<br><code>001</code> = f<br><code>010</code> = f/2<br><code>011</code> = f/3<br><code>100</code> = f/4<br><code>101</code> = f/5<br><code>110</code> = f/6<br><code>111</code> = f/7</p></td></tr>
+<tr><td><tt>  3 <FONT COLOR="#9900CC">(S)</FONT></tt></td><td><p>Counter stages: <code>0</code> = 15 stages, <code>1</code> = 7 stages. This controls the period of the polynomial counter. It is given by (2^n)-1 where n is the number of stages. So for n=7, the pseudo-noise period lasts 63 input clocks. After that, the counter restarts the same count sequence.</p></td></tr>
+<tr><td><tt>4-7 <FONT COLOR="#0099FF">(P)</FONT></tt></td><td><p>Counter Pre-Stepper frequency:</p><p><code>0000</code> = Q/2<br><code>0001</code> = Q/2^2<br><code>0010</code> = Q/2^3<br><code>0011</code> = Q/2^4<br><code>....</code><br><code>1101</code> = Q/2^14<br><code>1110</code> = Not used<br><code>1111</code> = Not used</p><p>Where Q is the clock divider's output frequency.</p></td></tr>
+<tr><td><tt>  E <FONT COLOR="#008800">(T)</FONT></tt></td><td><p>Timed sound. When set to 0, sound 4 is played continuously regardless of the length data in <a href="registers.html#REG_SOUND4CNT_L">REG_SOUND4CNT_L</a>. When set to 1, sound is played for that specified length and after that, bit 3 of <a href="registers.html#REG_SOUNDCNT_X">REG_SOUNDCNT_X</a> is reset.</p></td></tr>
+<tr><td><tt>  F <FONT COLOR="#FF3300">(R)</FONT></tt></td><td><p>Sound reset. When bit F is set to 1, Envelope is set to initial value, the LFSR count sequence is resetted and the sound restarts. In continuous mode, all parameters can be changed but the sound needs to be resetted when modifying the envelope initial volume or the clock divider for changes to take effects.</p></td></tr>
+</tbody></table>
+</div>
+<p>Channel 4 produces pseudo-noise generated by a polynomial counter. It is based on a 7/15 stages linear-feedback shift register (LFSR). LFSR counts in a pseudo-random order where each state is generated once and only once during the whole count sequence. The sound is produced by the least significant bit's output stage.</p>
+<h3 id="REG_SOUNDCNT_L"><a class="header" href="registers.html#REG_SOUNDCNT_L">
+0x04000080 - REG_SOUNDCNT_L (Sound 1-4 Output level and Stereo control)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">                           <FONT COLOR="#FF0000">?</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#9900CC">R</FONT> <FONT COLOR="#FF0099">Q</FONT> <FONT COLOR="#FF3300">P</FONT> <FONT COLOR="#008800">O</FONT> <FONT
+COLOR="#0099FF"> N</FONT> <FONT COLOR="#9900CC">M</FONT> <FONT COLOR="#FF0099">L</FONT> <FONT COLOR="#FF3300">K</FONT> <FONT
+COLOR="#008800"> J</FONT> <FONT COLOR="#0099FF">I I I</FONT> <FONT COLOR="#9900CC"> H</FONT> <FONT COLOR="#FF0099">G G G</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-2 <FONT COLOR="#FF0099">(G)</FONT></tt></td><td>DMG Left Volume</td></tr>
+<tr><td><tt>  3 <FONT COLOR="#9900CC">(H)</FONT></tt></td><td>Vin Left on/off (?) - According to BeLogic, Vin on/off allowed the original GameBoy paks to provide their own sound source. It is unkown whether they still work on a GBA.</td></tr>
+<tr><td><tt>4-6 <FONT COLOR="#0099FF">(I)</FONT></tt></td><td>DMG Right Volume</td></tr>
+<tr><td><tt>  7 <FONT COLOR="#008800">(J)</FONT></tt></td><td>Vin Right on/off (?)</td></tr>
+<tr><td><tt>  8 <FONT COLOR="#FF3300">(K)</FONT></tt></td><td>DMG Sound 1 to left output</td></tr>
+<tr><td><tt>  9 <FONT COLOR="#FF0099">(L)</FONT></tt></td><td>DMG Sound 2 to left output</td></tr>
+<tr><td><tt>  A <FONT COLOR="#9900CC">(M)</FONT></tt></td><td>DMG Sound 3 to left output</td></tr>
+<tr><td><tt>  B <FONT COLOR="#0099FF">(N)</FONT></tt></td><td>DMG Sound 4 to left output</td></tr>
+<tr><td><tt>  C <FONT COLOR="#008800">(O)</FONT></tt></td><td>DMG Sound 1 to right output</td></tr>
+<tr><td><tt>  D <FONT COLOR="#FF3300">(P)</FONT></tt></td><td>DMG Sound 2 to right output</td></tr>
+<tr><td><tt>  E <FONT COLOR="#FF33CC">(Q)</FONT></tt></td><td>DMG Sound 3 to right output</td></tr>
+<tr><td><tt>  F <FONT COLOR="#9933FF">(R)</FONT></tt></td><td>DMG Sound 4 to right output</td></tr>
+</tbody></table>
+</div>
+<p>This register controls only the DMG output amplifiers and have no effects on the individual sound channels' processing, or Direct Sound channels' volume.</p>
+<h3 id="REG_SOUNDCNT_H"><a class="header" href="registers.html#REG_SOUNDCNT_H">
+0x04000082 - REG_SOUNDCNT_H (Direct Sound control and Sound 1-4 output ratio)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#CC9900">W        W</FONT>      
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#FF0099">Q</FONT><FONT COLOR="#FF3300"> P</FONT> <FONT COLOR="#008800">O</FONT> <FONT COLOR="#0099FF">N</FONT>  <FONT
+COLOR="#9900CC">M </FONT><FONT COLOR="#FF0099">L</FONT> <FONT COLOR="#FF3300">K</FONT> <FONT COLOR="#008800">J</FONT>  X X X X <FONT
+COLOR="#0099FF"> I</FONT> <FONT COLOR="#9900CC">H</FONT> <FONT COLOR="#FF0099">G G</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-1 <FONT COLOR="#FF0099">(G)</FONT></tt></td><td><p>Output Sound Ratio for channels 1-4.</p><p><code>00</code> = 25%<br><code>01</code> = 50%<br><code>10</code> = 100%<br><code>11</code> = ??</p></td></tr>
+<tr><td><tt>  2 <FONT COLOR="#9900CC">(H)</FONT></tt></td><td>Direct sound A output ratio (0 - 50%, 1 - 100%)</td></tr>
+<tr><td><tt>  3 <FONT COLOR="#0099FF">(I)</FONT></tt></td><td>Direct sound B output ratio (0 - 50%, 1 - 100%)</td></tr>
+<tr><td><tt>  8 <FONT COLOR="#008800">(J)</FONT></tt></td><td>Direct Sound A to right output</td></tr>
+<tr><td><tt>  9 <FONT COLOR="#FF3300">(K)</FONT></tt></td><td>Direct sound A to left output</td></tr>
+<tr><td><tt>  A <FONT COLOR="#FF0099">(L)</FONT></tt></td><td>Direct sound A Sampling rate timer (<a href="registers.html#REG_TM0D">timer 0</a> or <a href="registers.html#REG_TM1D">1</a>). Use this to set which timer contorls the playback frequency.</td></tr>
+<tr><td><tt>  B <FONT COLOR="#9900CC">(M)</FONT></tt></td><td>Direct sound <a href="registers.html#REG_FIFO_A_L">A FIFO</a> reset</td></tr>
+<tr><td><tt>  C <FONT COLOR="#0099FF">(N)</FONT></tt></td><td>Direct sound B to right output</td></tr>
+<tr><td><tt>  D <FONT COLOR="#008800">(O)</FONT></tt></td><td>Direct sound B to left output</td></tr>
+<tr><td><tt>  E <FONT COLOR="#FF3300">(P)</FONT></tt></td><td>Direct sound B Sampling rate timer (<a href="registers.html#REG_TM0D">timer 0</a> or <a href="registers.html#REG_TM1D">1</a>). Use this to set which timer controls the playback frequency.</td></tr>
+<tr><td><tt>  F <FONT COLOR="#FF0099">(Q)</FONT></tt></td><td>Direct sound <a href="registers.html#REG_FIFO_B_L">B FIFO</a> reset</td></tr>
+</tbody></table>
+</div>
+<p>This register is used in controlling Direct Sound on the GBA. Output ratios control the volume, in percentage, that gets output to the speakers.</p>
+<h3 id="REG_SOUNDCNT_X"><a class="header" href="registers.html#REG_SOUNDCNT_X">
+0x04000084 - REG_SOUNDCNT_X (Master sound enable and Sound 1-4 play status)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">                           R R R R</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X X X  X X X X <FONT COLOR="#FF3300"> N</FONT> X X X  <FONT
+COLOR="#008800">J</FONT> <FONT COLOR="#0099FF">I</FONT> <FONT COLOR="#9900CC">H</FONT> <FONT COLOR="#FF0099">G</FONT>
+</PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0 <FONT COLOR="#FF0099">(G)</FONT></tt></td><td>DMG Sound 1 Status (Read only). <code>0</code> = Stopped, <code>1</code> = Playing</td></tr>
+<tr><td><tt>1 <FONT COLOR="#9900CC">(H)</FONT></tt></td><td>DMG Sound 2 Status (Read only). <code>0</code> = Stopped, <code>1</code> = Playing</td></tr>
+<tr><td><tt>2 <FONT COLOR="#0099FF">(I)</FONT></tt></td><td>DMG Sound 3 Status (Read only). <code>0</code> = Stopped, <code>1</code> = Playing</td></tr>
+<tr><td><tt>3 <FONT COLOR="#008800">(J)</FONT></tt></td><td>DMG Sound 4 Status (Read only). <code>0</code> = Stopped, <code>1</code> = Playing</td></tr>
+<tr><td><tt>7 <FONT COLOR="#FF3300">(N)</FONT></tt></td><td>All Sound circuit enable</td></tr>
+</tbody></table>
+</div>
+<p>This register is used to monitor the play status of sounds and to turn on or off all sound circuits. Turning the sound circuits off saves battery power, allowing them to last up to 10% longer.</p>
+<h3 id="REG_SOUNDBIAS"><a class="header" href="registers.html#REG_SOUNDBIAS">
+0x04000088 - REG_SOUNDBIAS (Sound bias and Amplitude resolution control)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#9900CC">R R</FONT> X X  X X <FONT COLOR="#FF0099">B B  B B B B  B B B</FONT> X</PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>1-9 <FONT COLOR="#FF0099">(B)</FONT></tt></td><td>PWM bias value, controlled by the BIOS.</td></tr>
+<tr><td><tt>E-F <FONT COLOR="#9900CC">(R)</FONT></tt></td><td>Amplitude resolutions <br> <code>00</code> = 9 bit at 32768 hz <br> <code>01</code> = 8 bit at 65536 hz <br> <code>10</code> = 7 bit at 131072 hz <br> <code>11</code> = 6 bit at 262144 hz</td></tr>
+</tbody></table>
+</div>
+<p>The BIAS setting is used to offset the sound output and bring it back into a signed range. When the BIOS starts up, it runs a timing loop where it slowly raises the BIAS voltage from 0 to 512. This setting should not be changed. At best, the sound will become distorted. At worst the amplifier inside the GBA could be damaged.</p>
+<p>When accessing bits F-E, a read-modify-write is required. The default value for bits F-E is 00. Most if not all games use 01 for this setting.</p>
+<h3 id="REG_WAVE_RAM"><a class="header" href="registers.html#REG_WAVE_RAM">
+0x04000090 - REG_WAVE_RAM0_L (Sound 3 samples 0-3) <br>
+0x04000092 - REG_WAVE_RAM0_H (Sound 3 samples 4-7) <br>
+0x04000094 - REG_WAVE_RAM1_L (Sound 3 samples 8-11) <br>
+0x04000096 - REG_WAVE_RAM1_H (Sound 3 samples 12-15) <br>
+0x04000098 - REG_WAVE_RAM2_L (Sound 3 samples 16-19) <br>
+0x0400009A - REG_WAVE_RAM2_H (Sound 3 samples 20-23) <br>
+0x0400009C - REG_WAVE_RAM3_L (Sound 3 samples 23-27) <br>
+0x0400009E - REG_WAVE_RAM3_H (Sound 3 samples 28-31)
+</a></h3>
+<p>These registers together contain four (4 bytes each) 4-bit wave RAM samples for Sound channel 3.</p>
+<h3 id="REG_FIFO"><a class="header" href="registers.html#REG_FIFO">
+0x040000A0 - REG_FIFO_A_L (Direct Sound channel A samples 0-1)(Write Only) <br>
+0x040000A2 - REG_FIFO_A_H (Direct Sound channel A samples 2-3)(Write Only) <br>
+0x040000A4 - REG_FIFO_B_L (Direct Sound channel B samples 0-1)(Write Only) <br>
+0x040000A6 - REG_FIFO_B_H (Direct Sound channel B samples 2-3)(Write Only)
+</a></h3>
+<p>These are the locations of the Direct Sound 8-bit FIFO samples, from which Direct Sound pulls the music data to be played on the speakers. Note that there are only 8 bytes total for all your samples. You repeatedly fill these from a buffer of your own using <a href="registers.html#REG_DMA0CNT">DMA0</a> or <a href="registers.html#REG_DMA1CNT">DMA1</a>, or by using timer [interrupts](#Hardware Interrupts).</p>
+<p>To fill them using DMA, first set <a href="registers.html#REG_TM0D">Timer 0</a> or <a href="registers.html#REG_TM1D">Timer 1</a> to refresh at the appropriate sample rate (for example, 16khz). Next, set the <a href="registers.html#REG_DMA0SAD">DMA source address</a> to a sound sample in memory, and the <a href="registers.html#REG_DMA0DST">destination address</a> to one of these FIFO registers. Use <a href="registers.html#REG_SOUNDCNT_H">REG_SOUNTCNT_H</a> to reset FIFO and tell Direct Sound to get its sampling rate from Timer 0 or Timer 1. Finally, set the <a href="registers.html#REG_DMA0CNT">DMA control register</a> to start on FIFO empty (start mode 11) and to repeat, then enable the timers. All of this will cause the hardware to play sound samples in FIFO at the rate specified in your timer, and automatically refill them using DMA.</p>
+<p>To fill these using <a href="interrupts.html">interrupts</a>, follow a similar process, but instead of using DMA, set the clock to interrupt on overflow. When using interrupts instead of DMA, BeLogic recommends setting the <a href="registers.html#REG_TM0CNT">timer</a> divider to 1024 and start the timer at 0xFFFF order to get a sampling rate of 16.384 khz. This apparently causes less distortion than if you simply set the start time of the clock to 0xFFFF - (2^24/16000).</p>
+<p>Note that reading from these registers can yield unpredictable results. It might be interesting to see just <em>how</em> unpredictable...</p>
+<hr />
+<h2 id="dma-source-registers"><a class="header" href="registers.html#dma-source-registers">
+0x040000B0, 0x040000BC, 0x040000C8, 0x040000D4 (DMA Source Registers)(Write Only)
+</a></h2>
+<h3 id="REG_DMA0SAD"><a class="header" href="registers.html#REG_DMA0SAD">
+0x040000B0 - REG_DMA0SAD (DMA0 Source Address) (Write Only)
+</a></h3>
+<div style="font-size: 80%">
+<PRE>31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
+X  X  X  X   X  <FONT COLOR="#FF0099">A  A  A   A  A  A  A   A  A  A  A   A  A  A  A   A  A  A A  A A A A  A A A A</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-26 <FONT COLOR="#FF0099">(A)</FONT></tt></td><td>27-bit source address</td></tr>
+</tbody></table>
+</div>
+<p>This is the source address for DMA channel 0 transfers. Note that it is 27-bit.</p>
+<h3 id="REG_DMA1SAD"><a class="header" href="registers.html#REG_DMA1SAD">
+0x040000BC - REG_DMA1SAD (DMA1 Source Address) <br>
+0x040000C8 - REG_DMA2SAD (DMA2 Source Address) <br>
+0x040000D4 - REG_DMA3SAD (DMA3 Source Address)
+</a></h3>
+<div style="font-size: 80%">
+<PRE>31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
+X  X  X  X  <FONT COLOR="#FF0099"> A  A  A  A   A  A  A  A   A  A  A  A   A  A  A  A   A  A  A A  A A A A  A A A A</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-27 <FONT COLOR="#FF0099">(A)</FONT></tt></td><td>28-bit source address</td></tr>
+</tbody></table>
+</div>
+<p>This is the source address for DMA channel 1, 2, or 3 transfers. Note that it is 28-bit.</p>
+<h3 id="dma-destination-registers"><a class="header" href="registers.html#dma-destination-registers">
+0x040000B4, 0x040000C0, 0x040000CC, 0x040000D8 (DMA Destination Registers) (Write Only)
+</a></h3>
+<h3 id="REG_DMA0DAD"><a class="header" href="registers.html#REG_DMA0DAD">
+0x040000B4 - REG_DMA0DAD (DMA0 Destination Address) <br>
+0x040000C0 - REG_DMA1DAD (DMA1 Destination Address) <br>
+0x040000CC - REG_DMA2DAD (DMA2 Destination Address)
+</a></h3>
+<div style="font-size: 80%">
+<PRE>31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
+X  X  X  X   X  <FONT COLOR="#FF0099">A  A  A   A  A  A  A   A  A  A  A   A  A  A  A   A  A  A A  A A A A  A A A A</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-27 <FONT COLOR="#FF0099">(A)</FONT></tt></td><td>27-bit destination address</td></tr>
+</tbody></table>
+</div>
+<p>This is the dest address for DMA channel 0, 1, and 2 transfers. Note that it is 27-bit.</p>
+<h3 id="REG_DMA3DAD"><a class="header" href="registers.html#REG_DMA3DAD">
+0x040000D8 - REG_DMA3DAD (DMA3 Destination Address)(Write Only)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">31 30 29 28  27 26 25 24  23 22 21 20  19 18 17 16  15 14 13 12  11 10 9 8  7 6 5 4  3 2 1 0
+X  X  X  X  <FONT COLOR="#FF0099"> A  A  A  A   A  A  A  A   A  A  A  A   A  A  A  A   A  A  A A  A A A A  A A A A</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-27 <FONT COLOR="#FF0099">(A)</FONT></tt></td><td>28-bit destination address</td></tr>
+</tbody></table>
+</div>
+<p>This is the dest address for DMA channel 3 transfers. Note that it is 28-bit.</p>
+<h2 id="dma-count-registers"><a class="header" href="registers.html#dma-count-registers">
+0x040000B8, 0x040000C4, 0x040000D0, 0x040000DC (DMA Count Registers) (Write Only)
+</a></h2>
+<h3 id="REG_DMA0CNT_L"><a class="header" href="registers.html#REG_DMA0CNT_L">
+0x040000B8 - REG_DMA0CNT_L (DMA0 Count Register) <br>
+0x040000C4 - REG_DMA1CNT_L (DMA1 Count Register) <br>
+0x040000D0 - REG_DMA2CNT_L (DMA2 Count Register) <br>
+0x040000DC - REG_DMA3CNT_L (DMA3 Count Register)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X <FONT COLOR="#FF0099">L L  L L L L  L L L L  L L L L</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-D <FONT COLOR="#FF0099">(L)</FONT></tt></td><td>Number of words or halfwords to copy</td></tr>
+</tbody></table>
+</div><h2 id="dma-control-registers"><a class="header" href="registers.html#dma-control-registers">
+<span id="REG_DMA0CNT"></span>
+<span id="REG_DMA1CNT"></span>
+<span id="REG_DMA2CNT"></span>
+<span id="REG_DMA3CNT"></span>
+0x040000BA, 0x040000C6, 0x040000D2, 0x040000DE (DMA Control Registers)
+</a></h2>
+<p>(Note: In some places you will see the DMA control and DMA count registers depicted as a single 32-bit register called REG_DMAXCNT. I opted to treat them as two 16-bit registers for sake of clarity.)</p>
+<h3 id="REG_DMA0CNT_H"><a class="header" href="registers.html#REG_DMA0CNT_H">
+0x040000BA - REG_DMA0CNT_H (DMA0 Control Register) <br>
+0x040000C6 - REG_DMA1CNT_H (DMA1 Control Register) <br>
+0x040000D2 - REG_DMA2CNT_H (DMA2 Control Register) <br>
+0x040000DE - REG_DMA3CNT_H (DMA3 Control Register)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">         ?             </FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#0099FF">N </FONT><FONT COLOR="#9900CC">I </FONT><FONT COLOR="#FF0099">M M </FONT><FONT COLOR="#FF3300"> U</FONT> <FONT
+COLOR="#008800">S</FONT> <FONT COLOR="#0099FF">R</FONT> <FONT COLOR="#9900CC">A  A</FONT> <FONT COLOR="#FF0099">B B</FONT> X  X X X X</PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>5-6 <FONT COLOR="#FF0099">(B)</FONT></tt></td><td><p>Type of increment applied to destination address. If enabled, the address will be incremented/decremented by 2 or 4 bytes, depending on the selected size. When the DMA is activated, the contents of these registers are copied to internal counters in the DMA hardware, which then increments/decrements these registers during transfer, preserving the contents of the IORAM registers.<a href="registers.html#DMANote">*</a></p><p><code>00</code> = Increment after each copy <br><code>01</code> = Decrement after each copy <br><code>10</code> = Leave unchanged <br><code>11</code> = Increment without after each copy, reset to initial value at the end of transfer (or at the end of the current repetition)</p></td></tr>
+<tr><td><tt>7-8 <FONT COLOR="#9900CC">(A)</FONT></tt></td><td><p>Type of increment applied to source address:</p><p><code>00</code> = Increment after each copy <br> <code>01</code> = Decrement after each copy <br> <code>10</code> = Leave unchanged <br> <code>11</code> = Illegal </p> <p>Note: I am somewhat uncertain about option &quot;11&quot; for both of these. Can anyone confirm? </p></td></tr>
+<tr><td><tt>  9 <FONT COLOR="#0099FF">(R)</FONT></tt></td><td>Repeat. When in start modes 1 or 2, this bit causes the transfer to repeat for each interval.</td></tr>
+<tr><td><tt>  A <FONT COLOR="#008800">(S)</FONT></tt></td><td>Size. If set, copy 32-bit quantities (words) If clear, copy 16-bit quantities (half words)</td></tr>
+<tr><td><tt>  B <FONT COLOR="#FF3300">(U)</FONT></tt></td><td>Unknown.  For DMA 0, 1, and 2, this bit is read only and set to 0. However, for DMA 3, it appears to be writeable. Thoughts, anyone?</td></tr>
+<tr><td><tt>C-D <FONT COLOR="#FF0099">(M)</FONT></tt></td><td><p>Start Mode.</p><p><code>00</code> = Transfer immediately <br> <code>01</code> = Transfer on vblank (i.e. vdma)<br> <code>10</code> = Transfer on hblank (i.e. hdma.  Note that, unlike h-interrupts, hdma does NOT occur during vblank.)<br> <code>11</code> = The function of this varies based on the DMA channel.</p><p>For DMA 1 or 2: Instructs the DMA to repeat on FIFO-empty requests. When this is set the size and count are ignored and a single 32 bit quantity is transferred on FIFO empty.</p> <p>For DMA 3: Apparently allows transfers to start at the beginning of a rendering line, copying data into a buffer as the line is being drawn on the screen. Useful for flicker-free transfers in mode 3, which has no backbuffer.</p></td></tr>
+<tr><td><tt>  E <FONT COLOR="#9900CC">(I)</FONT></tt></td><td>IRQ. Setting this bit causes the DMA to generate an <a href="interrupts.html">interrupt</a> when it is done with the data transfer.</td></tr>
+<tr><td><tt>  F <FONT COLOR="#0099FF">(N)</FONT></tt></td><td>Set this bit to enable DMA operation. Clear to end DMA operation.</td></tr>
+</tbody></table>
+</div>
+<p>This address controls a DMA transfer which allows large amounts of data to be transferred from one area of memory to another. It is theoretically twice as fast as transfering by the CPU, which uses at least one cycle for a read instruction and another for a write. DMA can also be used to clear memory to a constant value, if the source address is not incremented with each copy. Fist, set the <a href="registers.html#dma-source-registers">DMASAD</a> and <a href="registers.html#dma-destination-registers">DMADAD</a> registers to point to the addresses you want. Writing to DMACNT_H address with a '1' in the N field and a '00' in the M field will start the transfer immediately.</p>
+<p>DMA transfers may occur on an interrupt if the start mode bits are set for this. DMAs have a priority ranking with 3 at the lowest and 0 at the highest. For most cases, program code will be using DMA3 as it is lowest priority, allowing it to be interrupted by more important DMA (see below).</p>
+<p>Specific DMAs have the following properties:</p>
+<ul>
+<li>
+<p><strong>DMA0</strong>: This DMA is the highester priority, but cannot be used to access cartridge memory (addresses 0x08000000 and higher). It is suitable for time-critical operations such as transfering scale and rotate data to the background scaling registers. Since it takes precedence over other DMAs, it will not be postponed or interrupted (possibly causing undesirable results such as screen artifacts).</p>
+</li>
+<li>
+<p><strong>DMA1</strong> and <strong>DMA2</strong>: These are the only DMA that can be used for sound FIFO. If start mode &quot;11&quot; is set, the DMA will be triggered on FIFO empty. I believe that FIFO A always sends its empty requests to DMA1 and that FIFO B sends its empty requests only to DMA2, though I don't have any verification of this.</p>
+</li>
+<li>
+<p><strong>DMA3</strong>: This is is the lowest priority and thus often used as a &quot;general purpose&quot; DMA. Using this DMA for your basic memory transfers ensures that sound FIFO DMA and other time-critical DMA are not delayed, making audio or visual artifacts less likely.</p>
+</li>
+</ul>
+<h3 id="DMANote"><a class="header" href="registers.html#DMANote"></a></h3>
+<p>* <em>(Originally I had assumed a direct mapping between the source/destination registers and the current transfer address, and thus this section of the doc distinguished between transfers which wrote-back to the registers and those which did not. This appears to have been an incorrect assumption, and was brought to light as I delved further into sound emulation)</em></p>
+<h2 id="dma-transfer-ratings"><a class="header" href="#dma-transfer-ratings">DMA Transfer Ratings</a></h2>
+<p>The following table lists the cycle timings for various DMA transfers. The format of each entry is:</p>
+<p><code>16 bit DMA / 32 bit DMA</code></p>
+<p>Units are in <em>cycles per item transfered</em>. Thus, a rating of 4/8 indicates that the transfer takes 4 cycles for every 16 bits transferred with 16 bit DMA, or 8 cycles for every 32 bits transfered with 32 bit DMA.</p>
+<div>
+<PRE style="width: min-content; margin: 16px auto"><B>Source       Destination</B>
+             EWRAM    IWRAM    IO       PAL RAM  VRAM     OAM
+ROM 0 WS     <FONT COLOR="#CC9900">4</FONT>/<FONT COLOR="#CC3300">8</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">3</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT COLOR="#CC3300">3</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">4</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT COLOR="#CC3300">4</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">3</FONT>
+ROM 1 WS     <FONT COLOR="#CC9900">5</FONT>/<FONT COLOR="#CC3300">10</FONT>     <FONT COLOR="#CC9900">3</FONT>/<FONT
+COLOR="#CC3300">5</FONT>      <FONT COLOR="#CC9900">3</FONT>/<FONT COLOR="#CC3300">5</FONT>      <FONT COLOR="#CC9900">3</FONT>/<FONT
+COLOR="#CC3300">6</FONT>      <FONT COLOR="#CC9900">3</FONT>/<FONT COLOR="#CC3300">6</FONT>      <FONT COLOR="#CC9900">3</FONT>/<FONT
+COLOR="#CC3300">5</FONT>
+ROM 2 WS     <FONT COLOR="#CC9900">6</FONT>/<FONT COLOR="#CC3300">12</FONT>     <FONT COLOR="#CC9900">4</FONT>/<FONT
+COLOR="#CC3300">7</FONT>      <FONT COLOR="#CC9900">4</FONT>/<FONT COLOR="#CC3300">7</FONT>      <FONT COLOR="#CC9900">4</FONT>/<FONT
+COLOR="#CC3300">8</FONT>      <FONT COLOR="#CC9900">4</FONT>/<FONT COLOR="#CC3300">8</FONT>      <FONT COLOR="#CC9900">4</FONT>/<FONT
+COLOR="#CC3300">7</FONT>
+EWRAM        <FONT COLOR="#CC9900">6</FONT>/<FONT COLOR="#CC3300">12</FONT>     <FONT COLOR="#CC9900">4</FONT>/<FONT
+COLOR="#CC3300">7</FONT>      <FONT COLOR="#CC9900">4</FONT>/<FONT COLOR="#CC3300">7</FONT>      <FONT COLOR="#CC9900">4</FONT>/<FONT
+COLOR="#CC3300">8</FONT>      <FONT COLOR="#CC9900">4</FONT>/<FONT COLOR="#CC3300">8</FONT>      <FONT COLOR="#CC9900">4</FONT>/<FONT
+COLOR="#CC3300">7</FONT>
+IWRAM        <FONT COLOR="#CC9900">4</FONT>/<FONT COLOR="#CC3300">7</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">2</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT COLOR="#CC3300">2</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">3</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT COLOR="#CC3300">3</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">2</FONT>
+I/O          <FONT COLOR="#CC9900">4</FONT>/<FONT COLOR="#CC3300">7</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">2</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT COLOR="#CC3300">2</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">3</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT COLOR="#CC3300">3</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">2</FONT>
+PAL RAM      <FONT COLOR="#CC9900">4</FONT>/<FONT COLOR="#CC3300">8</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">2</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT COLOR="#CC3300">3</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">4</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT COLOR="#CC3300">4</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">2</FONT>
+VRAM         <FONT COLOR="#CC9900">4</FONT>/<FONT COLOR="#CC3300">8</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">3</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT COLOR="#CC3300">3</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">4</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT COLOR="#CC3300">4</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">2</FONT>
+OAM          <FONT COLOR="#CC9900">4</FONT>/<FONT COLOR="#CC3300">7</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">2</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT COLOR="#CC3300">2</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">3</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT COLOR="#CC3300">3</FONT>      <FONT COLOR="#CC9900">2</FONT>/<FONT
+COLOR="#CC3300">2</FONT>
+</PRE>
+</div>
+<p>Note that it is not possible to DMA transfer from or to SRAM (Cart RAM) or BIOS, and (obviously) it is not possible to transfer to ROM.</p>
+<p>Thanks to Kay for supplying these transfer statistics!!</p>
+<br>
+<br>
+<hr />
+<h2 id="timer-registers"><a class="header" href="registers.html#timer-registers">
+0x04000100 - 0x0400010E (Timer registers)
+</a></h2>
+<h3 id="REG_TMD"><a class="header" href="registers.html#REG_TMD">
+<span id="REG_TM0D">0x04000100 - REG_TM0D (Timer 0 Data)</span> <br>
+<span id="REG_TM1D">0x04000104 - REG_TM1D (Timer 1 Data)</span> <br>
+<span id="REG_TM2D">0x04000108 - REG_TM2D (Timer 2 Data)</span> <br>
+<span id="REG_TM3D">0x0400010C - REG_TM3D (Timer 3 Data)</span>
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#FF0099">D D D D  D D D D  D D D D  D D D D</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-F <FONT COLOR="#FF0099">(D)</FONT></tt></td><td>Current count of the timer.</td></tr>
+</tbody></table>
+</div>
+<p>Note that these registers are R/W. The default is to start counting from 0x0000, but if a value is written to this register, the timer will henceforth use that as a starting value. Thus the rate at which timers overflow and generate <a href="interrupts.html">interrupts</a> (see <a href="registers.html#REG_TM0CNT">REG_TMXCNT</a>, below) can be customized.</p>
+<p>Timer 0 and Timer 1 are used to control the rate of Direct Sound FIFO. When using <a href="registers.html#REG_DMA0CNT">DMA</a> with start mode 11, they can automatically cause it to refill the FIFO.</p>
+<p>To set the rate of playback in hz, write the value 0xFFFF - (2^24/Plaback Freq in hz) to the register. This sets the start value such that the timer will overflow precisely when the next sound sample is needed, and cause the DMA to activate.</p>
+<p>When using interrupts, set the start value of these to 0, but use <a href="registers.html#REG_TM0CNT">REG_TMXCNT</a> to change the update frequency to 1024, thus causing an interrupt rate of 16.384khz.</p>
+<h3 id="REG_TMCNT"><a class="header" href="registers.html#REG_TMCNT">
+<span id="REG_TM0CNT">0x04000102 - REG_TM0CNT (Timer 0 Control)</span> <br>
+<span id="REG_TM1CNT">0x04000106 - REG_TM1CNT (Timer 1 Control)</span> <br>
+<span id="REG_TM2CNT">0x0400010A - REG_TM2CNT (Timer 2 Control)</span> <br>
+<span id="REG_TM3CNT">0x0400010E - REG_TM3CNT (Timer 3 Control)</span>
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">                             *</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X X X  X X X X<FONT COLOR="#008800">  E </FONT><FONT COLOR="#0099FF">I</FONT> X X  X <FONT
+COLOR="#9900CC">C </FONT><FONT COLOR="#FF0099">F F</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-1 <FONT COLOR="#FF0099">(F)</FONT></tt></td><td><p>Frequency at which the timer updates.</p><p><code>00</code> = Default frequency (full) - 16.78MHz (~17mlns ticks per second)<br><code>01</code> = Every 64 clock pulses - ~262187.5KHz<br><code>10</code> = Every 256 clock pulses - ~65546.875KHz<br><code>11</code> = Every 1024 clock pulses - ~16386.71875KHz</p></td></tr>
+<tr><td><tt>  2 <FONT COLOR="#9900CC">(C)</FONT></tt></td><td><p>Cascade (* Unused on TM0) - When this bit is set, the frequency of this timer is ignored. Instead the timer increments when the timer below it overflows. For example, if timer 1 is set to cascade, it will increment whenever timer 0's value goes from <code>0xFFFF</code> to <code>0x0000</code>.</p></td></tr>
+<tr><td><tt>  6 <FONT COLOR="#0099FF">(I)</FONT></tt></td><td>Generate an interrupt on overflow</td></tr>
+<tr><td><tt>  7 <FONT COLOR="#008800">(E)</FONT></tt></td><td>Enable the timer.</td></tr>
+</tbody></table>
+</div><br>
+<hr />
+<h2 id="serial-communication-registers"><a class="header" href="registers.html#serial-communication-registers">
+0x04000120 - 0x0400012A - Serial Communication Registers
+</a></h2>
+<p>Note: All of the serial comm information originates from <a href="http://members.truepath.com/AndrewMay/GBA.html">Andrew May's description</a> of the GBA linker hardware, which in turn was compiled from various other sources on the web. My thanks to ePAc for discovering his site and putting the information into a format consistent with the rest of this spec. If anybody else has information to add to this, please <a href="https://github.com/gbadev-org/gbadoc">send us a PR</a>.</p>
+<h3 id="REG_SCD"><a class="header" href="registers.html#REG_SCD">
+<span id="REG_SCD0">0x04000120 - REG_SCD0 (Master/Slave 0 destination reg) (Read Only)</span> <br>
+<span id="REG_SCD1">0x04000122 - REG_SCD1 (Slave 1 destination reg) (Read Only)</span> <br>
+<span id="REG_SCD2">0x04000124 - REG_SCD2 (Slave 2 destination reg) (Read Only)</span> <br>
+<span id="REG_SCD3">0x04000126 - REG_SCD3 (Slave 3 destination reg) (Read Only)</span>
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">
+R R R R  R R R R  R R R R  R R R R</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#FF0099">D D D D  D D D D  D D D D  D D D D</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-F <FONT COLOR="#FF0099">(D)</FONT></tt></td><td>The data received.</td></tr>
+</tbody></table>
+</div>
+<ul>
+<li>SCD0 contains the data sent by the master (also called slave 0)</li>
+<li>SCD1 contains the data sent by the first slave (slave1)</li>
+<li>SCD2 contains the data sent by the second slave (slave2)</li>
+<li>SCD3 contains the data sent by the last slave (slave3)</li>
+</ul>
+<h3 id="REG_SCCNT_L"><a class="header" href="registers.html#REG_SCCNT_L">
+0x04000128 - REG_SCCNT_L (Serial Communication channel control register)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">                    R               </FONT> 
+F E D C  B A 9 8  7 6 5 4  3 2 1 0
+X <FONT COLOR="#9900CC">I</FONT> <FONT COLOR="#FF0099">M M</FONT>  X X X X <FONT
+COLOR="#FF3300"> S</FONT> <FONT COLOR="#008800">E</FONT> <FONT COLOR="#0099FF">D D</FONT> <FONT COLOR="#9900CC"> L L</FONT> <FONT
+COLOR="#FF0099">B B</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-1 <FONT COLOR="#FF0099">(B)</FONT></tt></td><td>Baud rate - <code>00</code> = 9600, <code>01</code> = 38400,<code>10</code> = 57600, <code>11</code> = 115200</td></tr>
+<tr><td><tt>2-3 <FONT COLOR="#9900CC">(L)</FONT></tt></td><td>SD (bit3) and SI (bit2) line direct access</td></tr>
+<tr><td><tt>4-5 <FONT COLOR="#0099FF">(D)</FONT></tt></td><td>ID of GBA - <code>00</code> = master, <code>01</code> = slave1, <code>10</code> = slave2, <code>11</code> = slave3</td></tr>
+<tr><td><tt>  6 <FONT COLOR="#008800">(E)</FONT></tt></td><td>Error (1 on error)</td></tr>
+<tr><td><tt>  7 <FONT COLOR="#FF3300">(S)</FONT></tt></td><td>Start Transfer (1 triggers the start on the MASTER ONLY)</td></tr>
+<tr><td><tt>C-D <FONT COLOR="#FF0099">(M)</FONT></tt></td><td>Comm Mode - <code>00</code> = 8bit, <code>01</code> = 32bit, <code>10</code> = Multilink, <code>11</code> = UART</td></tr>
+<tr><td><tt>  E <FONT COLOR="#9900CC">(I)</FONT></tt></td><td>Enable Comm Interupt</td></tr>
+</tbody></table>
+</div>
+<p>Using the link port and a link cable, the GBA can transmit serial data in one of four modes: 8 bit, 32 bit, Multilink, and UART. At the moment this document only contains info on the multilink mode. Please <a href="https://github.com/gbadev-org/gbadoc">send us a PR</a> if you know more about the other modes.</p>
+<h4 id="multilink-mode"><a class="header" href="#multilink-mode">Multilink Mode</a></h4>
+<p>To transfer data in this mode, you must coordinate the actions of all the GBAs which are linked together. Each GBA slave must place the data they wish transfered in <a href="registers.html#REG_SCCNT_H">REG_SCCNT_H</a>. Then the Master/Slave 0 initiates the transfer by setting bit 7 of REG_SCCNT_L. This causes the hardware to transfer the data and, as I understand, it will magically appear in the destination registers of each slave, according to the following:</p>
+<ul>
+<li><a href="registers.html#REG_SCCNT_H">REG_SCCNT_H</a> from GBA with id <code>00</code> goes into <a href="registers.html#REG_SCD0">REG_SCD0</a> on each GBA</li>
+<li><a href="registers.html#REG_SCCNT_H">REG_SCCNT_H</a> from GBA with id <code>01</code> goes into <a href="registers.html#REG_SCD0">REG_SCD1</a> on each GBA</li>
+<li><a href="registers.html#REG_SCCNT_H">REG_SCCNT_H</a> from GBA with id <code>10</code> goes into <a href="registers.html#REG_SCD0">REG_SCD2</a> on each GBA</li>
+<li><a href="registers.html#REG_SCCNT_H">REG_SCCNT_H</a> from GBA with id <code>11</code> goes into <a href="registers.html#REG_SCD0">REG_SCD3</a> on each GBA</li>
+</ul>
+<p>Thus each GBA in the chain has a duplicate of the data.</p>
+<p>It is unclear to me how each GBA knows what ID it is; perhaps this value is automatically set when the link cable is attached? ePAc has commented that the master is the GBA in the set that has the purple connector connected to its ext port. So if you have a GBA that want to be a MBserver for a set of clients, then you need to put the cart in the one with the purple connector.</p>
+<p>Note from me: I have a suspicion that some of these bits are write-only. Please let me know if you find out more.</p>
+<h3 id="REG_SCCNT_H"><a class="header" href="registers.html#REG_SCCNT_H">
+0x0400012A - REG_SCCNT_H (Serial Communication Source Register)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#FF33CC">S S S S  S S S S  S S S S  S S S S</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-F <FONT COLOR="#FF33CC">(S)</FONT></tt></td><td>The data to be sent over the link cable.</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="keypad-input-and-control-registers"><a class="header" href="registers.html#keypad-input-and-control-registers">
+Addresses 0x04000130 - 0x04000132 - Keypad Input and Control Registers
+</a></h2>
+<h3 id="REG_KEYINPUT"><a class="header" href="registers.html#REG_KEYINPUT">
+0x04000130 - REG_KEYINPUT (The input register) (Read Only)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">             R R  R R R R  R R R R</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X X X  X X <FONT COLOR="#FF3300">J </FONT><FONT COLOR="#008800">I</FONT><FONT COLOR="#0099FF">  D</FONT> <FONT
+COLOR="#9900CC">U</FONT> <FONT COLOR="#FF0099">L</FONT> <FONT COLOR="#FF3300">R</FONT> <FONT COLOR="#008800"> S</FONT><FONT
+COLOR="#0099FF"> E</FONT> <FONT COLOR="#9900CC">B</FONT> <FONT COLOR="#FF0099">A</FONT> </PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0 <FONT COLOR="#FF0099">(A)</FONT></tt></td><td>A button</td></tr>
+<tr><td><tt>1 <FONT COLOR="#9900CC">(B)</FONT></tt></td><td>B button</td></tr>
+<tr><td><tt>2 <FONT COLOR="#0099FF">(E)</FONT></tt></td><td>Select button</td></tr>
+<tr><td><tt>3 <FONT COLOR="#008800">(S)</FONT></tt></td><td>Start button</td></tr>
+<tr><td><tt>4 <FONT COLOR="#FF3300">(R)</FONT></tt></td><td>D-pad Right</td></tr>
+<tr><td><tt>5 <FONT COLOR="#FF0099">(L)</FONT></tt></td><td>D-pad Left</td></tr>
+<tr><td><tt>6 <FONT COLOR="#9900CC">(U)</FONT></tt></td><td>D-pad Up</td></tr>
+<tr><td><tt>7 <FONT COLOR="#0099FF">(D)</FONT></tt></td><td>D-pad Down</td></tr>
+<tr><td><tt>8 <FONT COLOR="#008800">(I)</FONT></tt></td><td>Right shoulder button</td></tr>
+<tr><td><tt>9 <FONT COLOR="#FF3300">(J)</FONT></tt></td><td>Left shoulder button</td></tr>
+</tbody></table>
+</div>
+<p>This register stores the state of the GBA's buttons. Each of the inputs is active low. This means that a '0' bit indicates that the key is pressed, while a '1' bit indicates that the key is not pressed. In general a game which samples these (rather than using interrupts) should do so at least once every refresh (60hz), or more in the case of fast action fighting games (like Street Fighter).</p>
+<h3 id="REG_KEYCNT"><a class="header" href="registers.html#REG_KEYCNT">
+0x04000132 - REG_KEYCNT (Key Control Register)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#9900CC">T</FONT> <FONT COLOR="#FF0099">K</FONT> <FONT COLOR="#BBBBBB">X X  X X </FONT><FONT COLOR="#FF3300">J </FONT><FONT
+COLOR="#008800">I</FONT><FONT COLOR="#0099FF">  D</FONT> <FONT COLOR="#9900CC">U</FONT> <FONT COLOR="#FF0099">L</FONT> <FONT
+COLOR="#FF3300">R</FONT> <FONT COLOR="#008800"> S</FONT><FONT COLOR="#0099FF"> E</FONT> <FONT COLOR="#9900CC">B</FONT> <FONT
+COLOR="#FF0099">A</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0 <FONT COLOR="#FF0099">(A)</FONT></tt></td><td>A button</td></tr>
+<tr><td><tt>1 <FONT COLOR="#9900CC">(B)</FONT></tt></td><td>B button</td></tr>
+<tr><td><tt>2 <FONT COLOR="#0099FF">(E)</FONT></tt></td><td>Select button</td></tr>
+<tr><td><tt>3 <FONT COLOR="#008800">(S)</FONT></tt></td><td>Start button</td></tr>
+<tr><td><tt>4 <FONT COLOR="#FF3300">(R)</FONT></tt></td><td>D-pad Right</td></tr>
+<tr><td><tt>5 <FONT COLOR="#FF0099">(L)</FONT></tt></td><td>D-pad Left</td></tr>
+<tr><td><tt>6 <FONT COLOR="#9900CC">(U)</FONT></tt></td><td>D-pad Up</td></tr>
+<tr><td><tt>7 <FONT COLOR="#0099FF">(D)</FONT></tt></td><td>D-pad Down</td></tr>
+<tr><td><tt>8 <FONT COLOR="#008800">(I)</FONT></tt></td><td>Right shoulder button</td></tr>
+<tr><td><tt>9 <FONT COLOR="#FF3300">(J)</FONT></tt></td><td>Left shoulder button</td></tr>
+<tr><td><tt>E <FONT COLOR="#FF0099">(K)</FONT></tt></td><td>Generate interrupt on keypress</td></tr>
+<tr><td><tt>F <FONT COLOR="#9900CC">(T)</FONT></tt></td><td><p>Interrupt &quot;type&quot;</p><p><code>0</code> = &quot;OR&quot; operation: interrupt will be generated if <em>any</em> of specified keys (bits 0-9) are pressed<br> <code>1</code> = &quot;AND&quot; operation: interrupt will be generated if <em>all</em> specified keys are pressed at the same time.</p></td></tr>
+</tbody></table>
+</div>
+<p>Use this register to set which keypresses generate interrupts. The appropriate bits must also be set in <a href="registers.html#REG_IE">REG_IE</a> and <a href="registers.html#REG_IME">REG_IME</a>.</p>
+<hr />
+<h3 id="REG_RCNT"><a class="header" href="registers.html#REG_RCNT">
+0x04000134 - REG_RCNT
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">    <FONT COLOR="#FF0000">R R  R R R                 R R</FONT>  
+F E D C  B A 9 8  7 6 5 4  3 2 1 0
+</PRE>
+</div>
+<p>This register appears to give direct access to the different lines of the link port. If you happen to have more information about which bit corresponds to which line, please <a href="https://github.com/gbadev-org/gbadoc">send us a PR</a> or get in touch on <a href="https://gbadev.net/">IRC or Discord</a>.</p>
+<h2 id="interrupt-registers"><a class="header" href="registers.html#interrupt-registers">
+0x04000200 - 0x04000208 - Interrupt Registers
+</a></h2>
+<h3 id="REG_IE"><a class="header" href="registers.html#REG_IE">
+0x04000200 - REG_IE (Interrupt Enable Register)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X <FONT COLOR="#008800">T </FONT><FONT COLOR="#0099FF">Y  </FONT><FONT COLOR="#9900CC">G </FONT><FONT
+COLOR="#FF0099">F </FONT><FONT COLOR="#FF3300">E </FONT><FONT COLOR="#008800">D  </FONT><FONT COLOR="#0099FF">S </FONT><FONT
+COLOR="#9900CC">L </FONT><FONT COLOR="#FF0099">K </FONT><FONT COLOR="#FF3300">J </FONT><FONT COLOR="#008800"> I </FONT><FONT
+COLOR="#0099FF">C </FONT><FONT COLOR="#9900CC">H </FONT><FONT COLOR="#FF0099">V</FONT>
+</PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0 <FONT COLOR="#FF0099">(V)</FONT></tt></td><td>VBlank Interrupt</td></tr>
+<tr><td><tt>1 <FONT COLOR="#9900CC">(H)</FONT></tt></td><td>HBlank Interrupt</td></tr>
+<tr><td><tt>2 <FONT COLOR="#0099FF">(C)</FONT></tt></td><td>VCount Interrupt</td></tr>
+<tr><td><tt>3 <FONT COLOR="#008800">(I)</FONT></tt></td><td>Timer 0 Interrupt</td></tr>
+<tr><td><tt>4 <FONT COLOR="#FF3300">(J)</FONT></tt></td><td>Timer 1 Interrupt</td></tr>
+<tr><td><tt>5 <FONT COLOR="#FF0099">(K)</FONT></tt></td><td>Timer 2 Interrupt</td></tr>
+<tr><td><tt>6 <FONT COLOR="#9900CC">(L)</FONT></tt></td><td>Timer 3 Interrupt</td></tr>
+<tr><td><tt>7 <FONT COLOR="#0099FF">(S)</FONT></tt></td><td>Serial Communication Interrupt</td></tr>
+<tr><td><tt>8 <FONT COLOR="#008800">(D)</FONT></tt></td><td>DMA0 Interrupt</td></tr>
+<tr><td><tt>9 <FONT COLOR="#FF3300">(E)</FONT></tt></td><td>DMA1 Interrupt</td></tr>
+<tr><td><tt>A <FONT COLOR="#FF0099">(F)</FONT></tt></td><td>DMA2 Interrupt</td></tr>
+<tr><td><tt>B <FONT COLOR="#9900CC">(G)</FONT></tt></td><td>DMA3 Interrupt</td></tr>
+<tr><td><tt>C <FONT COLOR="#0099FF">(Y)</FONT></tt></td><td>Key Interrupt</td></tr>
+<tr><td><tt>D <FONT COLOR="#008800">(T)</FONT></tt></td><td>Cartridge Interrupt</td></tr>
+</tbody></table>
+</div>
+<p>Use this register to mask out which interrupts are enabled or disabled.</p>
+<h3 id="REG_IF"><a class="header" href="registers.html#REG_IF">
+0x04000202 - REG_IF (Interrupt Flags Regster)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X <FONT COLOR="#008800">T </FONT><FONT COLOR="#0099FF">Y  </FONT><FONT COLOR="#9900CC">G </FONT><FONT
+COLOR="#FF0099">F </FONT><FONT COLOR="#FF3300">E </FONT><FONT COLOR="#008800">D  </FONT><FONT COLOR="#0099FF">S </FONT><FONT
+COLOR="#9900CC">L </FONT><FONT COLOR="#FF0099">K </FONT><FONT COLOR="#FF3300">J </FONT><FONT COLOR="#008800"> I </FONT><FONT
+COLOR="#0099FF">C </FONT><FONT COLOR="#9900CC">H </FONT><FONT COLOR="#FF0099">V</FONT>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0 <FONT COLOR="#FF0099">(V)</FONT></tt></td><td>VBlank Interrupt</td></tr>
+<tr><td><tt>1 <FONT COLOR="#9900CC">(H)</FONT></tt></td><td>HBlank Interrupt</td></tr>
+<tr><td><tt>2 <FONT COLOR="#0099FF">(C)</FONT></tt></td><td>VCount Interrupt</td></tr>
+<tr><td><tt>3 <FONT COLOR="#008800">(I)</FONT></tt></td><td>Timer 0 Interrupt</td></tr>
+<tr><td><tt>4 <FONT COLOR="#FF3300">(J)</FONT></tt></td><td>Timer 1 Interrupt</td></tr>
+<tr><td><tt>5 <FONT COLOR="#FF0099">(K)</FONT></tt></td><td>Timer 2 Interrupt</td></tr>
+<tr><td><tt>6 <FONT COLOR="#9900CC">(L)</FONT></tt></td><td>Timer 3 Interrupt</td></tr>
+<tr><td><tt>7 <FONT COLOR="#0099FF">(S)</FONT></tt></td><td>Serial Communication Interrupt</td></tr>
+<tr><td><tt>8 <FONT COLOR="#008800">(D)</FONT></tt></td><td>DMA0 Interrupt</td></tr>
+<tr><td><tt>9 <FONT COLOR="#FF3300">(E)</FONT></tt></td><td>DMA1 Interrupt</td></tr>
+<tr><td><tt>A <FONT COLOR="#FF0099">(F)</FONT></tt></td><td>DMA2 Interrupt</td></tr>
+<tr><td><tt>B <FONT COLOR="#9900CC">(G)</FONT></tt></td><td>DMA3 Interrupt</td></tr>
+<tr><td><tt>C <FONT COLOR="#0099FF">(Y)</FONT></tt></td><td>Key Interrupt</td></tr>
+<tr><td><tt>D <FONT COLOR="#008800">(T)</FONT></tt></td><td>Cartridge Interrupt</td></tr>
+</tbody></table>
+</div>
+<p>This register will determine which interrupt is currently being serviced. When your interrupt service routine get scalled, check these flags to determine what called it. In order to keep yourself from servicing the wrong interrupt at a later time, you should reset the flags to 0 by writing a 1 to them.</p>
+<h3 id="REG_WAITCNT"><a class="header" href="registers.html#REG_WAITCNT">
+0x04000204 - REG_WAITCNT (Wait State Control)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">R   </FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#FF3300">G</FONT> <FONT COLOR="#008800">P</FONT> X <FONT COLOR="#0099FF">C  C</FONT> <FONT
+COLOR="#9900CC">N</FONT><FONT COLOR="#008800"> </FONT><FONT COLOR="#FF0099">M M</FONT><FONT COLOR="#CC0099"> </FONT><FONT
+COLOR="#0099FF"> </FONT><FONT COLOR="#FF3300">L</FONT><FONT COLOR="#0099FF"> </FONT><FONT COLOR="#008800">K K</FONT> <FONT
+COLOR="#0099FF">J</FONT><FONT COLOR="#9900CC">  I I</FONT> <FONT COLOR="#FF0099">S S</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-1 <FONT COLOR="#FF0099">(S)</FONT></tt></td><td><p><a href="memory.html#cart-ram">SRAM</a> wait state</p><p><code>00</code> = 4 cycles, <code>01</code> = 3 cycles <br><code>10</code> = 2 cycles, <code>11</code> = 8 cycles</p></td></tr>
+<tr><td><tt>2-3 <FONT COLOR="#9900CC">(I)</FONT></tt></td><td><p><a href="memory.html#game-pak-rom">Bank 0x08000000</a> initial wait state</p><p><code>00</code> = 4 cycles, <code>01</code> = 3 cycles <br><code>10</code> = 2 cycles, <code>11</code> = 8 cycles</p></td></tr>
+<tr><td><tt>  4 <FONT COLOR="#0099FF">(J)</FONT></tt></td><td><p>Bank 0x08000000 subsequent wait state</p><p><code>0</code> = 2 cycles, <code>1</code> = 1 cycle</p></td></tr>
+<tr><td><tt>5-6 <FONT COLOR="#008800">(K)</FONT></tt></td><td><p><a href="memory.html#game-pak-rom-image-1">Bank 0x0A000000</a> initial wait state</p><p><code>00</code> = 4 cycles, <code>01</code> = 3 cycles <br><code>10</code> = 2 cycles, <code>11</code> = 8 cycles</p></td></tr>
+<tr><td><tt>  7 <FONT COLOR="#FF3300">(L)</FONT></tt></td><td><p>Bank 0x0A000000 subsequent wait state</p><p><code>0</code> = 4 cycles, <code>1</code> = 1 cycle</p></td></tr>
+<tr><td><tt>8-9 <FONT COLOR="#FF0099">(M)</FONT></tt></td><td><p><a href="memory.html#game-pak-rom-image-2">Bank 0x0C000000</a> initial wait state</p><p><code>00</code> = 4 cycles, <code>01</code> = 3 cycles <br><code>10</code> = 2 cycles, <code>11</code> = 8 cycles</p></td></tr>
+<tr><td><tt>  A <FONT COLOR="#9900CC">(N)</FONT></tt></td><td><p>Bank 0x0C000000 subsequent wait state</p><p><code>0</code> = 8 cycles, <code>1</code> = 1 cycle</p></td></tr>
+<tr><td><tt>B-C <FONT COLOR="#0099FF">(C)</FONT></tt></td><td><p>Cart clock.  Don't touch.</p> <p><code>00</code> = Terminal output clock fixed lo<br> <code>01</code> = 4 Mhz<br> <code>10</code> = 8 Mhz<br> <code>11</code> = 16 Mhz</p></td></tr>
+<tr><td><tt>  E <FONT COLOR="#008800">(P)</FONT></tt></td><td><p>Prefetch.  The GBA's 8-word-by-16-bit prefetch buffer makes subsequent ROM reads faster in code that accesses both ROM and RAM.</p><p><code>0</code> = Disable (and save battery power)<br> <code>1</code> = Enable</p></td></tr>
+<tr><td><tt>  F <FONT COLOR="#FF3300">(G)</FONT></tt></td><td><p>Game Pak type</p> <p><code>0</code> = AGB multiplexed bus<br> <code>1</code> = DMG/CGB bus)</p></td></tr>
+</tbody></table>
+</div>
+<p>Use this register to control wait state settings and the prefetch buffer for ROM and SRAM. Thanks to <a href="http://pineight.com/contact/">Damian Yerrick</a> for contributing this info, and for pointing me to some relevant reading material.</p>
+<h3 id="REG_IME"><a class="header" href="registers.html#REG_IME">
+0x04000208 - REG_IME (Interrupt Master Enable)
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+X X X X  X X X X  X X X X  X X X <FONT COLOR="#FF0099">M</FONT> 
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0 <FONT COLOR="#FF0099">(M)</FONT></tt></td><td>Master interrupt enable. When off, all interrupts are disabled.  This must be on for the interrupt bits in <a href="registers.html#REG_IE">REG_IE</a> to have any effect.</td></tr>
+</tbody></table>
+</div><br>
+<br>
+<hr />
+<h3 id="REG_HALTCNT"><a class="header" href="registers.html#REG_HALTCNT">
+0x04000300 - REG_HALTCNT
+</a></h3>
+<div>
+<PRE style="width: min-content; margin: 16px auto"><FONT COLOR="#FF0000">? ? ? ?  ? ? ? ?  ? ? ? ?  ? ? ? ?</FONT>
+F E D C  B A 9 8  7 6 5 4  3 2 1 0 
+<FONT COLOR="#9900CC">P </FONT><FONT COLOR="#FF0099">M </FONT>X X  X X X X  X X X X  X X X X</PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>F <FONT COLOR="#FF0099">(M)</FONT></tt></td><td>Mode</td></tr>
+<tr><td><tt>E <FONT COLOR="#9900CC">(P)</FONT></tt></td><td>Power down</td></tr>
+</tbody></table>
+</div>
+<p>I've written down the function of this as it appears in <a href="http://www.bottledlight.com/docs/sdk.html">Mappy's SDK</a>. However, I can't say how it works. Writing values to bits 14 and 15 seems to have no effect. This register shows up as 0x0001 when read. As always, send me mail if you have more info on this.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h1>
 <p>The Gameboy Advance (GBA) sound system may seem to many as black magic because of the availability of information on this specific part of the machine is near inexistent. Moreover, finding relevant or accurate specs for the older Gameboy was and is still problematic. The result is that many will take little or no advantages of sound in their projects. This site will attempt to fill this gap, by providing an <em>Unofficial</em>, comprehensive and (well, as much as possible in the circumstances) accurate specification of the GBA sound system (GBAS). It is assumed that the reader will have some knowledge of the other basic functionalities of the GBA and knows how to program in C.</p>
 <p>The GBAS is a big step forward its older brothers because it now includes two Pulse Width Modulators (PWM) that act as digital-to-analog converters. This adds to the 4 sound channels present on the previous Gameboys. One important improvement to the sound system is that channel 3 's wave ram is now banked, allowing for distortion-free dynamic wave ram reloading.</p>
 <p>The GBA BIOS also contains many sound-related functions, for converting MIDI notes and playing music. BIOS may be covered in the future.</p>
 <h1 id="the-registers"><a class="header" href="#the-registers">The Registers</a></h1>
-<p>Sound registers, as for all other registers in the GBA, are memory mapped and they span from 0x0400060 to 0x40000A6.</p>
+<p>Sound registers, as for all other registers in the GBA, are memory mapped and they span from 0x04000060 to 0x040000A6.</p>
 <div class="table-wrapper"><table><thead><tr><th>Adress</th><th>Name</th><th>Function</th></tr></thead><tbody>
 <tr><td>0x04000060</td><td>REG_SOUND1CNT_L</td><td>Sound 1 Sweep control</td></tr>
 <tr><td>0x04000062</td><td>REG_SOUND1CNT_H</td><td>Sound 1 Length, wave duty and envelope control</td></tr>
@@ -343,7 +1949,7 @@ Video Modes</p>
 <tr><td>0x040000A6</td><td>REG_FIFO_B_H</td><td>Direct Sound channel B samples 2-3</td></tr>
 </tbody></table>
 </div><div style="break-before: page; page-break-before: always;"></div><h1 id="direct-sound"><a class="header" href="#direct-sound">Direct Sound</a></h1>
-<p>Direct Sound (not to confuse with DirectSound which is a registered trademark of Microsoft) refers to the two 8-bit digitial-to-analog converters part of the Gameboy Advance sound system (GBAS). The samples to be played, which must be 8-bit signed, are loaded in consecutive adresses starting at 0x40000A0 (REG_FIFO_A). These adresses acts as a FIFO (First-In-First-Out), meaning that lower adresses bytes are played first. Playback frequency is controlled by the overflow of either Timer 0 or Timer 1, allowing the two Direct sound channels to play at different frequencies independently. Direct sound can work in two modes: DMA mode and Interrupt mode. DMA mode is the most efficient way of playing Direct sound. Because once empty, sound FIFOs are automatically reloaded with the next samples by the DMA controller, without any program intervention. The other mode uses an interrupt handler that manually load the FIFOs. This is less efficient than DMA mode but in some cases, it is the only solution.</p>
+<p>Direct Sound (not to confuse with DirectSound which is a registered trademark of Microsoft) refers to the two 8-bit digitial-to-analog converters part of the Gameboy Advance sound system (GBAS). The samples to be played, which must be 8-bit signed, are loaded in consecutive adresses starting at 0x040000A0 (REG_FIFO_A). These adresses acts as a FIFO (First-In-First-Out), meaning that lower adresses bytes are played first. Playback frequency is controlled by the overflow of either Timer 0 or Timer 1, allowing the two Direct sound channels to play at different frequencies independently. Direct sound can work in two modes: DMA mode and Interrupt mode. DMA mode is the most efficient way of playing Direct sound. Because once empty, sound FIFOs are automatically reloaded with the next samples by the DMA controller, without any program intervention. The other mode uses an interrupt handler that manually load the FIFOs. This is less efficient than DMA mode but in some cases, it is the only solution.</p>
 <h2 id="direct-sound-output-control-register"><a class="header" href="#direct-sound-output-control-register">Direct Sound Output Control Register</a></h2>
 <div class="table-wrapper"><table><thead><tr><th>Offset</th><th>Name</th></tr></thead><tbody>
 <tr><td>0x082</td><td>REG_SOUNDCNT_H</td></tr>
@@ -604,9 +2210,9 @@ void AgbMain(void) {
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="sound-channel-3"><a class="header" href="#sound-channel-3">Sound Channel 3</a></h1>
-<p>Channel 3 acts as a 4-bit DAC that repeatadely plays a pattern of samples. This pattern is user definable and consists of sixty-four 4-bit samples, separated in two banks and located from 0x04000090 to 0x0400009F. Channel 3 can play banks in two modes: As a single 64 samples bank or two 32 samples banks. The dual bank mode has the advantage of not needing a sound reset/restart when switching the playing bank. This allows for dynamic reloading of the wave ram without generating distortion as it was the case with previous Gameboys. Bank mode is controlled by bit 5 of REG_SOUND3CNT_L (0x0400070) and resetting it to 0 specifies dual bank mode. Bit 6 controls which bank is active for playing/reloading. If set to 0, samples are played from bank 0 and writing to the Wave Ram will store the data in Bank 1 and vice-versa.</p>
+<p>Channel 3 acts as a 4-bit DAC that repeatadely plays a pattern of samples. This pattern is user definable and consists of sixty-four 4-bit samples, separated in two banks and located from 0x04000090 to 0x0400009F. Channel 3 can play banks in two modes: As a single 64 samples bank or two 32 samples banks. The dual bank mode has the advantage of not needing a sound reset/restart when switching the playing bank. This allows for dynamic reloading of the wave ram without generating distortion as it was the case with previous Gameboys. Bank mode is controlled by bit 5 of REG_SOUND3CNT_L (0x04000070) and resetting it to 0 specifies dual bank mode. Bit 6 controls which bank is active for playing/reloading. If set to 0, samples are played from bank 0 and writing to the Wave Ram will store the data in Bank 1 and vice-versa.</p>
 <p>When bit 7 is set and Initial flag (Bit 15) from REG_SOUND3CNT_X is set, the wave pattern starts to play. Both banks of Wave Ram are filled with zero upon initialization of the Gameboy, Bank 0 being selected. So writing to bank 0 implie setting bit 6 to 1 before loading Wave Ram then set it back to 0 to play it. Most emulator currently ignore banks.</p>
-<p>Sound 3 can be set to either play for a specified duration (max 1 second) or continuously. This is controlled by bit E of REG_SOUND3CNT_H (0x0400074). When set to 0, sound 3 is played continuously regardless of the length data in REG_SOUND3CNT_H. When set to 1, sound is played for that specified length and after that, bit 2 of REG_SOUNDCNT_X is reset.</p>
+<p>Sound 3 can be set to either play for a specified duration (max 1 second) or continuously. This is controlled by bit E of REG_SOUND3CNT_H (0x04000074). When set to 0, sound 3 is played continuously regardless of the length data in REG_SOUND3CNT_H. When set to 1, sound is played for that specified length and after that, bit 2 of REG_SOUNDCNT_X is reset.</p>
 <p>The sound length is a 8 bit value obtained from the following formula:</p>
 <p><strong>Register = Note lenght(in seconds)*256, hence a 1 second maximum And a 3.9 millisecond minimum sound duration.</strong></p>
 <p>After the sound length has be changed, the sound channel must be resetted via bit F of REG_SOUND3CNT_H.</p>

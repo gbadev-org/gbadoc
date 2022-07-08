@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Hardware Interrupts - gbadoc</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Documents the workings of the Game Boy Advance hardware">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="cpu.html"><strong aria-hidden="true">2.</strong> CPU</a></li><li class="chapter-item expanded "><a href="memory.html"><strong aria-hidden="true">3.</strong> Memory</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">4.</strong> Graphics Hardware Overview</a></li><li class="chapter-item expanded "><a href="backgrounds.html"><strong aria-hidden="true">5.</strong> Backgrounds</a></li><li class="chapter-item expanded "><a href="sprites.html"><strong aria-hidden="true">6.</strong> OAM (Sprites)</a></li><li class="chapter-item expanded "><a href="windowing.html"><strong aria-hidden="true">7.</strong> Windowing</a></li><li class="chapter-item expanded "><a href="interrupts.html" class="active"><strong aria-hidden="true">8.</strong> Hardware Interrupts</a></li><li class="chapter-item expanded "><a href="bios.html"><strong aria-hidden="true">9.</strong> BIOS (Software Interrupts)</a></li><li class="chapter-item expanded "><a href="registers.html"><strong aria-hidden="true">10.</strong> Memory-Mapped Hardware Registers</a></li><li class="chapter-item expanded "><a href="audio/introduction.html"><strong aria-hidden="true">11.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="audio/directsound.html"><strong aria-hidden="true">11.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="audio/sound1.html"><strong aria-hidden="true">11.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="audio/sound2.html"><strong aria-hidden="true">11.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="audio/sound3.html"><strong aria-hidden="true">11.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="audio/sound4.html"><strong aria-hidden="true">11.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="audio/registers.html"><strong aria-hidden="true">11.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="bootleg-carts/introduction.html"><strong aria-hidden="true">12.</strong> Bootleg Carts</a></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">13.</strong> Acknowledgements</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">gbadoc</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="hardware-interrupts"><a class="header" href="#hardware-interrupts">Hardware Interrupts</a></h1>
+<p>Figuring out hardware interrupts was kind of painful. Everything below is what I have gleaned from reading <a href="http://www.arm.com">ARM's docs</a>, the list, the advice of other emulator and demo authors, and from various other emulator's debug info. I hope it is of some use to you. Let me know if you find any errors or typos.</p>
+<p><strong>Key points:</strong></p>
+<p>All hardware interrupt vectors lie in the BIOS. You cannot handle interrupts directly, you must go through the BIOS. Thus, the instructions for exception handling in the ARM docs do not apply directly since we cannot handle the exceptions directly.</p>
+<p>Interrupts are enabled by setting the flags in the <a href="registers.html#REG_IE">REG_IE</a> and hardware registers like <a href="registers.html#REG_DISPSTAT">REG_DISPSTAT</a>, <a href="registers.html#REG_KEYCNT">REG_KEYCNT</a>, and <a href="registers.html#REG_DMA0CNT">REG_DMAXCNT</a>. The flag must be set in both REG_IE and the corresponding hardware register for it to work. When the interrupt signal is sent, the appropriate flag is set in <a href="registers.html#REG_IF">REG_IF</a>. The program code unsets this flag (by writing a 1 to that bit) in order to keep track of what interrupts have been handled.</p>
+<p><strong>When an interrupt occurs, the CPU does the following:</strong></p>
+<ol>
+<li>Switches state to IRQ mode, bank-swaps the current stack register and link register (thus preserving their old values), saves the CPSR in <code>SPSR_irq</code>, and sets bit 7 (interrupt disable) in the CPSR.</li>
+<li>Saves the address of the next instruction in <code>LR_irq</code> compensating for Thumb/ARM depending on the mode you are in.</li>
+<li>Switches to <a href="cpu.html#cpu-state">ARM state</a>, executes code in BIOS at a hardware interrupt vector (which you, the programmer, never see)</li>
+</ol>
+<p><strong>The BIOS code picks up at the hardware interrupt vector and does the following:</strong></p>
+<ol start="4">
+<li>Pushes registers <code>0 - 3</code>, <code>12</code>, <code>LR_irq</code> (which cointains the address following the instruction when the interrupt occrued) onto the stack</li>
+<li>Places the address for the next instruction (in the BIOS, not in your code) in <code>LR</code></li>
+<li>Loads the address found at <code>0x03007FFC</code></li>
+<li>Branches to that address.</li>
+</ol>
+<p><strong>The program code at that address is executed.</strong></p>
+<ol start="8">
+<li>It is the responsiblity of the code at that address to return once finished, using <code>BX LR_irq</code></li>
+</ol>
+<p><strong>The BIOS finishes up where your code leaves off:</strong></p>
+<ol start="9">
+<li>It restores registers <code>0 - 3</code>, <code>12</code>, <code>LR_irq</code></li>
+<li>Branches to the intruction found in <code>LR</code>, using a <code>SUBS PC, LR_irq, #4</code></li>
+</ol>
+<p><strong>Upon receiving the SUBS PC, LR_irq, #4 instruction, the CPU</strong></p>
+<ol start="11">
+<li>copies the <code>SPSR_irq</code> back into the CPSR, restoring the status bits to their state when the interrupt occurred, and bank swaps back in the stack register ad link register. The CPU will thus be placed in the correct state (<a href="cpu.html#cpu-state">ARM</a> or <a href="cpu.html#cpu-state">Thumb</a>) it was in when the exception occurred.</li>
+</ol>
+<br>
+<p>So, the basic model for setting up interrupts is:</p>
+<ol>
+<li>
+<p>Place the address for your interrupt code at <code>0x03007FFC</code>.</p>
+</li>
+<li>
+<p>Turn on the interrupts you wish to use:</p>
+<ul>
+<li><a href="registers.html#REG_STAT">REG_DISPSTAT</a>, <a href="registers.html#REG_TM0CNT">REG_TMXCNT</a>, <a href="registers.html#REG_KEYCNT">REG_KEYCNT</a>, or <a href="registers.html#REG_DMA0CNT">REG_DMAXCNT</a> tell the hardware which interrupts to send</li>
+<li><code>0x04000200</code> (<a href="registers.html#REG_IE">REG_IE</a>) masks which interrupts will actually be serviced (?)</li>
+<li><code>0x04000208</code> (<a href="registers.html#REG_IME">REG_IME</a>) Turns all interrupts on or off.</li>
+</ul>
+</li>
+<li>
+<p>When the interrupt is reached, the code at the address at <code>0x03007FFC</code> gets loaded into the CPU. To prevent unwanted errors/behavior, the first thing this code should do is disable interrupts.</p>
+</li>
+<li>
+<p>To determine what interrupt this is, check the flags in <code>0x04000202</code> (<a href="registers.html#REG_IF">REG_IF</a>). Unset the flag by writing a 1 to that bit.</p>
+</li>
+<li>
+<p>Once finished with the service routine, reenable interrupts and execute a <code>BX LR</code> (<em>not</em> a <code>SUBS PC, LR #4</code>, which is what the BIOS does). The BIOS will then take over and return your program to where execution left off.</p>
+</li>
+</ol>
+<h2 id="types-of-hardware-interrupts"><a class="header" href="#types-of-hardware-interrupts">Types of Hardware Interrupts</a></h2>
+<p>Enable these interrupts using <a href="registers.html#REG_STAT">REG_DISPSTAT</a>, <a href="registers.html#REG_TM0CNT">REG_TMXCNT</a>, <a href="registers.html#REG_KEYCNT">REG_KEYCNT</a>, or <a href="registers.html#REG_DMA0CNT">REG_DMAXCNT</a>, then setting the correct flags in <a href="registers.html#REG_IE">REG_IE</a> and <a href="registers.html#REG_IME">REG_IME</a>.</p>
+<ul>
+<li>
+<p><strong>V-Blank</strong>: Occurs when the <a href="registers.html#REG_VCOUNT">vcount</a> reaches 160, or 0xA0. (Enable in <a href="registers.html#REG_STAT">REG_DISPSTAT</a>)</p>
+</li>
+<li>
+<p><strong>H-Blank</strong>: Occurs at the end of every raster line, from 0 - 228. H-blank interrupts DO occur during v-blank (unlike hdma, which does not), so write your code accordingly. Thanks to gbcft for verifying this. (Enable in <a href="registers.html#REG_STAT">REG_DISPSTAT</a>)</p>
+</li>
+<li>
+<p><strong>Serial</strong>: I am unsure about this; I presume it has to do with the link cable.</p>
+</li>
+<li>
+<p><strong>V-Count</strong>: Occurs when the <a href="registers.html#REG_VCOUNT">vcount</a> reaches the number specified in <a href="registers.html#REG_STAT">REG_DISPSTAT</a>.</p>
+</li>
+<li>
+<p><strong>Timer</strong>: These occur whenever one of the <a href="registers.html#timer-registers">timer registers</a> is set to cause an interrupt whenever it overflows. Enable in <a href="registers.html#REG_TM0CNT">REG_TMXCNT</a>.</p>
+</li>
+<li>
+<p><strong>DMA</strong>: These occur after a DMA transfer, according to the flags in the <a href="registers.html#REG_DMA0CNT">DMA_CNT</a> registers and in <a href="registers.html#REG_IE">REG_IE</a>. Enable in <a href="registers.html#REG_DMA0CNT">REG_DMAXCNT</a>.</p>
+</li>
+<li>
+<p><strong>Key</strong>: Occurs when the user presses or releases the buttons specified in <a href="registers.html#REG_KEYCNT">REG_KEYCNT</a>.</p>
+</li>
+<li>
+<p><strong>Cartridge</strong>: Occurs when the user yanks out or inserts the cartridge out while the GBA is still running. For a cartridge interrupt to work properly the ISR must reside in RAM. It is possible to switch cartridges and have the routine resume execution on a completely different ROM.</p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="windowing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="bios.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="windowing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="bios.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Graphics Hardware - gbadoc</title>
+        <title>Graphics Hardware Overview - gbadoc</title>
 
 
         <!-- Custom HTML head -->
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="intro.html">Intro</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="graphics.html" class="active"><strong aria-hidden="true">2.</strong> Graphics Hardware</a></li><li class="chapter-item expanded "><a href="audio/introduction.html"><strong aria-hidden="true">3.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="audio/directsound.html"><strong aria-hidden="true">3.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="audio/sound1.html"><strong aria-hidden="true">3.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="audio/sound2.html"><strong aria-hidden="true">3.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="audio/sound3.html"><strong aria-hidden="true">3.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="audio/sound4.html"><strong aria-hidden="true">3.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="audio/registers.html"><strong aria-hidden="true">3.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="bootleg-carts/introduction.html"><strong aria-hidden="true">4.</strong> Bootleg Carts</a></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">5.</strong> Acknowledgements</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="cpu.html"><strong aria-hidden="true">2.</strong> CPU</a></li><li class="chapter-item expanded "><a href="memory.html"><strong aria-hidden="true">3.</strong> Memory</a></li><li class="chapter-item expanded "><a href="graphics.html" class="active"><strong aria-hidden="true">4.</strong> Graphics Hardware Overview</a></li><li class="chapter-item expanded "><a href="backgrounds.html"><strong aria-hidden="true">5.</strong> Backgrounds</a></li><li class="chapter-item expanded "><a href="sprites.html"><strong aria-hidden="true">6.</strong> OAM (Sprites)</a></li><li class="chapter-item expanded "><a href="windowing.html"><strong aria-hidden="true">7.</strong> Windowing</a></li><li class="chapter-item expanded "><a href="interrupts.html"><strong aria-hidden="true">8.</strong> Hardware Interrupts</a></li><li class="chapter-item expanded "><a href="bios.html"><strong aria-hidden="true">9.</strong> BIOS (Software Interrupts)</a></li><li class="chapter-item expanded "><a href="registers.html"><strong aria-hidden="true">10.</strong> Memory-Mapped Hardware Registers</a></li><li class="chapter-item expanded "><a href="audio/introduction.html"><strong aria-hidden="true">11.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="audio/directsound.html"><strong aria-hidden="true">11.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="audio/sound1.html"><strong aria-hidden="true">11.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="audio/sound2.html"><strong aria-hidden="true">11.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="audio/sound3.html"><strong aria-hidden="true">11.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="audio/sound4.html"><strong aria-hidden="true">11.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="audio/registers.html"><strong aria-hidden="true">11.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="bootleg-carts/introduction.html"><strong aria-hidden="true">12.</strong> Bootleg Carts</a></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">13.</strong> Acknowledgements</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -145,33 +145,49 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="graphics-hardware-overview"><a class="header" href="#graphics-hardware-overview">Graphics Hardware Overview</a></h1>
-<p>The GBA has a TFT color LCD that is 240 x 160 pixels in size and has a refresh rate of exactly 280,896 cpu cycles per frame, or around 59.73 hz. Most GBA programs will need to structure themselves around this refresh rate. Each refresh consists of a 160 scanline vertical draw (VDraw) period followed by a 68 scanline blank (VBlank) period. Furthermore, each of these scanlines consists of a 1004 cycle draw period (HDraw) followed by a 228 cycle blank period (HBlank). During the HDraw and VDraw periods the graphics hardware processes background and obj (sprite) data and draws it on the screen, while the HBlank and VBlank periods are left open so that program code can modify background and obj data without risk of creating graphical artifacts.
-Video Modes</p>
-<p>Exactly what the GBA draws on screen depends largely on the current video mode (also sometimes referred to as the screen mode or graphics mode). The GBA has 6 such modes, some of which are bitmap-based and some of which are tile-based. The video mode is set by the bottom three bits of the hardware register known as REG_DISPCNT. Background data is handled differently depending on what mode is enabled. Backgrounds can either be text backgrounds (tile based), rotate-scale backgrounds (tile based backgrounds that can be transformed), or bitmap backgrounds. The starting address and size sprite graphics memory is also dependent on video mode. It starts at 0x6010000 for tile modes and 0x6014000 for bitmapped modes.</p>
-<p>Enabling objs and one or more backgrounds in REG_DISPCNT will cause the GBA to draw the specified backgrounds and objs in order of priority.</p>
+<p>The GBA has a TFT color LCD that is 240 x 160 pixels in size and has a refresh rate of exactly 280,896 cpu cycles per frame, or around 59.73 hz. Most GBA programs will need to structure themselves around this refresh rate.</p>
+<p><a id="VBlank"></a>
+<a id="VDraw"></a>
+<a id="HBlank"></a>
+<a id="HDraw"></a></p>
+<p>Each refresh consists of a 160 scanline vertical draw (VDraw) period followed by a 68 scanline blank (VBlank) period. Furthermore, each of these scanlines consists of a 1004 cycle draw period (HDraw) followed by a 228 cycle blank period (HBlank).</p>
+<p>During the HDraw and VDraw periods the graphics hardware processes background and obj (sprite) data and draws it on the screen, while the HBlank and VBlank periods are left open so that program code can modify background and obj data without risk of creating graphical artifacts.</p>
+<h2 id="video-modes"><a class="header" href="#video-modes">Video Modes</a></h2>
+<p>Exactly what the GBA draws on screen depends largely on the current video mode (also sometimes referred to as the <em>screen mode</em> or <em>graphics mode</em>). The GBA has 6 such modes, some of which are bitmap-based and some of which are tile-based. The video mode is set by the bottom three bits of the hardware register known as <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a>. Background data is handled differently depending on what mode is enabled. Backgrounds can either be <a href="backgrounds.html#text-backgrounds">text backgrounds</a> (tile based), <a href="backgrounds.html#scalerotate-backgrounds">rotate-scale backgrounds</a> (tile based backgrounds that can be transformed), or <a href="backgrounds.html#bitmapped-backgrounds">bitmap backgrounds</a>. The number of sprites available on screen is also dependent on the mode; modes with tile-based backgrounds support 128 sprites, while modes with bitmapped backgrounds will only support 64 sprites.</p>
+<p>Enabling objs and one or more backgrounds in <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a> will cause the GBA to draw the specified backgrounds and objs in order of priority.</p>
 <h3 id="mode-0"><a class="header" href="#mode-0">Mode 0</a></h3>
-<p>In this mode, four text background layers can be shown. In this mode backgrounds 0 - 3 all count as &quot;text&quot; backgrounds, and cannot be scaled or rotated. Check out the section on text backgrounds for details on this.</p>
+<p>In this mode, four text background layers can be shown. In this mode backgrounds 0 - 3 all count as <a href="backgrounds.html#text-backgrounds">&quot;text&quot;</a> backgrounds, and cannot be scaled or rotated. Check out the section on [text backgrounds](#Text Backgrounds) for details on this.</p>
 <h3 id="mode-1"><a class="header" href="#mode-1">Mode 1</a></h3>
-<p>This mode is similar in most respects to Mode 0, the main difference being that only 3 backgrounds are accessible -- 0, 1, and 2. Bgs 0 and 1 are text backgrounds, while bg 2 is a rotation/scaling background.</p>
+<p>This mode is similar in most respects to Mode 0, the main difference being that only 3 backgrounds are accessible -- 0, 1, and 2. Bgs 0 and 1 are <a href="backgrounds.html#text-backgrounds">text backgrounds</a>, while bg 2 is a <a href="backgrounds.html#scalerotate-backgrounds">rotation/scaling</a> background.</p>
 <h3 id="mode-2"><a class="header" href="#mode-2">Mode 2</a></h3>
-<p>Like modes 0 and 1, this uses tiled backgrounds. It uses backgrounds 2 and 3, both of which are rotate/scale backgrounds.</p>
+<p>Like modes 0 and 1, this uses tiled backgrounds. It uses backgrounds 2 and 3, both of which are <a href="backgrounds.html#scalerotate-backgrounds">rotate/scale backgrounds</a>.</p>
 <h3 id="mode-3"><a class="header" href="#mode-3">Mode 3</a></h3>
-<p>Standard 16-bit bitmapped (non-paletted) 240x160 mode. The map starts at 0x06000000 and is 0x12C00 bytes long. See the Color Format table above for the format of these bytes.</p>
-<p>This allows the full color range to be displayed at once. Unfortunately, the frame buffer in this mode is too large for page flipping to be possible. One option to get around this would be to copy a frame buffer from work RAM into VRAM during the retrace, or (so I have heard) to use DMA3 with the start mode bits set to 11.</p>
+<p>Standard 16-bit bitmapped (non-paletted) 240x160 mode. The map starts at <code>0x06000000</code> and is <code>0x12C00</code> bytes long. See the <a href="#color-format">Color Format</a> table above for the format of these bytes.</p>
+<p>This allows the full color range to be displayed at once. Unfortunately, the frame buffer in this mode is too large for page flipping to be possible. One option to get around this would be to copy a frame buffer from work RAM into VRAM during the retrace, or (so I have heard) to use <a href="registers.html#REG_DMA3CNT">DMA3</a> with the start mode bits set to 11.</p>
 <h3 id="mode-4"><a class="header" href="#mode-4">Mode 4</a></h3>
-<p>8-Bit paletted bitmapped mode at 240x160. The bitmap starts at either 0x06000000 or 0x0600A000, depending on bit 4 of REG_DISPCNT. Swapping the map and drawing in the one that isn't displayed allows for page flipping techniques to be used. The palette is at 0x5000000, and contains 256 16-bit color entries.</p>
+<p>8-Bit paletted bitmapped mode at 240x160. The bitmap starts at either <code>0x06000000</code> or <code>0x0600A000</code>, depending on bit 3 of <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a>. Swapping the map and drawing in the one that isn't displayed allows for page flipping techniques to be used. The palette is at <code>0x05000000</code>, and contains 256 16-bit [color entries](#Color Format).</p>
 <h3 id="mode-5"><a class="header" href="#mode-5">Mode 5</a></h3>
-<p>This is another 16-bit bitmapped mode, but at a smaller resolution of 160x128. The display starts at the upper left hand corner of the screen, but can be shifted using the rotation and scaling registers for BG2. The advantage of using this mode is presumably that there are two frame buffers available, and this can be used to perform page flipping effects which cannot be done in mode 3 due to the smaller memory requirements of mode 5. Bit 4 of REG_DISPCNT sets the start of the frame buffer to 0x06000000 when bit 4 is zero, and 0x600A000 when bit 4 is one. </p>
+<p>This is another 16-bit bitmapped mode, but at a smaller resolution of 160x128. The display starts at the upper left hand corner of the screen, but can be shifted using the rotation and scaling registers for BG2. The advantage of using this mode is presumably that there are two frame buffers available, and this can be used to perform page flipping effects which cannot be done in mode 3 due to the smaller memory requirements of mode 5. Bit 3 of <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a> sets the start of the frame buffer to <code>0x06000000</code> when bit 3 is zero, and <code>0x0600A000</code> when bit 3 is one.</p>
+<h2 id="color-format"><a class="header" href="#color-format">Color Format</a></h2>
+<p>All colors (both paletted and bitmapped) are represented as a 16 bit value, using 5 bits for red, green, and blue, and ignoring bit 15. In the case of paletted memory, pixels in an image are represented as 8 bit or 4 bit indices into the <a href="#Palette">palette RAM</a> starting at <code>0x05000000</code> for backgrounds and <code>0x05002000</code> for sprites. Each palette is a table consisiting of 256 16-bit color entries. In the case of the bitmapped backgrounds in modes 3 and 4, pixels are represented as the 16-bit color values themselves.</p>
+<html>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0
+<FONT COLOR="#BBBBBB">X</FONT> <FONT COLOR="#0000DD">B B B  B B</FONT> <FONT COLOR="#008800">G G  G G G</FONT> <FONT
+COLOR="#DD0000">R  R R R R</FONT></PRE>
+<PRE>0-4 <FONT COLOR="#DD0000">(R)</FONT> = Red
+5-9 <FONT COLOR="#008800">(G)</FONT> = Green
+A-F <FONT COLOR="#0000DD">(B)</FONT> = Blue</PRE>
+</html>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="overview.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="memory.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="audio/introduction.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="backgrounds.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -181,11 +197,11 @@ Video Modes</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="overview.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="memory.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="audio/introduction.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="backgrounds.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

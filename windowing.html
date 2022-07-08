@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Acknowledgements - gbadoc</title>
+        <title>Windowing - gbadoc</title>
 
 
         <!-- Custom HTML head -->
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="cpu.html"><strong aria-hidden="true">2.</strong> CPU</a></li><li class="chapter-item expanded "><a href="memory.html"><strong aria-hidden="true">3.</strong> Memory</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">4.</strong> Graphics Hardware Overview</a></li><li class="chapter-item expanded "><a href="backgrounds.html"><strong aria-hidden="true">5.</strong> Backgrounds</a></li><li class="chapter-item expanded "><a href="sprites.html"><strong aria-hidden="true">6.</strong> OAM (Sprites)</a></li><li class="chapter-item expanded "><a href="windowing.html"><strong aria-hidden="true">7.</strong> Windowing</a></li><li class="chapter-item expanded "><a href="interrupts.html"><strong aria-hidden="true">8.</strong> Hardware Interrupts</a></li><li class="chapter-item expanded "><a href="bios.html"><strong aria-hidden="true">9.</strong> BIOS (Software Interrupts)</a></li><li class="chapter-item expanded "><a href="registers.html"><strong aria-hidden="true">10.</strong> Memory-Mapped Hardware Registers</a></li><li class="chapter-item expanded "><a href="audio/introduction.html"><strong aria-hidden="true">11.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="audio/directsound.html"><strong aria-hidden="true">11.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="audio/sound1.html"><strong aria-hidden="true">11.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="audio/sound2.html"><strong aria-hidden="true">11.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="audio/sound3.html"><strong aria-hidden="true">11.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="audio/sound4.html"><strong aria-hidden="true">11.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="audio/registers.html"><strong aria-hidden="true">11.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="bootleg-carts/introduction.html"><strong aria-hidden="true">12.</strong> Bootleg Carts</a></li><li class="chapter-item expanded "><a href="ack.html" class="active"><strong aria-hidden="true">13.</strong> Acknowledgements</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="cpu.html"><strong aria-hidden="true">2.</strong> CPU</a></li><li class="chapter-item expanded "><a href="memory.html"><strong aria-hidden="true">3.</strong> Memory</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">4.</strong> Graphics Hardware Overview</a></li><li class="chapter-item expanded "><a href="backgrounds.html"><strong aria-hidden="true">5.</strong> Backgrounds</a></li><li class="chapter-item expanded "><a href="sprites.html"><strong aria-hidden="true">6.</strong> OAM (Sprites)</a></li><li class="chapter-item expanded "><a href="windowing.html" class="active"><strong aria-hidden="true">7.</strong> Windowing</a></li><li class="chapter-item expanded "><a href="interrupts.html"><strong aria-hidden="true">8.</strong> Hardware Interrupts</a></li><li class="chapter-item expanded "><a href="bios.html"><strong aria-hidden="true">9.</strong> BIOS (Software Interrupts)</a></li><li class="chapter-item expanded "><a href="registers.html"><strong aria-hidden="true">10.</strong> Memory-Mapped Hardware Registers</a></li><li class="chapter-item expanded "><a href="audio/introduction.html"><strong aria-hidden="true">11.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="audio/directsound.html"><strong aria-hidden="true">11.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="audio/sound1.html"><strong aria-hidden="true">11.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="audio/sound2.html"><strong aria-hidden="true">11.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="audio/sound3.html"><strong aria-hidden="true">11.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="audio/sound4.html"><strong aria-hidden="true">11.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="audio/registers.html"><strong aria-hidden="true">11.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="bootleg-carts/introduction.html"><strong aria-hidden="true">12.</strong> Bootleg Carts</a></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">13.</strong> Acknowledgements</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -144,44 +144,51 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="acknowledgements"><a class="header" href="#acknowledgements">Acknowledgements</a></h1>
-<p>The following are individuals who contributed info or corrections on the original CowBiteSpec document.</p>
+                        <h1 id="windowing"><a class="header" href="#windowing">Windowing</a></h1>
+<p>Windowing is a method of dividing the screen into subsections known as (surprise) windows. The windows serve as boundary areas to determine where various layers of the GBA will be shown and where they will be clipped. There are two primary windows, win0 and win1, which can be enabled in <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a>. There is also the &quot;obj&quot; window, which can be thought of as another window which is defined by the visible regions of the objs on screen. Finally there is the &quot;outside&quot; or &quot;out&quot; window - the area of the screen not already occupied by any other winodw.</p>
+<p>The position and size of WIN0 and WIN1 are determined by <a href="registers.html#REG_WIN0H">REG_WIN0H</a>, <a href="registers.html#REG_WIN1H">REG_WIN1H</a>, <a href="registers.html#REG_WIN0V">REG_WIN0V</a>, and <a href="registers.html#REG_WIN1V">REG_WIN1V</a> (I/O offsets 0x40, 0x42, 0x44, 0x46).</p>
+<p>Exactly which characters and backgrounds appear within or without win0, win1, and the obj window is determined by <a href="registers.html#REG_WIN_IN">REG_WININ</a> and <a href="registers.html#REG_WIN_OUT">REG_WINOUT</a> (0x48 and 0x4A).</p>
+<p>Here are some things to keep in mind when using windows:</p>
 <ul>
-<li>Tom Happ</li>
-<li>Agent Q (Wrote the original spec, version 1.0)</li>
-<li>Uze (All of the sound register info comes directly from his Audio Advance site)</li>
-<li>Martin Korth (Author no$gba of who has given me permission to consolidate additional info from his emulator's informative help documents with this one, most particularly serial registers, some BIOS functions, and undocumented registers.)</li>
-<li>Forgotten (VBA Author. Many of the BIOS call descriptions come from his Visual Boy Advance FAQ.</li>
-<li>gbcft (LOTS of info on interrupts, windowing, memory mirrors, the &quot;Unkown Registers&quot; section; helped me debug a lot of errors in the emulator, and offered many corrections, info, and suggestions).</li>
-<li>Kay (Contributed memory port sizes and wait states, DMA cycle timings, info regarding the BIOS, and various advice, testing, and expertise regarding the GBA and older console systems)</li>
-<li>Damian Yerrick (Contributed the WSCOUNT register)</li>
-<li>Markus (Actually I asked him for help with LZSS. Also, his gfx2gba tool has proven extremely helpful in my non-CowBite projects.:)</li>
-<li>ePac (Gave me links to serial info and did a nice writeup about it in the gbadev group)</li>
-<li>Costis (A variety of new info/corrections)</li>
-<li>Grauw (Info on forced blanking, hblank lenghths, and on the BIOS wait function.)</li>
-<li>Max</li>
-<li>Otaku</li>
-<li>Ped (Pointed out errors in the memory ranges, DISPCNT bit 5, and a bad typo regarding rotates/scale backgrounds).</li>
-<li>Yarpen (Almost all the information on the timer registers and the keyboard control register. Thanks!)</li>
-<li>http://www.gbadev.org/</li>
-<li>The gbadev list on yahoo</li>
-<li>SimonB and all the others who run/moderate the above sites</li>
-<li>Dovoto and the PERN Project</li>
-<li>Jeff Frohwein and his Devrs.com site</li>
-<li>Nocturn and his tutorials</li>
-<li>Uze from BeLogic for all the great information on the GBA's sound!</li>
-<li>Andrew May for his site on GBA serial data</li>
+<li>
+<p>WIN0 and WIN1 are drawn from the left and top boundary up to but not including the right and bottom boundaries.</p>
+</li>
+<li>
+<p>Everything in WIN0 appears &quot;above&quot; WIN1 (i.e. it has higher priority), and everything in windows 0 &amp; 1 appears above the WINOUT and obj windows.</p>
+</li>
+<li>
+<p>If a bg or the obj's are turned off in dispcnt, they're off in all windows regardless of the settings in win_in and win_out.</p>
+</li>
+<li>
+<p>If only one window is on, WINOUT affects everything outside of it. If both windows are on, WINOUT affects everything outside both of them. i.e. it affects <em>(!WIN0) &amp;&amp; (!WIN1)</em>.</p>
+</li>
+<li>
+<p>If a window is on, but the effective display bits are all clear, the backdrop is displayed.</p>
+</li>
+<li>
+<p>If the window left coordinate is greater than the window right coordinate, the window will be drawn outside of this region (i.e. to the left and to the right) rather than in the area inbetween.</p>
+</li>
+<li>
+<p>Likewise, if the window top coordinate is greater than the window bottom coordinate, the window will be drawn to the top and the bottom.</p>
+</li>
+<li>
+<p>A completely inverted window is drawn in the area outside of the &quot;+&quot; shaped region defined by its boundaries.</p>
+</li>
 </ul>
-<p>Thank you to Alec Bourque for allowing us to use all assets of The Audio Advance in this documentation.</p>
+<p>Windows can be used in console games for a variety of different effects. Though the window registers define a square region, differently shaped windows can be achieved by using <a href="registers.html#REG_DMA0CNT">HDMA</a> or <a href="interrupts.html">hblank interrupts</a> to change the parameters each scanline. Lantern lighting (when the hero has a lantern or flashlight that illuminates a certain region of a cave) and x-ray vision (use of the window to cut away layers that are in front) are two common effects created with windows. More are certainly possible.</p>
+<p>Thanks again to gbcft for most of these notes and for his extensive testing on the nature of windowing.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="bootleg-carts/introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="sprites.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
+                            <a rel="next" href="interrupts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -189,10 +196,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="bootleg-carts/introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="sprites.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
+                    <a rel="next" href="interrupts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>

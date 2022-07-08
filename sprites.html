@@ -1,0 +1,327 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>OAM (Sprites) - gbadoc</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Documents the workings of the Game Boy Advance hardware">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="cpu.html"><strong aria-hidden="true">2.</strong> CPU</a></li><li class="chapter-item expanded "><a href="memory.html"><strong aria-hidden="true">3.</strong> Memory</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">4.</strong> Graphics Hardware Overview</a></li><li class="chapter-item expanded "><a href="backgrounds.html"><strong aria-hidden="true">5.</strong> Backgrounds</a></li><li class="chapter-item expanded "><a href="sprites.html" class="active"><strong aria-hidden="true">6.</strong> OAM (Sprites)</a></li><li class="chapter-item expanded "><a href="windowing.html"><strong aria-hidden="true">7.</strong> Windowing</a></li><li class="chapter-item expanded "><a href="interrupts.html"><strong aria-hidden="true">8.</strong> Hardware Interrupts</a></li><li class="chapter-item expanded "><a href="bios.html"><strong aria-hidden="true">9.</strong> BIOS (Software Interrupts)</a></li><li class="chapter-item expanded "><a href="registers.html"><strong aria-hidden="true">10.</strong> Memory-Mapped Hardware Registers</a></li><li class="chapter-item expanded "><a href="audio/introduction.html"><strong aria-hidden="true">11.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="audio/directsound.html"><strong aria-hidden="true">11.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="audio/sound1.html"><strong aria-hidden="true">11.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="audio/sound2.html"><strong aria-hidden="true">11.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="audio/sound3.html"><strong aria-hidden="true">11.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="audio/sound4.html"><strong aria-hidden="true">11.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="audio/registers.html"><strong aria-hidden="true">11.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="bootleg-carts/introduction.html"><strong aria-hidden="true">12.</strong> Bootleg Carts</a></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">13.</strong> Acknowledgements</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">gbadoc</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="oam-sprites"><a class="header" href="#oam-sprites">OAM (sprites)</a></h1>
+<style>
+tt {
+  white-space: pre;
+}
+</style>
+<p>The GBA supports 128 simultaneous sprites. These can be up to 64x64 pixels in size. The OAM, which starts at <code>0x07000000</code>, has one entry for each of the 128 sprites. Intermixed with this data are the rotation/scaling attributes, of which there are 32 sets of 4 16 bit values.</p>
+<p>Each OAM entry is 8 bytes long and has the following format:</p>
+<p><a id="attr0"></a></p>
+<h2 id="bytes-1-and-2-attribute-0"><a class="header" href="#bytes-1-and-2-attribute-0">Bytes 1 and 2 (Attribute 0)</a></h2>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0
+<FONT COLOR="#9900CC">S S</FONT> <FONT COLOR="#FF0099">A</FONT> <FONT COLOR="#FF3300">M</FONT>  <FONT COLOR="#008800">T T</FONT> <FONT
+COLOR="#0099FF">D</FONT> <FONT COLOR="#9900CC">R</FONT> <FONT COLOR="#FF0099"> J J J J  J J J J</FONT>
+</PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-7 <FONT COLOR="#FF0099">(J)</FONT></tt></td><td>Y co-ordinate of the sprite (pixels). Note that for regular sprites, this is the y coordinate of the upper left corner. For rotate/scale sprites, this is the y coordinate of the sprite's center. center . Note on Coordinates: The values actually wrap around: to achieve a -1 y coordinate, use y = 255.</td></tr>
+<tr><td><tt>  8 <FONT COLOR="#9900CC">(R)</FONT></tt></td><td>Rotation/Scaling on/off</td></tr>
+<tr><td><tt>  9 <FONT COLOR="#0099FF">(D)</FONT></tt></td><td><code>0</code> = sprite is single sized; <br> <code>1</code> = sprite is virtually double sized; allowing sheared sprite pixels to overflow sprite the size (specified by bits 14 - 15 of <a href="#attr1">OAM attribute 1</a>). A 16x16 sized sprite is treated internaly as a 32x32 sprite. This specification comes in evidence when rotating a sprite at 45°, since the H/V size of the sprite becomes SQRT(16² + 16²) = SQRT(512) =~ 22.62 pixels. This will cause the sprite to appear clipped if this bit is set to 0.  (Thanks to Kay for the description)</td></tr>
+<tr><td><tt>A-B <FONT COLOR="#008800">(T)</FONT></tt></td><td><code>00</code> = normal<br> <code>01</code> = semi-transparent<br> <code>10</code> = obj window<br> <code>11</code> = illegal code<br> Note that semi-transparent sprites appear as transparent even if <a href="registers.html#REG_BLDCNT">REG_BLDCNT</a> has the sprites bit turned off.  Also note that sprites cannot be blended against one another.  For more details, see <a href="registers.html#REG_BLDCNT">REG_BLDCNT</a>.</td></tr>
+<tr><td><tt>  C <FONT COLOR="#FF3300">(M)</FONT></tt></td><td>enables mosaic for this sprite.</td></tr>
+<tr><td><tt>  D <FONT COLOR="#FF0099">(A)</FONT></tt></td><td>256 color if on, 16 color if off</td></tr>
+<tr><td><tt>E-F <FONT COLOR="#9900CC">(S)</FONT></tt></td><td>Sprite shape. This determines the size of the sprite when combined with bits E-F of attr1. See below for more info.</td></tr>
+</tbody></table>
+</div>
+<p><a id="attr1"></a></p>
+<h2 id="bytes-3-and-4-attribute-1"><a class="header" href="#bytes-3-and-4-attribute-1">Bytes 3 and 4 (Attribute 1)</a></h2>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0
+<FONT COLOR="#008800">S S</FONT><FONT COLOR="#0099FF"> V</FONT> <FONT COLOR="#9900CC">H</FONT>  <FONT COLOR="#BBBBBB">X X X</FONT> <FONT
+COLOR="#FF0099">I  I I I I  I I I I</FONT>  (standard sprites)
+<FONT COLOR="#008800">S S</FONT> <FONT COLOR="#FF3300">F F  F F F</FONT> <FONT COLOR="#FF0099">I  I I I I  I I I I </FONT> (rotation/scaling on)</PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-8 <FONT COLOR="#FF0099">(I)</FONT></tt></td><td>X coordinate of the sprite (pixels). For regular sprites, this is the x coordinate of the upper left corner. For rotate/scale sprites, this is the x coordinate of the sprite's center.  Note on coordinates: The values actually wrap around. To achieve a -1 x, use x = 511.</td></tr>
+<tr><td><tt>C   <FONT COLOR="#9900CC">(H)</FONT></tt></td><td>The flip horizinal bit</td></tr>
+<tr><td><tt>D   <FONT COLOR="#0099FF">(V)</FONT></tt></td><td>The flip vertical bit</td></tr>
+<tr><td><tt>9-D <FONT COLOR="#FF3300">(F)</FONT></tt></td><td>For rotation scaling sprites, the index into the rotation data to be used for that sprite. This index can be from 0 - 31. The rotation/scaling data is located in OAM <a href="#attr3">attribute 3</a> (bytes 7 and 8). However, instead of the rotation and scaling data going with the corresponding sprite, it is separated accross four sequential sprites. This index can be thought of as referencing into an array of four-sprite blocks, 32 bytes each.</td></tr>
+<tr><td><tt>E-F <FONT COLOR="#008800">(S)</FONT></tt></td><td><p>Size of the sprite. The top two bits of the size value are found in <a href="#attr0">attribute 0</a> and the bottom two bits are in attribute 1. This forms a 4-bit value which sets the size of the sprite in the following way:</p><p><pre><FONT COLOR="#9900CC">00</FONT><FONT COLOR="#008800">00</FONT>: 8  x 8         <FONT COLOR="#9900CC">10</FONT><FONT COLOR="#008800">00</FONT>: 8  x 16<br><FONT COLOR="#9900CC">00</FONT><FONT COLOR="#008800">01</FONT>: 16 x 16        <FONT COLOR="#9900CC">10</FONT><FONT COLOR="#008800">01</FONT>: 8  x 32<br><FONT COLOR="#9900CC">00</FONT><FONT COLOR="#008800">10</FONT>: 32 x 32        <FONT COLOR="#9900CC">10</FONT><FONT COLOR="#008800">10</FONT>: 16 x 32<br><FONT COLOR="#9900CC">00</FONT><FONT COLOR="#008800">11</FONT>: 64 x 64        <FONT COLOR="#9900CC">10</FONT><FONT COLOR="#008800">11</FONT>: 32 x 64<br><FONT COLOR="#9900CC">01</FONT><FONT COLOR="#008800">00</FONT>: 16 x 8         <FONT COLOR="#9900CC">11</FONT><FONT COLOR="#008800">00</FONT>: Not used<br><FONT COLOR="#9900CC">01</FONT><FONT COLOR="#008800">01</FONT>: 32 x 8         <FONT COLOR="#9900CC">11</FONT><FONT COLOR="#008800">01</FONT>: Not used<br><FONT COLOR="#9900CC">01</FONT><FONT COLOR="#008800">10</FONT>: 32 x 16        <FONT COLOR="#9900CC">11</FONT><FONT COLOR="#008800">10</FONT>: Not used<br><FONT COLOR="#9900CC">01</FONT><FONT COLOR="#008800">11</FONT>: 64 x 32        <FONT COLOR="#9900CC">11</FONT><FONT COLOR="#008800">11</FONT>: Not used</pre></p></td></tr>
+</tbody></table>
+</div>
+<p><a id="attr2"></a></p>
+<h2 id="bytes-5-and-6-attribute-2"><a class="header" href="#bytes-5-and-6-attribute-2">Bytes 5 and 6 (Attribute 2)</a></h2>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0
+<FONT COLOR="#0099FF">L L L L</FONT>  <FONT COLOR="#9900CC">P P</FONT> <FONT COLOR="#FF0099">T T  T T T T  T T T T</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-9 <FONT COLOR="#FF0099">(T)</FONT></tt></td><td><p>Tile number. This value indexes selects the bitmap of the tile to be displayed by indexing into the tile data area. Each index refernces 32 bytes, so the memory address of a tile is roughly <code>0x06010000 + T*32</code>. (see <a href="#sprite-tile-data">Sprite Tile Data</a> for details)</p></td></tr>
+<tr><td><tt>A-B <FONT COLOR="#9900CC">(P)</FONT></tt></td><td><p>Priority. This controls the priority of the sprite. Note that sprites take precedence over backgrounds of the same priority.  See the <a href="registers.html#priority">description of priority</a> under REG_BG0 - REG_BG3 for a more detailed explanation.</p></td></tr>
+<tr><td><tt>C-F <FONT COLOR="#0099FF">(L)</FONT></tt></td><td><p>Palette number. If you use 16 color <a href="memory.html#palette-ram">palettes</a>, this tells you which palette number to use.</p></td></tr>
+</tbody></table>
+</div>
+<p><a id="attr3"></a></p>
+<h2 id="bytes-7-and-8-attribute-3"><a class="header" href="#bytes-7-and-8-attribute-3">Bytes 7 and 8 (Attribute 3)</a></h2>
+<div>
+<PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0
+<FONT COLOR="#0099FF">S</FONT> <FONT COLOR="#9900CC">I I I  I I I I</FONT>  <FONT COLOR="#FF0099">F F F F  F F F F</FONT></PRE>
+</div>
+<div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
+<tr><td><tt>0-7 <FONT COLOR="#FF0099">(F)</FONT></tt></td><td>Fraction.</td></tr>
+<tr><td><tt>8-E <FONT COLOR="#9900CC">(I)</FONT></tt></td><td>Integer</td></tr>
+<tr><td><tt>  F <FONT COLOR="#0099FF">(S)</FONT></tt></td><td>Sign bit</td></tr>
+</tbody></table>
+</div>
+<p>These bytes control sprite rotation and scaling. Instead of the rotation and scaling data going with the corresponding sprite, it is separated accross four sequential sprites. This is indexed by bits 9 - 13 in <a href="#attr1">attribute 1</a>. Note that these are all relative to the center of the sprite (background rotation/scaling is relative to the upper left). Starting with sprite 0 and repeating every 4 sprites, they appear in the following order:</p>
+<ul>
+<li>
+<p><strong>Sprite 0, Attribute 3 - PA (DX)</strong></p>
+<p>Scales the sprite in the x direction by an amount equal to 1/(register value). Thus, a value of 1.0 results in the original image size, while a value of 2 is half as large, and a value of .5 is twice as large.</p>
+</li>
+<li>
+<p><strong>Sprite 1, Attribute 3 - PB (DMX)</strong></p>
+<p>Shears the x coordinates of the sprite over y. A value of 0 will result in no shearing, a value of 1.00 will make the image appear to be sheared left going down the screen, and a value of -1 will make the image appear sheared right going down the screen.</p>
+</li>
+<li>
+<p><strong>Sprite 2, Attribute 3 - PC (DY)</strong></p>
+<p>Shears the y coordinates of the sprite over x. A value of 0 will result in no shearing, a value of 1.00 will make the image appear to be sheared upwards to the right, and a value of -1 will make the image appear sheared downwards and to the right.</p>
+</li>
+<li>
+<p><strong>Sprite 3, Attribute 3 - PD (DMY)</strong></p>
+<p>Scales the image in the y direction by an amount equal to 1/(register value). Thus, a value of 1.0 results in the original image size, while a value of 2 is half as large, and a value of .5 is twice as large.</p>
+</li>
+</ul>
+<h2 id="to-make-a-sprite-rotate-and-scale"><a class="header" href="#to-make-a-sprite-rotate-and-scale">To Make a Sprite Rotate and Scale</a></h2>
+<p>The basic form of the equations for rotating and scaling is as follows:</p>
+<pre>
+  pa = x_scale * cos(angle)
+  pb = y_scale * sin(angle)
+  pc = x_scale * -sin(angle)
+  pd = y_scale * cos(angle)</pre>
+<h2 id="sprite-tile-data"><a class="header" href="#sprite-tile-data">Sprite Tile Data</a></h2>
+<p>The tile data area contains the actual bitmap for each tile. The sprites do not share tile data with the BG layers as on the Gameboy Color. The sprite tile data starts at <code>0x06010000</code>. All tiles are 8x8 pixels large. Sprites use the second <a href="memory.html#palette-ram">palette</a> which begins at <code>0x05000200</code>. For 256 color sprites, there are 64 bytes per tile, one byte per pixel. This is an 8-bit value which is an index into the 256 color palette. For 16-color sprites, <a href="#attr2">attribute 2</a> of the OAM data contains a 4 bit index into 16 16-color palettes, and sprites have 32 bytes per tile, with 4 bits per pixel. Note that the tile index references 32 bytes at a time, so in the case of 256 color sprite tiles, you will want to set your tile number to reference ever other index (i.e. 0, 2, 4, 6, etc.).</p>
+<p>Another thing to note is that in the bitmapped modes (3-5) the memory required to hold background data is larger than 0x10000 bytes, forcing the GBA to cut away from available sprite tile data. Thus in these modes you may only reference sprites tiles of indices 512 and up.</p>
+<p>When the sprite is larger than 8x8 pixels, multiple tiles are glued together to make the sprite's width horizontally, and then vertically. How this is done depends on whether character data is stored in 2D or 1D mode (determined by bit 6 of <a href="registers.html#REG_DISPCNT">DISPCNT</a>).</p>
+<h3 id="1d-mapping"><a class="header" href="#1d-mapping">1D Mapping</a></h3>
+<p>In 1D mode, tiles are stored sequentially. If you were to set up a 32x32 16-color sprite, and set the tile number to 5, the sprite would be displayed as follows:</p>
+<pre>
+---------------------
+| 5  | 6  | 7  | 8  |
+|    |    |    |    |
+---------------------
+| 9  | 10 | 11 | 12 |
+|    |    |    |    |
+---------------------
+| 13 | 14 | 15 | 16 |
+|    |    |    |    |
+---------------------
+| 17 | 18 | 19 | 20 |
+|    |    |    |    |
+---------------------
+</pre>
+<h3 id="2d-mapping"><a class="header" href="#2d-mapping">2D Mapping</a></h3>
+<p>Tiles on each row of the sprite are stored 32 slots in. Using the same 32x32 sprite above, with a tile number of 5, the sprite would be displayed as:</p>
+<pre>
+---------------------
+| 5  | 6  | 7  | 8  |
+|    |    |    |    |
+---------------------
+| 37 | 38 | 39 | 40 |
+|    |    |    |    |
+---------------------
+| 69 | 70 | 71 | 72 |
+|    |    |    |    |
+---------------------
+| 101| 102| 103| 104|
+|    |    |    |    |
+---------------------
+</pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="backgrounds.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="windowing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="backgrounds.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="windowing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
