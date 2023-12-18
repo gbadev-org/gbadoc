@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,11 +7,25 @@
 
 
         <!-- Custom HTML head -->
-        
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <!-- Matomo tracking code -->
+        <script>
+          var _paq = window._paq = window._paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//stats.gbdev.io/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '3']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <!-- End Matomo Code -->
+
         <meta name="description" content="Documents the workings of the Game Boy Advance hardware">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -32,17 +46,18 @@
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
-        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -58,50 +73,81 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="cpu.html"><strong aria-hidden="true">2.</strong> CPU</a></li><li class="chapter-item expanded "><a href="memory.html"><strong aria-hidden="true">3.</strong> Memory</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">4.</strong> Graphics Hardware Overview</a></li><li class="chapter-item expanded "><a href="backgrounds.html"><strong aria-hidden="true">5.</strong> Backgrounds</a></li><li class="chapter-item expanded "><a href="sprites.html"><strong aria-hidden="true">6.</strong> OAM (Sprites)</a></li><li class="chapter-item expanded "><a href="windowing.html"><strong aria-hidden="true">7.</strong> Windowing</a></li><li class="chapter-item expanded "><a href="interrupts.html"><strong aria-hidden="true">8.</strong> Hardware Interrupts</a></li><li class="chapter-item expanded "><a href="bios.html"><strong aria-hidden="true">9.</strong> BIOS (Software Interrupts)</a></li><li class="chapter-item expanded "><a href="registers.html" class="active"><strong aria-hidden="true">10.</strong> Memory-Mapped Hardware Registers</a></li><li class="chapter-item expanded "><a href="audio/introduction.html"><strong aria-hidden="true">11.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="audio/directsound.html"><strong aria-hidden="true">11.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="audio/sound1.html"><strong aria-hidden="true">11.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="audio/sound2.html"><strong aria-hidden="true">11.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="audio/sound3.html"><strong aria-hidden="true">11.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="audio/sound4.html"><strong aria-hidden="true">11.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="audio/registers.html"><strong aria-hidden="true">11.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="bootleg-carts/introduction.html"><strong aria-hidden="true">12.</strong> Bootleg Carts</a></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">13.</strong> Acknowledgements</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -134,7 +180,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -150,7 +196,7 @@ tt {
   white-space: pre;
 }
 </style>
-<p>The following section describes the function of each of the memory-mapped addresses in IO RAM. The register naming scheme is based on a variant of the popular <a href="http://www.cs.rit.edu/%7Etjh8300/CowBite/gba.h">gba.h</a> by Eloist (specifically, that used by Uze in the examples on his Audio Advance site).</p>
+<p>The following section describes the function of each of the memory-mapped addresses in IO RAM. The register naming scheme is based on a variant of the popular <a href="http://www.cs.rit.edu/~tjh8300/CowBite/gba.h">gba.h</a> by Eloist (specifically, that used by Uze in the examples on his Audio Advance site).</p>
 <p>The notation for each entry is as follows:</p>
 <div style="font-size: 85%">
 <PRE style="width: min-content; margin: 16px auto">                           <FONT COLOR="#FF0000">R</FONT>       <span style="opacity:0.8">&lt;- </span>'<FONT COLOR="#FF0000">R</FONT>' <span style="opacity:0.8">means &quot;Read Only&quot;, '</span><FONT COLOR="#CC9900">W</FONT><span style="opacity:0.8">' means &quot;Write Only&quot;</span>
@@ -854,7 +900,7 @@ COLOR="#008800">S</FONT> <FONT COLOR="#0099FF">R</FONT> <FONT COLOR="#9900CC">A 
 <p><strong>DMA3</strong>: This is is the lowest priority and thus often used as a &quot;general purpose&quot; DMA. Using this DMA for your basic memory transfers ensures that sound FIFO DMA and other time-critical DMA are not delayed, making audio or visual artifacts less likely.</p>
 </li>
 </ul>
-<h3 id="DMANote"><a class="header" href="#DMANote"></a></h3>
+<h3 id="DMANote"><a class="header" href="#DMANote"><a class="header" href="#DMANote"></a></a></h3>
 <p>* <em>(Originally I had assumed a direct mapping between the source/destination registers and the current transfer address, and thus this section of the doc distinguished between transfers which wrote-back to the registers and those which did not. This appears to have been an incorrect assumption, and was brought to light as I delved further into sound emulation)</em></p>
 <h2 id="dma-transfer-ratings"><a class="header" href="#dma-transfer-ratings">DMA Transfer Ratings</a></h2>
 <p>The following table lists the cycle timings for various DMA transfers. The format of each entry is:</p>
@@ -1202,7 +1248,7 @@ F E D C  B A 9 8  7 6 5 4  3 2 1 0
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="audio/introduction.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="audio/introduction.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -1216,7 +1262,7 @@ F E D C  B A 9 8  7 6 5 4  3 2 1 0
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="audio/introduction.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="audio/introduction.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -1226,21 +1272,22 @@ F E D C  B A 9 8  7 6 5 4  3 2 1 0
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>
