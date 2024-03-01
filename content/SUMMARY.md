@@ -17,5 +17,6 @@
     * [Sound Channel 3](audio/sound3.md)
     * [Sound Channel 4](audio/sound4.md)
     * [Sound Registers](audio/registers.md)
+* [Fixed-Point Math for Newbies](fixed-point-math.md)
 * [Bootleg Carts](bootleg-carts/introduction.md)
 * [Acknowledgements](ack.md)
