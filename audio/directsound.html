@@ -233,13 +233,13 @@
 <li>Enable timer0 at Cpu frequency (clock divider=0)</li>
 </ul>
 <p>Sound should start immediately and will play past the sample if not stopped. You can use timer1 to count played samples and stop the sound. To do this, set timer 1 to cascade and enable irq for timer 1 and set its count to 0xffff-samples count. Your irq handler should stop the sound by disabling timer 0 and the dma channel(s).</p>
-<pre><code class="language-C">#include &quot;gba.h&quot;
+<pre><code class="language-C">#include "gba.h"
 
 //the sample. its a pcm wave file converted to an elf file with objcopyroda.exe (devrs.com/gba)
 extern const u32 _binary_lo1234_pcm_start[];
 
 //the interrupt handler from crt0.s
-void InterruptProcess(void) __attribute__((section(&quot;.iwram&quot;)));
+void InterruptProcess(void) __attribute__((section(".iwram")));
 
 void InterruptProcess(void) {
     //sample finished!,stop Direct sound
@@ -308,12 +308,12 @@ void AgbMain(void) {
 </ul>
 </li>
 </ul>
-<pre><code class="language-C">#include &quot;gba.h&quot;
+<pre><code class="language-C">#include "gba.h"
 
 //the sample. its an pcm wave file converted to an elf file with objcopyroda.exe (devrs.com/gba)
 extern const u32 _binary_lo1234_pcm_start[];
 //the interrupt handler from crt0.s
-void InterruptProcess(void) __attribute__((section(&quot;.iwram&quot;)));
+void InterruptProcess(void) __attribute__((section(".iwram")));
 
 int iNextSample = 0;
 int SampleSize = 36712;

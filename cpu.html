@@ -197,7 +197,7 @@ tt {
 }
 </style>
 <p>This section is intended to be an overview only, detailing those aspects of the CPU which are important to understand when developing for the GBA in particular. A more thorough description of the ARM7tdmi CPU can be found in the <a href="http://www.arm.com/arm/TRMs?OpenDocument">technical reference manuals</a> on <a href="http://www.arm.com">ARM's website</a>.</p>
-<p>The CPU is a 16.78 MHz ARM7tdmi RISC processor. It is a 32-bit processor but can be switched to &quot;Thumb&quot; state, which allows it to handle a special subset of 16-bit instructions that map to 32-bit counterparts. Instructions follow a three-stage pipeline: fetch, decode, execute. As a result, the <a href="#r15" title="PC">program counter</a> always points two instructions ahead of the one currently being executed.</p>
+<p>The CPU is a 16.78 MHz ARM7tdmi RISC processor. It is a 32-bit processor but can be switched to "Thumb" state, which allows it to handle a special subset of 16-bit instructions that map to 32-bit counterparts. Instructions follow a three-stage pipeline: fetch, decode, execute. As a result, the <a href="#r15" title="PC">program counter</a> always points two instructions ahead of the one currently being executed.</p>
 <h2 id="cpu-registers"><a class="header" href="#cpu-registers">CPU Registers</a></h2>
 <p>16 registers are visible to the user at any given time, though there are 20 <a href="#banked-registers">banked registers</a> which get swapped in whenever the CPU changes to various priveleged modes. The registers visible in user mode are as follows:</p>
 <ul>
@@ -214,7 +214,7 @@ Supervisor:   0x03007FE0
 <p>As far as I know the other modes do not have default stack pointers.</p>
 </li>
 <li>
-<p><strong>r14 (LR):</strong> Link Register. Used primarily to store the address following a &quot;bl&quot; (branch and link) instruction (as used in function calls)</p>
+<p><strong>r14 (LR):</strong> Link Register. Used primarily to store the address following a "bl" (branch and link) instruction (as used in function calls)</p>
 </li>
 <li>
 <p><a id="r15"></a> <strong>r15 (PC):</strong> The Program Counter. Because the ARM7tdmi uses a 3-stage pipeline, this register always contains an address which is 2 instructions ahead of the one currrently being executed. In 32-bit ARM state, it is 8 bytes ahead, while in 16-bit Thumb state it is 4 bytes ahead.</p>
@@ -256,7 +256,7 @@ Supervisor:   0x03007FE0
 </ul>
 </li>
 <li>
-<p><strong><span id="FIQ">FIQ</span>:</strong> This mode is entered when a Fast Interrupt Request is triggered. Since all of the hardware interrupts on the GBA generate IRQs, this mode goes unused by default, though it would be possible to switch to this mode manually using the &quot;msr&quot; instruction.</p>
+<p><strong><span id="FIQ">FIQ</span>:</strong> This mode is entered when a Fast Interrupt Request is triggered. Since all of the hardware interrupts on the GBA generate IRQs, this mode goes unused by default, though it would be possible to switch to this mode manually using the "msr" instruction.</p>
 <ul>
 <li>Banked registers: r8_fiq, r9_fiq, r10_fiq, r11_fiq, r12_fiq, r13_fiq, r14_fiq, and SPSR_fiq.</li>
 </ul>

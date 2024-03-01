@@ -203,8 +203,8 @@
 <li><a href="memory.html">Memory</a> - 8 to 11 distinct areas of memory (depending on the Game Pak).</li>
 <li><a href="registers.html">IO</a> - Special hardware functions available to the programmer, primarily pertaining to graphics, sound, DMA, timers, serial communication, key input, and interrupts.</li>
 </ul>
-<p>Programs run on the GBA are usually contained in a &quot;Game Pak&quot;. A &quot;Game Pak&quot; consists mainly of <a href="memory.html#game-pak-rom">ROM</a> and possibly <a href="memory.html#cart-ram">Cart RAM</a> (in the form of SRAM, Flash ROM, or EEPROM, used mainly for save game info). The ROM is where compiled code and data is stored. Unlike home computers, workstations, or servers, there are no disks or other drives, so everything that might otherwise have been stored as separate resource files must be compiled into the program ROM itself. Luckily there are tools to aid in this process.</p>
-<p>The primary means a program accesses specialized hardware for graphics, sound, and other IO is through the <a href="registers.html">memory-mapped IO</a>. Memory mapped IO is a means of communicating with hardware by writing to/reading from specific memory addresses that are &quot;mapped&quot; to internal hardware functions. For example, you might write to address <a href="registers.html#REG_DISPCNT">0x04000000</a> with the value &quot;0x0100&quot;, which tells the hardware &quot;enable background 0 and graphics mode 0&quot;. A secondary means is through the <a href="memory.html#system-rom">BIOS</a>, which is embedded in the internal GBA system ROM. Using <a href="bios.html">software interrupts</a> it is possible to access pre-programmed (and hopefully optimized) routines lying in the the system ROM. These routines then access the hardware through the memory-mapped IO.</p>
+<p>Programs run on the GBA are usually contained in a "Game Pak". A "Game Pak" consists mainly of <a href="memory.html#game-pak-rom">ROM</a> and possibly <a href="memory.html#cart-ram">Cart RAM</a> (in the form of SRAM, Flash ROM, or EEPROM, used mainly for save game info). The ROM is where compiled code and data is stored. Unlike home computers, workstations, or servers, there are no disks or other drives, so everything that might otherwise have been stored as separate resource files must be compiled into the program ROM itself. Luckily there are tools to aid in this process.</p>
+<p>The primary means a program accesses specialized hardware for graphics, sound, and other IO is through the <a href="registers.html">memory-mapped IO</a>. Memory mapped IO is a means of communicating with hardware by writing to/reading from specific memory addresses that are "mapped" to internal hardware functions. For example, you might write to address <a href="registers.html#REG_DISPCNT">0x04000000</a> with the value "0x0100", which tells the hardware "enable background 0 and graphics mode 0". A secondary means is through the <a href="memory.html#system-rom">BIOS</a>, which is embedded in the internal GBA system ROM. Using <a href="bios.html">software interrupts</a> it is possible to access pre-programmed (and hopefully optimized) routines lying in the the system ROM. These routines then access the hardware through the memory-mapped IO.</p>
 <p>Other regions of memory that are directly mapped to the hardware are <a href="memory.html#palette-ram">Palette RAM</a> (which is a table consisting of all the available colors), <a href="memory.html#vram">VRAM</a> (which performs a similar function to the video RAM on a PC - and thensome), and <a href="memory.html#oam">OAM</a> (which contains the attributes for hardware accelerated sprites).</p>
 <h2 id="programming-for-the-gba"><a class="header" href="#programming-for-the-gba">Programming for the GBA</a></h2>
 <p>C, C++, and ARM/Thumb assembly are the most common languages used in GBA development, mainly because they are fast and relatively low level (i.e. there is a large degree of correspondance between the structure of the language and underlying instruction set of the architecture).</p>
@@ -217,7 +217,7 @@ tt {
 }
 </style>
 <p>This section is intended to be an overview only, detailing those aspects of the CPU which are important to understand when developing for the GBA in particular. A more thorough description of the ARM7tdmi CPU can be found in the <a href="http://www.arm.com/arm/TRMs?OpenDocument">technical reference manuals</a> on <a href="http://www.arm.com">ARM's website</a>.</p>
-<p>The CPU is a 16.78 MHz ARM7tdmi RISC processor. It is a 32-bit processor but can be switched to &quot;Thumb&quot; state, which allows it to handle a special subset of 16-bit instructions that map to 32-bit counterparts. Instructions follow a three-stage pipeline: fetch, decode, execute. As a result, the <a href="cpu.html#r15" title="PC">program counter</a> always points two instructions ahead of the one currently being executed.</p>
+<p>The CPU is a 16.78 MHz ARM7tdmi RISC processor. It is a 32-bit processor but can be switched to "Thumb" state, which allows it to handle a special subset of 16-bit instructions that map to 32-bit counterparts. Instructions follow a three-stage pipeline: fetch, decode, execute. As a result, the <a href="cpu.html#r15" title="PC">program counter</a> always points two instructions ahead of the one currently being executed.</p>
 <h2 id="cpu-registers"><a class="header" href="#cpu-registers">CPU Registers</a></h2>
 <p>16 registers are visible to the user at any given time, though there are 20 <a href="cpu.html#banked-registers">banked registers</a> which get swapped in whenever the CPU changes to various priveleged modes. The registers visible in user mode are as follows:</p>
 <ul>
@@ -234,7 +234,7 @@ Supervisor:   0x03007FE0
 <p>As far as I know the other modes do not have default stack pointers.</p>
 </li>
 <li>
-<p><strong>r14 (LR):</strong> Link Register. Used primarily to store the address following a &quot;bl&quot; (branch and link) instruction (as used in function calls)</p>
+<p><strong>r14 (LR):</strong> Link Register. Used primarily to store the address following a "bl" (branch and link) instruction (as used in function calls)</p>
 </li>
 <li>
 <p><a id="r15"></a> <strong>r15 (PC):</strong> The Program Counter. Because the ARM7tdmi uses a 3-stage pipeline, this register always contains an address which is 2 instructions ahead of the one currrently being executed. In 32-bit ARM state, it is 8 bytes ahead, while in 16-bit Thumb state it is 4 bytes ahead.</p>
@@ -276,7 +276,7 @@ Supervisor:   0x03007FE0
 </ul>
 </li>
 <li>
-<p><strong><span id="FIQ">FIQ</span>:</strong> This mode is entered when a Fast Interrupt Request is triggered. Since all of the hardware interrupts on the GBA generate IRQs, this mode goes unused by default, though it would be possible to switch to this mode manually using the &quot;msr&quot; instruction.</p>
+<p><strong><span id="FIQ">FIQ</span>:</strong> This mode is entered when a Fast Interrupt Request is triggered. Since all of the hardware interrupts on the GBA generate IRQs, this mode goes unused by default, though it would be possible to switch to this mode manually using the "msr" instruction.</p>
 <ul>
 <li>Banked registers: r8_fiq, r9_fiq, r10_fiq, r11_fiq, r12_fiq, r13_fiq, r14_fiq, and SPSR_fiq.</li>
 </ul>
@@ -372,7 +372,7 @@ Mirrors: Bytes 0x06010000 - 0x06017FFF is mirrored from 0x06018000 - 0x0601FFFF.
         The entire region from 0x06000000 - 0x06020000 is in turn mirrored every
         0x20000 bytes from 0x06000000 - 0x06FFFFFF.
 </pre>
-<p>The video RAM is used to store the frame buffer in <a href="backgrounds.html#bitmapped-backgrounds">bitmapped</a> modes, and the tile data and tile maps for tile-based <a href="backgrounds.html#text-backgrounds">&quot;text&quot;</a> and <a href="registers.html#background-rotation-scaling-registers">rotate/scale</a> modes.</p>
+<p>The video RAM is used to store the frame buffer in <a href="backgrounds.html#bitmapped-backgrounds">bitmapped</a> modes, and the tile data and tile maps for tile-based <a href="backgrounds.html#text-backgrounds">"text"</a> and <a href="registers.html#background-rotation-scaling-registers">rotate/scale</a> modes.</p>
 <h3 id="oam"><a class="header" href="#oam">OAM</a></h3>
 <pre>
 Start: 0x07000000
@@ -433,7 +433,7 @@ Port Size: 8 bit
 <p>Exactly what the GBA draws on screen depends largely on the current video mode (also sometimes referred to as the <em>screen mode</em> or <em>graphics mode</em>). The GBA has 6 such modes, some of which are bitmap-based and some of which are tile-based. The video mode is set by the bottom three bits of the hardware register known as <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a>. Background data is handled differently depending on what mode is enabled. Backgrounds can either be <a href="backgrounds.html#text-backgrounds">text backgrounds</a> (tile based), <a href="backgrounds.html#scalerotate-backgrounds">rotate-scale backgrounds</a> (tile based backgrounds that can be transformed), or <a href="backgrounds.html#bitmapped-backgrounds">bitmap backgrounds</a>. The number of sprites available on screen is also dependent on the mode; modes with tile-based backgrounds support 128 sprites, while modes with bitmapped backgrounds will only support 64 sprites.</p>
 <p>Enabling objs and one or more backgrounds in <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a> will cause the GBA to draw the specified backgrounds and objs in order of priority.</p>
 <h3 id="mode-0"><a class="header" href="#mode-0">Mode 0</a></h3>
-<p>In this mode, four text background layers can be shown. In this mode backgrounds 0 - 3 all count as <a href="backgrounds.html#text-backgrounds">&quot;text&quot;</a> backgrounds, and cannot be scaled or rotated. Check out the section on <a href="backgrounds.html#text-backgrounds">text backgrounds</a> for details on this.</p>
+<p>In this mode, four text background layers can be shown. In this mode backgrounds 0 - 3 all count as <a href="backgrounds.html#text-backgrounds">"text"</a> backgrounds, and cannot be scaled or rotated. Check out the section on <a href="backgrounds.html#text-backgrounds">text backgrounds</a> for details on this.</p>
 <h3 id="mode-1"><a class="header" href="#mode-1">Mode 1</a></h3>
 <p>This mode is similar in most respects to Mode 0, the main difference being that only 3 backgrounds are accessible -- 0, 1, and 2. Bgs 0 and 1 are <a href="backgrounds.html#text-backgrounds">text backgrounds</a>, while bg 2 is a <a href="backgrounds.html#scalerotate-backgrounds">rotation/scaling</a> background.</p>
 <h3 id="mode-2"><a class="header" href="#mode-2">Mode 2</a></h3>
@@ -643,7 +643,7 @@ COLOR="#FF0099">I  I I I I  I I I I</FONT>  (standard sprites)
 ---------------------
 </pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="windowing"><a class="header" href="#windowing">Windowing</a></h1>
-<p>Windowing is a method of dividing the screen into subsections known as (surprise) windows. The windows serve as boundary areas to determine where various layers of the GBA will be shown and where they will be clipped. There are two primary windows, win0 and win1, which can be enabled in <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a>. There is also the &quot;obj&quot; window, which can be thought of as another window which is defined by the visible regions of the objs on screen. Finally there is the &quot;outside&quot; or &quot;out&quot; window - the area of the screen not already occupied by any other winodw.</p>
+<p>Windowing is a method of dividing the screen into subsections known as (surprise) windows. The windows serve as boundary areas to determine where various layers of the GBA will be shown and where they will be clipped. There are two primary windows, win0 and win1, which can be enabled in <a href="registers.html#REG_DISPCNT">REG_DISPCNT</a>. There is also the "obj" window, which can be thought of as another window which is defined by the visible regions of the objs on screen. Finally there is the "outside" or "out" window - the area of the screen not already occupied by any other winodw.</p>
 <p>The position and size of WIN0 and WIN1 are determined by <a href="registers.html#REG_WIN0H">REG_WIN0H</a>, <a href="registers.html#REG_WIN1H">REG_WIN1H</a>, <a href="registers.html#REG_WIN0V">REG_WIN0V</a>, and <a href="registers.html#REG_WIN1V">REG_WIN1V</a> (I/O offsets 0x40, 0x42, 0x44, 0x46).</p>
 <p>Exactly which characters and backgrounds appear within or without win0, win1, and the obj window is determined by <a href="registers.html#REG_WIN_IN">REG_WININ</a> and <a href="registers.html#REG_WIN_OUT">REG_WINOUT</a> (0x48 and 0x4A).</p>
 <p>Here are some things to keep in mind when using windows:</p>
@@ -652,7 +652,7 @@ COLOR="#FF0099">I  I I I I  I I I I</FONT>  (standard sprites)
 <p>WIN0 and WIN1 are drawn from the left and top boundary up to but not including the right and bottom boundaries.</p>
 </li>
 <li>
-<p>Everything in WIN0 appears &quot;above&quot; WIN1 (i.e. it has higher priority), and everything in windows 0 &amp; 1 appears above the WINOUT and obj windows.</p>
+<p>Everything in WIN0 appears "above" WIN1 (i.e. it has higher priority), and everything in windows 0 &amp; 1 appears above the WINOUT and obj windows.</p>
 </li>
 <li>
 <p>If a bg or the obj's are turned off in dispcnt, they're off in all windows regardless of the settings in win_in and win_out.</p>
@@ -670,7 +670,7 @@ COLOR="#FF0099">I  I I I I  I I I I</FONT>  (standard sprites)
 <p>Likewise, if the window top coordinate is greater than the window bottom coordinate, the window will be drawn to the top and the bottom.</p>
 </li>
 <li>
-<p>A completely inverted window is drawn in the area outside of the &quot;+&quot; shaped region defined by its boundaries.</p>
+<p>A completely inverted window is drawn in the area outside of the "+" shaped region defined by its boundaries.</p>
 </li>
 </ul>
 <p>Windows can be used in console games for a variety of different effects. Though the window registers define a square region, differently shaped windows can be achieved by using <a href="registers.html#REG_DMA0CNT">HDMA</a> or <a href="interrupts.html">hblank interrupts</a> to change the parameters each scanline. Lantern lighting (when the hero has a lantern or flashlight that illuminates a certain region of a cave) and x-ray vision (use of the window to cut away layers that are in front) are two common effects created with windows. More are certainly possible.</p>
@@ -848,7 +848,7 @@ Input: r0 = source address, r1 = dest address
 Input: r0 = source address, r1 = dest address
 </pre>
 <p>Note: The LZ77 decompressors actually decompress LZSS, not LZ77, which is slightly different. You will have to look on the web to find the algorithm as it is beyond the scope of this document. The following assumes a general famliarity with LZSS.</p>
-<p>On the GBA, the ring buffer or &quot;window&quot; is of size 4096, the minumim compressed length is 3 and the maximum compressed length is 18. Looking into a compressed buffer you will find the size of the uncompressed memory in bytes 2, 3, and 4 (I'm not sure what the first byte does, but it seems to always be set to &quot;01&quot;), followed by the coded data. This is divided up into sections consisting of an 8 bit key followed by a corresponding eight items of varying size. The upper bits in the key correspond to the items with lower addresses and vice versa. For each bit set in the key, the corresponding item will be 16 bits; the top bits four being the number of bytes to output, minus 3, and the bottom sixteen bits being the offset behind the current window position from which to output. For each bit which is not set, the corresponding item is an uncompressed byte and gets sent to the output.</p>
+<p>On the GBA, the ring buffer or "window" is of size 4096, the minumim compressed length is 3 and the maximum compressed length is 18. Looking into a compressed buffer you will find the size of the uncompressed memory in bytes 2, 3, and 4 (I'm not sure what the first byte does, but it seems to always be set to "01"), followed by the coded data. This is divided up into sections consisting of an 8 bit key followed by a corresponding eight items of varying size. The upper bits in the key correspond to the items with lower addresses and vice versa. For each bit set in the key, the corresponding item will be 16 bits; the top bits four being the number of bytes to output, minus 3, and the bottom sixteen bits being the offset behind the current window position from which to output. For each bit which is not set, the corresponding item is an uncompressed byte and gets sent to the output.</p>
 <p>Thanks to Markus for providing me with some source that helped me figure out all of this.</p>
 <h3 id="0x13-huffuncomp"><a class="header" href="#0x13-huffuncomp"><code>0x13</code>: HuffUnComp</a></h3>
 <p>Unpacks data compressed with Huffman and writes it 32-bits at a time.</p>
@@ -1002,13 +1002,13 @@ F E D C  B A 9 8  7 6 5 4  3 2 1 0
 COLOR="#0099FF">C</FONT> X X  <FONT COLOR="#9900CC">S S</FONT> <FONT COLOR="#FF0099">P P</FONT> </PRE>
 </div>
 <div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
-<tr><td><tt>0-1 <FONT COLOR="#FF0099">(P)</FONT></tt></td><td><p id="priority">Priority: <code>00</code> = highest, <code>11</code> = lowest</p><p>Priorities are ordered as follows: <pre>&quot;Front&quot; <br> 1. Sprite with priority 0 <br> 2. BG with     priority 0 <br> 3. Sprite with priority 1 <br> 4. BG with     priority 1 <br> 5. Sprite with priority 2 <br> 6. BG with     priority 2 <br> 7. Sprite with priority 3 <br> 8. BG with     priority 3 <br> 9. Backdrop <br> &quot;Back&quot;</pre></p> <p>When multiple backgrounds have the same priority, the order from front to back is:  BG0, BG1, BG2, BG3.  Sprites of the same priority are ordered similarly, with the first sprite in OAM appearing in front. </p></td></tr>
+<tr><td><tt>0-1 <FONT COLOR="#FF0099">(P)</FONT></tt></td><td><p id="priority">Priority: <code>00</code> = highest, <code>11</code> = lowest</p><p>Priorities are ordered as follows: <pre>"Front" <br> 1. Sprite with priority 0 <br> 2. BG with     priority 0 <br> 3. Sprite with priority 1 <br> 4. BG with     priority 1 <br> 5. Sprite with priority 2 <br> 6. BG with     priority 2 <br> 7. Sprite with priority 3 <br> 8. BG with     priority 3 <br> 9. Backdrop <br> "Back"</pre></p> <p>When multiple backgrounds have the same priority, the order from front to back is:  BG0, BG1, BG2, BG3.  Sprites of the same priority are ordered similarly, with the first sprite in OAM appearing in front. </p></td></tr>
 <tr><td><tt>2-3 <FONT COLOR="#9900CC">(S)</FONT></tt></td><td>Starting address of character tile data <br> Address = 0x06000000 + S * 0x4000</td></tr>
 <tr><td><tt>  6 <FONT COLOR="#0099FF">(C)</FONT></tt></td><td>Mosiac effect - 1 on, 0 off</td></tr>
 <tr><td><tt>  7 <FONT COLOR="#008800">(A)</FONT></tt></td><td><a href="memory.html#palette-ram">Color palette</a> type - <br>1 - standard 256 color pallete <br>0 - each tile uses one of 16 different 16 color palettes (no effect on rotates/scale backgrounds, which are always 256 color)</td></tr>
 <tr><td><tt>8-C <FONT COLOR="#FF3300">(M)</FONT></tt></td><td>Starting address of character tile map Address = 0x06000000 + M * 0x800</td></tr>
-<tr><td><tt>  D <FONT COLOR="#FF0099">(V)</FONT></tt></td><td>Screen Over. Used to determine whether <a href="backgrounds.html#scalerotate-backgrounds">rotational backgrounds</a> get tiled repeatedly at the edges or are displayed as a single &quot;tile&quot; with the area outside transparent. This is forced to 0 (read only) for backgrounds  0 and 1 (only).</td></tr>
-<tr><td><tt>E-F <FONT COLOR="#9900CC">(Z)</FONT></tt></td><td><p>Size of tile map </p><p>For <a href="backgrounds.html#text-backgrounds">&quot;text&quot; backgrounds</a>: </p><p><code>00</code> = 256x256 (32x32 tiles)  <br><code>01</code> = 512x256 (64x32 tiles)  <br><code>10</code> = 256x512 (32x64 tiles)  <br><code>11</code> = 512x512 (64x64 tiles)</p> <p>For <a href="backgrounds.html#scalerotate-backgrounds">rotational backgrounds</a>:</p><p><code>00</code> = 128x128 (16x16 tiles)  <br><code>01</code> = 256x256 (32x32 tiles)  <br><code>10</code> = 512x512 (64x64 tiles) <br><code>11</code> = 1024x1024 (128x128 tiles)</p></td></tr>
+<tr><td><tt>  D <FONT COLOR="#FF0099">(V)</FONT></tt></td><td>Screen Over. Used to determine whether <a href="backgrounds.html#scalerotate-backgrounds">rotational backgrounds</a> get tiled repeatedly at the edges or are displayed as a single "tile" with the area outside transparent. This is forced to 0 (read only) for backgrounds  0 and 1 (only).</td></tr>
+<tr><td><tt>E-F <FONT COLOR="#9900CC">(Z)</FONT></tt></td><td><p>Size of tile map </p><p>For <a href="backgrounds.html#text-backgrounds">"text" backgrounds</a>: </p><p><code>00</code> = 256x256 (32x32 tiles)  <br><code>01</code> = 512x256 (64x32 tiles)  <br><code>10</code> = 256x512 (32x64 tiles)  <br><code>11</code> = 512x512 (64x64 tiles)</p> <p>For <a href="backgrounds.html#scalerotate-backgrounds">rotational backgrounds</a>:</p><p><code>00</code> = 128x128 (16x16 tiles)  <br><code>01</code> = 256x256 (32x32 tiles)  <br><code>10</code> = 512x512 (64x64 tiles) <br><code>11</code> = 1024x1024 (128x128 tiles)</p></td></tr>
 </tbody></table>
 </div><h3 id="REG_BGOFS"><a class="header" href="registers.html#REG_BGOFS">
 <span id="REG_BG0HOFS"></span>0x04000010 - REG_BG0HOFS Horizontal scroll co-ordinate for BG0 (Write Only) <br>
@@ -1207,7 +1207,7 @@ COLOR="#9900CC">H</FONT> <FONT COLOR="#FF0099">G</FONT> </PRE>
 <tr><td><tt>  D <FONT COLOR="#0099FF">(T)</FONT></tt></td><td>Blend backdrop (target)</td></tr>
 </tbody></table>
 </div>
-<p>Use this register to determine the blending mode and which layer(s) you wish to perform blending on. In the case of alpha blends (Mode 01), specify the layers that are &quot;on top&quot; using the source flags (bits 0 - 5) and the layers that are on the bottom using the target flags (bits 8-13). The target layer must be below the source layer in terms of its <a href="registers.html#priority">priority</a>, or the blend will not take effect.</p>
+<p>Use this register to determine the blending mode and which layer(s) you wish to perform blending on. In the case of alpha blends (Mode 01), specify the layers that are "on top" using the source flags (bits 0 - 5) and the layers that are on the bottom using the target flags (bits 8-13). The target layer must be below the source layer in terms of its <a href="registers.html#priority">priority</a>, or the blend will not take effect.</p>
 <p>Other things to note about alpha blends:</p>
 <ul>
 <li>If there is more than one target layer, the blend will only occur for a target with lower priority in areas where it shows through targets of higher priority due to the transparent pixel being set</li>
@@ -1215,7 +1215,7 @@ COLOR="#9900CC">H</FONT> <FONT COLOR="#FF0099">G</FONT> </PRE>
 <li>As a result of these two conditions, it is never possible for any given pixel to be a blend of more than 2 layers. This eliminates the possiblity of using these registers to have 3 or more layers of translucent graphics showing through one another.</li>
 <li>A layer cannot blend with itself.</li>
 <li>If an obj has semi-transparency enabled, it will blend normally (as if it were specified as a source layer)</li>
-<li>Unfortunately, it is not possible to alpha blend sprites against one another, no matter how your prioritize them. Alpha blended sprites that are &quot;in front of&quot; other sprites will blend with the other target layers while still occluding the sprites behind them (i.e. it will look like the portion of the non-blended sprite that is behind the blended one has disappeared), for a most unnatural effect.</li>
+<li>Unfortunately, it is not possible to alpha blend sprites against one another, no matter how your prioritize them. Alpha blended sprites that are "in front of" other sprites will blend with the other target layers while still occluding the sprites behind them (i.e. it will look like the portion of the non-blended sprite that is behind the blended one has disappeared), for a most unnatural effect.</li>
 </ul>
 <h3 id="REG_BLDALPHA"><a class="header" href="registers.html#REG_BLDALPHA">
 0x04000052 - REG_BLDALPHA (Write Only)
@@ -1598,7 +1598,7 @@ COLOR="#008800">S</FONT> <FONT COLOR="#0099FF">R</FONT> <FONT COLOR="#9900CC">A 
 </div>
 <div class="table-wrapper"><table><thead><tr><th>Bits</th><th>Description</th></tr></thead><tbody>
 <tr><td><tt>5-6 <FONT COLOR="#FF0099">(B)</FONT></tt></td><td><p>Type of increment applied to destination address. If enabled, the address will be incremented/decremented by 2 or 4 bytes, depending on the selected size. When the DMA is activated, the contents of these registers are copied to internal counters in the DMA hardware, which then increments/decrements these registers during transfer, preserving the contents of the IORAM registers.<a href="registers.html#DMANote">*</a></p><p><code>00</code> = Increment after each copy <br><code>01</code> = Decrement after each copy <br><code>10</code> = Leave unchanged <br><code>11</code> = Increment without after each copy, reset to initial value at the end of transfer (or at the end of the current repetition)</p></td></tr>
-<tr><td><tt>7-8 <FONT COLOR="#9900CC">(A)</FONT></tt></td><td><p>Type of increment applied to source address:</p><p><code>00</code> = Increment after each copy <br> <code>01</code> = Decrement after each copy <br> <code>10</code> = Leave unchanged <br> <code>11</code> = Illegal </p> <p>Note: I am somewhat uncertain about option &quot;11&quot; for both of these. Can anyone confirm? </p></td></tr>
+<tr><td><tt>7-8 <FONT COLOR="#9900CC">(A)</FONT></tt></td><td><p>Type of increment applied to source address:</p><p><code>00</code> = Increment after each copy <br> <code>01</code> = Decrement after each copy <br> <code>10</code> = Leave unchanged <br> <code>11</code> = Illegal </p> <p>Note: I am somewhat uncertain about option "11" for both of these. Can anyone confirm? </p></td></tr>
 <tr><td><tt>  9 <FONT COLOR="#0099FF">(R)</FONT></tt></td><td>Repeat. When in start modes 1 or 2, this bit causes the transfer to repeat for each interval.</td></tr>
 <tr><td><tt>  A <FONT COLOR="#008800">(S)</FONT></tt></td><td>Size. If set, copy 32-bit quantities (words) If clear, copy 16-bit quantities (half words)</td></tr>
 <tr><td><tt>  B <FONT COLOR="#FF3300">(U)</FONT></tt></td><td>Unknown.  For DMA 0, 1, and 2, this bit is read only and set to 0. However, for DMA 3, it appears to be writeable. Thoughts, anyone?</td></tr>
@@ -1615,10 +1615,10 @@ COLOR="#008800">S</FONT> <FONT COLOR="#0099FF">R</FONT> <FONT COLOR="#9900CC">A 
 <p><strong>DMA0</strong>: This DMA is the highester priority, but cannot be used to access cartridge memory (addresses 0x08000000 and higher). It is suitable for time-critical operations such as transfering scale and rotate data to the background scaling registers. Since it takes precedence over other DMAs, it will not be postponed or interrupted (possibly causing undesirable results such as screen artifacts).</p>
 </li>
 <li>
-<p><strong>DMA1</strong> and <strong>DMA2</strong>: These are the only DMA that can be used for sound FIFO. If start mode &quot;11&quot; is set, the DMA will be triggered on FIFO empty. I believe that FIFO A always sends its empty requests to DMA1 and that FIFO B sends its empty requests only to DMA2, though I don't have any verification of this.</p>
+<p><strong>DMA1</strong> and <strong>DMA2</strong>: These are the only DMA that can be used for sound FIFO. If start mode "11" is set, the DMA will be triggered on FIFO empty. I believe that FIFO A always sends its empty requests to DMA1 and that FIFO B sends its empty requests only to DMA2, though I don't have any verification of this.</p>
 </li>
 <li>
-<p><strong>DMA3</strong>: This is is the lowest priority and thus often used as a &quot;general purpose&quot; DMA. Using this DMA for your basic memory transfers ensures that sound FIFO DMA and other time-critical DMA are not delayed, making audio or visual artifacts less likely.</p>
+<p><strong>DMA3</strong>: This is is the lowest priority and thus often used as a "general purpose" DMA. Using this DMA for your basic memory transfers ensures that sound FIFO DMA and other time-critical DMA are not delayed, making audio or visual artifacts less likely.</p>
 </li>
 </ul>
 <h3 id="DMANote"><a class="header" href="#DMANote"><a class="header" href="registers.html#DMANote"></a></a></h3>
@@ -1834,7 +1834,7 @@ COLOR="#FF0099">A</FONT></PRE>
 <tr><td><tt>8 <FONT COLOR="#008800">(I)</FONT></tt></td><td>Right shoulder button</td></tr>
 <tr><td><tt>9 <FONT COLOR="#FF3300">(J)</FONT></tt></td><td>Left shoulder button</td></tr>
 <tr><td><tt>E <FONT COLOR="#FF0099">(K)</FONT></tt></td><td>Generate interrupt on keypress</td></tr>
-<tr><td><tt>F <FONT COLOR="#9900CC">(T)</FONT></tt></td><td><p>Interrupt &quot;type&quot;</p><p><code>0</code> = &quot;OR&quot; operation: interrupt will be generated if <em>any</em> of specified keys (bits 0-9) are pressed<br> <code>1</code> = &quot;AND&quot; operation: interrupt will be generated if <em>all</em> specified keys are pressed at the same time.</p></td></tr>
+<tr><td><tt>F <FONT COLOR="#9900CC">(T)</FONT></tt></td><td><p>Interrupt "type"</p><p><code>0</code> = "OR" operation: interrupt will be generated if <em>any</em> of specified keys (bits 0-9) are pressed<br> <code>1</code> = "AND" operation: interrupt will be generated if <em>all</em> specified keys are pressed at the same time.</p></td></tr>
 </tbody></table>
 </div>
 <p>Use this register to set which keypresses generate interrupts. The appropriate bits must also be set in <a href="registers.html#REG_IE">REG_IE</a> and <a href="registers.html#REG_IME">REG_IME</a>.</p>
@@ -2037,13 +2037,13 @@ F E D C  B A 9 8  7 6 5 4  3 2 1 0
 <li>Enable timer0 at Cpu frequency (clock divider=0)</li>
 </ul>
 <p>Sound should start immediately and will play past the sample if not stopped. You can use timer1 to count played samples and stop the sound. To do this, set timer 1 to cascade and enable irq for timer 1 and set its count to 0xffff-samples count. Your irq handler should stop the sound by disabling timer 0 and the dma channel(s).</p>
-<pre><code class="language-C">#include &quot;gba.h&quot;
+<pre><code class="language-C">#include "gba.h"
 
 //the sample. its a pcm wave file converted to an elf file with objcopyroda.exe (devrs.com/gba)
 extern const u32 _binary_lo1234_pcm_start[];
 
 //the interrupt handler from crt0.s
-void InterruptProcess(void) __attribute__((section(&quot;.iwram&quot;)));
+void InterruptProcess(void) __attribute__((section(".iwram")));
 
 void InterruptProcess(void) {
     //sample finished!,stop Direct sound
@@ -2112,12 +2112,12 @@ void AgbMain(void) {
 </ul>
 </li>
 </ul>
-<pre><code class="language-C">#include &quot;gba.h&quot;
+<pre><code class="language-C">#include "gba.h"
 
 //the sample. its an pcm wave file converted to an elf file with objcopyroda.exe (devrs.com/gba)
 extern const u32 _binary_lo1234_pcm_start[];
 //the interrupt handler from crt0.s
-void InterruptProcess(void) __attribute__((section(&quot;.iwram&quot;)));
+void InterruptProcess(void) __attribute__((section(".iwram")));
 
 int iNextSample = 0;
 int SampleSize = 36712;
@@ -2159,7 +2159,7 @@ void AgbMain(void) {
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="sound-channel-1"><a class="header" href="#sound-channel-1">Sound Channel 1</a></h1>
 <p>Sound channel 1 produces square waves with variable duty cycle, frequency sweep and envelope functions. It is often referred as a quadrangular wave pattern.</p>
-<p>Frequency sweeps allows &quot;portamento&quot;-like effects where the frequency raises or decreases during playback. The amount of increase or decrease in frequency (or sweep shifts) and the rate at which it occurs (sweep time) is controllable. Frequency sweeps are controlled by REG_SOUND1CNT_L</p>
+<p>Frequency sweeps allows "portamento"-like effects where the frequency raises or decreases during playback. The amount of increase or decrease in frequency (or sweep shifts) and the rate at which it occurs (sweep time) is controllable. Frequency sweeps are controlled by REG_SOUND1CNT_L</p>
 <p>Sweep shifts are controlled by bits 0-2 and are calculated with the following formula:</p>
 <p>\( T = T \pm \frac{T}{2^n} \) where T = Wave Period and n = Sweep Shifts</p>
 <p>Sweep time (Ts) controls the delay between sweep shifts and is controlled by bits 4-6:</p>
@@ -2871,20 +2871,20 @@ out.</p>
 <p><img src="bootleg-carts/images/commands.png" alt="S29GL128N Commands" /></p>
 <p>You can see that this information also exists in the FlashGBX source code, <a href="https://github.com/lesserkuma/FlashGBX/blob/9b44a9959bf9fd6bab5f1005ce1c757d2f456fa7/FlashGBX/config/fc_AGB_MSP55LV128M.txt">in the
 config</a>:</p>
-<pre><code class="language-javascript">&quot;reset&quot;:[
+<pre><code class="language-javascript">"reset":[
   [ 0, 0xF0 ]
 ],
-&quot;read_identifier&quot;:[
+"read_identifier":[
   [ 0xAAA, 0xA9 ],
   [ 0x555, 0x56 ],
   [ 0xAAA, 0x90 ]
 ],
-&quot;read_cfi&quot;:[
+"read_cfi":[
   [ 0xAA, 0x98 ]
 ],
 ...
 </code></pre>
-<p>Notice that the &quot;Auto-Select&quot; row doesn't exactly match the <code>&quot;read_identifier&quot;</code> information.</p>
+<p>Notice that the "Auto-Select" row doesn't exactly match the <code>"read_identifier"</code> information.</p>
 <p>Auto-Select starts with address <code>0xAAA</code>, data <code>0xAA</code>, but FlashGBX has address <code>0xAAA</code>, data
 <code>0xA9</code> -- this is because D0/D1 are swapped (<code>10101010</code> -&gt; <code>10101001</code>)!  <a href="bootleg-carts/introduction.html#swapping-of-d0d1">See the section
 above</a>.</p>
@@ -2892,11 +2892,11 @@ above</a>.</p>
 doesn't <em>erase</em> the chip, it just resets any commands in progress.</p>
 <pre><code class="language-c">// reset
 *((u16 *)0x08000000) = 0xF0;
-__asm(&quot;nop&quot;);
+__asm("nop");
 </code></pre>
 <p>The forked goombacolor project from LesserKuma has example code, where <a href="https://github.com/lesserkuma/goombacolor/blob/f2bae8eb5087de14008250032c82cf5d294131cd/src/main.c#L585">you can see this
 happen</a>:</p>
-<pre><code class="language-c">#define _FLASH_WRITE(pa, pd) { *(((u16 *)AGB_ROM)+((pa)/2)) = pd; __asm(&quot;nop&quot;); }
+<pre><code class="language-c">#define _FLASH_WRITE(pa, pd) { *(((u16 *)AGB_ROM)+((pa)/2)) = pd; __asm("nop"); }
 
 // reset
 _FLASH_WRITE(0, 0xF0);
@@ -2999,7 +2999,7 @@ _FLASH_WRITE(0xAAA, 0xA9);
 _FLASH_WRITE(0x555, 0x56);
 _FLASH_WRITE(sa, 0x30);
 while (1) {
-  __asm(&quot;nop&quot;);
+  __asm("nop");
   if (*(((u16 *)AGB_ROM)+(sa/2)) == 0xFFFF) {
     break;
   }
@@ -3024,7 +3024,7 @@ is a great reference:</p>
   _FLASH_WRITE(0xAAA, 0xA0);
   _FLASH_WRITE(sa+i, (*(u8 *)(AGB_SRAM+i+1)) &lt;&lt; 8 | (*(u8 *)(AGB_SRAM+i)));
   while (1) {
-    __asm(&quot;nop&quot;);
+    __asm("nop");
     if (*(((u16 *)AGB_ROM)+((sa+i)/2)) == ((*(u8 *)(AGB_SRAM+i+1)) &lt;&lt; 8 | (*(u8 *)(AGB_SRAM+i)))) {
       break;
     }
@@ -3034,7 +3034,7 @@ _FLASH_WRITE(sa, 0xF0);
 </code></pre>
 <p>The code:</p>
 <ol>
-<li>Issues a &quot;Program&quot; command for each 16-bit value</li>
+<li>Issues a "Program" command for each 16-bit value</li>
 <li>Writes the 16-bit value at the target address</li>
 <li>Waits in a loop until it reads the written value*</li>
 <li>Continues writing until all 16-bit values are written</li>
@@ -3063,6 +3063,10 @@ a method to detect which chip you're on, and use the appropriate commands.
 are great references for this, and they both use different methods.</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="acknowledgements"><a class="header" href="#acknowledgements">Acknowledgements</a></h1>
+<ul>
+<li><a href="https://github.com/velipso">Velipso</a>, author of the Bootleg Carts article.</li>
+</ul>
+<hr />
 <p>The following are individuals who contributed info or corrections on the original CowBiteSpec document.</p>
 <ul>
 <li>Tom Happ</li>
@@ -3070,7 +3074,7 @@ are great references for this, and they both use different methods.</li>
 <li>Uze (All of the sound register info comes directly from his Audio Advance site)</li>
 <li>Martin Korth (Author no$gba of who has given me permission to consolidate additional info from his emulator's informative help documents with this one, most particularly serial registers, some BIOS functions, and undocumented registers.)</li>
 <li>Forgotten (VBA Author. Many of the BIOS call descriptions come from his Visual Boy Advance FAQ.</li>
-<li>gbcft (LOTS of info on interrupts, windowing, memory mirrors, the &quot;Unkown Registers&quot; section; helped me debug a lot of errors in the emulator, and offered many corrections, info, and suggestions).</li>
+<li>gbcft (LOTS of info on interrupts, windowing, memory mirrors, the "Unkown Registers" section; helped me debug a lot of errors in the emulator, and offered many corrections, info, and suggestions).</li>
 <li>Kay (Contributed memory port sizes and wait states, DMA cycle timings, info regarding the BIOS, and various advice, testing, and expertise regarding the GBA and older console systems)</li>
 <li>Damian Yerrick (Contributed the WSCOUNT register)</li>
 <li>Markus (Actually I asked him for help with LZSS. Also, his gfx2gba tool has proven extremely helpful in my non-CowBite projects.:)</li>
