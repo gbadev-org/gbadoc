@@ -1,5 +1,9 @@
 # Acknowledgements
 
+- [Velipso](https://github.com/velipso), author of the Bootleg Carts article.
+
+---
+
 The following are individuals who contributed info or corrections on the original CowBiteSpec document.
 
 - Tom Happ
