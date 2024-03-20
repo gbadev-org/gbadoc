@@ -111,13 +111,13 @@ Let's say we have a player sprite, with an X and Y position. What speed should w
 
 ```c
 // a function elsewhere in code, which needs the ONSCREEN x and y position
-extern void display_player(int x, int y);
+void display_player(int x, int y);
 
 // player coordinates use signed 28.3f fixed-point format
-int player_fp = 3;
+const int player_fp = 3;
 
 // 1 and 5/8, written verbosely for demonstration purposes
-int player_speed = 8 + 5;
+int player_speed = (1 << player_fp) + ((5 << player_fp) / 8);
 
 // let's start the player at (5, 6) on the screen
 // shift both of these values left to account for the fixed-point
@@ -163,10 +163,11 @@ Before adding or subtracting fixed-point numbers, you need to make the denominat
 
 ```c
 // variable 'a' uses an unsigned 27.5f fixed-point format
-int a_fp = 5;
+const int a_fp = 5;
 unsigned int a = 3 << a_fp;
+
 // variable 'b' uses an unsigned 16.16f fixed-point format
-int b_fp = 16;
+const int b_fp = 16;
 unsigned int b = 4 << b_fp;
 ```
 
@@ -205,6 +206,54 @@ As mentioned before, you can shift right, and this will divide by powers of 2, r
 Even though you can't do hardware-level division, there are usually creative workarounds. Think outside of the box for this one. How might you get the answer you want without properly dividing? You'd be surprised with just how much division you can get rid of.
 
 If you really must divide, you would multiply the numerator by the fixed-point first, *before* dividing.
+
+## Converting between fixed and floating point
+
+Okay, so now you have a way to do mathematical operations efficiently. How do you set the initial values in a convenient way? How do you print the values in a way that is easier to understand than very big integer values?
+
+Well, you can convert between fixed and floating point easily:
+
+```c
+const int player_fp = 3;
+
+static inline int player_float2fixed(float value)
+{
+	return (int)(value * (1 << player_fp));
+}
+
+static inline float player_fixed2float(int value)
+{
+	return value / (float)(1 << player_fp);
+}
+
+// Macro version of the functions, for situations where you can't use functions
+#define PLAYER_FLOAT2FIXED(value)     (int)((value) * (1 << (player_fp)))
+#define PLAYER_FIXED2FLOAT(value)     ((value) / (float)(1 << (player_fp)))
+
+int setup(void)
+{
+	int player_x = player_float2fixed(1.23);
+	int player_y = PLAYER_FLOAT2FIXED(2.35);
+
+	printf("Player X: %f\n", player_fixed2float(player_x);
+	printf("Player Y: %f\n", PLAYER_FIXED2FLOAT(player_y);
+}
+```
+
+Remember that the operations are floating point operations, so they will be slow. There is an exception. If you use `constexpr` or if the compiler detects that an expression is constant, it will calculate it at compile time automatically. This is very useful for setting initial fixed point values from floating point values.
+
+```c
+int player_x, player_y;
+
+constexpr int player_start_x = player_float2fixed(1.23); // Only in C++
+const int player_start_y = PLAYER_FLOAT2FIXED(2.35);
+
+int setup(void)
+{
+	player_x = player_start_x;
+	player_y = player_start_y;
+}
+```
 
 And there you go! You now know everything needed to do fixed-point math. Good luck!
 
