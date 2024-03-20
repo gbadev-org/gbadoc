@@ -106,7 +106,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="cpu.html"><strong aria-hidden="true">2.</strong> CPU</a></li><li class="chapter-item expanded "><a href="memory.html"><strong aria-hidden="true">3.</strong> Memory</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">4.</strong> Graphics Hardware Overview</a></li><li class="chapter-item expanded "><a href="backgrounds.html"><strong aria-hidden="true">5.</strong> Backgrounds</a></li><li class="chapter-item expanded "><a href="sprites.html"><strong aria-hidden="true">6.</strong> OAM (Sprites)</a></li><li class="chapter-item expanded "><a href="windowing.html"><strong aria-hidden="true">7.</strong> Windowing</a></li><li class="chapter-item expanded "><a href="interrupts.html"><strong aria-hidden="true">8.</strong> Hardware Interrupts</a></li><li class="chapter-item expanded "><a href="bios.html"><strong aria-hidden="true">9.</strong> BIOS (Software Interrupts)</a></li><li class="chapter-item expanded "><a href="registers.html"><strong aria-hidden="true">10.</strong> Memory-Mapped Hardware Registers</a></li><li class="chapter-item expanded "><a href="audio/introduction.html"><strong aria-hidden="true">11.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="audio/directsound.html"><strong aria-hidden="true">11.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="audio/sound1.html"><strong aria-hidden="true">11.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="audio/sound2.html"><strong aria-hidden="true">11.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="audio/sound3.html"><strong aria-hidden="true">11.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="audio/sound4.html"><strong aria-hidden="true">11.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="audio/registers.html"><strong aria-hidden="true">11.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="bootleg-carts/introduction.html"><strong aria-hidden="true">12.</strong> Bootleg Carts</a></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">13.</strong> Acknowledgements</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Intro</a></li><li class="chapter-item expanded "><a href="cpu.html"><strong aria-hidden="true">2.</strong> CPU</a></li><li class="chapter-item expanded "><a href="memory.html"><strong aria-hidden="true">3.</strong> Memory</a></li><li class="chapter-item expanded "><a href="graphics.html"><strong aria-hidden="true">4.</strong> Graphics Hardware Overview</a></li><li class="chapter-item expanded "><a href="backgrounds.html"><strong aria-hidden="true">5.</strong> Backgrounds</a></li><li class="chapter-item expanded "><a href="sprites.html"><strong aria-hidden="true">6.</strong> OAM (Sprites)</a></li><li class="chapter-item expanded "><a href="windowing.html"><strong aria-hidden="true">7.</strong> Windowing</a></li><li class="chapter-item expanded "><a href="interrupts.html"><strong aria-hidden="true">8.</strong> Hardware Interrupts</a></li><li class="chapter-item expanded "><a href="bios.html"><strong aria-hidden="true">9.</strong> BIOS (Software Interrupts)</a></li><li class="chapter-item expanded "><a href="registers.html"><strong aria-hidden="true">10.</strong> Memory-Mapped Hardware Registers</a></li><li class="chapter-item expanded "><a href="audio/introduction.html"><strong aria-hidden="true">11.</strong> Audio</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="audio/directsound.html"><strong aria-hidden="true">11.1.</strong> Direct Sound</a></li><li class="chapter-item expanded "><a href="audio/sound1.html"><strong aria-hidden="true">11.2.</strong> Sound Channel 1</a></li><li class="chapter-item expanded "><a href="audio/sound2.html"><strong aria-hidden="true">11.3.</strong> Sound Channel 2</a></li><li class="chapter-item expanded "><a href="audio/sound3.html"><strong aria-hidden="true">11.4.</strong> Sound Channel 3</a></li><li class="chapter-item expanded "><a href="audio/sound4.html"><strong aria-hidden="true">11.5.</strong> Sound Channel 4</a></li><li class="chapter-item expanded "><a href="audio/registers.html"><strong aria-hidden="true">11.6.</strong> Sound Registers</a></li></ol></li><li class="chapter-item expanded "><a href="fixed-point-math.html"><strong aria-hidden="true">12.</strong> Fixed-Point Math for Newbies</a></li><li class="chapter-item expanded "><a href="bootleg-carts/introduction.html"><strong aria-hidden="true">13.</strong> Bootleg Carts</a></li><li class="chapter-item expanded "><a href="ack.html"><strong aria-hidden="true">14.</strong> Acknowledgements</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -2767,7 +2767,155 @@ void AgbMain(void) {
 <tr><td>DMG</td><td>The original gameboy (Dot Matrix Game)</td></tr>
 <tr><td>FIFO</td><td>First-In-First-Out</td></tr>
 </tbody></table>
-</div><div style="break-before: page; page-break-before: always;"></div><h1 id="bootleg-carts"><a class="header" href="#bootleg-carts">Bootleg Carts</a></h1>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="fixed-point-math-for-newbies"><a class="header" href="#fixed-point-math-for-newbies">Fixed-Point Math for Newbies</a></h1>
+<p>You may have come across the term "fixed-point math" before, especially if you're into homebrew. What is fixed-point math, why do we use it, and how does it work?</p>
+<p>Fixed-point math is a common workaround for when a piece of hardware doesn't have a floating point unit, or FPU. A floating point unit, in simple terms, is what allows computers to deal with fractional values (such as 1.5) and very large values (such as one quintillion). The data types for these would be "floats" or "doubles". The first major console that was released with an FPU was the Nintendo 64 in 1996, but many consoles that were released after still didn't have one.</p>
+<p>The Game Boy Advance was one such device that didn’t have an FPU. If you try to use floats within your code, it will still compile and run, but it will have a major effect on the performance. This is because without an FPU, floats are emulated on the software level, instead of being handled directly by hardware. The code with floats will compile into something much longer.</p>
+<p>I'm going to focus on fractional values in this guide, but most of the same principles will apply for very large numbers as well.</p>
+<p>Before explaining how fixed-point math actually works, we need some background:</p>
+<h2 id="whats-binary-and-how-do-i-count-in-it"><a class="header" href="#whats-binary-and-how-do-i-count-in-it">What’s Binary, and How Do I Count in It?</a></h2>
+<p>We humans use a base-10 system of counting, known as "decimal", where digits 0 to 9 are used to construct numbers. Computers use a base-2 system of counting, known as "binary". Binary only uses digits 0 and 1 to construct numbers.</p>
+<p>So, how do you count in binary? First, you count up to 1, then you carry over to the next digit, going left. That looks like this:</p>
+<pre><code class="language-c">00000000 // 0
+00000001 // 1
+00000010 // 2
+00000011 // 3
+00000100 // 4
+00000101 // 5
+00000110 // 6
+00000111 // 7
+00001000 // 8
+00001001 // 9
+00001010 // 10
+00001011 // 11
+</code></pre>
+<p>And so on. Try continuing that series yourself, up to 16.</p>
+<p>Similar to our human decimal system (at least in English), the rightmost digit is the least significant (only corresponding to 1 or 0), and each digit going left is bigger; in decimal they would correspond to 2 or 0, 4 or 0, 8 or 0, etc. Note that each digit corresponds to an increasing power of 2 (1, 2, 4, 8, 16, 32, 64, 128).</p>
+<p>Each digit in binary is referred to as a 'bit'. In the previous example, it's 8 bits of information. This means that it can store 256 (2 to the power of 8) different values before running out of space.</p>
+<p>On the GBA, 8 bits is also known as a 'byte'. This is true for most hardware. The byte that is <code>00001011</code> is equal to "1 plus 2 plus 8", or 11, because the 1 and 2 and 8 bits are set.</p>
+<h2 id="bit-shifting"><a class="header" href="#bit-shifting">Bit Shifting</a></h2>
+<p>So, let's say we have this number:</p>
+<pre><code class="language-c">00000110 // 6
+</code></pre>
+<p>We can "shift" these bits. That means taking the 1's and moving them left or right. The operators for this are usually <code>&lt;&lt;</code> for shifting left, and <code>&gt;&gt;</code> for shifting right. Just remember where the arrows point, and that will tell you the direction. Left makes it larger, and right makes it smaller.</p>
+<p>If we shift left by 1 bit, we get:</p>
+<pre><code class="language-c">00000110 // 6, before
+00001100 // 12, after
+</code></pre>
+<p>All of the 1's shifted "to the left". Note that this is twice as big; we just multiplied by two. Now let's move 6 right by 1 bit.</p>
+<pre><code class="language-c">00000110 // 6, before
+00000011 // 3, after
+</code></pre>
+<p>Woah! We shifted it "to the right" and it's half as big; we just divided by two. What if we shift 6 right by 2 bits instead of just 1?</p>
+<pre><code class="language-c">00000110 // 6, before
+00000001 // 1, after
+</code></pre>
+<p>It looks like we clipped the rightmost digit in this process. 6 divided by 4 is 1.5, but we don't have space for anything to the right of the decimal point, so the .5 part just gets cut off. This leaves us with just 1. In other words, it's 6 divided by 4, rounded down.</p>
+<h2 id="fractions-with-fixed-point"><a class="header" href="#fractions-with-fixed-point">Fractions with Fixed-Point</a></h2>
+<p>So, we know binary and we know how to bit shift. But all of the values so far are just integers. When do the fractions come in? Well, they don't actually.</p>
+<p>Programmers before us were pretty clever. If all we have to work with are integers, but we need fractions, what do we do? Well, we can just pretend that a portion of the bits are fractional anyway, and that works well enough!</p>
+<p>So, let's say we set aside the rightmost 4 bits for a fraction. Now let's try counting again!</p>
+<pre><code class="language-c">00000000 //  0/16
+00000001 //  1/16
+00000010 //  2/16
+00000011 //  3/16
+00000100 //  4/16
+00000101 //  5/16
+00000110 //  6/16
+00000111 //  7/16
+00001000 //  8/16
+00001001 //  9/16
+00001010 // 10/16
+00001011 // 11/16
+</code></pre>
+<p>And so on. These aren’t <em>actually</em> 1/16 and so on, but we’re pretending that they are. We dedicated 4 bits here, so we get "2 to the power of 4" as the denominator, and we're counting the numerator just the same as before. Once we hit the 5th bit going left, we've arrived at 1 proper.</p>
+<p>Another way to think of it is that the right 4 bits are the "fractional segment", and the left 4 bits are the "integer segment".</p>
+<p>If we want to use this for an input that needs a proper integer (instead of a fixed-point representation) then we shift right by 4 bits. This rounds the number down to the nearest integer.</p>
+<p>This would typically be referred to as "4.4f fixed-point". 4 bits for the integer, and 4 bits for the fraction. That's assuming it's unsigned (only positive numbers). If we need negative numbers, then we take away one bit (the leftmost) for that, so we would say that it's "signed 3.4f fixed-point".</p>
+<p>However, the maximum value here is painfully small. I've been using 8 bits for readability, but usually you’d want the biggest data type available for your system. For the GBA, that would be an <code>int</code>, which is 32 bits, or 4 bytes. So if we use 4 bits for the fraction, and it's a signed <code>int</code> data type, then that would be "signed 27.4f fixed-point".</p>
+<h2 id="a-practical-example"><a class="header" href="#a-practical-example">A Practical Example</a></h2>
+<p>Let's say we have a player sprite, with an X and Y position. What speed should we move it at? 2 pixels per frame is too fast, but 1 pixel per frame is too slow. Why don’t we try... 1 and 3/8 pixels per frame. This time we're using 3 bits for our fixed-point.</p>
+<pre><code class="language-c">// a function elsewhere in code, which needs the ONSCREEN x and y position
+extern void display_player(int x, int y);
+
+// player coordinates use signed 28.3f fixed-point format
+int player_fp = 3;
+
+// 1 and 5/8, written verbosely for demonstration purposes
+int player_speed = 8 + 5;
+
+// let's start the player at (5, 6) on the screen
+// shift both of these values left to account for the fixed-point
+signed int player_x = 5 &lt;&lt; player_fp;
+signed int player_y = 6 &lt;&lt; player_fp;
+
+... // skip ahead to the main game loop
+
+// adjust the player’s position based on input
+if key_is_down(KEY_LEFT) {
+	player_x -= player_speed;
+} else if key_is_down(KEY_RIGHT) {
+	player_x += player_speed;
+} else if key_is_down(KEY_UP) {
+	player_y -= player_speed;
+} else if key_is_down(KEY_DOWN) {
+	player_y += player_speed;
+}
+
+// we need their onscreen x and y position here, not the fixed-point representation
+display_player(player_x &gt;&gt; player_fp, player_y &gt;&gt; player_fp);
+</code></pre>
+<p>Let's break this down:</p>
+<p>First, we declare the number of bits we're using for the fractional denominator. Then, we initialize variables that use that denominator. Next, we work with those variables, until we need its integer component. Finally, we shift right.</p>
+<p><strong>Always comment your fixed-point. Always always always comment.</strong> It will save many headaches, for you and for anyone reading your code.</p>
+<p>All player location values here use a signed 28.3 fixed-point format, but other values, such as player health or stamina, could use different fixed-point formats, or they could just avoid fixed-point entirely. It's up to you! One set of numbers could use unsigned 16.16f, another set could use signed 30.1f, and so on. It really depends on whatever you need for the numbers that you're working with.</p>
+<p>When shifting right, be careful not to shift onto the variables themselves. For example, it would be a mistake here to do something like:</p>
+<pre><code class="language-c">player_x = player_x &gt;&gt; player_fp; // DON'T DO THIS
+</code></pre>
+<p>Because you'd be destroying the fractional component, which needs to persist on to the next frame. Instead, you'd either want to shift while using <code>player_x</code> as an argument, or you'd want to initialize a separate variable and then shift when assigning to that. You typically only want the right-shifted version at the very end, for outputs.</p>
+<h2 id="addition-and-subtraction"><a class="header" href="#addition-and-subtraction">Addition and Subtraction</a></h2>
+<p>Before adding or subtracting fixed-point numbers, you need to make the denominators match. You can’t just add 1/2 and 3/4 together without first turning 1/2 into 2/4. So, let’s say we have these two variables:</p>
+<pre><code class="language-c">// variable 'a' uses an unsigned 27.5f fixed-point format
+int a_fp = 5;
+unsigned int a = 3 &lt;&lt; a_fp;
+// variable 'b' uses an unsigned 16.16f fixed-point format
+int b_fp = 16;
+unsigned int b = 4 &lt;&lt; b_fp;
+</code></pre>
+<p>These equal 3 and 4, but they’re using different fixed-point representations. If we want to add them together, we need to shift one of them around to have the same format as the other. That looks something like this:</p>
+<pre><code class="language-c">// variable 'c' uses the fixed-point format from variable 'b'
+unsigned int c = (a &lt;&lt; (b_fp - a_fp)) + b;
+</code></pre>
+<p>First, we shift the variable <code>a</code> to match the fixed-point of variable <code>b</code>, based on the difference between the two fixed-points. Then we add. We could have shifted variable <code>b</code> to match the fixed-point of variable <code>a</code>, or we could have shifted both to an entirely new fixed-point. It’s open-ended to whatever precision is needed.</p>
+<p>Note that we use multiple parentheses here; bit shifts do not follow the PEMDAS order of operations, so you will need an abundance of parentheses in order to tell the program exactly what order to follow. At least in C, the compiler will throw a warning if you don’t do this. Also note that you cannot shift by a negative number, it will just throw an error.</p>
+<h2 id="multiplication"><a class="header" href="#multiplication">Multiplication</a></h2>
+<p>What if you want to multiply <code>a</code> and <code>b</code> from before? If you multiply two fixed-point numbers together, you will multiply the fixed-point along with it. In other words, the denominator gets multiplied! This is fine, it just means that you need to shift right after the multiplication. That looks something like this:</p>
+<pre><code class="language-c">// variable 'c' uses the fixed-point format from variable 'b'
+unsigned int c = (a * b) &gt;&gt; a_fp;
+</code></pre>
+<p>With variable <code>a</code> having a fixed-point of 27.5f and variable <code>b</code> having a fixed-point of 16.16f, that gives us a fixed-point of 11.21f after multiplication (5 plus 16 in the denominator). We shift right by 5 bits to get back to 16.16f, but we could have shifted right by 16 bits to get to 27.5f if we wanted that instead. Again, it’s open to whatever precision is needed.</p>
+<p>It’s important to note that you don’t have infinite bits to work with. With an <code>int</code> value, you only have 32 bits lying around, and one of those bits might be needed for signing. Therefore, if you’re going to be multiplying fixed-point values, you need to be mindful of your fixed-point systems, otherwise it will quickly "overflow". Overflow is when you run out of bits, so the number clips to the left, outside of what can be contained.</p>
+<p>For example, if you multiply a 16.16f number by another 16.16f number, then that leaves you with 0.32f during the process of multiplication. That’s not even one bit for the integer segment! Be careful and plan out your fixed-points accordingly. There are workarounds for this, but they will either be slower or less precise. One option is to multiply into a larger data type that has 64 bits of space (slower, for the GBA at least). In C, you would want a <code>uint64_t</code> for that. Another option is to shift each value right by half of the fixed-point before multiplying (less precise).</p>
+<h2 id="division"><a class="header" href="#division">Division</a></h2>
+<p>What about division? Well, you probably shouldn’t do that. That’s because if your system doesn’t have an FPU, it probably doesn’t have hardware-level division either. The GBA doesn’t have hardware-level division.</p>
+<p>As mentioned before, you can shift right, and this will divide by powers of 2, rounding down. Note that even when shifting negative numbers right, it will still round <em>down</em>, not towards 0. That means that -3 shifted right by 1 bit will become -2, not -1.</p>
+<p>Even though you can't do hardware-level division, there are usually creative workarounds. Think outside of the box for this one. How might you get the answer you want without properly dividing? You'd be surprised with just how much division you can get rid of.</p>
+<p>If you really must divide, you would multiply the numerator by the fixed-point first, <em>before</em> dividing.</p>
+<p>And there you go! You now know everything needed to do fixed-point math. Good luck!</p>
+<h2 id="faq"><a class="header" href="#faq">FAQ</a></h2>
+<h3 id="what-if-i-want-to-round-to-the-nearest-integer-or-round-up"><a class="header" href="#what-if-i-want-to-round-to-the-nearest-integer-or-round-up">What if I want to round to the nearest integer, or round up?</a></h3>
+<p>To round to the nearest integer, add 0.5 (half of the denominator), then shift right. To round up, add "the denominator minus one", then shift right.</p>
+<h3 id="why-are-my-numbers-slightly-off"><a class="header" href="#why-are-my-numbers-slightly-off">Why are my numbers slightly off?</a></h3>
+<p>It’s probably because of rounding errors. Not only your final values, but the in-between values as well. This entire process can involve rounding upon rounding, and this can accumulate over time to produce weird results.</p>
+<h3 id="what-about-arithmetic-between-signed-and-unsigned-variables"><a class="header" href="#what-about-arithmetic-between-signed-and-unsigned-variables">What about arithmetic between signed and unsigned variables?</a></h3>
+<p>Unsigned values will equal their signed counterparts all the way up until the leftmost bit is set. The math will still be as expected, as long as the leftmost bit of <em>the unsigned value</em> is 0. Note that the variable holding the result should probably be signed. If the unsigned variable is so large that the leftmost bit is set, then your result might overflow.</p>
+<h3 id="shouldnt-the-leftmost-sign-bit-move-around-with-the-rest-of-the-bits-when-shifting"><a class="header" href="#shouldnt-the-leftmost-sign-bit-move-around-with-the-rest-of-the-bits-when-shifting">Shouldn't the leftmost sign bit move around with the rest of the bits, when shifting?</a></h3>
+<p>Most languages, besides assembly, will handle the sign bit based on whether or not the variable is initialized as signed or unsigned. In ARM assembly, there are separate shifts depending on if you want to preserve the sign bit or move it with everything else.</p>
+<h3 id="what-about-endianness"><a class="header" href="#what-about-endianness">What about endianness?</a></h3>
+<p>Endianness is surprisingly not as relevant here as you'd think, at least if you're using a major programming language. I'm not going to describe endianness here.</p>
+<h3 id="is-it-fixed-point-or-fixed-point"><a class="header" href="#is-it-fixed-point-or-fixed-point">Is it "fixed-point" or "fixed point"?</a></h3>
+<p>Going to the Wikipedia page for <a href="fixed-point-math.html#https://en.wikipedia.org/wiki/Fixed-point_arithmetic">fixed-point arithmetic</a> and just doing a ctrl-f search, I can see 79 instances of "fixed-point" and 28 instances of "fixed point". So, it doesn't matter, just pick whichever looks prettier to you.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bootleg-carts"><a class="header" href="#bootleg-carts">Bootleg Carts</a></h1>
 <p>Bootleg carts, sometimes called repro carts, are illegal game carts sold from China.  At the time of
 writing, some members of the GBADev community have purchased them for around $5/cart.</p>
 <p>From discussion with store owners in China, these carts cannot be ordered blank -- they are created
