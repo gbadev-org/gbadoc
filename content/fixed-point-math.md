@@ -240,7 +240,7 @@ int setup(void)
 }
 ```
 
-Remember that the operations are floating point operations, so they will be slow. There is an exception. If you use `constexpr` or if the compiler detects that an expression is constant, it will calculate it at compile time automatically. This is very useful for setting initial fixed point values from floating point values.
+Remember that those are floating point operations, so they will be slow. There is an exception: if you use `constexpr` or if the compiler detects that an expression is constant, it will calculate it at compile time automatically. This is very useful for setting initial fixed point values from floating point values.
 
 ```c
 int player_x, player_y;
