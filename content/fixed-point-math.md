@@ -209,7 +209,7 @@ If you really must divide, you would multiply the numerator by the fixed-point f
 
 ## Converting between fixed and floating point
 
-Okay, so now you have a way to do mathematical operations efficiently. How do you set the initial values in a convenient way? How do you print the values in a way that is easier to understand than very big integer values?
+Now you have a way to do mathematical operations efficiently. How do you set the initial values in a convenient way? How do you print the values in a way that is easier to understand than very big integer values?
 
 Well, you can convert between fixed and floating point easily:
 
