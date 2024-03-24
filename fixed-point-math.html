@@ -259,13 +259,13 @@
 <h2 id="a-practical-example"><a class="header" href="#a-practical-example">A Practical Example</a></h2>
 <p>Let's say we have a player sprite, with an X and Y position. What speed should we move it at? 2 pixels per frame is too fast, but 1 pixel per frame is too slow. Why don’t we try... 1 and 3/8 pixels per frame. This time we're using 3 bits for our fixed-point.</p>
 <pre><code class="language-c">// a function elsewhere in code, which needs the ONSCREEN x and y position
-extern void display_player(int x, int y);
+void display_player(int x, int y);
 
 // player coordinates use signed 28.3f fixed-point format
-int player_fp = 3;
+const int player_fp = 3;
 
 // 1 and 5/8, written verbosely for demonstration purposes
-int player_speed = 8 + 5;
+int player_speed = (1 &lt;&lt; player_fp) + ((5 &lt;&lt; player_fp) / 8);
 
 // let's start the player at (5, 6) on the screen
 // shift both of these values left to account for the fixed-point
@@ -299,10 +299,11 @@ display_player(player_x &gt;&gt; player_fp, player_y &gt;&gt; player_fp);
 <h2 id="addition-and-subtraction"><a class="header" href="#addition-and-subtraction">Addition and Subtraction</a></h2>
 <p>Before adding or subtracting fixed-point numbers, you need to make the denominators match. You can’t just add 1/2 and 3/4 together without first turning 1/2 into 2/4. So, let’s say we have these two variables:</p>
 <pre><code class="language-c">// variable 'a' uses an unsigned 27.5f fixed-point format
-int a_fp = 5;
+const int a_fp = 5;
 unsigned int a = 3 &lt;&lt; a_fp;
+
 // variable 'b' uses an unsigned 16.16f fixed-point format
-int b_fp = 16;
+const int b_fp = 16;
 unsigned int b = 4 &lt;&lt; b_fp;
 </code></pre>
 <p>These equal 3 and 4, but they’re using different fixed-point representations. If we want to add them together, we need to shift one of them around to have the same format as the other. That looks something like this:</p>
@@ -324,6 +325,46 @@ unsigned int c = (a * b) &gt;&gt; a_fp;
 <p>As mentioned before, you can shift right, and this will divide by powers of 2, rounding down. Note that even when shifting negative numbers right, it will still round <em>down</em>, not towards 0. That means that -3 shifted right by 1 bit will become -2, not -1.</p>
 <p>Even though you can't do hardware-level division, there are usually creative workarounds. Think outside of the box for this one. How might you get the answer you want without properly dividing? You'd be surprised with just how much division you can get rid of.</p>
 <p>If you really must divide, you would multiply the numerator by the fixed-point first, <em>before</em> dividing.</p>
+<h2 id="converting-between-fixed-and-floating-point"><a class="header" href="#converting-between-fixed-and-floating-point">Converting between fixed and floating point</a></h2>
+<p>Now you have a way to do mathematical operations efficiently. How do you set the initial values in a convenient way? How do you print the values in a way that is easier to understand than very big integer values?</p>
+<p>Well, you can convert between fixed and floating point easily:</p>
+<pre><code class="language-c">const int player_fp = 3;
+
+static inline int player_float2fixed(float value)
+{
+	return (int)(value * (1 &lt;&lt; player_fp));
+}
+
+static inline float player_fixed2float(int value)
+{
+	return value / (float)(1 &lt;&lt; player_fp);
+}
+
+// Macro version of the functions, for situations where you can't use functions
+#define PLAYER_FLOAT2FIXED(value)     (int)((value) * (1 &lt;&lt; (player_fp)))
+#define PLAYER_FIXED2FLOAT(value)     ((value) / (float)(1 &lt;&lt; (player_fp)))
+
+int setup(void)
+{
+	int player_x = player_float2fixed(1.23);
+	int player_y = PLAYER_FLOAT2FIXED(2.35);
+
+	printf("Player X: %f\n", player_fixed2float(player_x);
+	printf("Player Y: %f\n", PLAYER_FIXED2FLOAT(player_y);
+}
+</code></pre>
+<p>Remember that those are floating point operations, so they will be slow. There is an exception: if you use <code>constexpr</code> or if the compiler detects that an expression is constant, it will calculate it at compile time automatically. This is very useful for setting initial fixed point values from floating point values.</p>
+<pre><code class="language-c">int player_x, player_y;
+
+constexpr int player_start_x = player_float2fixed(1.23); // Only in C++
+const int player_start_y = PLAYER_FLOAT2FIXED(2.35);
+
+int setup(void)
+{
+	player_x = player_start_x;
+	player_y = player_start_y;
+}
+</code></pre>
 <p>And there you go! You now know everything needed to do fixed-point math. Good luck!</p>
 <h2 id="faq"><a class="header" href="#faq">FAQ</a></h2>
 <h3 id="what-if-i-want-to-round-to-the-nearest-integer-or-round-up"><a class="header" href="#what-if-i-want-to-round-to-the-nearest-integer-or-round-up">What if I want to round to the nearest integer, or round up?</a></h3>
