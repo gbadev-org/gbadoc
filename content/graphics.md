@@ -37,7 +37,7 @@ This allows the full color range to be displayed at once. Unfortunately, the fra
 
 ### Mode 4
 
-8-Bit paletted bitmapped mode at 240x160. The bitmap starts at either `0x06000000` or `0x0600A000`, depending on bit 3 of [REG_DISPCNT](registers.md#REG_DISPCNT). Swapping the map and drawing in the one that isn't displayed allows for page flipping techniques to be used. The palette is at `0x05000000`, and contains 256 16-bit [color entries](#Color Format).
+8-Bit paletted bitmapped mode at 240x160. The bitmap starts at either `0x06000000` or `0x0600A000`, depending on bit 4 of [REG_DISPCNT](registers.md#REG_DISPCNT). Swapping the map and drawing in the one that isn't displayed allows for page flipping techniques to be used. The palette is at `0x05000000`, and contains 256 16-bit [color entries](#color-format).
 
 ### Mode 5
 
