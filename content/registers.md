@@ -26,6 +26,260 @@ COLOR="#9900CC"> </FONT><FONT COLOR="#0099FF">A</FONT><FONT COLOR="#9900CC">  C<
 
 * * *
 
+<h2 id="hardware-register-summary"><a class="header" href="#hardware-register-summary">
+Hardware Register Summary
+</a></h2>
+
+| Starting Address | Region name |
+|------------------|-------------|
+| 0x04000000 | [Display](#hardware-register-summary-display) |
+| 0x04000060 | [Sound](#hardware-register-summary-sound) |
+|            | - [Alternative DMG Sound register names](#hardware-register-summary-sound-alt) |
+| 0x040000B0 | [DMA](#hardware-register-summary-dma) |
+| 0x04000100 | [Timers](#hardware-register-summary-timer) |
+| 0x04000120 | [Serial hardware control and data](#hardware-register-summary-serial) |
+|            | - [Normal / SPI mode](#hardware-register-summary-serial-spi) |
+|            | - [Multiplay mode](#hardware-register-summary-serial-multiplay) |
+|            | - [UART mode](#hardware-register-summary-serial-uart) |
+| 0x04000130 | [Keypad button input and interrupt control](#hardware-register-summary-key) |
+| 0x04000134 | [Serial port mode and control](#hardware-register-summary-rcnt) |
+| 0x04000140 | [JOYBUS controller](#hardware-register-summary-joybus) |
+| 0x04000200 | [Interrupt controller](#hardware-register-summary-irq) |
+|            | - [Cartridge slot waitstate and control](#hardware-register-summary-cartcnt) |
+| 0x04000300 | [System control](#hardware-register-summary-system) |
+
+<h3 id="hardware-register-summary-display"><a class="header" href="#hardware-register-summary-display">
+Display
+</a></h3>
+
+| Address    | Name                      | Size | Description |
+|------------|---------------------------|------|-------------|
+| 0x04000000 | [DISPCNT](#REG_DISPCNT)   | 16   | Display Control |
+| 0x04000002 |                           | 16   | Stereoscopic mode enable |
+| 0x04000004 | [DISPSTAT](#REG_DISPSTAT) | 16   | Display Status, display interrupt enable, Line Y Compare (LYC) |
+| 0x04000006 | [VCOUNT](#REG_VCOUNT)     | 16   | Current display scanline position<br>(equivalent to LY on 8-bit Game Boy systems) |
+| 0x04000008 | [BG0CNT](#REG_BGCNT)      | 16   | Background Control |
+| 0x0400000A | [BG1CNT](#REG_BGCNT)      | ^^   | ^^ |
+| 0x0400000C | [BG2CNT](#REG_BGCNT)      | ^^   | ^^ |
+| 0x0400000E | [BG3CNT](#REG_BGCNT)      | ^^   | ^^
+| 0x04000010 | [BG0HOFS](#REG_BGOFS)     | 16   | Background Scrolling |
+| 0x04000012 | [BG0VOFS](#REG_BGOFS)     | ^^   | ^^ |
+| 0x04000014 | [BG1HOFS](#REG_BGOFS)     | ^^   | ^^ |
+| 0x04000016 | [BG1VOFS](#REG_BGOFS)     | ^^   | ^^ |
+| 0x04000018 | [BG2HOFS](#REG_BGOFS)     | ^^   | ^^ |
+| 0x0400001A | [BG2VOFS](#REG_BGOFS)     | ^^   | ^^ |
+| 0x0400001C | [BG3HOFS](#REG_BGOFS)     | ^^   | ^^ |
+| 0x0400001E | [BG3VOFS](#REG_BGOFS)     | ^^   | ^^ |
+| 0x04000020 | [BG2PA](#REG_BGPA)        | 16   | Background Affine parameters for BG2 |
+| 0x04000022 | [BG2PB](#REG_BGPB)        | 16   | ^^ |
+| 0x04000024 | [BG2PC](#REG_BGPC)        | 16   | ^^ |
+| 0x04000026 | [BG2PD](#REG_BGPD)        | 16   | ^^ |
+| 0x04000028 | [BG2X](#REG_BGX)          | 32   | ^^ |
+| 0x0400002C | [BG2Y](#REG_BGY)          | 32   | ^^ |
+| 0x04000030 | [BG3PA](#REG_BGPA)        | 16   | Background Affine parameters for BG3 |
+| 0x04000032 | [BG3PB](#REG_BGPB)        | 16   | ^^ |
+| 0x04000034 | [BG3PC](#REG_BGPC)        | 16   | ^^ |
+| 0x04000036 | [BG3PD](#REG_BGPD)        | 16   | ^^ |
+| 0x04000038 | [BG3X](#REG_BGX)          | 32   | ^^ |
+| 0x0400003C | [BG3Y](#REG_BGY)          | 32   | ^^ |
+| 0x04000040 | [WIN0H](#REG_WINH)        | 16   | Window Bounds |
+| 0x04000042 | [WIN1H](#REG_WINH)        | 16   | ^^ |
+| 0x04000044 | [WIN0V](#REG_WINV)        | 16   | ^^ |
+| 0x04000046 | [WIN1V](#REG_WINV)        | 16   | ^^ |
+| 0x04000048 | [WININ](#REG_WININ)       | 16   | Window display inside of WIN0 and WIN1 |
+| 0x0400004A | [WINOUT](#REG_WINOUT)     | 16   | Window display outside of WIN0 and WIN1,<br>and inside of OBJWIN |
+| 0x0400004C | [MOSAIC](#REG_MOSAIC)     | 16   | Mosaic effect size |
+| 0x04000050 | [BLDCNT](#REG_BLDCNT)     | 16   | Blend mode and target selection |
+| 0x04000052 | [BLDALPHA](#REG_BLDALPHA) | 16   | Blend alpha coefficients |
+| 0x04000054 | [BLDY](#REG_BLDY)         | 16   | Blend luminance coefficient<br>for lightening and darkening |
+
+<h3 id="hardware-register-summary-sound"><a class="header" href="#hardware-register-summary-sound">
+Sound
+</a></h3>
+
+| Address    | Name                             | Size | Description |
+|------------|---------------------------       |------|-------------|
+| 0x04000060 | [SOUND1CNT_L](#REG_SOUND1CNT_L)  | 16   | DMG Sound Channel 1 |
+| 0x04000062 | [SOUND1CNT_H](#REG_SOUND1CNT_H)  | 16   | ^^ |
+| 0x04000064 | [SOUND1CNT_X](#REG_SOUND1CNT_X)  | 16   | ^^ |
+| 0x04000068 | [SOUND2CNT_L](#REG_SOUND2CNT_L)  | 16   | DMG Sound Channel 2 |
+| 0x0400006C | [SOUND2CNT_H](#REG_SOUND2CNT_H)  | 16   | ^^ |
+| 0x04000070 | [SOUND3CNT_L](#REG_SOUND3CNT_L)  | 16   | DMG Sound Channel 3 |
+| 0x04000072 | [SOUND3CNT_H](#REG_SOUND3CNT_H)  | 16   | ^^ |
+| 0x04000074 | [SOUND3CNT_X](#REG_SOUND3CNT_X)  | 16   | ^^ |
+| 0x04000078 | [SOUND4CNT_L](#REG_SOUND4CNT_L)  | 16   | DMG Sound Channel 4 |
+| 0x0400007C | [SOUND4CNT_H](#REG_SOUND4CNT_H)  | 16   | ^^ |
+| 0x04000080 | [SOUNDCNT_L](#REG_SOUNDCNT_L)    | 16   | DMG Sound master volume and pan |
+| 0x04000082 | [SOUNDCNT_H](#REG_SOUNDCNT_H)    | 16   | GBA Sound volume mixing <br>and Direct Sound control |
+| 0x04000084 | [SOUNDCNT_X](#REG_SOUNDCNT_X)    | 16   | Sound master enable<br>and DMG Sound channel status |
+| 0x04000088 | [SOUNDBIAS](#REG_SOUNDBIAS)      | 16   | PWM bias and resolution |
+| 0x040000A0 | [FIFO_A](#REG_FIFO)              | 32(!)| Direct Sound FIFO A |
+| 0x040000A4 | [FIFO_B](#REG_FIFO)              | 32(!)| Direct Sound FIFO B |
+
+<h4 id="hardware-register-summary-sound-alt"><a class="header" href="#hardware-register-summary-sound-alt">
+Alternative DMG Sound register names
+</a></h4>
+
+| Address    | Name                     | Description |
+|------------|--------------------------|-------------|
+| 0x04000060 | [NR10](#REG_SOUND1CNT_L) | DMG Sound Channel 1 |
+| 0x04000062 | [NR11](#REG_SOUND1CNT_H) | ^^ |
+| 0x04000063 | [NR12](#REG_SOUND1CNT_H) | ^^ |
+| 0x04000064 | [NR13](#REG_SOUND1CNT_X) | ^^ |
+| 0x04000065 | [NR14](#REG_SOUND1CNT_X) | ^^ |
+| 0x04000068 | [NR21](#REG_SOUND2CNT_L) | DMG Sound Channel 2 |
+| 0x04000069 | [NR22](#REG_SOUND2CNT_L) | ^^ |
+| 0x0400006C | [NR23](#REG_SOUND2CNT_H) | ^^ |
+| 0x0400006D | [NR24](#REG_SOUND2CNT_H) | ^^ |
+| 0x04000070 | [NR30](#REG_SOUND3CNT_L) | DMG Sound Channel 3 |
+| 0x04000072 | [NR31](#REG_SOUND3CNT_H) | ^^ |
+| 0x04000073 | [NR32](#REG_SOUND3CNT_H) | ^^ |
+| 0x04000074 | [NR33](#REG_SOUND3CNT_X) | ^^ |
+| 0x04000075 | [NR34](#REG_SOUND3CNT_X) | ^^ |
+| 0x04000078 | [NR41](#REG_SOUND4CNT_L) | DMG Sound Channel 4 |
+| 0x04000079 | [NR42](#REG_SOUND4CNT_L) | ^^ |
+| 0x0400007C | [NR43](#REG_SOUND4CNT_H) | ^^ |
+| 0x0400007D | [NR44](#REG_SOUND4CNT_H) | ^^ |
+| 0x04000080 | [NR50](#REG_SOUNDCNT_L) | DMG Sound master volume |
+| 0x04000081 | [NR51](#REG_SOUNDCNT_L) | DMG Sound channel pan |
+| 0x04000084 | [NR52](#REG_SOUNDCNT_X) | Sound master enable and channel status |
+
+
+<h3 id="hardware-register-summary-dma"><a class="header" href="#hardware-register-summary-dma">
+DMA
+</a></h3>
+
+| Address    | Name                             | Size | Description |
+|------------|----------------------------------|------|-------------|
+| 0x040000B0 | [DMA0SAD](#REG_DMA0SAD)          | 32   | DMA Controller 0 |
+| 0x040000B4 | [DMA0DAD](#REG_DMA0DAD)          | 32   | ^^ |
+| 0x040000B8 | [DMA0CNT_L](#REG_DMA0CNT_L)      | 16   | ^^ |
+| 0x040000BA | [DMA0CNT_H](#REG_DMA0CNT_H)      | 16   | ^^ |
+| 0x040000BC | [DMA1SAD](#REG_DMA1SAD)          | 32   | DMA Controller 1 |
+| 0x040000C0 | [DMA1DAD](#REG_DMA0DAD)          | 32   | ^^ |
+| 0x040000C4 | [DMA1CNT_L](#REG_DMA0CNT_L)      | 16   | ^^ |
+| 0x040000C6 | [DMA1CNT_H](#REG_DMA0CNT_H)      | 16   | ^^ |
+| 0x040000C8 | [DMA2SAD](#REG_DMA1SAD)          | 32   | DMA Controller 2 |
+| 0x040000CC | [DMA2DAD](#REG_DMA0DAD)          | 32   | ^^ |
+| 0x040000D0 | [DMA2CNT_L](#REG_DMA0CNT_L)      | 16   | ^^ |
+| 0x040000D2 | [DMA2CNT_H](#REG_DMA0CNT_H)      | 16   | ^^ |
+| 0x040000D4 | [DMA3SAD](#REG_DMA1SAD)          | 32   | DMA Controller 3 |
+| 0x040000D8 | [DMA3DAD](#REG_DMA3DAD)          | 32   | ^^ |
+| 0x040000DC | [DMA3CNT_L](#REG_DMA0CNT_L)      | 16   | ^^ |
+| 0x040000DE | [DMA3CNT_H](#REG_DMA0CNT_H)      | 16   | ^^ |
+
+
+<h3 id="hardware-register-summary-timer"><a class="header" href="#hardware-register-summary-timer">
+Timer
+</a></h3>
+
+| Address    | Name                             | Size | Description |
+|------------|----------------------------------|------|-------------|
+| 0x04000100 | [TM0D](#REG_TMD)                 | 16   | Timer 0 |
+| 0x04000102 | [TM0CNT](#REG_TMCNT)             | 16   | ^^ |
+| 0x04000104 | [TM1D](#REG_TMD)                 | 16   | Timer 1 |
+| 0x04000106 | [TM1CNT](#REG_TMCNT)             | 16   | ^^ |
+| 0x04000108 | [TM2D](#REG_TMD)                 | 16   | Timer 2 |
+| 0x0400010A | [TM2CNT](#REG_TMCNT)             | 16   | ^^ |
+| 0x0400010C | [TM3D](#REG_TMD)                 | 16   | Timer 3 |
+| 0x0400010E | [TM3CNT](#REG_TMCNT)             | 16   | ^^ |
+
+
+<h3 id="hardware-register-summary-serial"><a class="header" href="#hardware-register-summary-serial">
+Serial peripherals
+</a></h3>
+
+See [Serial port mode and control](#hardware-register-summary-rcnt) to switch to the correct mode.
+
+<h4 id="hardware-register-summary-serial-spi"><a class="header" href="#hardware-register-summary-serial-spi">
+Normal / SPI
+</a></h4>
+
+| Address    | Name                             | Size | Description |
+|------------|----------------------------------|------|-------------|
+| 0x04000128 | [SCCNT_L](#REG_SCCNT_L)          | 16   | Serial peripheral mode, status, and control |
+| 0x0400012A | [SCCNT_H](#REG_SCCNT_H)          | 8    | Serial data send and receive |
+
+<h4 id="hardware-register-summary-serial-multiplay"><a class="header" href="#hardware-register-summary-serial-multiplay">
+Multiplay
+</a></h4>
+
+| Address    | Name                             | Size | Description |
+|------------|----------------------------------|------|-------------|
+| 0x04000120 | [SCD0](#REG_SCD)                 | 16   | Multiplay received data from master |
+| 0x04000122 | [SCD1](#REG_SCD)                 | 16   | Multiplay received data from slave 1 |
+| 0x04000124 | [SCD2](#REG_SCD)                 | 16   | Multiplay received data from slave 2 |
+| 0x04000126 | [SCD3](#REG_SCD)                 | 16   | Multiplay received data from slave 3 |
+| 0x04000128 | [SCCNT_L](#REG_SCCNT_L)          | 16   | Serial peripheral mode, status, and control |
+| 0x0400012A | [SCCNT_H](#REG_SCCNT_H)          | 16   | Multiplay transmit value |
+
+<h4 id="hardware-register-summary-serial-uart"><a class="header" href="#hardware-register-summary-serial-uart">
+UART
+</a></h4>
+
+| Address    | Name                             | Size | Description |
+|------------|----------------------------------|------|-------------|
+| 0x04000128 | [SCCNT_L](#REG_SCCNT_L)          | 16   | Serial peripheral mode, status, and control |
+| 0x0400012A | [SCCNT_H](#REG_SCCNT_H)          | 8    | UART send (W) and receive (R) FIFO |
+
+
+<h3 id="hardware-register-summary-key"><a class="header" href="#hardware-register-summary-key">
+Keypad
+</a></h3>
+
+| Address    | Name                             | Size | Description |
+|------------|----------------------------------|------|-------------|
+| 0x04000130 | [KEYINPUT](#REG_KEYINPUT)        | 16   | Keypad input |
+| 0x04000132 | [KEYCNT](#REG_KEYCNT)            | 16   | Keypad wake and interrupt control |
+
+
+<h3 id="hardware-register-summary-rcnt"><a class="header" href="#hardware-register-summary-rcnt">
+Serial port (EXT.) control
+</a></h3>
+
+| Address    | Name                             | Size | Description |
+|------------|----------------------------------|------|-------------|
+| 0x04000134 | [RCNT](#REG_RCNT)                | 16   | Port mode control,<br>GPIO direction and value,<br>GPIO interrupt enable |
+
+
+<h3 id="hardware-register-summary-joybus"><a class="header" href="#hardware-register-summary-joybus">
+JOYBUS
+</a></h3>
+
+> TODO: JOYBUS is not explored enough yet to be documented here.
+
+
+<h3 id="hardware-register-summary-irq"><a class="header" href="#hardware-register-summary-irq">
+Interrupts
+</a></h3>
+
+| Address    | Name                             | Size | Description |
+|------------|----------------------------------|------|-------------|
+| 0x04000200 | [IE](#REG_IE)                    | 16   | Interrupt enable selection |
+| 0x04000202 | [IF](#REG_IF)                    | 16   | Interrupt status and acknowledge |
+| 0x04000208 | [IME](#REG_IME)                  | 32   | Interrupt Master Enable |
+
+
+<h3 id="hardware-register-summary-cartcnt"><a class="header" href="#hardware-register-summary-cartcnt">
+Cartridge slot control
+</a></h3>
+
+| Address    | Name                             | Size | Description |
+|------------|----------------------------------|------|-------------|
+| 0x04000204 | [WAITCNT](#REG_WAITCNT)          | 16   | Cartridge waitstate control,<br>clock output,<br>prefetch enable,<br>and cartridge shape status |
+
+
+<h3 id="hardware-register-summary-system"><a class="header" href="#hardware-register-summary-system">
+System control
+</a></h3>
+
+| Address    | Name                             | Size | Description |
+|------------|----------------------------------|------|-------------|
+| 0x04000300 | [HALTCNT](#REG_HALTCNT)          | 16   | Low-power mode control<br>and boot flag status |
+| 0x04000800 |                                  | 32   | (Only on AGB, AGS, GBP, and OXY)<br>Test mode control |
+
+* * *
+
 <h2 id="graphics-hardware-registers"><a class="header" href="#graphics-hardware-registers">
 0x04000000 - 0x04000054 - Graphics Hardware Registers
 </a></h2>
