@@ -40,19 +40,20 @@
         <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
         <!-- MathJax -->
         <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-        <!-- Provide site root to javascript -->
+        <!-- Provide site root and default themes to javascript -->
         <script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
@@ -62,8 +63,8 @@
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -77,7 +78,8 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             const html = document.documentElement;
@@ -90,8 +92,8 @@
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -127,6 +129,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
@@ -316,6 +319,221 @@ COLOR="#9900CC"> </FONT><FONT COLOR="#0099FF">A</FONT><FONT COLOR="#9900CC">  C<
                                      and remain at 0.</span></PRE>
 </div>
 <br>
+<hr />
+<h2 id="hardware-register-summary"><a class="header" href="registers.html#hardware-register-summary">
+Hardware Register Summary
+</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Starting Address</th><th>Region name</th></tr></thead><tbody>
+<tr><td>0x04000000</td><td><a href="registers.html#hardware-register-summary-display">Display</a></td></tr>
+<tr><td>0x04000060</td><td><a href="registers.html#hardware-register-summary-sound">Sound</a></td></tr>
+<tr><td></td><td>- <a href="registers.html#hardware-register-summary-sound-alt">Alternative DMG Sound register names</a></td></tr>
+<tr><td>0x040000B0</td><td><a href="registers.html#hardware-register-summary-dma">DMA</a></td></tr>
+<tr><td>0x04000100</td><td><a href="registers.html#hardware-register-summary-timer">Timers</a></td></tr>
+<tr><td>0x04000120</td><td><a href="registers.html#hardware-register-summary-serial">Serial hardware control and data</a></td></tr>
+<tr><td></td><td>- <a href="registers.html#hardware-register-summary-serial-spi">Normal / SPI mode</a></td></tr>
+<tr><td></td><td>- <a href="registers.html#hardware-register-summary-serial-multiplay">Multiplay mode</a></td></tr>
+<tr><td></td><td>- <a href="registers.html#hardware-register-summary-serial-uart">UART mode</a></td></tr>
+<tr><td>0x04000130</td><td><a href="registers.html#hardware-register-summary-key">Keypad button input and interrupt control</a></td></tr>
+<tr><td>0x04000134</td><td><a href="registers.html#hardware-register-summary-rcnt">Serial port mode and control</a></td></tr>
+<tr><td>0x04000140</td><td><a href="registers.html#hardware-register-summary-joybus">JOYBUS controller</a></td></tr>
+<tr><td>0x04000200</td><td><a href="registers.html#hardware-register-summary-irq">Interrupt controller</a></td></tr>
+<tr><td></td><td>- <a href="registers.html#hardware-register-summary-cartcnt">Cartridge slot waitstate and control</a></td></tr>
+<tr><td>0x04000300</td><td><a href="registers.html#hardware-register-summary-system">System control</a></td></tr>
+</tbody></table>
+</div><h3 id="hardware-register-summary-display"><a class="header" href="registers.html#hardware-register-summary-display">
+Display
+</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Size</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04000000</td><td><a href="registers.html#REG_DISPCNT">DISPCNT</a></td><td>16</td><td>Display Control</td></tr>
+<tr><td>0x04000002</td><td></td><td>16</td><td>Stereoscopic mode enable</td></tr>
+<tr><td>0x04000004</td><td><a href="registers.html#REG_DISPSTAT">DISPSTAT</a></td><td>16</td><td>Display Status, display interrupt enable, Line Y Compare (LYC)</td></tr>
+<tr><td>0x04000006</td><td><a href="registers.html#REG_VCOUNT">VCOUNT</a></td><td>16</td><td>Current display scanline position<br>(equivalent to LY on 8-bit Game Boy systems)</td></tr>
+<tr><td>0x04000008</td><td><a href="registers.html#REG_BGCNT">BG0CNT</a></td><td>16</td><td>Background Control</td></tr>
+<tr><td>0x0400000A</td><td><a href="registers.html#REG_BGCNT">BG1CNT</a></td><td>^^</td><td>^^</td></tr>
+<tr><td>0x0400000C</td><td><a href="registers.html#REG_BGCNT">BG2CNT</a></td><td>^^</td><td>^^</td></tr>
+<tr><td>0x0400000E</td><td><a href="registers.html#REG_BGCNT">BG3CNT</a></td><td>^^</td><td>^^</td></tr>
+<tr><td>0x04000010</td><td><a href="registers.html#REG_BGOFS">BG0HOFS</a></td><td>16</td><td>Background Scrolling</td></tr>
+<tr><td>0x04000012</td><td><a href="registers.html#REG_BGOFS">BG0VOFS</a></td><td>^^</td><td>^^</td></tr>
+<tr><td>0x04000014</td><td><a href="registers.html#REG_BGOFS">BG1HOFS</a></td><td>^^</td><td>^^</td></tr>
+<tr><td>0x04000016</td><td><a href="registers.html#REG_BGOFS">BG1VOFS</a></td><td>^^</td><td>^^</td></tr>
+<tr><td>0x04000018</td><td><a href="registers.html#REG_BGOFS">BG2HOFS</a></td><td>^^</td><td>^^</td></tr>
+<tr><td>0x0400001A</td><td><a href="registers.html#REG_BGOFS">BG2VOFS</a></td><td>^^</td><td>^^</td></tr>
+<tr><td>0x0400001C</td><td><a href="registers.html#REG_BGOFS">BG3HOFS</a></td><td>^^</td><td>^^</td></tr>
+<tr><td>0x0400001E</td><td><a href="registers.html#REG_BGOFS">BG3VOFS</a></td><td>^^</td><td>^^</td></tr>
+<tr><td>0x04000020</td><td><a href="registers.html#REG_BGPA">BG2PA</a></td><td>16</td><td>Background Affine parameters for BG2</td></tr>
+<tr><td>0x04000022</td><td><a href="registers.html#REG_BGPB">BG2PB</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000024</td><td><a href="registers.html#REG_BGPC">BG2PC</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000026</td><td><a href="registers.html#REG_BGPD">BG2PD</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000028</td><td><a href="registers.html#REG_BGX">BG2X</a></td><td>32</td><td>^^</td></tr>
+<tr><td>0x0400002C</td><td><a href="registers.html#REG_BGY">BG2Y</a></td><td>32</td><td>^^</td></tr>
+<tr><td>0x04000030</td><td><a href="registers.html#REG_BGPA">BG3PA</a></td><td>16</td><td>Background Affine parameters for BG3</td></tr>
+<tr><td>0x04000032</td><td><a href="registers.html#REG_BGPB">BG3PB</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000034</td><td><a href="registers.html#REG_BGPC">BG3PC</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000036</td><td><a href="registers.html#REG_BGPD">BG3PD</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000038</td><td><a href="registers.html#REG_BGX">BG3X</a></td><td>32</td><td>^^</td></tr>
+<tr><td>0x0400003C</td><td><a href="registers.html#REG_BGY">BG3Y</a></td><td>32</td><td>^^</td></tr>
+<tr><td>0x04000040</td><td><a href="registers.html#REG_WINH">WIN0H</a></td><td>16</td><td>Window Bounds</td></tr>
+<tr><td>0x04000042</td><td><a href="registers.html#REG_WINH">WIN1H</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000044</td><td><a href="registers.html#REG_WINV">WIN0V</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000046</td><td><a href="registers.html#REG_WINV">WIN1V</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000048</td><td><a href="registers.html#REG_WININ">WININ</a></td><td>16</td><td>Window display inside of WIN0 and WIN1</td></tr>
+<tr><td>0x0400004A</td><td><a href="registers.html#REG_WINOUT">WINOUT</a></td><td>16</td><td>Window display outside of WIN0 and WIN1,<br>and inside of OBJWIN</td></tr>
+<tr><td>0x0400004C</td><td><a href="registers.html#REG_MOSAIC">MOSAIC</a></td><td>16</td><td>Mosaic effect size</td></tr>
+<tr><td>0x04000050</td><td><a href="registers.html#REG_BLDCNT">BLDCNT</a></td><td>16</td><td>Blend mode and target selection</td></tr>
+<tr><td>0x04000052</td><td><a href="registers.html#REG_BLDALPHA">BLDALPHA</a></td><td>16</td><td>Blend alpha coefficients</td></tr>
+<tr><td>0x04000054</td><td><a href="registers.html#REG_BLDY">BLDY</a></td><td>16</td><td>Blend luminance coefficient<br>for lightening and darkening</td></tr>
+</tbody></table>
+</div><h3 id="hardware-register-summary-sound"><a class="header" href="registers.html#hardware-register-summary-sound">
+Sound
+</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Size</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04000060</td><td><a href="registers.html#REG_SOUND1CNT_L">SOUND1CNT_L</a></td><td>16</td><td>DMG Sound Channel 1</td></tr>
+<tr><td>0x04000062</td><td><a href="registers.html#REG_SOUND1CNT_H">SOUND1CNT_H</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000064</td><td><a href="registers.html#REG_SOUND1CNT_X">SOUND1CNT_X</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000068</td><td><a href="registers.html#REG_SOUND2CNT_L">SOUND2CNT_L</a></td><td>16</td><td>DMG Sound Channel 2</td></tr>
+<tr><td>0x0400006C</td><td><a href="registers.html#REG_SOUND2CNT_H">SOUND2CNT_H</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000070</td><td><a href="registers.html#REG_SOUND3CNT_L">SOUND3CNT_L</a></td><td>16</td><td>DMG Sound Channel 3</td></tr>
+<tr><td>0x04000072</td><td><a href="registers.html#REG_SOUND3CNT_H">SOUND3CNT_H</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000074</td><td><a href="registers.html#REG_SOUND3CNT_X">SOUND3CNT_X</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000078</td><td><a href="registers.html#REG_SOUND4CNT_L">SOUND4CNT_L</a></td><td>16</td><td>DMG Sound Channel 4</td></tr>
+<tr><td>0x0400007C</td><td><a href="registers.html#REG_SOUND4CNT_H">SOUND4CNT_H</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000080</td><td><a href="registers.html#REG_SOUNDCNT_L">SOUNDCNT_L</a></td><td>16</td><td>DMG Sound master volume and pan</td></tr>
+<tr><td>0x04000082</td><td><a href="registers.html#REG_SOUNDCNT_H">SOUNDCNT_H</a></td><td>16</td><td>GBA Sound volume mixing <br>and Direct Sound control</td></tr>
+<tr><td>0x04000084</td><td><a href="registers.html#REG_SOUNDCNT_X">SOUNDCNT_X</a></td><td>16</td><td>Sound master enable<br>and DMG Sound channel status</td></tr>
+<tr><td>0x04000088</td><td><a href="registers.html#REG_SOUNDBIAS">SOUNDBIAS</a></td><td>16</td><td>PWM bias and resolution</td></tr>
+<tr><td>0x040000A0</td><td><a href="registers.html#REG_FIFO">FIFO_A</a></td><td>32(!)</td><td>Direct Sound FIFO A</td></tr>
+<tr><td>0x040000A4</td><td><a href="registers.html#REG_FIFO">FIFO_B</a></td><td>32(!)</td><td>Direct Sound FIFO B</td></tr>
+</tbody></table>
+</div><h4 id="hardware-register-summary-sound-alt"><a class="header" href="registers.html#hardware-register-summary-sound-alt">
+Alternative DMG Sound register names
+</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04000060</td><td><a href="registers.html#REG_SOUND1CNT_L">NR10</a></td><td>DMG Sound Channel 1</td></tr>
+<tr><td>0x04000062</td><td><a href="registers.html#REG_SOUND1CNT_H">NR11</a></td><td>^^</td></tr>
+<tr><td>0x04000063</td><td><a href="registers.html#REG_SOUND1CNT_H">NR12</a></td><td>^^</td></tr>
+<tr><td>0x04000064</td><td><a href="registers.html#REG_SOUND1CNT_X">NR13</a></td><td>^^</td></tr>
+<tr><td>0x04000065</td><td><a href="registers.html#REG_SOUND1CNT_X">NR14</a></td><td>^^</td></tr>
+<tr><td>0x04000068</td><td><a href="registers.html#REG_SOUND2CNT_L">NR21</a></td><td>DMG Sound Channel 2</td></tr>
+<tr><td>0x04000069</td><td><a href="registers.html#REG_SOUND2CNT_L">NR22</a></td><td>^^</td></tr>
+<tr><td>0x0400006C</td><td><a href="registers.html#REG_SOUND2CNT_H">NR23</a></td><td>^^</td></tr>
+<tr><td>0x0400006D</td><td><a href="registers.html#REG_SOUND2CNT_H">NR24</a></td><td>^^</td></tr>
+<tr><td>0x04000070</td><td><a href="registers.html#REG_SOUND3CNT_L">NR30</a></td><td>DMG Sound Channel 3</td></tr>
+<tr><td>0x04000072</td><td><a href="registers.html#REG_SOUND3CNT_H">NR31</a></td><td>^^</td></tr>
+<tr><td>0x04000073</td><td><a href="registers.html#REG_SOUND3CNT_H">NR32</a></td><td>^^</td></tr>
+<tr><td>0x04000074</td><td><a href="registers.html#REG_SOUND3CNT_X">NR33</a></td><td>^^</td></tr>
+<tr><td>0x04000075</td><td><a href="registers.html#REG_SOUND3CNT_X">NR34</a></td><td>^^</td></tr>
+<tr><td>0x04000078</td><td><a href="registers.html#REG_SOUND4CNT_L">NR41</a></td><td>DMG Sound Channel 4</td></tr>
+<tr><td>0x04000079</td><td><a href="registers.html#REG_SOUND4CNT_L">NR42</a></td><td>^^</td></tr>
+<tr><td>0x0400007C</td><td><a href="registers.html#REG_SOUND4CNT_H">NR43</a></td><td>^^</td></tr>
+<tr><td>0x0400007D</td><td><a href="registers.html#REG_SOUND4CNT_H">NR44</a></td><td>^^</td></tr>
+<tr><td>0x04000080</td><td><a href="registers.html#REG_SOUNDCNT_L">NR50</a></td><td>DMG Sound master volume</td></tr>
+<tr><td>0x04000081</td><td><a href="registers.html#REG_SOUNDCNT_L">NR51</a></td><td>DMG Sound channel pan</td></tr>
+<tr><td>0x04000084</td><td><a href="registers.html#REG_SOUNDCNT_X">NR52</a></td><td>Sound master enable and channel status</td></tr>
+</tbody></table>
+</div><h3 id="hardware-register-summary-dma"><a class="header" href="registers.html#hardware-register-summary-dma">
+DMA
+</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Size</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x040000B0</td><td><a href="registers.html#REG_DMA0SAD">DMA0SAD</a></td><td>32</td><td>DMA Controller 0</td></tr>
+<tr><td>0x040000B4</td><td><a href="registers.html#REG_DMA0DAD">DMA0DAD</a></td><td>32</td><td>^^</td></tr>
+<tr><td>0x040000B8</td><td><a href="registers.html#REG_DMA0CNT_L">DMA0CNT_L</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x040000BA</td><td><a href="registers.html#REG_DMA0CNT_H">DMA0CNT_H</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x040000BC</td><td><a href="registers.html#REG_DMA1SAD">DMA1SAD</a></td><td>32</td><td>DMA Controller 1</td></tr>
+<tr><td>0x040000C0</td><td><a href="registers.html#REG_DMA0DAD">DMA1DAD</a></td><td>32</td><td>^^</td></tr>
+<tr><td>0x040000C4</td><td><a href="registers.html#REG_DMA0CNT_L">DMA1CNT_L</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x040000C6</td><td><a href="registers.html#REG_DMA0CNT_H">DMA1CNT_H</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x040000C8</td><td><a href="registers.html#REG_DMA1SAD">DMA2SAD</a></td><td>32</td><td>DMA Controller 2</td></tr>
+<tr><td>0x040000CC</td><td><a href="registers.html#REG_DMA0DAD">DMA2DAD</a></td><td>32</td><td>^^</td></tr>
+<tr><td>0x040000D0</td><td><a href="registers.html#REG_DMA0CNT_L">DMA2CNT_L</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x040000D2</td><td><a href="registers.html#REG_DMA0CNT_H">DMA2CNT_H</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x040000D4</td><td><a href="registers.html#REG_DMA1SAD">DMA3SAD</a></td><td>32</td><td>DMA Controller 3</td></tr>
+<tr><td>0x040000D8</td><td><a href="registers.html#REG_DMA3DAD">DMA3DAD</a></td><td>32</td><td>^^</td></tr>
+<tr><td>0x040000DC</td><td><a href="registers.html#REG_DMA0CNT_L">DMA3CNT_L</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x040000DE</td><td><a href="registers.html#REG_DMA0CNT_H">DMA3CNT_H</a></td><td>16</td><td>^^</td></tr>
+</tbody></table>
+</div><h3 id="hardware-register-summary-timer"><a class="header" href="registers.html#hardware-register-summary-timer">
+Timer
+</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Size</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04000100</td><td><a href="registers.html#REG_TMD">TM0D</a></td><td>16</td><td>Timer 0</td></tr>
+<tr><td>0x04000102</td><td><a href="registers.html#REG_TMCNT">TM0CNT</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000104</td><td><a href="registers.html#REG_TMD">TM1D</a></td><td>16</td><td>Timer 1</td></tr>
+<tr><td>0x04000106</td><td><a href="registers.html#REG_TMCNT">TM1CNT</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x04000108</td><td><a href="registers.html#REG_TMD">TM2D</a></td><td>16</td><td>Timer 2</td></tr>
+<tr><td>0x0400010A</td><td><a href="registers.html#REG_TMCNT">TM2CNT</a></td><td>16</td><td>^^</td></tr>
+<tr><td>0x0400010C</td><td><a href="registers.html#REG_TMD">TM3D</a></td><td>16</td><td>Timer 3</td></tr>
+<tr><td>0x0400010E</td><td><a href="registers.html#REG_TMCNT">TM3CNT</a></td><td>16</td><td>^^</td></tr>
+</tbody></table>
+</div><h3 id="hardware-register-summary-serial"><a class="header" href="registers.html#hardware-register-summary-serial">
+Serial peripherals
+</a></h3>
+<p>See <a href="registers.html#hardware-register-summary-rcnt">Serial port mode and control</a> to switch to the correct mode.</p>
+<h4 id="hardware-register-summary-serial-spi"><a class="header" href="registers.html#hardware-register-summary-serial-spi">
+Normal / SPI
+</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Size</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04000128</td><td><a href="registers.html#REG_SCCNT_L">SCCNT_L</a></td><td>16</td><td>Serial peripheral mode, status, and control</td></tr>
+<tr><td>0x0400012A</td><td><a href="registers.html#REG_SCCNT_H">SCCNT_H</a></td><td>8</td><td>Serial data send and receive</td></tr>
+</tbody></table>
+</div><h4 id="hardware-register-summary-serial-multiplay"><a class="header" href="registers.html#hardware-register-summary-serial-multiplay">
+Multiplay
+</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Size</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04000120</td><td><a href="registers.html#REG_SCD">SCD0</a></td><td>16</td><td>Multiplay received data from master</td></tr>
+<tr><td>0x04000122</td><td><a href="registers.html#REG_SCD">SCD1</a></td><td>16</td><td>Multiplay received data from slave 1</td></tr>
+<tr><td>0x04000124</td><td><a href="registers.html#REG_SCD">SCD2</a></td><td>16</td><td>Multiplay received data from slave 2</td></tr>
+<tr><td>0x04000126</td><td><a href="registers.html#REG_SCD">SCD3</a></td><td>16</td><td>Multiplay received data from slave 3</td></tr>
+<tr><td>0x04000128</td><td><a href="registers.html#REG_SCCNT_L">SCCNT_L</a></td><td>16</td><td>Serial peripheral mode, status, and control</td></tr>
+<tr><td>0x0400012A</td><td><a href="registers.html#REG_SCCNT_H">SCCNT_H</a></td><td>16</td><td>Multiplay transmit value</td></tr>
+</tbody></table>
+</div><h4 id="hardware-register-summary-serial-uart"><a class="header" href="registers.html#hardware-register-summary-serial-uart">
+UART
+</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Size</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04000128</td><td><a href="registers.html#REG_SCCNT_L">SCCNT_L</a></td><td>16</td><td>Serial peripheral mode, status, and control</td></tr>
+<tr><td>0x0400012A</td><td><a href="registers.html#REG_SCCNT_H">SCCNT_H</a></td><td>8</td><td>UART send (W) and receive (R) FIFO</td></tr>
+</tbody></table>
+</div><h3 id="hardware-register-summary-key"><a class="header" href="registers.html#hardware-register-summary-key">
+Keypad
+</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Size</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04000130</td><td><a href="registers.html#REG_KEYINPUT">KEYINPUT</a></td><td>16</td><td>Keypad input</td></tr>
+<tr><td>0x04000132</td><td><a href="registers.html#REG_KEYCNT">KEYCNT</a></td><td>16</td><td>Keypad wake and interrupt control</td></tr>
+</tbody></table>
+</div><h3 id="hardware-register-summary-rcnt"><a class="header" href="registers.html#hardware-register-summary-rcnt">
+Serial port (EXT.) control
+</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Size</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04000134</td><td><a href="registers.html#REG_RCNT">RCNT</a></td><td>16</td><td>Port mode control,<br>GPIO direction and value,<br>GPIO interrupt enable</td></tr>
+</tbody></table>
+</div><h3 id="hardware-register-summary-joybus"><a class="header" href="registers.html#hardware-register-summary-joybus">
+JOYBUS
+</a></h3>
+<blockquote>
+<p>TODO: JOYBUS is not explored enough yet to be documented here.</p>
+</blockquote>
+<h3 id="hardware-register-summary-irq"><a class="header" href="registers.html#hardware-register-summary-irq">
+Interrupts
+</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Size</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04000200</td><td><a href="registers.html#REG_IE">IE</a></td><td>16</td><td>Interrupt enable selection</td></tr>
+<tr><td>0x04000202</td><td><a href="registers.html#REG_IF">IF</a></td><td>16</td><td>Interrupt status and acknowledge</td></tr>
+<tr><td>0x04000208</td><td><a href="registers.html#REG_IME">IME</a></td><td>32</td><td>Interrupt Master Enable</td></tr>
+</tbody></table>
+</div><h3 id="hardware-register-summary-cartcnt"><a class="header" href="registers.html#hardware-register-summary-cartcnt">
+Cartridge slot control
+</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Size</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04000204</td><td><a href="registers.html#REG_WAITCNT">WAITCNT</a></td><td>16</td><td>Cartridge waitstate control,<br>clock output,<br>prefetch enable,<br>and cartridge shape status</td></tr>
+</tbody></table>
+</div><h3 id="hardware-register-summary-system"><a class="header" href="registers.html#hardware-register-summary-system">
+System control
+</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Address</th><th>Name</th><th>Size</th><th>Description</th></tr></thead><tbody>
+<tr><td>0x04000300</td><td><a href="registers.html#REG_HALTCNT">HALTCNT</a></td><td>16</td><td>Low-power mode control<br>and boot flag status</td></tr>
+<tr><td>0x04000800</td><td></td><td>32</td><td>(Only on AGB, AGS, GBP, and OXY)<br>Test mode control</td></tr>
+</tbody></table>
+</div>
 <hr />
 <h2 id="graphics-hardware-registers"><a class="header" href="registers.html#graphics-hardware-registers">
 0x04000000 - 0x04000054 - Graphics Hardware Registers
