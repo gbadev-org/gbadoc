@@ -45,7 +45,7 @@ This is another 16-bit bitmapped mode, but at a smaller resolution of 160x128. T
 
 ## Color Format
 
-All colors (both paletted and bitmapped) are represented as a 16 bit value, using 5 bits for red, green, and blue, and ignoring bit 15. In the case of paletted memory, pixels in an image are represented as 8 bit or 4 bit indices into the [palette RAM](#Palette) starting at `0x05000000` for backgrounds and `0x05002000` for sprites. Each palette is a table consisiting of 256 16-bit color entries. In the case of the bitmapped backgrounds in modes 3 and 4, pixels are represented as the 16-bit color values themselves.
+All colors (both paletted and bitmapped) are represented as a 16 bit value, using 5 bits for red, green, and blue, and ignoring bit 15. In the case of paletted memory, pixels in an image are represented as 8 bit or 4 bit indices into the [palette RAM](#Palette) starting at `0x05000000` for backgrounds and `0x05000200` for sprites. Each palette is a table consisiting of 256 16-bit color entries. In the case of the bitmapped backgrounds in modes 3 and 4, pixels are represented as the 16-bit color values themselves.
 
 <html>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0

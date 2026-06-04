@@ -13,7 +13,7 @@ Depending on the current [video mode](graphics.md#video-modes), three different 
 
 These are tile-based backgrounds that descend from the usage of tiles to display characters in text modes of a PC or workstation. They are made up of 8x8 tiles, the bitmaps of which are stored at the tile data address. The address of this data is set using registers [REG_BG0CNT - REG_BG3CNT](registers.md#REG_BGCNT). The [HOFS / VOFS](registers.md#REG_BGOFS) registers can be used to scroll around a larger area of up to 512x512 pixels (or 64 x 64 tiles).  
   
-In text backgrounds, the data for each pixel is stored as an 8 or 4 bit palette index. In 8-bit mode, the [palette](memory.md#palette-ram) is at `0x05000000` stores a 15-bit color value for each of the 256 palette entries. In 4-bit mode, the the map index contains a 4-bit value indicating which of 16 16-color palettes to use for each tile. Each of these palettes is 32 bytes long and can be found at `0x05000000`, `0x05000020`, etc.
+In text backgrounds, the data for each pixel is stored as an 8 or 4 bit palette index. In 8-bit mode, the [palette](memory.md#palette-ram) at `0x05000000` stores a 15-bit color value for each of the 256 palette entries. In 4-bit mode, the the map index contains a 4-bit value indicating which of 16 16-color palettes to use for each tile. Each of these palettes is 32 bytes long and can be found at `0x05000000`, `0x05000020`, etc.
 
 ### Scale/Rotate Backgrounds
 
@@ -27,7 +27,7 @@ These backgrounds vary depending on the [video mode](graphics.md#video-modes), b
 
 ### Text Background Map Format
 
-The tile map, which stores the layout of the tiles on screen, begins at the tile map address found for a particular background, detrmined by [REG_BG0CNT - REG_BG3CNT](registers.md#REG_BG0). It has a selectable size up to 512x512. The tile map contains a 16-bit entry for each tile, with has the following format:
+The tile map, which stores the layout of the tiles on screen, begins at the tile map address found for a particular background, detrmined by [REG_BG0CNT - REG_BG3CNT](registers.md#REG_BG0). It has a selectable size up to 512x512. The tile map contains a 16-bit entry for each tile, which has the following format:
 
 <div>
 <PRE style="width: min-content; margin: 16px auto">F E D C  B A 9 8  7 6 5 4  3 2 1 0 
