@@ -42,7 +42,7 @@ So, the basic model for setting up interrupts is:
 
 2. Turn on the interrupts you wish to use:
 
-    * [REG_DISPSTAT](registers.md#REG_STAT), [REG_TMXCNT](registers.md#REG_TM0CNT), [REG_KEYCNT](registers.md#REG_KEYCNT), or [REG_DMAXCNT](registers.md#REG_DMA0CNT) tell the hardware which interrupts to send
+    * [REG_DISPSTAT](registers.md#REG_DISPSTAT), [REG_TMXCNT](registers.md#REG_TMCNT), [REG_KEYCNT](registers.md#REG_KEYCNT), or [REG_DMAXCNT](registers.md#REG_DMA0CNT) tell the hardware which interrupts to send
     * `0x04000200` ([REG_IE](registers.md#REG_IE)) masks which interrupts will actually be serviced (?)
     * `0x04000208` ([REG_IME](registers.md#REG_IME)) Turns all interrupts on or off.
 
@@ -54,17 +54,17 @@ So, the basic model for setting up interrupts is:
 
 ## Types of Hardware Interrupts
 
-Enable these interrupts using [REG_DISPSTAT](registers.md#REG_STAT), [REG_TMXCNT](registers.md#REG_TM0CNT), [REG_KEYCNT](registers.md#REG_KEYCNT), or [REG_DMAXCNT](registers.md#REG_DMA0CNT), then setting the correct flags in [REG_IE](registers.md#REG_IE) and [REG_IME](registers.md#REG_IME).
+Enable these interrupts using [REG_DISPSTAT](registers.md#REG_DISPSTAT), [REG_TMXCNT](registers.md#REG_TMCNT), [REG_KEYCNT](registers.md#REG_KEYCNT), or [REG_DMAXCNT](registers.md#REG_DMA0CNT), then setting the correct flags in [REG_IE](registers.md#REG_IE) and [REG_IME](registers.md#REG_IME).
 
-* **V-Blank**: Occurs when the [vcount](registers.md#REG_VCOUNT) reaches 160, or 0xA0. (Enable in [REG_DISPSTAT](registers.md#REG_STAT))
+* **V-Blank**: Occurs when the [vcount](registers.md#REG_VCOUNT) reaches 160, or 0xA0. (Enable in [REG_DISPSTAT](registers.md#REG_DISPSTAT))
 
-* **H-Blank**: Occurs at the end of every raster line, from 0 - 228. H-blank interrupts DO occur during v-blank (unlike hdma, which does not), so write your code accordingly. Thanks to gbcft for verifying this. (Enable in [REG_DISPSTAT](registers.md#REG_STAT))
+* **H-Blank**: Occurs at the end of every raster line, from 0 - 228. H-blank interrupts DO occur during v-blank (unlike hdma, which does not), so write your code accordingly. Thanks to gbcft for verifying this. (Enable in [REG_DISPSTAT](registers.md#REG_DISPSTAT))
 
 * **Serial**: I am unsure about this; I presume it has to do with the link cable.
 
-* **V-Count**: Occurs when the [vcount](registers.md#REG_VCOUNT) reaches the number specified in [REG_DISPSTAT](registers.md#REG_STAT).
+* **V-Count**: Occurs when the [vcount](registers.md#REG_VCOUNT) reaches the number specified in [REG_DISPSTAT](registers.md#REG_DISPSTAT).
 
-* **Timer**: These occur whenever one of the [timer registers](registers.md#timer-registers) is set to cause an interrupt whenever it overflows. Enable in [REG_TMXCNT](registers.md#REG_TM0CNT).
+* **Timer**: These occur whenever one of the [timer registers](registers.md#timer-registers) is set to cause an interrupt whenever it overflows. Enable in [REG_TMXCNT](registers.md#REG_TMCNT).
 
 * **DMA**: These occur after a DMA transfer, according to the flags in the [DMA_CNT](registers.md#REG_DMA0CNT) registers and in [REG_IE](registers.md#REG_IE). Enable in [REG_DMAXCNT](registers.md#REG_DMA0CNT).
 
