@@ -1,6 +1,6 @@
 [book]
 title = "gbadoc"
-author = "The Awesome GBA Dev Contributors"
+authors = ["The Awesome GBA Dev Contributors"]
 description = "Documents the workings of the Game Boy Advance hardware"
 src = "content"
 language = "en"
