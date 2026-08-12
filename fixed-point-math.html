@@ -27,21 +27,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-ce672bb7.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -53,12 +52,24 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-1abf1abf.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="toc-89e538db.js"></script>
     </head>
     <body>
-    <div id="body-container">
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -87,56 +98,59 @@
             html.classList.add("js");
         </script>
 
-        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             let sidebar = null;
-            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
+                sidebar_toggle.checked = false;
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
         </script>
 
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
                 <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
             </noscript>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
-        <div id="page-wrapper" class="page-wrapper">
+        <div id="mdbook-page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                            <i class="fa fa-bars"></i>
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
                         </label>
-                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                            <i class="fa fa-paint-brush"></i>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
                         </button>
-                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                            <i class="fa fa-search"></i>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
                         </button>
                     </div>
 
@@ -144,42 +158,47 @@
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
-                            <i id="print-button" class="fa fa-print"></i>
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
 
                     </div>
                 </div>
 
-                <div id="search-wrapper" class="hidden">
-                    <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
                     </form>
-                    <div id="searchresults-outer" class="searchresults-outer hidden">
-                        <div id="searchresults-header" class="searchresults-header"></div>
-                        <ul id="searchresults">
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
                         </ul>
                     </div>
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
-                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
                 </script>
 
-                <div id="content" class="content">
+                <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="fixed-point-math-for-newbies"><a class="header" href="#fixed-point-math-for-newbies">Fixed-Point Math for Newbies</a></h1>
-<p>You may have come across the term "fixed-point math" before, especially if you're into homebrew. What is fixed-point math, why do we use it, and how does it work?</p>
-<p>Fixed-point math is a common workaround for when a piece of hardware doesn't have a floating point unit, or FPU. A floating point unit, in simple terms, is what allows computers to deal with fractional values (such as 1.5) and very large values (such as one quintillion). The data types for these would be "floats" or "doubles". The first major console that was released with an FPU was the Nintendo 64 in 1996, but many consoles that were released after still didn't have one.</p>
+<p>You may have come across the term “fixed-point math” before, especially if you’re into homebrew. What is fixed-point math, why do we use it, and how does it work?</p>
+<p>Fixed-point math is a common workaround for when a piece of hardware doesn’t have a floating point unit, or FPU. A floating point unit, in simple terms, is what allows computers to deal with fractional values (such as 1.5) and very large values (such as one quintillion). The data types for these would be “floats” or “doubles”. The first major console that was released with an FPU was the Nintendo 64 in 1996, but many consoles that were released after still didn’t have one.</p>
 <p>The Game Boy Advance was one such device that didn’t have an FPU. If you try to use floats within your code, it will still compile and run, but it will have a major effect on the performance. This is because without an FPU, floats are emulated on the software level, instead of being handled directly by hardware. The code with floats will compile into something much longer.</p>
-<p>I'm going to focus on fractional values in this guide, but most of the same principles will apply for very large numbers as well.</p>
+<p>I’m going to focus on fractional values in this guide, but most of the same principles will apply for very large numbers as well.</p>
 <p>Before explaining how fixed-point math actually works, we need some background:</p>
 <h2 id="whats-binary-and-how-do-i-count-in-it"><a class="header" href="#whats-binary-and-how-do-i-count-in-it">What’s Binary, and How Do I Count in It?</a></h2>
-<p>We humans use a base-10 system of counting, known as "decimal", where digits 0 to 9 are used to construct numbers. Computers use a base-2 system of counting, known as "binary". Binary only uses digits 0 and 1 to construct numbers.</p>
+<p>We humans use a base-10 system of counting, known as “decimal”, where digits 0 to 9 are used to construct numbers. Computers use a base-2 system of counting, known as “binary”. Binary only uses digits 0 and 1 to construct numbers.</p>
 <p>So, how do you count in binary? First, you count up to 1, then you carry over to the next digit, going left. That looks like this:</p>
 <pre><code class="language-c">00000000 // 0
 00000001 // 1
@@ -196,30 +215,30 @@
 </code></pre>
 <p>And so on. Try continuing that series yourself, up to 16.</p>
 <p>Similar to our human decimal system (at least in English), the rightmost digit is the least significant (only corresponding to 1 or 0), and each digit going left is bigger; in decimal they would correspond to 2 or 0, 4 or 0, 8 or 0, etc. Note that each digit corresponds to an increasing power of 2 (1, 2, 4, 8, 16, 32, 64, 128).</p>
-<p>Each digit in binary is referred to as a 'bit'. In the previous example, it's 8 bits of information. This means that it can store 256 (2 to the power of 8) different values before running out of space.</p>
-<p>On the GBA, 8 bits is also known as a 'byte'. This is true for most hardware. The byte that is <code>00001011</code> is equal to "1 plus 2 plus 8", or 11, because the 1 and 2 and 8 bits are set.</p>
+<p>Each digit in binary is referred to as a ‘bit’. In the previous example, it’s 8 bits of information. This means that it can store 256 (2 to the power of 8) different values before running out of space.</p>
+<p>On the GBA, 8 bits is also known as a ‘byte’. This is true for most hardware. The byte that is <code>00001011</code> is equal to “1 plus 2 plus 8”, or 11, because the 1 and 2 and 8 bits are set.</p>
 <h2 id="bit-shifting"><a class="header" href="#bit-shifting">Bit Shifting</a></h2>
-<p>So, let's say we have this number:</p>
+<p>So, let’s say we have this number:</p>
 <pre><code class="language-c">00000110 // 6
 </code></pre>
-<p>We can "shift" these bits. That means taking the 1's and moving them left or right. The operators for this are usually <code>&lt;&lt;</code> for shifting left, and <code>&gt;&gt;</code> for shifting right. Just remember where the arrows point, and that will tell you the direction. Left makes it larger, and right makes it smaller.</p>
+<p>We can “shift” these bits. That means taking the 1’s and moving them left or right. The operators for this are usually <code>&lt;&lt;</code> for shifting left, and <code>&gt;&gt;</code> for shifting right. Just remember where the arrows point, and that will tell you the direction. Left makes it larger, and right makes it smaller.</p>
 <p>If we shift left by 1 bit, we get:</p>
 <pre><code class="language-c">00000110 // 6, before
 00001100 // 12, after
 </code></pre>
-<p>All of the 1's shifted "to the left". Note that this is twice as big; we just multiplied by two. Now let's move 6 right by 1 bit.</p>
+<p>All of the 1’s shifted “to the left”. Note that this is twice as big; we just multiplied by two. Now let’s move 6 right by 1 bit.</p>
 <pre><code class="language-c">00000110 // 6, before
 00000011 // 3, after
 </code></pre>
-<p>Woah! We shifted it "to the right" and it's half as big; we just divided by two. What if we shift 6 right by 2 bits instead of just 1?</p>
+<p>Woah! We shifted it “to the right” and it’s half as big; we just divided by two. What if we shift 6 right by 2 bits instead of just 1?</p>
 <pre><code class="language-c">00000110 // 6, before
 00000001 // 1, after
 </code></pre>
-<p>It looks like we clipped the rightmost digit in this process. 6 divided by 4 is 1.5, but we don't have space for anything to the right of the decimal point, so the .5 part just gets cut off. This leaves us with just 1. In other words, it's 6 divided by 4, rounded down.</p>
+<p>It looks like we clipped the rightmost digit in this process. 6 divided by 4 is 1.5, but we don’t have space for anything to the right of the decimal point, so the .5 part just gets cut off. This leaves us with just 1. In other words, it’s 6 divided by 4, rounded down.</p>
 <h2 id="fractions-with-fixed-point"><a class="header" href="#fractions-with-fixed-point">Fractions with Fixed-Point</a></h2>
-<p>So, we know binary and we know how to bit shift. But all of the values so far are just integers. When do the fractions come in? Well, they don't actually.</p>
+<p>So, we know binary and we know how to bit shift. But all of the values so far are just integers. When do the fractions come in? Well, they don’t actually.</p>
 <p>Programmers before us were pretty clever. If all we have to work with are integers, but we need fractions, what do we do? Well, we can just pretend that a portion of the bits are fractional anyway, and that works well enough!</p>
-<p>So, let's say we set aside the rightmost 4 bits for a fraction. Now let's try counting again!</p>
+<p>So, let’s say we set aside the rightmost 4 bits for a fraction. Now let’s try counting again!</p>
 <pre><code class="language-c">00000000 //  0/16
 00000001 //  1/16
 00000010 //  2/16
@@ -233,13 +252,13 @@
 00001010 // 10/16
 00001011 // 11/16
 </code></pre>
-<p>And so on. These aren’t <em>actually</em> 1/16 and so on, but we’re pretending that they are. We dedicated 4 bits here, so we get "2 to the power of 4" as the denominator, and we're counting the numerator just the same as before. Once we hit the 5th bit going left, we've arrived at 1 proper.</p>
-<p>Another way to think of it is that the right 4 bits are the "fractional segment", and the left 4 bits are the "integer segment".</p>
+<p>And so on. These aren’t <em>actually</em> 1/16 and so on, but we’re pretending that they are. We dedicated 4 bits here, so we get “2 to the power of 4” as the denominator, and we’re counting the numerator just the same as before. Once we hit the 5th bit going left, we’ve arrived at 1 proper.</p>
+<p>Another way to think of it is that the right 4 bits are the “fractional segment”, and the left 4 bits are the “integer segment”.</p>
 <p>If we want to use this for an input that needs a proper integer (instead of a fixed-point representation) then we shift right by 4 bits. This rounds the number down to the nearest integer.</p>
-<p>This would typically be referred to as "4.4f fixed-point". 4 bits for the integer, and 4 bits for the fraction. That's assuming it's unsigned (only positive numbers). If we need negative numbers, then we take away one bit (the leftmost) for that, so we would say that it's "signed 3.4f fixed-point".</p>
-<p>However, the maximum value here is painfully small. I've been using 8 bits for readability, but usually you’d want the biggest data type available for your system. For the GBA, that would be an <code>int</code>, which is 32 bits, or 4 bytes. So if we use 4 bits for the fraction, and it's a signed <code>int</code> data type, then that would be "signed 27.4f fixed-point".</p>
+<p>This would typically be referred to as “4.4f fixed-point”. 4 bits for the integer, and 4 bits for the fraction. That’s assuming it’s unsigned (only positive numbers). If we need negative numbers, then we take away one bit (the leftmost) for that, so we would say that it’s “signed 3.4f fixed-point”.</p>
+<p>However, the maximum value here is painfully small. I’ve been using 8 bits for readability, but usually you’d want the biggest data type available for your system. For the GBA, that would be an <code>int</code>, which is 32 bits, or 4 bytes. So if we use 4 bits for the fraction, and it’s a signed <code>int</code> data type, then that would be “signed 27.4f fixed-point”.</p>
 <h2 id="a-practical-example"><a class="header" href="#a-practical-example">A Practical Example</a></h2>
-<p>Let's say we have a player sprite, with an X and Y position. What speed should we move it at? 2 pixels per frame is too fast, but 1 pixel per frame is too slow. Why don’t we try... 1 and 3/8 pixels per frame. This time we're using 3 bits for our fixed-point.</p>
+<p>Let’s say we have a player sprite, with an X and Y position. What speed should we move it at? 2 pixels per frame is too fast, but 1 pixel per frame is too slow. Why don’t we try… 1 and 3/8 pixels per frame. This time we’re using 3 bits for our fixed-point.</p>
 <pre><code class="language-c">// a function elsewhere in code, which needs the ONSCREEN x and y position
 void display_player(int x, int y);
 
@@ -270,14 +289,14 @@ if key_is_down(KEY_LEFT) {
 // we need their onscreen x and y position here, not the fixed-point representation
 display_player(player_x &gt;&gt; player_fp, player_y &gt;&gt; player_fp);
 </code></pre>
-<p>Let's break this down:</p>
-<p>First, we declare the number of bits we're using for the fractional denominator. Then, we initialize variables that use that denominator. Next, we work with those variables, until we need its integer component. Finally, we shift right.</p>
+<p>Let’s break this down:</p>
+<p>First, we declare the number of bits we’re using for the fractional denominator. Then, we initialize variables that use that denominator. Next, we work with those variables, until we need its integer component. Finally, we shift right.</p>
 <p><strong>Always comment your fixed-point. Always always always comment.</strong> It will save many headaches, for you and for anyone reading your code.</p>
-<p>All player location values here use a signed 28.3 fixed-point format, but other values, such as player health or stamina, could use different fixed-point formats, or they could just avoid fixed-point entirely. It's up to you! One set of numbers could use unsigned 16.16f, another set could use signed 30.1f, and so on. It really depends on whatever you need for the numbers that you're working with.</p>
+<p>All player location values here use a signed 28.3 fixed-point format, but other values, such as player health or stamina, could use different fixed-point formats, or they could just avoid fixed-point entirely. It’s up to you! One set of numbers could use unsigned 16.16f, another set could use signed 30.1f, and so on. It really depends on whatever you need for the numbers that you’re working with.</p>
 <p>When shifting right, be careful not to shift onto the variables themselves. For example, it would be a mistake here to do something like:</p>
 <pre><code class="language-c">player_x = player_x &gt;&gt; player_fp; // DON'T DO THIS
 </code></pre>
-<p>Because you'd be destroying the fractional component, which needs to persist on to the next frame. Instead, you'd either want to shift while using <code>player_x</code> as an argument, or you'd want to initialize a separate variable and then shift when assigning to that. You typically only want the right-shifted version at the very end, for outputs.</p>
+<p>Because you’d be destroying the fractional component, which needs to persist on to the next frame. Instead, you’d either want to shift while using <code>player_x</code> as an argument, or you’d want to initialize a separate variable and then shift when assigning to that. You typically only want the right-shifted version at the very end, for outputs.</p>
 <h2 id="addition-and-subtraction"><a class="header" href="#addition-and-subtraction">Addition and Subtraction</a></h2>
 <p>Before adding or subtracting fixed-point numbers, you need to make the denominators match. You can’t just add 1/2 and 3/4 together without first turning 1/2 into 2/4. So, let’s say we have these two variables:</p>
 <pre><code class="language-c">// variable 'a' uses an unsigned 27.5f fixed-point format
@@ -300,12 +319,12 @@ unsigned int c = (a &lt;&lt; (b_fp - a_fp)) + b;
 unsigned int c = (a * b) &gt;&gt; a_fp;
 </code></pre>
 <p>With variable <code>a</code> having a fixed-point of 27.5f and variable <code>b</code> having a fixed-point of 16.16f, that gives us a fixed-point of 11.21f after multiplication (5 plus 16 in the denominator). We shift right by 5 bits to get back to 16.16f, but we could have shifted right by 16 bits to get to 27.5f if we wanted that instead. Again, it’s open to whatever precision is needed.</p>
-<p>It’s important to note that you don’t have infinite bits to work with. With an <code>int</code> value, you only have 32 bits lying around, and one of those bits might be needed for signing. Therefore, if you’re going to be multiplying fixed-point values, you need to be mindful of your fixed-point systems, otherwise it will quickly "overflow". Overflow is when you run out of bits, so the number clips to the left, outside of what can be contained.</p>
+<p>It’s important to note that you don’t have infinite bits to work with. With an <code>int</code> value, you only have 32 bits lying around, and one of those bits might be needed for signing. Therefore, if you’re going to be multiplying fixed-point values, you need to be mindful of your fixed-point systems, otherwise it will quickly “overflow”. Overflow is when you run out of bits, so the number clips to the left, outside of what can be contained.</p>
 <p>For example, if you multiply a 16.16f number by another 16.16f number, then that leaves you with 0.32f during the process of multiplication. That’s not even one bit for the integer segment! Be careful and plan out your fixed-points accordingly. There are workarounds for this, but they will either be slower or less precise. One option is to multiply into a larger data type that has 64 bits of space (slower, for the GBA at least). In C, you would want a <code>uint64_t</code> for that. Another option is to shift each value right by half of the fixed-point before multiplying (less precise).</p>
 <h2 id="division"><a class="header" href="#division">Division</a></h2>
 <p>What about division? Well, you probably shouldn’t do that. That’s because if your system doesn’t have an FPU, it probably doesn’t have hardware-level division either. The GBA doesn’t have hardware-level division.</p>
 <p>As mentioned before, you can shift right, and this will divide by powers of 2, rounding down. Note that even when shifting negative numbers right, it will still round <em>down</em>, not towards 0. That means that -3 shifted right by 1 bit will become -2, not -1.</p>
-<p>Even though you can't do hardware-level division, there are usually creative workarounds. Think outside of the box for this one. How might you get the answer you want without properly dividing? You'd be surprised with just how much division you can get rid of.</p>
+<p>Even though you can’t do hardware-level division, there are usually creative workarounds. Think outside of the box for this one. How might you get the answer you want without properly dividing? You’d be surprised with just how much division you can get rid of.</p>
 <p>If you really must divide, you would multiply the numerator by the fixed-point first, <em>before</em> dividing.</p>
 <h2 id="converting-between-fixed-and-floating-point"><a class="header" href="#converting-between-fixed-and-floating-point">Converting between fixed and floating point</a></h2>
 <p>Now you have a way to do mathematical operations efficiently. How do you set the initial values in a convenient way? How do you print the values in a way that is easier to understand than very big integer values?</p>
@@ -350,28 +369,28 @@ int setup(void)
 <p>And there you go! You now know everything needed to do fixed-point math. Good luck!</p>
 <h2 id="faq"><a class="header" href="#faq">FAQ</a></h2>
 <h3 id="what-if-i-want-to-round-to-the-nearest-integer-or-round-up"><a class="header" href="#what-if-i-want-to-round-to-the-nearest-integer-or-round-up">What if I want to round to the nearest integer, or round up?</a></h3>
-<p>To round to the nearest integer, add 0.5 (half of the denominator), then shift right. To round up, add "the denominator minus one", then shift right.</p>
+<p>To round to the nearest integer, add 0.5 (half of the denominator), then shift right. To round up, add “the denominator minus one”, then shift right.</p>
 <h3 id="why-are-my-numbers-slightly-off"><a class="header" href="#why-are-my-numbers-slightly-off">Why are my numbers slightly off?</a></h3>
 <p>It’s probably because of rounding errors. Not only your final values, but the in-between values as well. This entire process can involve rounding upon rounding, and this can accumulate over time to produce weird results.</p>
 <h3 id="what-about-arithmetic-between-signed-and-unsigned-variables"><a class="header" href="#what-about-arithmetic-between-signed-and-unsigned-variables">What about arithmetic between signed and unsigned variables?</a></h3>
 <p>Unsigned values will equal their signed counterparts all the way up until the leftmost bit is set. The math will still be as expected, as long as the leftmost bit of <em>the unsigned value</em> is 0. Note that the variable holding the result should probably be signed. If the unsigned variable is so large that the leftmost bit is set, then your result might overflow.</p>
-<h3 id="shouldnt-the-leftmost-sign-bit-move-around-with-the-rest-of-the-bits-when-shifting"><a class="header" href="#shouldnt-the-leftmost-sign-bit-move-around-with-the-rest-of-the-bits-when-shifting">Shouldn't the leftmost sign bit move around with the rest of the bits, when shifting?</a></h3>
+<h3 id="shouldnt-the-leftmost-sign-bit-move-around-with-the-rest-of-the-bits-when-shifting"><a class="header" href="#shouldnt-the-leftmost-sign-bit-move-around-with-the-rest-of-the-bits-when-shifting">Shouldn’t the leftmost sign bit move around with the rest of the bits, when shifting?</a></h3>
 <p>Most languages, besides assembly, will handle the sign bit based on whether or not the variable is initialized as signed or unsigned. In ARM assembly, there are separate shifts depending on if you want to preserve the sign bit or move it with everything else.</p>
 <h3 id="what-about-endianness"><a class="header" href="#what-about-endianness">What about endianness?</a></h3>
-<p>Endianness is surprisingly not as relevant here as you'd think, at least if you're using a major programming language. I'm not going to describe endianness here.</p>
-<h3 id="is-it-fixed-point-or-fixed-point"><a class="header" href="#is-it-fixed-point-or-fixed-point">Is it "fixed-point" or "fixed point"?</a></h3>
-<p>Going to the Wikipedia page for <a href="#https://en.wikipedia.org/wiki/Fixed-point_arithmetic">fixed-point arithmetic</a> and just doing a ctrl-f search, I can see 79 instances of "fixed-point" and 28 instances of "fixed point". So, it doesn't matter, just pick whichever looks prettier to you.</p>
+<p>Endianness is surprisingly not as relevant here as you’d think, at least if you’re using a major programming language. I’m not going to describe endianness here.</p>
+<h3 id="is-it-fixed-point-or-fixed-point"><a class="header" href="#is-it-fixed-point-or-fixed-point">Is it “fixed-point” or “fixed point”?</a></h3>
+<p>Going to the Wikipedia page for <a href="#https://en.wikipedia.org/wiki/Fixed-point_arithmetic">fixed-point arithmetic</a> and just doing a ctrl-f search, I can see 79 instances of “fixed-point” and 28 instances of “fixed point”. So, it doesn’t matter, just pick whichever looks prettier to you.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                             <a rel="prev" href="interrupts.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
                             <a rel="next prefetch" href="bootleg-carts/introduction.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
                         <div style="clear: both"></div>
@@ -381,16 +400,21 @@ int setup(void)
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                     <a rel="prev" href="interrupts.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
                     <a rel="next prefetch" href="bootleg-carts/introduction.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
 
         </div>
 
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
 
 
@@ -399,15 +423,16 @@ int setup(void)
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
+
 
 
     </div>
