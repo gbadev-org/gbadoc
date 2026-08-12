@@ -11,3 +11,4 @@ create-missing = true
 
 [output.html]
 mathjax-support = true
+sidebar-header-nav = false
