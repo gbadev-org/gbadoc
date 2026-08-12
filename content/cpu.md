@@ -12,7 +12,7 @@ The CPU is a 16.78 MHz ARM7tdmi RISC processor. It is a 32-bit processor but can
 
 ## CPU Registers
 
-16 registers are visible to the user at any given time, though there are 20 [banked registers](#banked-registers) which get swapped in whenever the CPU changes to various priveleged modes. The registers visible in user mode are as follows:
+17 registers are visible to the user at any given time, though there are 20 [banked registers](#banked-registers) which get swapped in whenever the CPU changes to various priveleged modes. The registers visible in user mode are as follows:
 
 * **r0-r12:** General purpose registers, for use in every day operations
 
